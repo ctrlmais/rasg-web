@@ -2,6 +2,14 @@
   "name": "barber",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "react-scripts start",
+    "lint": "eslint src/ --fix"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^1.31.2",
     "@testing-library/jest-dom": "^5.16.2",
@@ -26,20 +34,6 @@
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
-  "scripts": {
-    "start": "serve -s build",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev": "react-scripts start",
-    "lint": "eslint src/ --fix"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -52,6 +46,12 @@
       "last 1 safari version"
     ]
   },
+  "lint-staged": {
+    "*.ts(x)": [
+      "prettier --write",
+      "eslint src/ --fix"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
@@ -61,6 +61,7 @@
     "@types/react-dom": "^17.0.14",
     "@types/react-dropzone": "^5.1.0",
     "@types/react-router-dom": "^5.3.3",
+    "@types/sass": "^1.43.1",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "eslint": "^8.11.0",
