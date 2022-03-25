@@ -1,25 +1,30 @@
 :root {
-  --background: #f6f8ff;
-  --background-initial: #f6f8ff;
-  --background-content: #fefefe;
-  --text-primary: #6b46c1;
-  --text-secondary: #2b3442;
-  --button-save: #6b46c1;
+  --background: #f4ede8;
+  --white: #312e38;
+  --orange: #ff9000;
+  --gray: #999591;
+  --gray-hard: #666360;
+  --shape: #3e3b47;
+  --black-medium: #28262e;
+  --input: #afa298;
 }
 
 [data-theme="dark"] {
-  --background: #0d1232;
-  --background-content: #0e163a;
-  --text-primary: #fff;
-  --text-secondary: #fff;
-  --button-save: #6b46c1;
+  --background: #312e38;
+  --white: #f4ede8;
+  --orange: #ff9000;
+  --gray: #999591;
+  --gray-hard: #666360;
+  --shape: #3e3b47;
+  --black-medium: #28262e;
+  --input: #232129;
 }
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Poppins, sans-serif;
+  font-family: Roboto Slab, serif;
 }
 
 body {
