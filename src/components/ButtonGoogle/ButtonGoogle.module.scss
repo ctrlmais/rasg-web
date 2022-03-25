@@ -1,0 +1,43 @@
+.googleBtn {
+  width: 18rem;
+  height: 42px;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-top: 16px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+
+  .googleIconWrapper {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #fff;
+  }
+  .googleIcon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 18px;
+    height: 18px;
+  }
+  .btnText {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 11px;
+    margin-left: 11px;
+    color: #3c4043;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    font-family: "Roboto";
+  }
+  &:hover {
+    box-shadow: 0 0 3px #4285f4;
+  }
+  &:active {
+    background: #fff;
+  }
+}
