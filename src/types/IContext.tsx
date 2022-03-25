@@ -12,6 +12,7 @@ export interface UserMetadata {
   full_name: string;
   iss: string;
   name: string;
+  nome: string;
   picture: string;
   provider_id: string;
   ocupacao: string;
