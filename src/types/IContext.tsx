@@ -6,6 +6,7 @@ export interface AppMetadata {
 }
 
 export interface UserMetadata {
+  id: string;
   avatar_url: string;
   email: string;
   email_verified: boolean;
@@ -67,6 +68,7 @@ export interface UserAuth {
 }
 
 export interface AuthContextProps {
+  signed: boolean;
   user: User | null;
   setUser: (user: any) => void;
   handleLogout: () => void;
@@ -74,4 +76,5 @@ export interface AuthContextProps {
   formikLogin: any;
   ocupacao: string;
   setOcupacao: (ocupacao: string) => void;
+  loading: boolean;
 }
