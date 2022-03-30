@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 
 import { AuthProvider } from 'contexts/Auth';
+import { BarbeiroProvider } from 'contexts/Barbeiro';
 import { ThemeProvider } from 'contexts/Theme';
 import { ToastProvider } from 'contexts/Toast';
 
@@ -13,11 +14,13 @@ export function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <ToastProvider>
-          <ThemeProvider>
-            <MainRoutes />
-          </ThemeProvider>
-        </ToastProvider>
+        <BarbeiroProvider>
+          <ToastProvider>
+            <ThemeProvider>
+              <MainRoutes />
+            </ThemeProvider>
+          </ToastProvider>
+        </BarbeiroProvider>
       </AuthProvider>
     </BrowserRouter>
   );
