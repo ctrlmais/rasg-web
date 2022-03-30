@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  width: 327px;
+  height: 112px;
+  background: var(--shape);
+  border-radius: 10px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.containerImg {
+  display: flex;
+  margin-left: 6px;
+
+  img {
+    width: 72px;
+    height: 72px;
+    border-radius: 40px;
+  }
+}
+
+.containerInfo {
+  display: flex;
+  margin-left: 12px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  h2 {
+    margin-top: 0px;
+  }
+}
