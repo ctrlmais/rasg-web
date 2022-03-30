@@ -1,0 +1,23 @@
+.home {
+  background: var(--background);
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+
+  h2 {
+    margin-top: 24px;
+    font-weight: bold;
+    color: var(--white);
+  }
+}
+
+.calendar {
+  background: var(--black-medium);
+  border-radius: 10px;
+}
