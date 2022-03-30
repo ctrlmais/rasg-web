@@ -2,10 +2,10 @@ import { createContext, useContext } from 'react';
 
 import useLocalStorage from 'use-local-storage';
 
-type IThemeContext = {
+interface IThemeContext {
   theme: string;
   switchTheme: () => void;
-};
+}
 
 const Theme = createContext({} as IThemeContext);
 
