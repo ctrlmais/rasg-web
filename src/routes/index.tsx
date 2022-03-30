@@ -1,21 +1,9 @@
-import { Routes, Route } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 
-import { ForgetPassword } from 'pages/ForgetPassword';
-import { Home } from 'pages/Home';
-import { Login } from 'pages/Login';
-import { Profile } from 'pages/Profile';
-import { Register } from 'pages/Register';
-import { ResetPassword } from 'pages/ResetPassword';
-
+import { PrivateRoutes } from './PrivateRoutes';
+import { PublicRoutes } from './PublicRoutes';
 export function MainRoutes() {
-  return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/forget-password" element={<ForgetPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-    </Routes>
-  );
+  const { signed } = useAuth();
+
+  return signed ? <PrivateRoutes /> : <PublicRoutes />;
 }
