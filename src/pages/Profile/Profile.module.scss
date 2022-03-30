@@ -1,0 +1,33 @@
+.home {
+  background: var(--background);
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-weight: bold;
+    color: var(--white);
+  }
+}
+
+.perfilContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 15vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+.passwordContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 25vh;
+  flex-direction: column;
+  align-items: center;
+}
