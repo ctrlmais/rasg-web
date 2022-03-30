@@ -1,0 +1,35 @@
+.overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background);
+  z-index: 1001;
+
+  animation: fade 0.3s;
+
+  h1 {
+    color: var(--white);
+    text-align: center;
+  }
+
+  p {
+    color: var(--gray);
+    font-weight: 400;
+  }
+}
+
+.containerOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30%;
+  justify-content: space-around;
+}
