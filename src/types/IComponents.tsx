@@ -29,3 +29,7 @@ export interface InputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
+
+export interface DropzoneProps {
+  onFileUploaded: (file: File) => void;
+}
