@@ -34,30 +34,33 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
       <input {...getInputProps()} accept="image/*" />
 
       {selectedFileUrl ? (
-        <p>
-          <img src={selectedFileUrl} alt="Point thumbnail" className={styles.preview} />
-        </p>
-      ) : (
-        <>
-          <div className={styles.profile}>
-            <p>
-              {user?.user_metadata.picture || user?.user_metadata.avatar_url ? (
-                <>
-                  <img
-                    src={user?.user_metadata.picture || user?.user_metadata.avatar_url}
-                    alt="Perfil"
-                    className={styles.preview}
-                  />
-                </>
-              ) : (
-                <Avvvatars value={user?.user_metadata.name || ''} size={100} />
-              )}
-            </p>
-            <div className={styles.upload}>
-              <FiCamera />
-            </div>
+        <div className={styles.profile}>
+          <p>
+            <img src={selectedFileUrl} alt="Point thumbnail" className={styles.preview} />
+          </p>
+          <div className={styles.upload}>
+            <FiCamera />
           </div>
-        </>
+        </div>
+      ) : (
+        <div className={styles.profile}>
+          <p>
+            {user?.user_metadata.picture || user?.user_metadata.avatar_url ? (
+              <>
+                <img
+                  src={user?.user_metadata.picture || user?.user_metadata.avatar_url}
+                  alt="Perfil"
+                  className={styles.preview}
+                />
+              </>
+            ) : (
+              <Avvvatars value={user?.user_metadata.name || ''} size={100} />
+            )}
+          </p>
+          <div className={styles.upload}>
+            <FiCamera />
+          </div>
+        </div>
       )}
     </div>
   );
