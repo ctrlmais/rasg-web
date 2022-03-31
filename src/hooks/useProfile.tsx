@@ -7,7 +7,8 @@ import { useToast } from 'contexts/Toast';
 
 import { useAuth } from 'hooks/useAuth';
 
-import { supabase } from 'services/supabase';
+import { updateProfile } from 'services/update/profile';
+import { updateProfilePhoto } from 'services/update/profileAvatar';
 
 export function useProfile() {
   const { toast } = useToast();
@@ -27,18 +28,27 @@ export function useProfile() {
     validationSchema: profileSchema,
     onSubmit: async (values) => {
       setLoading(true);
-      const { user: userData, error } = await supabase.auth.update({
-        email: values.email,
-        password: values.password === '' ? undefined : values.newPassword,
-        data: { name: values.nome },
-      });
 
-      const { error: errorAvatar } = await supabase.rpc('upsert_profile_photo', {
-        p_user_id: user?.id,
-        p_src: values.avatar,
-      });
+      const { user: userData, error } = await updateProfile(
+        values.email,
+        values.password,
+        values.newPassword,
+        values.nome,
+      );
 
-      if (errorAvatar || error) {
+      if (!userData) return;
+
+      if (values.avatar !== '') {
+        const { error } = await updateProfilePhoto(userData.id, values.avatar);
+
+        if (error) {
+          toast.error(error.message, { id: 'toast' });
+          setLoading(false);
+          return;
+        }
+      }
+
+      if (error) {
         toast.error('Não foi possível atualizar perfil', { id: 'toast' });
         setLoading(false);
         return;

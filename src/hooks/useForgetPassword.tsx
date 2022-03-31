@@ -5,7 +5,8 @@ import { forgetPasswordSchema, resetPasswordSchema } from 'validations/ForgetPas
 
 import { useToast } from 'contexts/Toast';
 
-import { supabase } from 'services/supabase';
+import { resetPassword } from 'services/post/resetPassword';
+import { updatePassword } from 'services/update/password';
 
 export function useForgetPassword() {
   const navigate = useNavigate();
@@ -18,9 +19,7 @@ export function useForgetPassword() {
     validationSchema: forgetPasswordSchema,
     onSubmit: async (values) => {
       toast.loading('Enviando email...', { id: 'toast' });
-      const { error } = await supabase.auth.api.resetPasswordForEmail(values.email, {
-        redirectTo: 'http://localhost:3000/reset-password',
-      });
+      const { error } = await resetPassword(values.email);
 
       if (error) {
         toast.error(error.message, { id: 'toast' });
@@ -40,9 +39,7 @@ export function useForgetPassword() {
     validationSchema: resetPasswordSchema,
     onSubmit: async (values) => {
       toast.loading('Alterando senha...', { id: 'toast' });
-      const { error } = await supabase.auth.update({
-        password: values.senha,
-      });
+      const { error } = await updatePassword(values.senha);
 
       if (error) {
         toast.error(error.message, { id: 'toast' });

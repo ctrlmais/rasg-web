@@ -8,7 +8,8 @@ import { useToast } from 'contexts/Toast';
 
 import { useAuth } from 'hooks/useAuth';
 
-import { supabase } from 'services/supabase';
+import { registerUser } from 'services/post/register';
+import { updateOcupacao } from 'services/update/ocupacao';
 
 export function useRegister() {
   const navigate = useNavigate();
@@ -31,18 +32,7 @@ export function useRegister() {
       try {
         setLoading(true);
 
-        const { error } = await supabase.auth.signUp(
-          {
-            email: values.email,
-            password: values.senha,
-          },
-          {
-            data: {
-              name: values.nome,
-              ocupacao: ocupacao,
-            },
-          },
-        );
+        const { error } = await registerUser(values.email, values.senha, values.nome, ocupacao);
 
         if (error) {
           toast.error(error.message, { id: 'toast' });
@@ -53,8 +43,10 @@ export function useRegister() {
 
         setStatus('success');
         setLoading(false);
-      } catch (error: any) {
-        toast.error(error?.message, { id: 'toast' });
+      } catch (error) {
+        const { message } = error as Error;
+
+        toast.error(message, { id: 'toast' });
         setStatus('error');
         setLoading(false);
       } finally {
@@ -71,9 +63,7 @@ export function useRegister() {
     },
     validationSchema: ocupacao ? '' : registerSchema,
     onSubmit: async (values) => {
-      const { error } = await supabase.auth.update({
-        data: { ocupacao: values.ocupacao },
-      });
+      const { error } = await updateOcupacao(values.ocupacao);
 
       if (error) {
         toast.error(error.message, { id: 'toast' });
