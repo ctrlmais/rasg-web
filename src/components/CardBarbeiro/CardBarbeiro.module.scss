@@ -28,8 +28,9 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+}
 
-  h2 {
-    margin-top: 0px;
-  }
+.title {
+  font-weight: bold;
+  color: var(--white);
 }
