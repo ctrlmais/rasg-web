@@ -1,4 +1,4 @@
-import { FiMail, FiUser } from 'react-icons/fi';
+import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 
 import { SpinnerCircular } from 'spinners-react';
 
@@ -84,7 +84,7 @@ export function Profile() {
                 onChange={formikProfile.handleChange}
                 onBlur={formikProfile.handleBlur}
                 value={formikProfile.values.password}
-                icon={<FiMail color="#666360" size={24} />}
+                icon={<FiLock color="#666360" size={24} />}
               />
               {formikProfile.errors.password && formikProfile.touched.password && (
                 <span className={styles.error}>{formikProfile.errors.password}</span>
@@ -96,7 +96,7 @@ export function Profile() {
                 onChange={formikProfile.handleChange}
                 onBlur={formikProfile.handleBlur}
                 value={formikProfile.values.newPassword}
-                icon={<FiMail color="#666360" size={24} />}
+                icon={<FiLock color="#666360" size={24} />}
               />
               {formikProfile.errors.newPassword && formikProfile.touched.newPassword && (
                 <span className={styles.error}>{formikProfile.errors.newPassword}</span>
@@ -108,7 +108,7 @@ export function Profile() {
                 onChange={formikProfile.handleChange}
                 onBlur={formikProfile.handleBlur}
                 value={formikProfile.values.confirmPassword}
-                icon={<FiMail color="#666360" size={24} />}
+                icon={<FiLock color="#666360" size={24} />}
               />
               {formikProfile.errors.confirmPassword && formikProfile.touched.confirmPassword && (
                 <span className={styles.error}>{formikProfile.errors.confirmPassword}</span>
