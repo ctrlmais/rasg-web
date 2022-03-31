@@ -20,12 +20,16 @@ export function useProfile() {
       avatar: '',
       nome: '',
       email: '',
+      password: '',
+      newPassword: '',
+      confirmPassword: '',
     },
     validationSchema: profileSchema,
     onSubmit: async (values) => {
       setLoading(true);
       const { user: userData, error } = await supabase.auth.update({
         email: values.email,
+        password: values.password === '' ? undefined : values.newPassword,
         data: { name: values.nome },
       });
 
