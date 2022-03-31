@@ -85,7 +85,7 @@ export function Home() {
       <div className={styles.container}>
         {verificaLoginGoogleEOcupacao() && (
           <>
-            <h2>
+            <h2 className={styles.titleHome}>
               Oi {user?.user_metadata.name}, vi que você está logado com o Google.
               <br /> E eu preciso saber se você é:
             </h2>
@@ -121,7 +121,7 @@ export function Home() {
 
         {verificaOcupacao('cliente') && (
           <>
-            <h2>
+            <h2 className={styles.titleHome}>
               Olá {user?.user_metadata.name}, eu encontrei {barbeiros.length}{' '}
               {barbeiros.length > 1 ? 'barbeiros' : 'barbeiro'} para você!
             </h2>
