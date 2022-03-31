@@ -6,7 +6,11 @@ import { useFormik } from 'formik';
 import { AuthContextProps } from 'types/IContext';
 import { loginSchema } from 'validations/Login';
 
-import { supabase } from 'services/supabase';
+import { getPhoto } from 'services/get/photo';
+import { getUser } from 'services/get/user';
+import { signIn } from 'services/post/signIn';
+import { signInGoogleProvider } from 'services/post/signInGoogleProvider';
+import { signOut } from 'services/post/signOut';
 
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
@@ -30,14 +34,43 @@ export function AuthProvider({ children }: any) {
     const hash = window.location.href.split('#')[0];
     const params = hash.split('/')[3];
 
-    const userData = supabase.auth.user();
+    const userData = getUser();
+
+    const { data, error, status } = await getPhoto(userData?.id || params);
+
+    if (error) {
+      switch (status) {
+        default:
+          throw new Error('Erro ao buscar informações do usuário');
+      }
+    }
+
+    if (!data) return;
 
     if (!userData) return;
+
+    if (data[0].j === null) {
+      setUser(userData);
+    }
+
+    const infoUser = data[0].j[0];
+
+    if (!infoUser) return;
+
+    const newUserData = {
+      ...userData,
+      user_metadata: {
+        ...userData.user_metadata,
+        avatar_url: infoUser.src,
+        picture: infoUser.src,
+      },
+      updated_at: infoUser.updated_at,
+    };
 
     if (params === 'reset-password') {
       navigate('/reset-password');
     } else {
-      setUser(userData);
+      setUser(newUserData);
 
       if (userData && !isSigned()) {
         navigate('/');
@@ -61,10 +94,8 @@ export function AuthProvider({ children }: any) {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       setLoading(true);
-      const { user, error } = await supabase.auth.signIn({
-        email: values.email,
-        password: values.senha,
-      });
+
+      const { user, error } = await signIn(values.email, values.senha);
 
       if (error && error.message === 'Invalid login credentials') {
         toast.error('Usuário ou senha inválidos', { id: 'toast' });
@@ -97,9 +128,7 @@ export function AuthProvider({ children }: any) {
   });
 
   async function handleLoginGoogle() {
-    const { user: userData, error } = await supabase.auth.signIn({
-      provider: 'google',
-    });
+    const { user: userData, error } = await signInGoogleProvider();
 
     if (!userData) return;
 
@@ -119,7 +148,7 @@ export function AuthProvider({ children }: any) {
   }
 
   async function handleLogout() {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await signOut();
 
     if (error) {
       toast.error('Erro ao deslogar', { id: 'login' });
