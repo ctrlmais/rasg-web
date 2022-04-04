@@ -29,6 +29,7 @@ export interface InputProps {
   maxLength?: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 export interface DropzoneProps {
