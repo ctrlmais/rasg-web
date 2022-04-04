@@ -1,6 +1,7 @@
 import { Barbeiro } from 'pages/Barbeiro';
 import { Cliente } from 'pages/Cliente';
 
+import { FloatingButton } from 'components/FloatingButton';
 import { Header } from 'components/Header';
 import { VerificacaoOcupacao } from 'components/Verificacao';
 
@@ -21,6 +22,7 @@ export function Home() {
   return (
     <div className={styles.home} data-theme={theme}>
       <style>{css}</style>
+      <FloatingButton />
       <Header
         logo
         default
