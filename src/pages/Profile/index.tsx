@@ -115,9 +115,11 @@ export function Profile() {
               )}
             </div>
 
-            <Button type="submit">
-              {loading ? <SpinnerCircular color="#28262e" size={32} /> : 'Confirmar mudanças'}
-            </Button>
+            <div className={styles.buttonContainer}>
+              <Button type="submit">
+                {loading ? <SpinnerCircular color="#28262e" size={32} /> : 'Confirmar mudanças'}
+              </Button>
+            </div>
           </form>
         </div>
       </div>
