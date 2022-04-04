@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   height: 30px;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   text-align: center;
 
@@ -16,4 +16,26 @@
 .active {
   color: var(--orange) !important;
   text-decoration: underline;
+}
+
+@media screen and (min-width: 839px) {
+  .ocupacao {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+
+    p {
+      color: var(--gray);
+      cursor: pointer;
+      margin-top: 0;
+    }
+  }
+
+  .active {
+    color: var(--orange) !important;
+    text-decoration: underline;
+  }
 }

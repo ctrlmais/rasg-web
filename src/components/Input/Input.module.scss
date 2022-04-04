@@ -3,7 +3,7 @@
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
 }
 
 .input {
@@ -45,4 +45,55 @@
   height: 70%;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (min-width: 839px) {
+  .global {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .input {
+    width: 340px;
+    height: 56px;
+    background: var(--input);
+    color: var(--gray-hard);
+    border: none;
+    outline: 0;
+
+    border: 1px solid var(--input);
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    text-indent: 42px;
+
+    &::placeholder {
+      color: var(--gray);
+    }
+
+    &:invalid {
+      border: 1px solid #ff0000;
+    }
+
+    &:focus {
+      color: var(--white);
+      border: 1px solid var(--orange);
+    }
+  }
+
+  .icon {
+    position: absolute;
+    left: 2px;
+    top: 12px;
+    font-size: 25px;
+    width: 40px;
+    height: 70%;
+    align-items: center;
+    justify-content: center;
+  }
 }
