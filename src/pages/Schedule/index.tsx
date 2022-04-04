@@ -1,177 +1,145 @@
-import { useState } from 'react';
-import DayPicker from 'react-day-picker';
-import { useParams } from 'react-router-dom';
+import { DayPicker } from 'react-day-picker';
+import { FiCheck } from 'react-icons/fi';
 
-import { useBarbeiro } from 'contexts/Barbeiro';
+import ptBR from 'date-fns/locale/pt-BR';
+
+import { Button } from 'components/Button';
+import { CardBarbeiroSelected } from 'components/CardBarbeiroSelect';
+import { Header } from 'components/Header';
+import { Overlay } from 'components/Overlay';
+
+import { horariosManha, horariosTarde, horariosNoite } from 'utils/horarios';
+
 import { useTheme } from 'contexts/Theme';
+import { useUser } from 'contexts/User';
+
+import { css } from 'styles/calendar.styles';
 
 import styles from './Schedule.module.scss';
 
 export function Schedule() {
-  const params = useParams();
   const { theme } = useTheme();
-  const { barbeiro } = useBarbeiro();
-  const [selectDay, setSelectDay] = useState(new Date());
-
-  const meses = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro',
-  ];
-
-  const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-
-  params;
+  const {
+    barbeiro,
+    selectDay,
+    setSelectDay,
+    selectHours,
+    setSelectHours,
+    selectDayFormatted,
+    selectDayFormattedBR,
+    postShedule,
+    isHorarioMarcado,
+    isDataEHorarioPassado,
+    verificaDataEHoraSelecionada,
+    status,
+  } = useUser();
 
   return (
     <>
-      <style>
-        {`
-          width: 380px;
-          .DayPicker {
-            background: #28262e;
-            border-radius: 10px;
-          }
-          .DayPicker-wrapper {
-            padding-bottom: 0;
-          }
-          .DayPicker,
-          .DayPicker-Month {
-            width: 100%;
-          }
-          .DayPicker-Month {
-            border-collapse: separate;
-            border-spacing: 8px;
-            margin: 16px;
-          }
-          .DayPicker-Day {
-            width: 40px;
-            height: 40px;
-          }
-          .DayPicker-Day--available:not(.DayPicker-Day--outside) {
-            background: #3e3b47;
-            border-radius: 10px;
-            color: #000;
-          }
-          .DayPicker:not(.DayPicker--interactionDisabled)
-            .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-            background: shade(0.2, "#3e3b47");
-          }
-          .DayPicker-Day--today {
-            font-weight: normal;
-          }
-          .DayPicker-Day--disabled {
-            color: #666360 !important;
-            background: transparent !important;
-          }
-          .DayPicker-Day--selected {
-            background: #ff9000 !important;
-            border-radius: 10px;
-            color: #232129 !important;
-          }
-          .DayPicker-Caption > div {
-            color: #f4ede8;
-          }
-        }
-
-        `}
-      </style>
+      <style>{css}</style>
       <div className={styles.home} data-theme={theme}>
-        <div className={styles.container}>
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-            }}
+        {status === 'success' && (
+          <Overlay
+            title="Agendamento concluído"
+            description={`Agendamento para ${selectDayFormattedBR} às ${selectHours} com ${barbeiro?.nome}`}
           >
-            <div
-              key={barbeiro?.id}
-              style={{
-                display: 'flex',
-                width: '250px',
-                height: '50px',
-                background: '#FF9000',
-                borderRadius: '10px',
-                marginTop: '12px',
-                marginBottom: '12px',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  marginLeft: '6px',
-                }}
-              >
-                <img
-                  src={barbeiro?.avatar_url || barbeiro?.picture}
-                  alt={barbeiro?.nome}
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '40px',
-                    marginLeft: '12px',
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  marginLeft: '6px',
-                  width: '100%',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexDirection: 'column',
-                }}
-              >
-                <h2
-                  style={{
-                    fontSize: '18px',
-                    marginTop: '0px',
-                    color: '#232129',
-                  }}
-                >
-                  {barbeiro?.nome}
-                </h2>
-              </div>
-            </div>
+            <FiCheck color="#04D361" size={62} />
+          </Overlay>
+        )}
+        <Header back />
+        <div className={styles.container}>
+          <div className={styles.containerCard}>
+            <CardBarbeiroSelected barbeiro={barbeiro} />
           </div>
+
+          <div className={styles.containerTitle}>
+            <h2 className={styles.title}>Escolha uma data</h2>
+          </div>
+
           <div className={styles.calendar}>
             <DayPicker
-              weekdaysShort={weekDays}
+              mode="single"
+              locale={ptBR}
+              fromMonth={new Date()}
+              selected={selectDay}
               onDayClick={(day) => {
                 setSelectDay(day);
               }}
-              fromMonth={new Date()}
-              selectedDays={selectDay}
               modifiers={{
-                available: { daysOfWeek: [0, 1, 2, 3, 4, 5, 6] },
+                available: { dayOfWeek: [0, 1, 2, 3, 4, 5, 6] },
               }}
-              disabledDays={[
+              disabled={[
                 {
                   before: new Date(),
                 },
               ]}
-              months={meses}
             />
           </div>
-          <p>
-            {selectDay > new Date()
-              ? `Você selecionou o dia ${selectDay.toLocaleDateString()}`
-              : 'Você não pode selecionar um dia passado'}
-          </p>
+
+          <div className={styles.containerTitle}>
+            <h2 className={styles.title}>Escolha o horário</h2>
+
+            <p>Manhã</p>
+
+            <div className={styles.containerHorario}>
+              {horariosManha.map((horario) => (
+                <button
+                  key={horario}
+                  disabled={isHorarioMarcado(horario) || isDataEHorarioPassado(selectDayFormatted, horario)}
+                  className={selectHours === horario ? styles.selected : styles.horario}
+                  onClick={() => {
+                    setSelectHours(horario);
+                  }}
+                >
+                  {horario}
+                </button>
+              ))}
+            </div>
+
+            <p>Tarde</p>
+
+            <div className={styles.containerHorario}>
+              {horariosTarde.map((horario) => (
+                <button
+                  key={horario}
+                  disabled={isHorarioMarcado(horario) || isDataEHorarioPassado(selectDayFormatted, horario)}
+                  className={selectHours === horario ? styles.selected : styles.horario}
+                  onClick={() => {
+                    setSelectHours(horario);
+                  }}
+                >
+                  {horario}
+                </button>
+              ))}
+            </div>
+
+            <p>Noite</p>
+
+            <div className={styles.containerHorario}>
+              {horariosNoite.map((horario) => (
+                <button
+                  key={horario}
+                  disabled={isHorarioMarcado(horario) || isDataEHorarioPassado(selectDayFormatted, horario)}
+                  className={selectHours === horario ? styles.selected : styles.horario}
+                  onClick={() => {
+                    setSelectHours(horario);
+                  }}
+                >
+                  {horario}
+                </button>
+              ))}
+            </div>
+          </div>
+          <Button
+            type="button"
+            disabled={!verificaDataEHoraSelecionada()}
+            onClick={() => {
+              postShedule();
+            }}
+          >
+            Agendar
+          </Button>
+          <br />
         </div>
       </div>
     </>
