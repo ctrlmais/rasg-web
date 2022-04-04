@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BsCalendar, BsClock } from 'react-icons/bs';
 
 import { UserMetadata } from 'types/IContext';
 
@@ -44,8 +45,14 @@ export function CardBarbeiro({ barbeiro, onClick }: Props) {
       </div>
       <div className={styles.containerInfo}>
         <h2 className={styles.title}>{name || barbeiro?.nome}</h2>
-        <strong>aaa</strong>
-        <strong>aaa</strong>
+        <strong className={styles.info}>
+          <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+          Segunda à Domingo
+        </strong>
+        <strong className={styles.info}>
+          <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+          8h às 22h
+        </strong>
       </div>
     </div>
   );
