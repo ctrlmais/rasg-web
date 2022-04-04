@@ -16,7 +16,7 @@ import styles from './Profile.module.scss';
 export function Profile() {
   const { theme } = useTheme();
 
-  const { formikProfile, loading } = useProfile();
+  const { formikProfile, loading, isGoogle } = useProfile();
 
   function convertImageToBase64(file: File) {
     return new Promise((resolve, reject) => {
@@ -58,6 +58,7 @@ export function Profile() {
                 value={formikProfile.values.nome}
                 maxLength={100}
                 icon={<FiUser color="#666360" size={24} />}
+                disabled={isGoogle()}
               />
               {formikProfile.errors.nome && formikProfile.touched.nome && (
                 <span className={styles.error}>{formikProfile.errors.nome}</span>
