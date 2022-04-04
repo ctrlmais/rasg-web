@@ -54,7 +54,9 @@ export function Register() {
                 maxLength={100}
                 icon={<FiUser color="#666360" size={24} />}
               />
-              {formikRegister.errors.nome && formikRegister.touched.nome && <span>{formikRegister.errors.nome}</span>}
+              {formikRegister.errors.nome && formikRegister.touched.nome && (
+                <span className={styles.error}>{formikRegister.errors.nome}</span>
+              )}
               <Input
                 type="email"
                 name="email"
@@ -65,7 +67,7 @@ export function Register() {
                 icon={<FiMail color="#666360" size={24} />}
               />
               {formikRegister.errors.email && formikRegister.touched.email && (
-                <span>{formikRegister.errors.email}</span>
+                <span className={styles.error}>{formikRegister.errors.email}</span>
               )}
               <Input
                 type="password"
@@ -77,7 +79,7 @@ export function Register() {
                 icon={<FiLock color="#666360" size={24} />}
               />
               {formikRegister.errors.senha && formikRegister.touched.senha && (
-                <span>{formikRegister.errors.senha}</span>
+                <span className={styles.error}>{formikRegister.errors.senha}</span>
               )}
 
               <Input
@@ -90,7 +92,7 @@ export function Register() {
                 icon={<FiLock color="#666360" size={24} />}
               />
               {formikRegister.errors.confirmarSenha && formikRegister.touched.confirmarSenha && (
-                <span>{formikRegister.errors.confirmarSenha}</span>
+                <span className={styles.error}>{formikRegister.errors.confirmarSenha}</span>
               )}
 
               <Button type="submit">
