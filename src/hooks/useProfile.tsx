@@ -12,9 +12,24 @@ import { updateProfilePhoto } from 'services/update/profileAvatar';
 
 export function useProfile() {
   const { toast } = useToast();
-
   const { user, setUser } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  function isGoogle() {
+    if (user?.app_metadata.provider === 'google') {
+      return true;
+    }
+
+    return false;
+  }
+
+  function isEmail() {
+    if (user?.app_metadata.provider === 'email') {
+      return true;
+    }
+
+    return false;
+  }
 
   const formikProfile = useFormik({
     initialValues: {
@@ -68,5 +83,7 @@ export function useProfile() {
   return {
     formikProfile,
     loading,
+    isGoogle,
+    isEmail,
   };
 }
