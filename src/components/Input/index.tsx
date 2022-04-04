@@ -16,6 +16,7 @@ export function Input(props: InputProps) {
         onChange={props.onChange}
         onBlur={props.onBlur}
         maxLength={props.maxLength}
+        disabled={props.disabled}
       />
     </div>
   );
