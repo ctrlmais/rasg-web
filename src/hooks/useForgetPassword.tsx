@@ -8,8 +8,11 @@ import { useToast } from 'contexts/Toast';
 import { resetPassword } from 'services/post/resetPassword';
 import { updatePassword } from 'services/update/password';
 
+import { useAuth } from './useAuth';
+
 export function useForgetPassword() {
   const navigate = useNavigate();
+  const { handleLogout } = useAuth();
   const { toast } = useToast();
 
   const formikForgetPassword = useFormik({
@@ -47,6 +50,7 @@ export function useForgetPassword() {
       }
 
       toast.success('Senha alterada com sucesso!', { id: 'toast' });
+      handleLogout();
       navigate('/');
     },
   });
