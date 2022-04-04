@@ -1,0 +1,15 @@
+.titleHome {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-weight: bold;
+  color: var(--white);
+}
+
+.containerButton {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 200px;
+  align-items: center;
+  justify-content: space-evenly;
+}
