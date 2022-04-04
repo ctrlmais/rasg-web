@@ -4,9 +4,10 @@
   --orange: #ff9000;
   --gray: #999591;
   --gray-hard: #666360;
-  --shape: #3e3b47;
+  --shape: #ccc6c2;
   --black-medium: #28262e;
   --input: #afa298;
+  --calendar: #ccc6c2;
 }
 
 [data-theme="dark"] {
@@ -18,6 +19,7 @@
   --shape: #3e3b47;
   --black-medium: #28262e;
   --input: #232129;
+  --calendar: #28262e;
 }
 
 * {
@@ -53,7 +55,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 10px;
   height: 7px;
 }
 
