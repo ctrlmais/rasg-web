@@ -3,6 +3,7 @@ export interface ButtonProps {
   type: 'button' | 'submit' | 'reset';
   children: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export interface ButtonGoogleProps {
