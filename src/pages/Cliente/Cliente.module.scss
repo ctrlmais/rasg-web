@@ -1,0 +1,16 @@
+.titleHome {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-weight: bold;
+  color: var(--white);
+  margin-left: 12px;
+  font-size: 22px;
+}
+
+.containerList {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
