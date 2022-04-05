@@ -39,12 +39,15 @@ export function Schedule() {
       <style>{css}</style>
       <div className={styles.home} data-theme={theme}>
         {status === 'success' && (
-          <Overlay
-            title="Agendamento concluído"
-            description={`Agendamento para ${selectDayFormattedBR} às ${selectHours} com ${barbeiro?.nome}`}
-          >
-            <FiCheck color="#04D361" size={62} />
-          </Overlay>
+          <>
+            <Overlay
+              calendar
+              title="Agendamento concluído"
+              description={`Agendamento para ${selectDayFormattedBR} às ${selectHours} com ${barbeiro?.nome}`}
+            >
+              <FiCheck color="#04D361" size={62} />
+            </Overlay>
+          </>
         )}
         <Header back />
         <div className={styles.container}>
