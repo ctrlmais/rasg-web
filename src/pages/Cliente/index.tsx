@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
+import { format } from 'date-fns';
 import { ClienteMetadata, UserMetadata } from 'types/IContext';
 
 import { CardBarbeiro } from 'components/CardBarbeiro';
@@ -14,21 +17,62 @@ import styles from './Cliente.module.scss';
 export function Cliente() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { setBarbeiro, barbeiros, horariosAgendados } = useUser();
+  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData } = useUser();
+
+  const [selectDay, setSelectDay] = useState(new Date());
+
+  function nextDay() {
+    const nextDay = new Date(selectDay);
+    nextDay.setDate(nextDay.getDate() + 1);
+    setSelectDay(nextDay);
+  }
+
+  function previousDay() {
+    const prevDay = new Date(selectDay);
+    prevDay.setDate(prevDay.getDate() - 1);
+    setSelectDay(prevDay);
+  }
+
+  useEffect(() => {
+    const dateFormatted = format(selectDay, 'yyyy-MM-dd');
+
+    buscarAgendamentosData(dateFormatted);
+  }, [selectDay]);
 
   return (
     <>
-      {horariosAgendados.length > 0 && (
-        <>
-          <h2 className={styles.titleHome}>Seus horários agendados para hoje:</h2>
-          <div className={styles.containerHorarios}>
-            {horariosAgendados.map((horario: ClienteMetadata) => (
-              <CardCliente key={horario.id} cliente={horario} />
-            ))}
-          </div>
-        </>
+      <div className={styles.titleContainer}>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            previousDay();
+          }}
+        >
+          <FiArrowLeft color="#fff" size={18} />
+        </button>
+        Seus horários agendados para {format(selectDay, 'dd/MM')}:
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            nextDay();
+          }}
+        >
+          <FiArrowRight color="#fff" size={18} />
+        </button>
+      </div>
+      {horariosAgendados.length > 0 ? (
+        <div className={styles.containerHorarios}>
+          {horariosAgendados.map((horario: ClienteMetadata) => (
+            <CardCliente key={horario.id} cliente={horario} />
+          ))}
+        </div>
+      ) : (
+        <div className={styles.containerHorarios}>
+          <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
+        </div>
       )}
-
       <h2 className={styles.titleHome}>
         Olá {user?.user_metadata.name}, eu encontrei {barbeiros.length}{' '}
         {barbeiros.length > 1 ? 'barbeiros' : 'barbeiro'} para você!
