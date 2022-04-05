@@ -35,3 +35,10 @@ export interface InputProps {
 export interface DropzoneProps {
   onFileUploaded: (file: File) => void;
 }
+
+export type OverlayProps = {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+  calendar?: boolean;
+};
