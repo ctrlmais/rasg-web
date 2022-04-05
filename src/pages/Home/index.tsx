@@ -1,5 +1,8 @@
+import Modal from 'react-modal';
+
 import { Barbeiro } from 'pages/Barbeiro';
 import { Cliente } from 'pages/Cliente';
+import { ReportBug } from 'pages/ReportBug';
 
 import { FloatingButton } from 'components/FloatingButton';
 import { Header } from 'components/Header';
@@ -9,6 +12,7 @@ import { useTheme } from 'contexts/Theme';
 import { useUser } from 'contexts/User';
 
 import { useAuth } from 'hooks/useAuth';
+import { useReport } from 'hooks/useReport';
 
 import { css } from 'styles/calendar.styles';
 
@@ -18,11 +22,12 @@ export function Home() {
   const { user } = useAuth();
   const { theme } = useTheme();
   const { verificaLoginGoogleEOcupacao, verificaOcupacao } = useUser();
+  const { openModal, closeModal, customStyles, modalIsOpen } = useReport();
 
   return (
     <div className={styles.home} data-theme={theme}>
       <style>{css}</style>
-      <FloatingButton />
+      <FloatingButton onClick={openModal} />
       <Header
         logo
         default
@@ -30,6 +35,10 @@ export function Home() {
         profile={user?.user_metadata.avatar_url || user?.user_metadata.picture}
         avatar={user?.user_metadata.name}
       />
+
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+        <ReportBug />
+      </Modal>
 
       <div className={styles.container}>
         {verificaLoginGoogleEOcupacao() && <VerificacaoOcupacao />}
