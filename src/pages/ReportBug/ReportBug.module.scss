@@ -1,12 +1,13 @@
 .home {
   background: var(--background);
-  height: 100vh;
+  height: 60vh;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .title {
@@ -62,13 +63,14 @@ textarea {
 @media screen and (min-width: 839px) {
   .home {
     background: var(--background);
-    height: 100vh;
+    height: 60vh;
   }
 
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   .title {
