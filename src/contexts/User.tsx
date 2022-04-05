@@ -250,6 +250,28 @@ export function UserProvider({ children }: any) {
     setStatus('success');
   }
 
+  async function buscarAgendamentosData(diaSelecionado: string) {
+    if (!clientId) return;
+
+    const { data, error, status } = await getHorarioMarcadoCliente(clientId, diaSelecionado);
+
+    if (error) {
+      switch (status) {
+        default:
+          throw new Error('Erro ao buscar clientes');
+      }
+    }
+
+    if (!data) return;
+
+    if (data[0].j === null) {
+      setHorariosAgendados([]);
+      throw new Error('Erro ao buscar clientes');
+    }
+
+    setHorariosAgendados(data[0].j);
+  }
+
   useEffect(() => {
     buscarBarbeiros();
   }, []);
@@ -306,6 +328,7 @@ export function UserProvider({ children }: any) {
         isDataEHorarioPassado,
         verificaDataEHoraSelecionada,
         horariosAgendados,
+        buscarAgendamentosData,
       }}
     >
       {children}
