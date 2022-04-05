@@ -301,7 +301,7 @@ export function UserProvider({ children }: any) {
 
   useEffect(() => {
     buscarClientes();
-  }, [barberId, selectDay]);
+  }, [barberId, selectDay, isBarbeiro, isCliente]);
 
   useEffect(() => {
     const params = pathname.split('/')[1];
