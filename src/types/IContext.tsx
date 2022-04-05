@@ -38,6 +38,7 @@ export interface ClienteMetadata {
   shift: string;
   created_at: Date;
   updated_at: Date;
+  barber_name: string;
 }
 
 export interface IdentityData {
@@ -158,4 +159,5 @@ export interface UserContextProps {
   isDataEHorarioPassado: (data: string, horario: string) => boolean;
   verificaDataEHoraSelecionada: () => boolean;
   horariosAgendados: ClienteMetadata[];
+  buscarAgendamentosData: (diaSelecionado: string) => void;
 }
