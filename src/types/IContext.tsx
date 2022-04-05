@@ -162,4 +162,13 @@ export interface UserContextProps {
   verificaDataEHoraSelecionada: () => boolean;
   horariosAgendados: ClienteMetadata[];
   buscarAgendamentosData: (diaSelecionado: string) => void;
+  generateGoogleCalendarEvent: (
+    title: string,
+    startDate: string,
+    endDate: string,
+    description?: string,
+    location?: string,
+  ) => void;
+  startDate: string;
+  endDate: string;
 }
