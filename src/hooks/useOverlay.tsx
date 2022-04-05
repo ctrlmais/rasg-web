@@ -3,14 +3,6 @@ import { useUser } from 'contexts/User';
 export function useOverlay() {
   const { barbeiro, generateGoogleCalendarEvent, startDate, endDate, selectDayFormatted, selectHours } = useUser();
 
-  function handleGoogleCalendar() {
-    const title = `Barba, cabelo e bigode com ${barbeiro?.nome}`;
-    const description = `Barbearia do ${barbeiro?.nome}`;
-    const location = '';
-
-    generateGoogleCalendarEvent(title, startDate, endDate, description, location);
-  }
-
   const hourFormattedCalendar = selectHours.replace(':', '');
   const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
   const hourFormattedCalendarEndFormatted = `${hourFormattedCalendarEnd
@@ -24,6 +16,14 @@ export function useOverlay() {
     endTime: `${selectDayFormatted}T${hourFormattedCalendarEndFormatted}`,
     location: '',
   };
+
+  function handleGoogleCalendar() {
+    const title = `Barba, cabelo e bigode com ${barbeiro?.nome}`;
+    const description = `Barbearia do ${barbeiro?.nome}`;
+    const location = '';
+
+    generateGoogleCalendarEvent(title, startDate, endDate, description, location);
+  }
 
   return {
     handleGoogleCalendar,

@@ -32,6 +32,11 @@ export function UserProvider({ children }: any) {
   const selectDayFormatted = format(selectDay, 'yyyy-MM-dd');
   const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
   const selectDayFormattedBR = format(selectDay, 'dd/MM/yyyy');
+  const dateFormattedCalendar = format(selectDay, 'yyyyMMdd');
+  const hourFormattedCalendar = selectHours.replace(':', '');
+  const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
+  const startDate = dateFormattedCalendar + 'T' + hourFormattedCalendar;
+  const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
 
   function verificaLoginGoogleEOcupacao() {
     return user?.app_metadata.provider === 'google' && !user.user_metadata.ocupacao;
@@ -156,15 +161,6 @@ export function UserProvider({ children }: any) {
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${description}&location=${location}`;
     window.open(url, '_blank');
   }
-
-  const dateFormattedCalendar = format(selectDay, 'yyyyMMdd');
-
-  const hourFormattedCalendar = selectHours.replace(':', '');
-  const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
-
-  const startDate = dateFormattedCalendar + 'T' + hourFormattedCalendar;
-
-  const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
 
   async function buscarBarbeiros() {
     const { data, error, status } = await getBarbeiros();
