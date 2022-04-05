@@ -24,13 +24,16 @@ export async function getClientes(barberId: string, selectDayFormatted: string) 
   return { data, error, status };
 }
 
-export async function getHorarioMarcadoCliente(clientId: string, atualDayFormatted: string) {
+export async function getHorarioMarcadoCliente(clientId: string, selectDayFormatted: string) {
   const { data, error, status } = await supabase.rpc('busca_filtrada_schedules', {
     p_id: [],
     p_barber_id: [],
     p_client_id: [clientId],
-    p_dt_inicio: `${atualDayFormatted}T${atualHourFormatted}`,
-    p_dt_fim: `${atualDayFormatted}T23:59`,
+    p_dt_inicio:
+      atualDayFormatted === selectDayFormatted
+        ? `${selectDayFormatted}T${atualHourFormatted}`
+        : `${selectDayFormatted}T00:00`,
+    p_dt_fim: `${selectDayFormatted}T23:59`,
     p_page: 0,
     p_limit: 10,
     p_orderby: 'hour',
