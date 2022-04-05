@@ -30,6 +30,22 @@ export function AuthProvider({ children }: any) {
     return false;
   }
 
+  function isBarbeiro() {
+    if (user?.user_metadata?.ocupacao === 'barbeiro') {
+      return true;
+    }
+
+    return false;
+  }
+
+  function isCliente() {
+    if (user?.user_metadata?.ocupacao === 'cliente') {
+      return true;
+    }
+
+    return false;
+  }
+
   async function checkUser() {
     const hash = window.location.href.split('#')[0];
     const params = hash.split('/')[3];
@@ -173,6 +189,8 @@ export function AuthProvider({ children }: any) {
         ocupacao,
         setOcupacao,
         loading,
+        isBarbeiro: isBarbeiro(),
+        isCliente: isCliente(),
       }}
     >
       {children}

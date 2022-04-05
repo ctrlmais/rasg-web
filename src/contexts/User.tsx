@@ -17,7 +17,7 @@ export function UserProvider({ children }: any) {
 
   const { pathname } = window.location;
 
-  const { user } = useAuth();
+  const { user, isCliente, isBarbeiro } = useAuth();
   const [barbeiro, setBarbeiro] = useState<UserMetadata>();
   const [barbeiros, setBarbeiros] = useState<UserMetadata[]>([]);
   const [clientes, setClientes] = useState<ClienteMetadata[]>([]);
@@ -29,7 +29,6 @@ export function UserProvider({ children }: any) {
   const clientId = user?.id;
   const barberId = barbeiro?.id;
 
-  const ocupacao = user?.user_metadata.ocupacao;
   const selectDayFormatted = format(selectDay, 'yyyy-MM-dd');
   const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
   const selectDayFormattedBR = format(selectDay, 'dd/MM/yyyy');
@@ -169,8 +168,8 @@ export function UserProvider({ children }: any) {
   async function buscarClientes() {
     if (!clientId) return;
 
-    if (ocupacao === 'barbeiro') {
-      const { data, error, status } = await getClientes(clientId || '', selectDayFormatted);
+    if (isBarbeiro) {
+      const { data, error, status } = await getClientes(clientId, selectDayFormatted);
 
       if (error) {
         switch (status) {
@@ -189,7 +188,7 @@ export function UserProvider({ children }: any) {
       setClientes(data[0].j);
     }
 
-    if (ocupacao === 'cliente' && barberId) {
+    if (isCliente && barberId) {
       const { data, error, status } = await getClientes(barberId || '', selectDayFormatted);
 
       if (error) {
@@ -273,16 +272,22 @@ export function UserProvider({ children }: any) {
   }
 
   useEffect(() => {
-    buscarBarbeiros();
-  }, []);
+    if (isCliente) {
+      buscarBarbeiros();
+    }
+  }, [isCliente]);
 
   useEffect(() => {
-    buscarAgendamentos();
+    if (isCliente) {
+      buscarAgendamentos();
+    }
   }, [clientId]);
 
   useEffect(() => {
-    buscarClientes();
-  }, [barberId, selectDay]);
+    if (isBarbeiro) {
+      buscarClientes();
+    }
+  }, [barberId, selectDay, isBarbeiro]);
 
   useEffect(() => {
     const params = pathname.split('/')[1];
