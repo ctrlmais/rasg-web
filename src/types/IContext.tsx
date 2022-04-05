@@ -98,6 +98,8 @@ export interface AuthContextProps {
   ocupacao: string;
   setOcupacao: (ocupacao: string) => void;
   loading: boolean;
+  isBarbeiro: boolean;
+  isCliente: boolean;
 }
 
 export interface FormikProps {
