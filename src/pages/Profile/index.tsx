@@ -71,6 +71,7 @@ export function Profile() {
                 onBlur={formikProfile.handleBlur}
                 value={formikProfile.values.email}
                 icon={<FiMail color="#666360" size={24} />}
+                disabled={isGoogle()}
               />
               {formikProfile.errors.email && formikProfile.touched.email && (
                 <span className={styles.error}>{formikProfile.errors.email}</span>
