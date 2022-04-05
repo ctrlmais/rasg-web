@@ -1,12 +1,12 @@
 .floating {
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
   z-index: 10;
-  width: 64px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
   background: var(--orange);
-  border-radius: 20px;
+  border-radius: 15px;
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;
@@ -17,5 +17,29 @@
   &:hover {
     filter: brightness(0.8);
     transition: 0.4s;
+  }
+}
+
+@media screen and (min-width: 839px) {
+  .floating {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    z-index: 10;
+    width: 64px;
+    height: 64px;
+    background: var(--orange);
+    border-radius: 20px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    transition: background-color 0.2s ease 0s;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: 0.4s;
+    }
   }
 }
