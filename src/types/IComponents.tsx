@@ -73,6 +73,7 @@ export type CardBarbeiroProps = {
 export type CardClienteProps = {
   cliente: ClienteMetadata | undefined;
   onClick?: () => void;
+  first?: boolean;
 };
 
 export interface FloatingButtonProps {
