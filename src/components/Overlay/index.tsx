@@ -23,7 +23,7 @@ export function Overlay(props: OverlayProps) {
 
           {props.calendar && (
             <>
-              {(isAndroid || isWindows) && (
+              {isAndroid && (
                 <>
                   <button
                     className={styles.google}
@@ -37,11 +37,30 @@ export function Overlay(props: OverlayProps) {
                   </button>
                 </>
               )}
-              {(isIOS || isMacOs) && (
+              {isIOS && (
                 <button className={styles.apple} type="button">
                   <SiApple />
                   <ICalendarLink event={event}>Adicionar ao Apple Calendar</ICalendarLink>
                 </button>
+              )}
+
+              {(isWindows || isMacOs) && (
+                <>
+                  <button
+                    className={styles.google}
+                    type="button"
+                    onClick={() => {
+                      handleGoogleCalendar();
+                    }}
+                  >
+                    <SiGooglecalendar />
+                    Adicionar ao Google Calendar
+                  </button>
+                  <button className={styles.apple} type="button">
+                    <SiApple />
+                    <ICalendarLink event={event}>Adicionar ao Apple Calendar</ICalendarLink>
+                  </button>
+                </>
               )}
             </>
           )}
