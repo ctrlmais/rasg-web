@@ -1,3 +1,7 @@
+import { ReactChild, ReactFragment, ReactPortal, SetStateAction } from 'react';
+
+import { ClienteMetadata, UserMetadata } from './IContext';
+
 /* eslint-disable no-unused-vars */
 export interface ButtonProps {
   type: 'button' | 'submit' | 'reset';
@@ -12,11 +16,7 @@ export interface ButtonGoogleProps {
 }
 
 export interface HeaderProps {
-  name?: string;
-  profile?: string;
-  avatar?: string;
   logo?: boolean;
-  default?: boolean;
   back?: boolean;
 }
 
@@ -42,3 +42,39 @@ export type OverlayProps = {
   children: React.ReactNode;
   calendar?: boolean;
 };
+
+export interface NavItemProps {
+  children?: React.ReactNode;
+  icon: React.ReactNode;
+  onClick?: () => void;
+}
+
+export interface NavBarProps {
+  children: React.ReactNode;
+  logo?: React.ReactNode;
+  back?: boolean;
+}
+
+export interface DropdownItemProps {
+  link?: string;
+  goToMenu?: SetStateAction<string>;
+  leftIcon?: boolean | ReactChild | ReactFragment | ReactPortal;
+  children?: boolean | ReactChild | ReactFragment | ReactPortal;
+  rightIcon?: boolean | ReactChild | ReactFragment | ReactPortal;
+  onClick?: () => void;
+  logout?: boolean;
+}
+
+export type CardBarbeiroProps = {
+  barbeiro: UserMetadata | undefined;
+  onClick: () => void;
+};
+
+export type CardClienteProps = {
+  cliente: ClienteMetadata | undefined;
+  onClick?: () => void;
+};
+
+export interface FloatingButtonProps {
+  onClick?: () => void;
+}
