@@ -17,7 +17,7 @@ import styles from './Cliente.module.scss';
 export function Cliente() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData } = useUser();
+  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours } = useUser();
 
   const [selectDay, setSelectDay] = useState(new Date());
 
@@ -65,7 +65,14 @@ export function Cliente() {
       {horariosAgendados.length > 0 ? (
         <div className={styles.containerHorarios}>
           {horariosAgendados.map((horario: ClienteMetadata) => (
-            <CardCliente key={horario.id} cliente={horario} />
+            <CardCliente
+              key={horario.id}
+              cliente={horario}
+              onClick={() => {
+                setSelectHours(horario.hour);
+                navigate(`ticket/${horario.client_id}`);
+              }}
+            />
           ))}
         </div>
       ) : (
