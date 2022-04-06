@@ -25,7 +25,7 @@ export function Register() {
     <>
       <div className={styles.home} data-theme={theme}>
         {status === 'success' && (
-          <Overlay title="Cadastramento concluído" description="Agora é só fazer seu login">
+          <Overlay title="Cadastramento concluído" description="Agora é só verificar seu email e fazer o login">
             <FiCheck color="#04D361" size={62} />
           </Overlay>
         )}
