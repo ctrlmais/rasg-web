@@ -7,7 +7,8 @@ import { ClienteMetadata, UserContextProps, UserMetadata } from 'types/IContext'
 import { useAuth } from 'hooks/useAuth';
 
 import { getBarbeiros } from 'services/get/barbeiros';
-import { getClientes, getHorarioMarcadoCliente } from 'services/get/clientes';
+import { getClientes } from 'services/get/clientes';
+import { getHorarioMarcadoCliente } from 'services/get/horarioMarcado';
 import { shedule } from 'services/post/schedule';
 
 const User = createContext({} as UserContextProps);
