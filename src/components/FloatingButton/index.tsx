@@ -1,15 +1,12 @@
 import { IoBug } from 'react-icons/io5';
-// import { Link } from 'react-router-dom';
+
+import { FloatingButtonProps } from 'types/IComponents';
 
 import styles from './FloatingButton.module.scss';
 
-interface Props {
-  onClick?: () => void;
-}
-
-export function FloatingButton({ onClick }: Props) {
+export function FloatingButton(props: FloatingButtonProps) {
   return (
-    <div className={styles.floating} onClick={onClick}>
+    <div className={styles.floating} onClick={props.onClick}>
       <IoBug color="#fff" size={24} />
     </div>
   );

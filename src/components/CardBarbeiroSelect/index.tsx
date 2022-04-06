@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { UserMetadata } from 'types/IContext';
+import { CardBarbeiroProps } from 'types/IComponents';
 
 import { getPhoto } from 'services/get/photo';
 
 import styles from './CardBarbeiroSelect.module.scss';
 
-type Props = {
-  barbeiro: UserMetadata | undefined;
-};
-export function CardBarbeiroSelected({ barbeiro }: Props) {
+export function CardBarbeiroSelected(props: CardBarbeiroProps) {
   const [photo, setPhoto] = useState('');
   const [name, setName] = useState('');
 
@@ -30,18 +27,22 @@ export function CardBarbeiroSelected({ barbeiro }: Props) {
   }
 
   useEffect(() => {
-    if (barbeiro) {
-      getPhotoUser(barbeiro.id);
+    if (props.barbeiro) {
+      getPhotoUser(props.barbeiro.id);
     }
-  }, [barbeiro]);
+  }, [props.barbeiro]);
 
   return (
-    <div key={barbeiro?.id} className={styles.containerCard}>
+    <div key={props.barbeiro?.id} className={styles.containerCard}>
       <div className={styles.spacing}>
-        <img src={photo || barbeiro?.avatar_url || barbeiro?.picture} alt={barbeiro?.nome} className={styles.img} />
+        <img
+          src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture}
+          alt={props.barbeiro?.nome}
+          className={styles.img}
+        />
       </div>
       <div className={styles.textContainer}>
-        <h2 className={styles.textTitle}>{name || barbeiro?.nome}</h2>
+        <h2 className={styles.textTitle}>{name || props.barbeiro?.nome}</h2>
       </div>
     </div>
   );

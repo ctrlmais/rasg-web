@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 import { BsCalendar, BsClock } from 'react-icons/bs';
 
-import { UserMetadata } from 'types/IContext';
+import { CardBarbeiroProps } from 'types/IComponents';
 
 import { getPhoto } from 'services/get/photo';
 
 import styles from './CardBarbeiro.module.scss';
 
-type Props = {
-  barbeiro: UserMetadata | undefined;
-  onClick: () => void;
-};
-
-export function CardBarbeiro({ barbeiro, onClick }: Props) {
+export function CardBarbeiro(props: CardBarbeiroProps) {
   const [photo, setPhoto] = useState('');
   const [name, setName] = useState('');
 
@@ -33,18 +28,18 @@ export function CardBarbeiro({ barbeiro, onClick }: Props) {
   }
 
   useEffect(() => {
-    if (barbeiro) {
-      getPhotoUser(barbeiro.id);
+    if (props.barbeiro) {
+      getPhotoUser(props.barbeiro.id);
     }
-  }, [barbeiro]);
+  }, [props.barbeiro]);
 
   return (
-    <div className={styles.card} onClick={onClick} key={barbeiro?.id}>
+    <div className={styles.card} onClick={props.onClick} key={props.barbeiro?.id}>
       <div className={styles.containerImg}>
-        <img src={photo || barbeiro?.avatar_url || barbeiro?.picture} alt={barbeiro?.nome} />
+        <img src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture} alt={props.barbeiro?.nome} />
       </div>
       <div className={styles.containerInfo}>
-        <h2 className={styles.title}>{name || barbeiro?.nome}</h2>
+        <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
         <strong className={styles.info}>
           <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
           Segunda à Domingo
