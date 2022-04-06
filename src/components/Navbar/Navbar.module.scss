@@ -1,0 +1,24 @@
+.navbar {
+  height: var(--nav-size);
+  background-color: var(--black-medium);
+  padding: 0 1rem;
+  border-bottom: 1px solid #474a4d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbarNav {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.logo {
+  width: 90px;
+}
