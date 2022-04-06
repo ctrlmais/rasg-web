@@ -11,7 +11,6 @@ import { VerificacaoOcupacao } from 'components/Verificacao';
 import { useTheme } from 'contexts/Theme';
 import { useUser } from 'contexts/User';
 
-import { useAuth } from 'hooks/useAuth';
 import { useReport } from 'hooks/useReport';
 
 import { css } from 'styles/calendar.styles';
@@ -19,7 +18,6 @@ import { css } from 'styles/calendar.styles';
 import styles from './Home.module.scss';
 
 export function Home() {
-  const { user } = useAuth();
   const { theme } = useTheme();
   const { verificaLoginGoogleEOcupacao, verificaOcupacao } = useUser();
   const { openModal, closeModal, customStyles, modalIsOpen } = useReport();
@@ -28,13 +26,7 @@ export function Home() {
     <div className={styles.home} data-theme={theme}>
       <style>{css}</style>
       <FloatingButton onClick={openModal} />
-      <Header
-        logo
-        default
-        name={user?.user_metadata.name || user?.email}
-        profile={user?.user_metadata.avatar_url || user?.user_metadata.picture}
-        avatar={user?.user_metadata.name}
-      />
+      <Header logo />
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
         <ReportBug />
