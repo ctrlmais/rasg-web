@@ -35,7 +35,11 @@ export function CardCliente(props: CardClienteProps) {
   }, [props.cliente]);
 
   return (
-    <div className={styles.card} onClick={props.onClick} key={props.cliente?.client_id}>
+    <div
+      className={props.first ? styles.cardFirst : styles.card}
+      onClick={props.onClick}
+      key={props.cliente?.client_id}
+    >
       <div className={styles.alert}>
         <br />
       </div>
