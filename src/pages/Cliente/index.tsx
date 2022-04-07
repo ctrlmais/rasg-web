@@ -81,8 +81,12 @@ export function Cliente() {
         </div>
       )}
       <h2 className={styles.titleHome}>
-        Olá {user?.user_metadata.name}, eu encontrei {barbeiros.length}{' '}
-        {barbeiros.length > 1 ? 'barbeiros' : 'barbeiro'} para você!
+        {barbeiros.length >= 1
+          ? `
+        Olá ${user?.user_metadata.name}, eu encontrei ${barbeiros.length}
+        ${barbeiros.length > 1 ? 'barbeiros' : 'barbeiro'} para você!
+        `
+          : 'Ops não encontrei nenhum barbeiro. 😢'}
       </h2>
       <div className={styles.containerList}>
         {barbeiros.map((barbeiro: UserMetadata) => (
