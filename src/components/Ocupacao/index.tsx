@@ -8,19 +8,23 @@ export function Ocupacao() {
   return (
     <div className={styles.ocupacao}>
       {ocupacao === 'cliente' ? (
-        <p className={styles.active} onClick={() => setOcupacao('cliente')}>
-          Sou cliente
-        </p>
+        <div className={styles.active} onClick={() => setOcupacao('cliente')}>
+          <p>Sou cliente</p>
+        </div>
       ) : (
-        <p onClick={() => setOcupacao('cliente')}>Sou cliente</p>
+        <div onClick={() => setOcupacao('cliente')} className={styles.none}>
+          <p>Sou cliente</p>
+        </div>
       )}
 
       {ocupacao === 'barbeiro' ? (
-        <p className={styles.active} onClick={() => setOcupacao('barbeiro')}>
-          Sou barbeiro
-        </p>
+        <div className={styles.active} onClick={() => setOcupacao('barbeiro')}>
+          <p>Sou barbeiro</p>
+        </div>
       ) : (
-        <p onClick={() => setOcupacao('barbeiro')}>Sou barbeiro</p>
+        <div onClick={() => setOcupacao('barbeiro')} className={styles.none}>
+          <p>Sou barbeiro</p>
+        </div>
       )}
     </div>
   );

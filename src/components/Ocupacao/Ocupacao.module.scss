@@ -14,8 +14,23 @@
 }
 
 .active {
-  color: var(--orange) !important;
-  text-decoration: underline;
+  border-bottom: 2px solid var(--orange);
+  width: 8rem;
+
+  p {
+    color: var(--orange) !important;
+    margin-bottom: 5px;
+  }
+}
+
+.none {
+  border-bottom: 2px solid var(--gray);
+  width: 8rem;
+
+  p {
+    color: var(--gray) !important;
+    margin-bottom: 5px;
+  }
 }
 
 @media screen and (min-width: 839px) {
@@ -35,7 +50,12 @@
   }
 
   .active {
-    color: var(--orange) !important;
-    text-decoration: underline;
+    border-bottom: 2px solid var(--orange);
+    width: 8rem;
+
+    p {
+      color: var(--orange) !important;
+      margin-bottom: 5px;
+    }
   }
 }
