@@ -58,7 +58,7 @@ export function Ticket(props: Props) {
           <div className="ticket">
             <div className="ticket-profile">
               <div className="ticket-profile-top">
-                {photo === '' ? (
+                {photo === '' && props.cliente?.client_avatar === undefined ? (
                   <div className="ticket-profile-top-image">
                     <Avvvatars value={props.cliente?.client_name || ''} size={82} />
                   </div>
