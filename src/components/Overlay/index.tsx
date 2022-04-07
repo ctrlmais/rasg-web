@@ -11,7 +11,7 @@ import { useOverlay } from 'hooks/useOverlay';
 import styles from './Overlay.module.scss';
 
 export function Overlay(props: OverlayProps) {
-  const { handleGoogleCalendar, event } = useOverlay();
+  const { handleGoogleCalendar, eventSaveCliente } = useOverlay();
 
   return (
     <>
@@ -40,7 +40,7 @@ export function Overlay(props: OverlayProps) {
               {isIOS && (
                 <button className={styles.apple} type="button">
                   <SiApple />
-                  <ICalendarLink event={event}>Adicionar ao Apple Calendar</ICalendarLink>
+                  <ICalendarLink event={eventSaveCliente}>Adicionar ao Apple Calendar</ICalendarLink>
                 </button>
               )}
 
@@ -58,7 +58,7 @@ export function Overlay(props: OverlayProps) {
                   </button>
                   <button className={styles.apple} type="button">
                     <SiApple />
-                    <ICalendarLink event={event}>Adicionar ao Apple Calendar</ICalendarLink>
+                    <ICalendarLink event={eventSaveCliente}>Adicionar ao Apple Calendar</ICalendarLink>
                   </button>
                 </>
               )}

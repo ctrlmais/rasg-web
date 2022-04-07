@@ -9,7 +9,7 @@ export function useOverlay() {
     .toString()
     .substring(0, 2)}:${hourFormattedCalendarEnd.toString().substring(2, 4)}`;
 
-  const event = {
+  const eventSaveCliente = {
     title: `Barba, cabelo e bigode com ${barbeiro?.nome}`,
     description: `Barbearia do ${barbeiro?.nome}`,
     startTime: `${selectDayFormatted}T${selectHours}`,
@@ -27,6 +27,6 @@ export function useOverlay() {
 
   return {
     handleGoogleCalendar,
-    event,
+    eventSaveCliente,
   };
 }
