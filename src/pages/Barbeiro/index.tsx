@@ -1,20 +1,21 @@
-import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
+import Modal from 'react-modal';
 
 import { ptBR } from 'date-fns/locale';
 import { ClienteMetadata } from 'types/IContext';
 
+import { Agenda } from 'components/Agenda';
 import { CardCliente } from 'components/CardCliente';
 
 import { getDiaSemana } from 'utils/diaDaSemana';
 
 import { useUser } from 'contexts/User';
 
+import { useBarbeiro } from 'hooks/useBarbeiro';
+
 import styles from './Barbeiro.module.scss';
 
 export function Barbeiro() {
-  const [visible, setVisible] = useState(true);
-
   const {
     clientes,
     selectDay,
@@ -26,6 +27,8 @@ export function Barbeiro() {
     getClientesNight,
     getFirstCliente,
   } = useUser();
+
+  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles } = useBarbeiro();
 
   return (
     <>
@@ -74,16 +77,35 @@ export function Barbeiro() {
           </div>
         )}
         <div className={styles.list}>
+          <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+            <Agenda />
+          </Modal>
           <div className={styles.containerHorarioAgendados}>
             <h2 className={styles.titleHome}>Horários agendados</h2>
             <p className={styles.infoText}>
               Hoje | Dia {new Date().getDate()} | {getDiaSemana()}
             </p>
           </div>
+
+          {getClientesMorning().length >= 0 && getClientesAfternoon().length >= 0 && getClientesNight().length >= 0 && (
+            <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
+          )}
+
           {selectDayFormatted >= atualDayFormatted ? (
             <>
-              <h2 className={styles.shift}>Atendimento a seguir</h2>
-              {getFirstCliente() && <CardCliente first cliente={getFirstCliente()} />}
+              {getClientesMorning().length >= 1 &&
+                getClientesAfternoon().length >= 1 &&
+                getClientesNight().length >= 1 && <h2 className={styles.shift}>Atendimento a seguir</h2>}
+              {getFirstCliente() && (
+                <CardCliente
+                  first
+                  cliente={getFirstCliente()}
+                  onClick={() => {
+                    localStorage.setItem('cliente', JSON.stringify(getFirstCliente()));
+                    openModal();
+                  }}
+                />
+              )}
 
               <div className={styles.containerList}>
                 {getClientesMorning().length > 0 && (
@@ -93,7 +115,14 @@ export function Barbeiro() {
                       <div className={styles.line} />
                     </h3>
                     {getClientesMorning().map((cliente: ClienteMetadata) => (
-                      <CardCliente key={cliente.id} cliente={cliente} />
+                      <CardCliente
+                        key={cliente.id}
+                        cliente={cliente}
+                        onClick={() => {
+                          localStorage.setItem('cliente', JSON.stringify(cliente));
+                          openModal();
+                        }}
+                      />
                     ))}
                   </>
                 )}
@@ -105,7 +134,14 @@ export function Barbeiro() {
                       <div className={styles.line} />
                     </h2>
                     {getClientesAfternoon().map((cliente: ClienteMetadata) => (
-                      <CardCliente key={cliente.id} cliente={cliente} />
+                      <CardCliente
+                        key={cliente.id}
+                        cliente={cliente}
+                        onClick={() => {
+                          localStorage.setItem('cliente', JSON.stringify(cliente));
+                          openModal();
+                        }}
+                      />
                     ))}
                   </>
                 )}
@@ -117,7 +153,14 @@ export function Barbeiro() {
                       <div className={styles.line} />
                     </h2>
                     {getClientesNight().map((cliente: ClienteMetadata) => (
-                      <CardCliente key={cliente.id} cliente={cliente} />
+                      <CardCliente
+                        key={cliente.id}
+                        cliente={cliente}
+                        onClick={() => {
+                          localStorage.setItem('cliente', JSON.stringify(cliente));
+                          openModal();
+                        }}
+                      />
                     ))}
                   </>
                 )}
