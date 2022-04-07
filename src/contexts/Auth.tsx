@@ -171,6 +171,7 @@ export function AuthProvider({ children }: any) {
       return;
     }
 
+    localStorage.removeItem('cliente');
     toast.success('Deslogado com sucesso', { id: 'login' });
     setUser(null);
 
