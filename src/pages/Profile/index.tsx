@@ -7,6 +7,8 @@ import Dropzone from 'components/Dropzone';
 import { Header } from 'components/Header';
 import { Input } from 'components/Input';
 
+import { convertImageToBase64 } from 'utils/convertBase64';
+
 import { useTheme } from 'contexts/Theme';
 
 import { useProfile } from 'hooks/useProfile';
@@ -17,15 +19,6 @@ export function Profile() {
   const { theme } = useTheme();
 
   const { formikProfile, loading, isGoogle } = useProfile();
-
-  function convertImageToBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
 
   return (
     <>
