@@ -17,7 +17,7 @@ import styles from './MyTicket.module.scss';
 export function MyTicket() {
   const navigate = useNavigate();
   const params = useParams();
-  const { selectHours, selectDay } = useUser();
+  const { selectHours, selectDay, setSelectHours, setSelectDay } = useUser();
   const { theme } = useTheme();
 
   const [cliente, setCliente] = useState<ClienteMetadata>();
@@ -49,6 +49,11 @@ export function MyTicket() {
   useEffect(() => {
     buscaCliente();
   }, []);
+
+  useEffect(() => {
+    setSelectHours('');
+    setSelectDay(new Date());
+  }, [params.id]);
 
   return (
     <>
