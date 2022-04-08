@@ -17,7 +17,7 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar informações do usuário');
+          return;
       }
     }
 

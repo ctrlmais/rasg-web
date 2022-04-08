@@ -18,7 +18,7 @@ export function CardCliente(props: CardClienteProps) {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar informações do usuário');
+          return;
       }
     }
 

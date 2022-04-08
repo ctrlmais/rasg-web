@@ -57,7 +57,7 @@ export function AuthProvider({ children }: any) {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar informações do usuário');
+          return;
       }
     }
 

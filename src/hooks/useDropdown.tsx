@@ -27,7 +27,7 @@ export function useDropdown() {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar informações do usuário');
+          return;
       }
     }
 
