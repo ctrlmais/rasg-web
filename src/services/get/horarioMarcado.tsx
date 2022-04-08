@@ -16,7 +16,7 @@ export async function getHorarioMarcadoCliente(clientId: string, selectDayFormat
         : `${selectDayFormatted}T00:00`,
     p_dt_fim: `${selectDayFormatted}T23:59`,
     p_page: 0,
-    p_limit: 10,
+    p_limit: 15,
     p_orderby: 'hour',
     p_ascordsc: 'asc',
   });
@@ -32,7 +32,7 @@ export async function getHorarioSelecionado(clientId: string, selectDayFormatted
     p_dt_inicio: `${selectDayFormatted}T${hour}`,
     p_dt_fim: `${selectDayFormatted}T${hour}`,
     p_page: 0,
-    p_limit: 10,
+    p_limit: 15,
     p_orderby: 'hour',
     p_ascordsc: 'asc',
   });

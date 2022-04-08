@@ -16,7 +16,7 @@ export async function getClientes(barberId: string, selectDayFormatted: string) 
         : `${selectDayFormatted}T00:00`,
     p_dt_fim: selectDayFormatted === atualDayFormatted ? `${selectDayFormatted}T23:00` : `${selectDayFormatted}T23:59`,
     p_page: 0,
-    p_limit: 10,
+    p_limit: 15,
     p_orderby: 'hour',
     p_ascordsc: 'asc',
   });
