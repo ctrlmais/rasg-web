@@ -21,6 +21,8 @@ export function CardBarbeiroSelected(props: CardBarbeiroProps) {
     }
 
     if (!data) return;
+    if (!data[0].j) return;
+    if (!data[0].j[0]) return;
 
     setPhoto(data[0].j[0].src);
     setName(data[0].j[0].name);

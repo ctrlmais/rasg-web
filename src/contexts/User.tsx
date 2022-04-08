@@ -191,7 +191,7 @@ export function UserProvider({ children }: any) {
       if (error) {
         switch (status) {
           default:
-            throw new Error('Erro ao buscar clientes');
+            return;
         }
       }
 
@@ -199,7 +199,7 @@ export function UserProvider({ children }: any) {
 
       if (data[0].j === null) {
         setClientes([]);
-        throw new Error('Erro ao buscar clientes');
+        return;
       }
 
       setClientes(data[0].j);
@@ -211,7 +211,7 @@ export function UserProvider({ children }: any) {
       if (error) {
         switch (status) {
           default:
-            throw new Error('Erro ao buscar clientes');
+            return;
         }
       }
 
@@ -219,7 +219,7 @@ export function UserProvider({ children }: any) {
 
       if (data[0].j === null) {
         setClientes([]);
-        throw new Error('Erro ao buscar clientes');
+        return;
       }
 
       setClientes(data[0].j);
@@ -234,7 +234,7 @@ export function UserProvider({ children }: any) {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar clientes');
+          return;
       }
     }
 
@@ -242,7 +242,7 @@ export function UserProvider({ children }: any) {
 
     if (data[0].j === null) {
       setHorariosAgendados([]);
-      throw new Error('Erro ao buscar clientes');
+      return;
     }
 
     setHorariosAgendados(data[0].j);
@@ -274,7 +274,7 @@ export function UserProvider({ children }: any) {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar clientes');
+          return;
       }
     }
 
@@ -282,7 +282,7 @@ export function UserProvider({ children }: any) {
 
     if (data[0].j === null) {
       setHorariosAgendados([]);
-      throw new Error('Erro ao buscar clientes');
+      return;
     }
 
     setHorariosAgendados(data[0].j);

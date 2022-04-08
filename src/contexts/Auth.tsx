@@ -69,7 +69,11 @@ export function AuthProvider({ children }: any) {
       setUser(userData);
     }
 
-    const infoUser = data[0].j[0];
+    if (!data[0].j) return;
+
+    if (!data[0]?.j[0]) return;
+
+    const infoUser = data[0]?.j[0];
 
     if (!infoUser) return;
 
