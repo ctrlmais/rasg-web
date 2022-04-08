@@ -25,7 +25,6 @@ export function UserProvider({ children }: any) {
   const [horariosAgendados, setHorariosAgendados] = useState<ClienteMetadata[]>([]);
   const [selectDay, setSelectDay] = useState(new Date());
   const [selectHours, setSelectHours] = useState<string>('');
-  const [ticket, setTicket] = useState<ClienteMetadata>();
   const [status, setStatus] = useState<string>('');
 
   const clientId = user?.id;
@@ -353,8 +352,6 @@ export function UserProvider({ children }: any) {
         generateGoogleCalendarEvent,
         startDate,
         endDate,
-        ticket,
-        setTicket,
       }}
     >
       {children}

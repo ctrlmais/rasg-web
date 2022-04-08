@@ -17,19 +17,15 @@ import styles from './MyTicket.module.scss';
 export function MyTicket() {
   const navigate = useNavigate();
   const params = useParams();
-  const { selectHours, setSelectHours, ticket } = useUser();
+  const { selectHours, selectDay } = useUser();
   const { theme } = useTheme();
 
   const [cliente, setCliente] = useState<ClienteMetadata>();
 
-  const dateFormatted = format(new Date(String(ticket?.appointment_date)), 'yyyy-MM-dd');
-
-  useEffect(() => {
-    setSelectHours('');
-  }, [params.id]);
+  const dayFormatted = format(selectDay, 'yyyy-MM-dd');
 
   async function buscaCliente() {
-    const { data, error, status } = await getHorarioSelecionado(params?.id || '', dateFormatted, selectHours);
+    const { data, error, status } = await getHorarioSelecionado(params?.id || '', dayFormatted, selectHours);
 
     if (error) {
       navigate('/');

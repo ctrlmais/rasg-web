@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,9 +17,8 @@ import styles from './Cliente.module.scss';
 export function Cliente() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours, setTicket } = useUser();
-
-  const [selectDay, setSelectDay] = useState(new Date());
+  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours, selectDay, setSelectDay } =
+    useUser();
 
   function nextDay() {
     const nextDay = new Date(selectDay);
@@ -69,7 +68,6 @@ export function Cliente() {
               key={horario.id}
               cliente={horario}
               onClick={() => {
-                setTicket(horario);
                 setSelectHours(horario.hour);
                 navigate(`ticket/${horario.client_id}`);
               }}
