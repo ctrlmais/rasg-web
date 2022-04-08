@@ -17,7 +17,7 @@ import styles from './Cliente.module.scss';
 export function Cliente() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours } = useUser();
+  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours, setTicket } = useUser();
 
   const [selectDay, setSelectDay] = useState(new Date());
 
@@ -69,6 +69,7 @@ export function Cliente() {
               key={horario.id}
               cliente={horario}
               onClick={() => {
+                setTicket(horario);
                 setSelectHours(horario.hour);
                 navigate(`ticket/${horario.client_id}`);
               }}

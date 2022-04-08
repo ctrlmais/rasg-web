@@ -25,6 +25,7 @@ export function UserProvider({ children }: any) {
   const [horariosAgendados, setHorariosAgendados] = useState<ClienteMetadata[]>([]);
   const [selectDay, setSelectDay] = useState(new Date());
   const [selectHours, setSelectHours] = useState<string>('');
+  const [ticket, setTicket] = useState<ClienteMetadata>();
   const [status, setStatus] = useState<string>('');
 
   const clientId = user?.id;
@@ -169,14 +170,14 @@ export function UserProvider({ children }: any) {
     if (error) {
       switch (status) {
         default:
-          throw new Error('Erro ao buscar barbeiros');
+          return;
       }
     }
 
     if (!data) return;
 
     if (data[0].j === null) {
-      throw new Error('Erro ao buscar barbeiros');
+      return;
     }
 
     setBarbeiros(data[0].j);
@@ -259,7 +260,7 @@ export function UserProvider({ children }: any) {
       setStatus('error');
       switch (status) {
         default:
-          throw new Error('Erro ao agendar');
+          return;
       }
     }
 
@@ -352,6 +353,8 @@ export function UserProvider({ children }: any) {
         generateGoogleCalendarEvent,
         startDate,
         endDate,
+        ticket,
+        setTicket,
       }}
     >
       {children}

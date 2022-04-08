@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { format } from 'date-fns';
@@ -17,31 +17,34 @@ import styles from './MyTicket.module.scss';
 export function MyTicket() {
   const navigate = useNavigate();
   const params = useParams();
-  const { selectHours, setSelectHours } = useUser();
+  const { selectHours, setSelectHours, ticket } = useUser();
   const { theme } = useTheme();
 
   const [cliente, setCliente] = useState<ClienteMetadata>();
-  const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
+
+  const dateFormatted = format(new Date(String(ticket?.appointment_date)), 'yyyy-MM-dd');
 
   useEffect(() => {
     setSelectHours('');
   }, [params.id]);
 
   async function buscaCliente() {
-    const { data, error, status } = await getHorarioSelecionado(params?.id || '', atualDayFormatted, selectHours);
+    const { data, error, status } = await getHorarioSelecionado(params?.id || '', dateFormatted, selectHours);
 
     if (error) {
       navigate('/');
       switch (status) {
         default:
-          throw new Error('Erro ao buscar barbeiros');
+          return;
       }
     }
 
     if (!data) return;
+    if (!data[0].j) return;
+    if (!data[0].j[0]) return;
 
     if (data[0].j === null) {
-      throw new Error('Erro ao buscar barbeiros');
+      return;
     }
 
     setCliente(data[0].j[0]);
