@@ -171,4 +171,6 @@ export interface UserContextProps {
   ) => void;
   startDate: string;
   endDate: string;
+  ticket: ClienteMetadata | undefined;
+  setTicket: (clientes: ClienteMetadata) => void;
 }
