@@ -103,6 +103,7 @@ export function Barbeiro() {
                 getClientesNight().length > 0) && <h2 className={styles.shift}>Atendimento a seguir</h2>}
               {getFirstCliente() && (
                 <CardCliente
+                  key={getFirstCliente().id}
                   first
                   cliente={getFirstCliente()}
                   onClick={() => {
@@ -123,6 +124,7 @@ export function Barbeiro() {
                       <>
                         {getFirstCliente().id !== cliente.id && (
                           <CardCliente
+                            key={cliente.id}
                             cliente={cliente}
                             onClick={() => {
                               localStorage.setItem('cliente', JSON.stringify(cliente));
@@ -135,7 +137,7 @@ export function Barbeiro() {
                   </>
                 )}
 
-                {getClientesAfternoon().length > 1 && (
+                {getClientesAfternoon().length >= 1 && (
                   <>
                     <h2 className={styles.shift}>
                       Tarde
@@ -158,7 +160,7 @@ export function Barbeiro() {
                   </>
                 )}
 
-                {getClientesNight().length > 1 && (
+                {getClientesNight().length >= 1 && (
                   <>
                     <h2 className={styles.shift}>
                       Noite
