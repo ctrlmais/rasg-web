@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
 
 import { format } from 'date-fns';
 import { ClienteMetadata } from 'types/IContext';
@@ -15,8 +16,22 @@ export function useTicket() {
 
   const [cliente, setCliente] = useState<ClienteMetadata>();
   const [loading, setLoading] = useState(true);
+  const [showPrint, setShowPrint] = useState(false);
+
+  const componentToPrintRef = useRef<HTMLDivElement>(null);
 
   const dayFormatted = format(selectDay, 'yyyy-MM-dd');
+
+  const handlePrint =
+    useReactToPrint({
+      content: () => componentToPrintRef.current,
+      onAfterPrint: () => setShowPrint(false),
+    }) || (() => {});
+
+  function handleClickPrint() {
+    setShowPrint(!showPrint);
+    handlePrint();
+  }
 
   async function buscaCliente() {
     setLoading(true);
@@ -56,5 +71,8 @@ export function useTicket() {
   return {
     cliente,
     loading,
+    componentToPrintRef,
+    handleClickPrint,
+    showPrint,
   };
 }
