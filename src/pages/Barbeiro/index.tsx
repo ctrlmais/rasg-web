@@ -87,15 +87,17 @@ export function Barbeiro() {
             </p>
           </div>
 
-          {getClientesMorning().length >= 0 && getClientesAfternoon().length >= 0 && getClientesNight().length >= 0 && (
-            <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
-          )}
+          {getClientesMorning().length === 0 &&
+            getClientesAfternoon().length === 0 &&
+            getClientesNight().length === 0 && (
+              <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
+            )}
 
           {selectDayFormatted >= atualDayFormatted ? (
             <>
-              {getClientesMorning().length >= 1 &&
-                getClientesAfternoon().length >= 1 &&
-                getClientesNight().length >= 1 && <h2 className={styles.shift}>Atendimento a seguir</h2>}
+              {(getClientesMorning().length > 0 ||
+                getClientesAfternoon().length > 0 ||
+                getClientesNight().length > 0) && <h2 className={styles.shift}>Atendimento a seguir</h2>}
               {getFirstCliente() && (
                 <CardCliente
                   first
