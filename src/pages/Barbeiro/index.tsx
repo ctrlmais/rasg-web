@@ -59,6 +59,9 @@ export function Barbeiro() {
                   modifiers={{
                     available: { dayOfWeek: [0, 1, 2, 3, 4, 5, 6] },
                   }}
+                  disabled={{
+                    before: new Date(),
+                  }}
                 />
               </div>
             </div>
@@ -110,59 +113,70 @@ export function Barbeiro() {
               )}
 
               <div className={styles.containerList}>
-                {getClientesMorning().length > 0 && (
+                {getClientesMorning().length > 1 && (
                   <>
                     <h3 className={styles.shift}>
                       Manhã
                       <div className={styles.line} />
                     </h3>
                     {getClientesMorning().map((cliente: ClienteMetadata) => (
-                      <CardCliente
-                        key={cliente.id}
-                        cliente={cliente}
-                        onClick={() => {
-                          localStorage.setItem('cliente', JSON.stringify(cliente));
-                          openModal();
-                        }}
-                      />
+                      <>
+                        {getFirstCliente().id !== cliente.id && (
+                          <CardCliente
+                            cliente={cliente}
+                            onClick={() => {
+                              localStorage.setItem('cliente', JSON.stringify(cliente));
+                              openModal();
+                            }}
+                          />
+                        )}
+                      </>
                     ))}
                   </>
                 )}
 
-                {getClientesAfternoon().length > 0 && (
+                {getClientesAfternoon().length > 1 && (
                   <>
                     <h2 className={styles.shift}>
                       Tarde
                       <div className={styles.line} />
                     </h2>
                     {getClientesAfternoon().map((cliente: ClienteMetadata) => (
-                      <CardCliente
-                        key={cliente.id}
-                        cliente={cliente}
-                        onClick={() => {
-                          localStorage.setItem('cliente', JSON.stringify(cliente));
-                          openModal();
-                        }}
-                      />
+                      <>
+                        {getFirstCliente().id !== cliente.id && (
+                          <CardCliente
+                            key={cliente.id}
+                            cliente={cliente}
+                            onClick={() => {
+                              localStorage.setItem('cliente', JSON.stringify(cliente));
+                              openModal();
+                            }}
+                          />
+                        )}
+                      </>
                     ))}
                   </>
                 )}
 
-                {getClientesNight().length > 0 && (
+                {getClientesNight().length > 1 && (
                   <>
                     <h2 className={styles.shift}>
                       Noite
                       <div className={styles.line} />
                     </h2>
                     {getClientesNight().map((cliente: ClienteMetadata) => (
-                      <CardCliente
-                        key={cliente.id}
-                        cliente={cliente}
-                        onClick={() => {
-                          localStorage.setItem('cliente', JSON.stringify(cliente));
-                          openModal();
-                        }}
-                      />
+                      <>
+                        {getFirstCliente().id !== cliente.id && (
+                          <CardCliente
+                            key={cliente.id}
+                            cliente={cliente}
+                            onClick={() => {
+                              localStorage.setItem('cliente', JSON.stringify(cliente));
+                              openModal();
+                            }}
+                          />
+                        )}
+                      </>
                     ))}
                   </>
                 )}
