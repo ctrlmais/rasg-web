@@ -20,7 +20,16 @@ export function Navbar(props: NavBarProps) {
             }}
           />
         )}
-        {props.logo && <img src={logo} alt="Logo" className={styles.logo} />}
+        {props.logo && (
+          <img
+            src={logo}
+            alt="Logo"
+            className={styles.logo}
+            onClick={() => {
+              navigate('/');
+            }}
+          />
+        )}
         <ul className={styles.navbarNav}>{props.children}</ul>
       </nav>
     </>
