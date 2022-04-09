@@ -51,9 +51,7 @@ export function Login() {
                 value={formikLogin.values.email}
                 icon={<FiUser color="#666360" size={24} />}
               />
-              {formikLogin.errors.email && formikLogin.touched.email && (
-                <span className={styles.error}>{formikLogin.errors.email}</span>
-              )}
+              {formikLogin.errors.email && <span className={styles.error}>{formikLogin.errors.email}</span>}
 
               <Input
                 type="password"
@@ -64,9 +62,6 @@ export function Login() {
                 value={formikLogin.values.senha}
                 icon={<FiLock color="#666360" size={24} />}
               />
-              {formikLogin.errors.senha && formikLogin.touched.senha && (
-                <span className={styles.error}>{formikLogin.errors.senha}</span>
-              )}
 
               <Button type="submit">{loading ? <SpinnerCircular color="#28262e" size={32} /> : 'Entrar'}</Button>
             </div>
