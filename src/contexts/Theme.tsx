@@ -7,7 +7,6 @@ const Theme = createContext({} as ThemeContextProps);
 
 export function ThemeProvider({ children }: any) {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  console.log('defaultDark', defaultDark);
   const [theme, setTheme] = useLocalStorage<string>('theme', defaultDark ? 'dark' : 'dark');
 
   function switchTheme() {
