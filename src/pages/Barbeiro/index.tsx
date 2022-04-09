@@ -28,7 +28,8 @@ export function Barbeiro() {
     getFirstCliente,
   } = useUser();
 
-  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date } = useBarbeiro();
+  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date, ultimaAtualizacao } =
+    useBarbeiro();
 
   return (
     <>
@@ -89,7 +90,7 @@ export function Barbeiro() {
           <div className={styles.containerHorarioAgendados}>
             <h2 className={styles.titleHome}>Horários agendados</h2>
             <p className={styles.infoText}>
-              Hoje | Dia {new Date().getDate()} | {getDiaSemana()}
+              Hoje | Dia {new Date().getDate()} | {getDiaSemana()} | Última atualização: {ultimaAtualizacao}
             </p>
           </div>
 

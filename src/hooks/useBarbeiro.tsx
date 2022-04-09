@@ -4,14 +4,25 @@ import { format } from 'date-fns';
 
 import { useUser } from 'contexts/User';
 
+const THIRTYMINUTES = 30 * 60 * 1000;
+
 export function useBarbeiro() {
-  const { getFirstCliente, buscaClientesHorario } = useUser();
+  const { getFirstCliente, buscaClientesHorario, buscarClientes } = useUser();
   const [visible, setVisible] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [ultimaAtualizacao, setUltimaAtualizacao] = useState(format(new Date(), 'HH:mm:ss'));
 
   function tick() {
     setDate(new Date());
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
   }
 
   useEffect(() => {
@@ -33,13 +44,16 @@ export function useBarbeiro() {
     }
   }, [date]);
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      buscarClientes();
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+      const dateAtual = format(new Date(), 'HH:mm:ss');
+      setUltimaAtualizacao(dateAtual);
+    }, THIRTYMINUTES);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const customStyles = {
     content: {
@@ -73,5 +87,6 @@ export function useBarbeiro() {
     closeModal,
     customStyles,
     date,
+    ultimaAtualizacao,
   };
 }
