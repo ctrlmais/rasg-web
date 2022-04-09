@@ -54,7 +54,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
                 />
               </>
             ) : (
-              <Avvvatars value={user?.user_metadata.name || ''} size={100} />
+              <Avvvatars value={user?.user_metadata.name || ''} size={160} />
             )}
           </p>
           <div className={styles.upload}>

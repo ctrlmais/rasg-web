@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BsCalendar, BsClock } from 'react-icons/bs';
 
+import Avvvatars from 'avvvatars-react';
 import { CardBarbeiroProps } from 'types/IComponents';
 
 import { getPhoto } from 'services/get/photo';
@@ -36,21 +37,27 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
   }, [props.barbeiro]);
 
   return (
-    <div className={styles.card} onClick={props.onClick} key={props.barbeiro?.id}>
-      <div className={styles.containerImg}>
-        <img src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture} alt={props.barbeiro?.nome} />
+    <>
+      <div className={styles.card} onClick={props.onClick} key={props.barbeiro?.id}>
+        <div className={styles.containerImg}>
+          {photo === '' && props.barbeiro?.avatar_url === null ? (
+            <Avvvatars value={props.barbeiro?.nome || ''} size={72} />
+          ) : (
+            <img src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture} alt={props.barbeiro?.nome} />
+          )}
+        </div>
+        <div className={styles.containerInfo}>
+          <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
+          <strong className={styles.info}>
+            <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+            Segunda à Domingo
+          </strong>
+          <strong className={styles.info}>
+            <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+            8h às 22h
+          </strong>
+        </div>
       </div>
-      <div className={styles.containerInfo}>
-        <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
-        <strong className={styles.info}>
-          <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-          Segunda à Domingo
-        </strong>
-        <strong className={styles.info}>
-          <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-          8h às 22h
-        </strong>
-      </div>
-    </div>
+    </>
   );
 }

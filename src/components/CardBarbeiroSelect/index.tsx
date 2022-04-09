@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import Avvvatars from 'avvvatars-react';
 import { CardBarbeiroProps } from 'types/IComponents';
 
 import { getPhoto } from 'services/get/photo';
@@ -35,17 +36,23 @@ export function CardBarbeiroSelected(props: CardBarbeiroProps) {
   }, [props.barbeiro]);
 
   return (
-    <div key={props.barbeiro?.id} className={styles.containerCard}>
-      <div className={styles.spacing}>
-        <img
-          src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture}
-          alt={props.barbeiro?.nome}
-          className={styles.img}
-        />
+    <>
+      <div key={props.barbeiro?.id} className={styles.containerCard}>
+        <div className={styles.spacing}>
+          {photo === '' && props.barbeiro?.avatar_url === null ? (
+            <Avvvatars value={props.barbeiro?.nome || ''} size={38} />
+          ) : (
+            <img
+              src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture}
+              alt={props.barbeiro?.nome}
+              className={styles.img}
+            />
+          )}
+        </div>
+        <div className={styles.textContainer}>
+          <h2 className={styles.textTitle}>{name || props.barbeiro?.nome}</h2>
+        </div>
       </div>
-      <div className={styles.textContainer}>
-        <h2 className={styles.textTitle}>{name || props.barbeiro?.nome}</h2>
-      </div>
-    </div>
+    </>
   );
 }
