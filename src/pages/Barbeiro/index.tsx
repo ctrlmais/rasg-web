@@ -28,7 +28,7 @@ export function Barbeiro() {
     getFirstCliente,
   } = useUser();
 
-  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles } = useBarbeiro();
+  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date } = useBarbeiro();
 
   return (
     <>
@@ -47,6 +47,7 @@ export function Barbeiro() {
                   Ocultar calendário
                 </button>
               </div>
+              <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
               <div className={styles.calendar}>
                 <DayPicker
                   mode="single"
@@ -67,17 +68,19 @@ export function Barbeiro() {
             </div>
           </>
         ) : (
-          <div className={styles.containerCalendar}>
-            <button
-              className={styles.button}
-              type="button"
-              onClick={() => {
-                setVisible(!visible);
-              }}
-            >
-              Exibir calendário
-            </button>
-          </div>
+          <>
+            <div className={styles.containerCalendar}>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={() => {
+                  setVisible(!visible);
+                }}
+              >
+                Exibir calendário
+              </button>
+            </div>
+          </>
         )}
         <div className={styles.list}>
           <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
