@@ -171,4 +171,5 @@ export interface UserContextProps {
   ) => void;
   startDate: string;
   endDate: string;
+  buscaClientesHorario: (horario: string) => void;
 }
