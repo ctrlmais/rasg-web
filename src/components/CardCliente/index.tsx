@@ -46,7 +46,7 @@ export function CardCliente(props: CardClienteProps) {
         <br />
       </div>
       <div className={styles.containerImg}>
-        {photo === '' && props.cliente?.client_avatar === undefined ? (
+        {photo === '' && (props.cliente?.client_avatar === null || props.cliente?.client_avatar === undefined) ? (
           <Avvvatars value={props.cliente?.client_name || ''} size={50} />
         ) : (
           <img

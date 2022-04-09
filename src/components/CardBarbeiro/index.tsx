@@ -40,7 +40,7 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
     <>
       <div className={styles.card} onClick={props.onClick} key={props.barbeiro?.id}>
         <div className={styles.containerImg}>
-          {photo === '' && props.barbeiro?.avatar_url === null ? (
+          {photo === '' && (props.barbeiro?.avatar_url === null || props.barbeiro?.avatar_url === undefined) ? (
             <Avvvatars value={props.barbeiro?.nome || ''} size={72} />
           ) : (
             <img src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture} alt={props.barbeiro?.nome} />

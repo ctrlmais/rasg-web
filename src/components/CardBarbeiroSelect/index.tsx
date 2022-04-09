@@ -39,7 +39,7 @@ export function CardBarbeiroSelected(props: CardBarbeiroProps) {
     <>
       <div key={props.barbeiro?.id} className={styles.containerCard}>
         <div className={styles.spacing}>
-          {photo === '' && props.barbeiro?.avatar_url === null ? (
+          {photo === '' && (props.barbeiro?.avatar_url === null || props.barbeiro?.avatar_url === undefined) ? (
             <Avvvatars value={props.barbeiro?.nome || ''} size={38} />
           ) : (
             <img

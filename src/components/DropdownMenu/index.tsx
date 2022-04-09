@@ -24,7 +24,8 @@ export function DropdownMenu() {
       >
         <div className={styles.menu}>
           <DropdownItem link="/profile">
-            {user?.user_metadata.avatar_url === undefined && photo === '' ? (
+            {photo === '' &&
+            (user?.user_metadata.avatar_url === null || user?.user_metadata.avatar_url === undefined) ? (
               <div className={styles.imgProfile}>
                 <Avvvatars value={user?.user_metadata.name || ''} size={30} />
               </div>
