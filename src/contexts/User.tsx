@@ -7,7 +7,7 @@ import { ClienteMetadata, UserContextProps, UserMetadata } from 'types/IContext'
 import { useAuth } from 'hooks/useAuth';
 
 import { getBarbeiros } from 'services/get/barbeiros';
-import { getClientes } from 'services/get/clientes';
+import { getClientes, getClientesHour } from 'services/get/clientes';
 import { getHorarioMarcadoCliente } from 'services/get/horarioMarcado';
 import { shedule } from 'services/post/schedule';
 
@@ -182,6 +182,30 @@ export function UserProvider({ children }: any) {
     setBarbeiros(data[0].j);
   }
 
+  async function buscaClientesHorario(hour: string) {
+    if (!clientId) return;
+
+    if (isBarbeiro) {
+      const { data, error, status } = await getClientesHour(clientId, selectDayFormatted, hour);
+
+      if (error) {
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) return;
+
+      if (data[0].j === null) {
+        setClientes([]);
+        return;
+      }
+
+      setClientes(data[0].j);
+    }
+  }
+
   async function buscarClientes() {
     if (!clientId) return;
 
@@ -352,6 +376,7 @@ export function UserProvider({ children }: any) {
         generateGoogleCalendarEvent,
         startDate,
         endDate,
+        buscaClientesHorario,
       }}
     >
       {children}

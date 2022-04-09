@@ -1,8 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { format } from 'date-fns';
+
+import { useUser } from 'contexts/User';
 
 export function useBarbeiro() {
+  const { getFirstCliente, buscaClientesHorario } = useUser();
   const [visible, setVisible] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  function tick() {
+    setDate(new Date());
+  }
+
+  useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+
+    return function cleanup() {
+      clearInterval(timerID);
+    };
+  });
+
+  useEffect(() => {
+    const actualHour = format(date, 'HH:mm:ss');
+    const dateCliente = `${getFirstCliente()?.hour}:00`;
+
+    const actualHourMinutePlusOne = format(new Date(date.setMinutes(date.getMinutes() + 1)), 'HH:mm');
+
+    if (actualHour === dateCliente) {
+      buscaClientesHorario(actualHourMinutePlusOne);
+    }
+  }, [date]);
 
   function openModal() {
     setIsOpen(true);
@@ -43,5 +72,6 @@ export function useBarbeiro() {
     openModal,
     closeModal,
     customStyles,
+    date,
   };
 }
