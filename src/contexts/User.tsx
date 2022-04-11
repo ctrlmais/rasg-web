@@ -152,6 +152,16 @@ export function UserProvider({ children }: any) {
     return false;
   }
 
+  function verificaHorarioDeTrabalho() {
+    const horarioDeTrabalho = user?.user_metadata.schedules;
+
+    if (horarioDeTrabalho) {
+      return true;
+    }
+
+    return false;
+  }
+
   function generateGoogleCalendarEvent(
     title: string,
     startDate: string,
@@ -377,6 +387,7 @@ export function UserProvider({ children }: any) {
         startDate,
         endDate,
         buscaClientesHorario,
+        verificaHorarioDeTrabalho,
       }}
     >
       {children}
