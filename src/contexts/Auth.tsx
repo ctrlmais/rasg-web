@@ -46,6 +46,14 @@ export function AuthProvider({ children }: any) {
     return false;
   }
 
+  function isAlexander() {
+    if (user?.email === 'xanderzinho26@gmail.com') {
+      return true;
+    }
+
+    return false;
+  }
+
   async function checkUser() {
     const hash = window.location.href.split('#')[0];
     const params = hash.split('/')[3];
@@ -196,6 +204,7 @@ export function AuthProvider({ children }: any) {
         loading,
         isBarbeiro: isBarbeiro(),
         isCliente: isCliente(),
+        isAlexander: isAlexander(),
       }}
     >
       {children}
