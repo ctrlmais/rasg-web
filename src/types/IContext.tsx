@@ -21,6 +21,7 @@ export interface UserMetadata {
   picture: string;
   provider_id: string;
   ocupacao: string;
+  schedules: Schedule[];
   sub: string;
 }
 
@@ -63,6 +64,12 @@ export interface Identity {
   updated_at: Date;
 }
 
+export interface Schedule {
+  from?: string | undefined;
+  to?: string | undefined;
+  week_day?: string | undefined;
+}
+
 export interface User {
   id: string;
   aud: string;
@@ -100,6 +107,7 @@ export interface AuthContextProps {
   loading: boolean;
   isBarbeiro: boolean;
   isCliente: boolean;
+  isAlexander: boolean;
 }
 
 export interface FormikProps {
@@ -172,4 +180,5 @@ export interface UserContextProps {
   startDate: string;
   endDate: string;
   buscaClientesHorario: (horario: string) => void;
+  verificaHorarioDeTrabalho: () => boolean;
 }
