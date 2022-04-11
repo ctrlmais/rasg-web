@@ -98,6 +98,15 @@ export function Barbeiro() {
                 <Agenda />
               </Modal>
 
+              {/* {!verificaHorarioDeTrabalho() && (
+                <div className={styles.containerAlert}>
+                  <Alert
+                    title="Vi que você não tem horários cadastrados no seu perfil. Clique aqui para adicionar"
+                    warning
+                  />
+                </div>
+              )} */}
+
               <div className={styles.containerHorarioAgendados}>
                 <h2 className={styles.titleHome}>Horários agendados</h2>
                 <p className={styles.infoText}>
