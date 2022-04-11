@@ -13,6 +13,7 @@ export async function getCliente(id: string) {
     p_limit: 10,
     p_orderby: 'name',
     p_ascordsc: 'asc',
+    p_admin_confirmed: true,
   });
 
   return { data, error, status };
