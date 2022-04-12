@@ -16,6 +16,12 @@
     filter: brightness(0.8);
     transition: 0.4s;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: brightness(0.8);
+    transition: 0.4s;
+  }
 }
 
 @media screen and (min-width: 839px) {
