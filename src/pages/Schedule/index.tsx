@@ -37,14 +37,13 @@ export function Schedule() {
   } = useUser();
 
   const {
-    setHorarioInicialBarbeiroSchedule,
-    setHorarioFinalBarbeiroSchedule,
     getHorarioAtual,
-    numerosFaltantes,
     desabilitarHorariosAnteriores,
     desabilitarHorariosPosteriores,
     horarioInicialBarbeiroSchedule,
     horarioFinalBarbeiroSchedule,
+    numerosFaltantes,
+    setWeekDay,
   } = useSchedule();
 
   return (
@@ -79,10 +78,10 @@ export function Schedule() {
               fromMonth={new Date()}
               selected={selectDay}
               onDayClick={(day) => {
-                const weekDay = day.getDay();
-                getHorarioAtual(String(weekDay));
-                setHorarioInicialBarbeiroSchedule(JSON.parse(barbeiro?.schedules)[weekDay]?.from);
-                setHorarioFinalBarbeiroSchedule(JSON.parse(barbeiro?.schedules)[weekDay]?.to);
+                const weekDayClick = day.getDay();
+                getHorarioAtual(String(weekDayClick));
+                setWeekDay(String(weekDayClick));
+
                 setSelectDay(day);
               }}
               modifiers={{
