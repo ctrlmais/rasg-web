@@ -40,6 +40,8 @@ export interface ClienteMetadata {
   created_at: Date;
   updated_at: Date;
   barber_name: string;
+  barber_picture: string;
+  barber_avatar: string;
 }
 
 export interface IdentityData {
@@ -158,9 +160,9 @@ export interface UserContextProps {
   atualDayFormatted: string;
   verificaLoginGoogleEOcupacao: () => boolean;
   verificaOcupacao: (ocupacao: string) => 'cliente' | 'barbeiro' | undefined;
-  getClientesMorning: () => any;
-  getClientesAfternoon: () => any;
-  getClientesNight: () => any;
+  getClientesMorning: () => ClienteMetadata[];
+  getClientesAfternoon: () => ClienteMetadata[];
+  getClientesNight: () => ClienteMetadata[];
   getFirstCliente: () => any;
   selectDayFormattedBR: string;
   postShedule: () => void;
