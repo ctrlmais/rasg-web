@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { DropdownItemProps } from 'types/IComponents';
 
@@ -16,14 +17,14 @@ export function DropdownItem(props: DropdownItemProps) {
   }, []);
 
   return (
-    <a
-      href={props.link}
+    <Link
+      to={props.link || ''}
       className={styles.menuItem}
       onClick={() => (props.logout ? handleLogout() : props.goToMenu && setActiveMenu(props.goToMenu))}
     >
       <span className={styles.iconButton}>{props.leftIcon}</span>
       {props.children}
       <span className={styles.iconRight}>{props.rightIcon}</span>
-    </a>
+    </Link>
   );
 }
