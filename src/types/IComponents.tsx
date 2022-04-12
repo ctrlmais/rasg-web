@@ -8,6 +8,7 @@ export interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  style?: React.CSSProperties;
 }
 
 export interface ButtonGoogleProps {
