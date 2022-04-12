@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Schedule } from 'types/IContext';
 
@@ -8,17 +8,28 @@ import { useUser } from 'contexts/User';
 
 export function useSchedule() {
   const { barbeiro } = useUser();
-  const weekDay = new Date().getDay();
+  const [weekDay, setWeekDay] = useState<string>(String(new Date().getDay()));
 
-  const schedules = JSON.parse(barbeiro?.schedules || '[]');
+  function getSchedule(weekDay: string) {
+    const schedule = [] as Schedule[];
+    const schedules = JSON.parse(barbeiro?.schedules || '[]');
+    schedules.map((scheduleItem: Schedule) => {
+      if (scheduleItem.week_day === weekDay) {
+        schedule.push(scheduleItem);
+      }
+    });
+    return schedule;
+  }
 
   if (!barbeiro) window.location.assign('/');
 
+  const schedules = JSON.parse(barbeiro?.schedules || '[]');
+
   const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] = useState(
-    JSON.parse(barbeiro?.schedules)[weekDay]?.from || '',
+    JSON.parse(barbeiro?.schedules)[weekDay]?.from,
   );
   const [horarioFinalBarbeiroSchedule, setHorarioFinalBarbeiroSchedule] = useState(
-    JSON.parse(barbeiro?.schedules)[weekDay]?.to || '',
+    JSON.parse(barbeiro?.schedules)[weekDay]?.to,
   );
 
   function getHorarioAtual(week_day: string) {
@@ -93,6 +104,11 @@ export function useSchedule() {
     return horariosPosteriores;
   }
 
+  useEffect(() => {
+    setHorarioInicialBarbeiroSchedule(getSchedule(weekDay || '0').map((schedule) => schedule.from));
+    setHorarioFinalBarbeiroSchedule(getSchedule(weekDay || '0').map((schedule) => schedule.to));
+  }, [weekDay]);
+
   return {
     setHorarioInicialBarbeiroSchedule,
     setHorarioFinalBarbeiroSchedule,
@@ -102,5 +118,6 @@ export function useSchedule() {
     desabilitarHorariosPosteriores,
     horarioInicialBarbeiroSchedule,
     horarioFinalBarbeiroSchedule,
+    setWeekDay,
   };
 }
