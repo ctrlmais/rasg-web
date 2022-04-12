@@ -5,13 +5,16 @@ import { useReactToPrint } from 'react-to-print';
 import { format } from 'date-fns';
 import { ClienteMetadata } from 'types/IContext';
 
+import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
+import { deleteSchedule } from 'services/delete/schedule';
 import { getHorarioSelecionado } from 'services/get/horarioMarcado';
 
 export function useTicket() {
   const navigate = useNavigate();
   const params = useParams();
+  const { toast } = useToast();
   const { selectHours, selectDay, setSelectHours, setSelectDay } = useUser();
 
   const [cliente, setCliente] = useState<ClienteMetadata>();
@@ -31,6 +34,37 @@ export function useTicket() {
   function handleClickPrint() {
     setShowPrint(!showPrint);
     handlePrint();
+  }
+
+  async function cancelarAgendamento(idAgendamento: string) {
+    const { data, error } = await deleteSchedule(idAgendamento);
+
+    if (error) {
+      toast.error(error.message, { id: 'toast' });
+      return;
+    }
+
+    if (data) {
+      toast.success('Agendamento cancelado com sucesso!', { id: 'toast' });
+      navigate('/');
+    }
+  }
+
+  function verificaHorarioCancelamento(dataAgendamento: ClienteMetadata) {
+    const dataAtual = new Date();
+    const dataAtualFormatted = format(dataAtual, 'yyyy-MM-dd');
+    const horaAtual = format(dataAtual, 'HH:mm:ss');
+    const dataHoraAtual = `${dataAtualFormatted}T${horaAtual}`;
+    const dataAgenda = dataAgendamento?.appointment_date;
+
+    const diff = new Date(dataAgenda).getTime() - new Date(dataHoraAtual).getTime();
+    const diffMinutes = Math.round(diff / 1000 / 60);
+
+    if (diffMinutes < 60) {
+      return true;
+    }
+
+    return false;
   }
 
   async function buscaCliente() {
@@ -74,5 +108,7 @@ export function useTicket() {
     componentToPrintRef,
     handleClickPrint,
     showPrint,
+    cancelarAgendamento,
+    verificaHorarioCancelamento,
   };
 }
