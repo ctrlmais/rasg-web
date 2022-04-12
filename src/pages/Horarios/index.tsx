@@ -1,8 +1,16 @@
+import { FiPlus, FiSlash } from 'react-icons/fi';
+
 import { Button } from 'components/Button';
+import { Header } from 'components/Header';
+
+import { useTheme } from 'contexts/Theme';
 
 import { useHorarios } from 'hooks/useHorarios';
 
+import styles from './Horarios.module.scss';
+
 export function Horarios() {
+  const { theme } = useTheme();
   const { formikHorarios } = useHorarios();
 
   function addNewScheduleItem() {
@@ -13,22 +21,35 @@ export function Horarios() {
     formikHorarios.setFieldValue('schedules', newSchedule);
   }
 
-  return (
-    <>
-      <div>
-        <Button type="button" onClick={() => addNewScheduleItem()}>
-          add
-        </Button>
+  function removeScheduleItem(index: number) {
+    const newSchedule = [...formikHorarios.values.schedules];
+    newSchedule.splice(index, 1);
+    formikHorarios.setFieldValue('schedules', newSchedule);
+  }
 
+  return (
+    <div className={styles.home} data-theme={theme}>
+      <Header back />
+
+      <div className={styles.container}>
+        <h2>Adicionar horários</h2>
+        <div className={styles.containerButton}>
+          <button type="button" onClick={() => addNewScheduleItem()} className={styles.button}>
+            Adicionar horario
+            <FiPlus />
+          </button>
+        </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             formikHorarios.handleSubmit(e);
           }}
+          className={styles.form}
         >
-          {formikHorarios.values.schedules.map((schedule, index) => (
-            <div key={index}>
+          {formikHorarios?.values?.schedules?.map((schedule, index) => (
+            <div key={index} className={styles.containerHorarios}>
               <select
+                className={styles.select}
                 name={`schedules[${index}].week_day`}
                 value={schedule.week_day}
                 onChange={formikHorarios.handleChange}
@@ -44,6 +65,7 @@ export function Horarios() {
               </select>
 
               <input
+                className={styles.time}
                 type="time"
                 name={`schedules[${index}].from`}
                 placeholder="De"
@@ -51,10 +73,9 @@ export function Horarios() {
                 onBlur={formikHorarios.handleBlur}
                 value={schedule.from}
               />
-              {formikHorarios.errors.schedules && formikHorarios.touched.schedules && (
-                <span>{formikHorarios.errors.schedules}</span>
-              )}
+
               <input
+                className={styles.time}
                 type="time"
                 name={`schedules[${index}].to`}
                 placeholder="Até"
@@ -63,14 +84,24 @@ export function Horarios() {
                 value={schedule.to}
                 maxLength={100}
               />
-              {formikHorarios.errors.schedules && formikHorarios.touched.schedules && (
-                <span>{formikHorarios.errors.schedules}</span>
+
+              {formikHorarios.values.schedules.length > 1 && (
+                <button
+                  className={styles.buttonRemove}
+                  onClick={() => {
+                    removeScheduleItem(index);
+                  }}
+                >
+                  <FiSlash color="#FFF" size={18} style={{ marginTop: '6px' }} />
+                </button>
               )}
             </div>
           ))}
-          <Button type="submit">Salvar</Button>
+          <div className={styles.containerButton} style={{ justifyContent: 'center' }}>
+            <Button type="submit">Salvar horários</Button>
+          </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
