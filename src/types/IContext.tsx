@@ -21,7 +21,7 @@ export interface UserMetadata {
   picture: string;
   provider_id: string;
   ocupacao: string;
-  schedules: Schedule[];
+  schedules: any;
   sub: string;
 }
 
@@ -67,9 +67,9 @@ export interface Identity {
 }
 
 export interface Schedule {
-  from?: string | undefined;
-  to?: string | undefined;
-  week_day?: string | undefined;
+  from?: string;
+  to?: string;
+  week_day?: string;
 }
 
 export interface User {

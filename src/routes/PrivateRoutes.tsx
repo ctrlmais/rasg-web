@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { Admin } from 'pages/Admin';
 import { Home } from 'pages/Home';
+import { Horarios } from 'pages/Horarios';
 import { MyTicket } from 'pages/MyTicket';
 import { NotFound } from 'pages/NotFound';
 import { Profile } from 'pages/Profile';
@@ -19,7 +20,7 @@ export function PrivateRoutes() {
       <Route path="/p/:id" element={<Schedule />} />
       <Route path="/ticket/:id" element={<MyTicket />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/horarios" element={<NotFound />} />
+      {isBarbeiro ? <Route path="/horarios" element={<Horarios />} /> : null}
       {isAlexander ? <Route path="/admin" element={<Admin />} /> : null}
       {isBarbeiro ? <Route path="/valida/:id" element={<NotFound />} /> : null}
       <Route path="*" element={<NotFound />} />

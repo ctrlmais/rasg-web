@@ -8,6 +8,7 @@ import { ClienteMetadata, UserMetadata } from 'types/IContext';
 import { CardBarbeiro } from 'components/CardBarbeiro';
 import { CardCliente } from 'components/CardCliente';
 
+import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
 import { useAuth } from 'hooks/useAuth';
@@ -16,6 +17,7 @@ import styles from './Cliente.module.scss';
 
 export function Cliente() {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { user } = useAuth();
   const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours, selectDay, setSelectDay } =
     useUser();
@@ -37,6 +39,17 @@ export function Cliente() {
 
     buscarAgendamentosData(dateFormatted);
   }, [selectDay]);
+
+  function handleClickBarbeiro(barbeiro: UserMetadata) {
+    if (barbeiro?.schedules === null) {
+      toast.error('Este barbeiro não possui horários disponíveis.', {
+        id: 'toast',
+      });
+    } else {
+      setBarbeiro(barbeiro);
+      navigate(`/p/${barbeiro.id}`);
+    }
+  }
 
   return (
     <>
@@ -93,8 +106,7 @@ export function Cliente() {
             key={barbeiro.id}
             barbeiro={barbeiro}
             onClick={() => {
-              setBarbeiro(barbeiro);
-              navigate(`/p/${barbeiro.id}`);
+              handleClickBarbeiro(barbeiro);
             }}
           />
         ))}

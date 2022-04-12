@@ -13,6 +13,8 @@ import { horariosManha, horariosTarde, horariosNoite } from 'utils/horarios';
 import { useTheme } from 'contexts/Theme';
 import { useUser } from 'contexts/User';
 
+import { useSchedule } from 'hooks/useSchedule';
+
 import { css } from 'styles/calendar.styles';
 
 import styles from './Schedule.module.scss';
@@ -33,6 +35,17 @@ export function Schedule() {
     verificaDataEHoraSelecionada,
     status,
   } = useUser();
+
+  const {
+    setHorarioInicialBarbeiroSchedule,
+    setHorarioFinalBarbeiroSchedule,
+    getHorarioAtual,
+    numerosFaltantes,
+    desabilitarHorariosAnteriores,
+    desabilitarHorariosPosteriores,
+    horarioInicialBarbeiroSchedule,
+    horarioFinalBarbeiroSchedule,
+  } = useSchedule();
 
   return (
     <>
@@ -66,6 +79,10 @@ export function Schedule() {
               fromMonth={new Date()}
               selected={selectDay}
               onDayClick={(day) => {
+                const weekDay = day.getDay();
+                getHorarioAtual(String(weekDay));
+                setHorarioInicialBarbeiroSchedule(JSON.parse(barbeiro?.schedules)[weekDay]?.from);
+                setHorarioFinalBarbeiroSchedule(JSON.parse(barbeiro?.schedules)[weekDay]?.to);
                 setSelectDay(day);
               }}
               modifiers={{
@@ -73,6 +90,7 @@ export function Schedule() {
               }}
               disabled={[
                 {
+                  dayOfWeek: numerosFaltantes,
                   before: new Date(),
                 },
               ]}
@@ -88,7 +106,12 @@ export function Schedule() {
               {horariosManha.map((horario) => (
                 <button
                   key={horario}
-                  disabled={isHorarioMarcado(horario) || isDataEHorarioPassado(selectDayFormatted, horario)}
+                  disabled={
+                    isHorarioMarcado(horario) ||
+                    isDataEHorarioPassado(selectDayFormatted, horario) ||
+                    desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(horario) ||
+                    desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(horario)
+                  }
                   className={selectHours === horario ? styles.selected : styles.horario}
                   onClick={() => {
                     setSelectHours(horario);
@@ -105,7 +128,12 @@ export function Schedule() {
               {horariosTarde.map((horario) => (
                 <button
                   key={horario}
-                  disabled={isHorarioMarcado(horario) || isDataEHorarioPassado(selectDayFormatted, horario)}
+                  disabled={
+                    isHorarioMarcado(horario) ||
+                    isDataEHorarioPassado(selectDayFormatted, horario) ||
+                    desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(horario) ||
+                    desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(horario)
+                  }
                   className={selectHours === horario ? styles.selected : styles.horario}
                   onClick={() => {
                     setSelectHours(horario);
@@ -122,7 +150,12 @@ export function Schedule() {
               {horariosNoite.map((horario) => (
                 <button
                   key={horario}
-                  disabled={isHorarioMarcado(horario) || isDataEHorarioPassado(selectDayFormatted, horario)}
+                  disabled={
+                    isHorarioMarcado(horario) ||
+                    isDataEHorarioPassado(selectDayFormatted, horario) ||
+                    desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(horario) ||
+                    desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(horario)
+                  }
                   className={selectHours === horario ? styles.selected : styles.horario}
                   onClick={() => {
                     setSelectHours(horario);

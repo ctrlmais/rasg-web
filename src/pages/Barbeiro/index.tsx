@@ -1,10 +1,12 @@
 import { DayPicker } from 'react-day-picker';
 import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
 
 import { ptBR } from 'date-fns/locale';
 import { ClienteMetadata } from 'types/IContext';
 
 import { Agenda } from 'components/Agenda';
+import { Alert } from 'components/Alert';
 import { CardCliente } from 'components/CardCliente';
 
 import { getDiaSemana } from 'utils/diaDaSemana';
@@ -16,6 +18,7 @@ import { useBarbeiro } from 'hooks/useBarbeiro';
 import styles from './Barbeiro.module.scss';
 
 export function Barbeiro() {
+  const navigate = useNavigate();
   const {
     clientes,
     selectDay,
@@ -26,6 +29,7 @@ export function Barbeiro() {
     getClientesAfternoon,
     getClientesNight,
     getFirstCliente,
+    verificaHorarioDeTrabalho,
   } = useUser();
 
   const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date, ultimaAtualizacao, approved } =
@@ -98,14 +102,17 @@ export function Barbeiro() {
                 <Agenda />
               </Modal>
 
-              {/* {!verificaHorarioDeTrabalho() && (
+              {!verificaHorarioDeTrabalho() && (
                 <div className={styles.containerAlert}>
                   <Alert
                     title="Vi que você não tem horários cadastrados no seu perfil. Clique aqui para adicionar"
                     warning
+                    onClick={() => {
+                      navigate('/horarios');
+                    }}
                   />
                 </div>
-              )} */}
+              )}
 
               <div className={styles.containerHorarioAgendados}>
                 <h2 className={styles.titleHome}>Horários agendados</h2>
