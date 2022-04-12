@@ -81,7 +81,7 @@ export function Schedule() {
                 const weekDayClick = day.getDay();
                 getHorarioAtual(String(weekDayClick));
                 setWeekDay(String(weekDayClick));
-
+                setSelectHours('');
                 setSelectDay(day);
               }}
               modifiers={{
