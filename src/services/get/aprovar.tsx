@@ -1,6 +1,6 @@
 import { supabase } from 'services/supabase';
 
-export async function getBarbeirosApproved() {
+export async function getBarbeirosApproved(confirm: boolean) {
   const { data, error, status } = await supabase.rpc('busca_filtrada_usuarios', {
     p_id: '',
     p_name: '',
@@ -13,7 +13,7 @@ export async function getBarbeirosApproved() {
     p_limit: 10,
     p_orderby: 'name',
     p_ascordsc: 'asc',
-    p_admin_confirmed: false,
+    p_admin_confirmed: confirm,
   });
 
   return { data, error, status };
