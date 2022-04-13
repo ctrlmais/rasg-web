@@ -37,17 +37,17 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 
 .containerHorarios {
-  display: flex;
-  margin-bottom: 10px;
-  width: 100%;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
   height: 20vh;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  background: var(--shape);
+  width: 350px;
+  border-radius: 10px;
+  flex-direction: column;
 }
 
 .containerTime {
@@ -210,21 +210,23 @@
   }
 
   .form {
-    width: 100%;
     align-items: center;
-    justify-content: center;
     display: flex;
     flex-direction: column-reverse;
+    justify-content: center;
+    width: 100%;
   }
 
   .containerHorarios {
-    display: flex;
-    margin-bottom: 10px;
-    width: 50rem;
     align-items: center;
-    justify-content: space-evenly;
+    display: flex;
     flex-direction: row;
     height: 10vh;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 85%;
+    background: var(--shape);
+    border-radius: 10px;
   }
 
   .button {
