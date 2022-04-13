@@ -4,18 +4,21 @@ import { Button } from 'components/Button';
 import { Header } from 'components/Header';
 
 import { useTheme } from 'contexts/Theme';
+import { useToast } from 'contexts/Toast';
 
 import { useHorarios } from 'hooks/useHorarios';
 
 import styles from './Horarios.module.scss';
 
 export function Horarios() {
+  const { toast } = useToast();
   const { theme } = useTheme();
   const { formikHorarios } = useHorarios();
 
   function addNewScheduleItem() {
     const newSchedule = [...formikHorarios.values.schedules, { week_day: '', from: '', to: '' }];
     if (newSchedule.length > 7) {
+      toast.error('Você não pode adicionar mais horários.', { id: 'toast' });
       newSchedule.splice(newSchedule.length - 1, 1);
     }
     formikHorarios.setFieldValue('schedules', newSchedule);
