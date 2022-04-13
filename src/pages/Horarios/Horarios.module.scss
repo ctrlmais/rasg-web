@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  background: var(--background);
 
   h2 {
     font-weight: bold;
@@ -16,10 +16,18 @@
   }
 }
 
+.containerButtonTop {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 22px;
+  margin-top: 22px;
+}
+
 .containerButton {
   display: flex;
-  width: 52rem;
-  justify-content: flex-end;
+  width: 100%;
+  justify-content: center;
   margin-bottom: 22px;
   margin-top: 22px;
 }
@@ -35,9 +43,18 @@
 .containerHorarios {
   display: flex;
   margin-bottom: 10px;
-  width: 60rem;
+  width: 100%;
   align-items: center;
   justify-content: space-evenly;
+  flex-direction: column;
+  height: 20vh;
+}
+
+.containerTime {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 21rem;
 }
 
 .button {
@@ -74,7 +91,7 @@
 }
 
 .select {
-  width: 240px;
+  width: 314px;
   height: 56px;
   background: var(--input);
   color: var(--gray-hard);
@@ -104,7 +121,7 @@
 }
 
 .time {
-  width: 240px;
+  width: 120px;
   height: 56px;
   background: var(--input);
   color: var(--gray-hard);
@@ -168,10 +185,145 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     h2 {
       font-weight: bold;
       color: var(--white);
+    }
+  }
+
+  .containerButtonTop {
+    display: flex;
+    width: 70%;
+    justify-content: flex-end;
+    margin-bottom: 22px;
+    margin-top: 22px;
+  }
+
+  .containerButton {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 22px;
+    margin-top: 22px;
+  }
+
+  .form {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .containerHorarios {
+    display: flex;
+    margin-bottom: 10px;
+    width: 50rem;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    height: 10vh;
+  }
+
+  .button {
+    display: flex;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    color: var(--orange);
+    font-weight: bold;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: 0.4s;
+    }
+  }
+
+  .buttonRemove {
+    border: none;
+    background: #ca0b00;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      filter: brightness(0.6);
+      transition: 0.4s;
+    }
+  }
+
+  .select {
+    width: 240px;
+    height: 56px;
+    background: var(--input);
+    color: var(--gray-hard);
+    border: none;
+    outline: 0;
+
+    border: 1px solid var(--input);
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    text-indent: 10px;
+
+    &::placeholder {
+      color: var(--gray);
+    }
+
+    &:invalid {
+      border: 1px solid #ff0000;
+    }
+
+    &:focus {
+      color: var(--white);
+      border: 1px solid var(--orange);
+    }
+  }
+
+  .containerTime {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40rem;
+  }
+
+  .time {
+    width: 240px;
+    height: 56px;
+    background: var(--input);
+    color: var(--gray-hard);
+    border: none;
+    outline: 0;
+
+    border: 1px solid var(--input);
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    text-indent: 10px;
+
+    &::placeholder {
+      color: var(--gray);
+    }
+
+    &:invalid {
+      border: 1px solid #ff0000;
+    }
+
+    &:focus {
+      color: var(--white);
+      border: 1px solid var(--orange);
     }
   }
 
@@ -191,5 +343,12 @@
     height: 25vh;
     flex-direction: column;
     align-items: center;
+  }
+
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
   }
 }

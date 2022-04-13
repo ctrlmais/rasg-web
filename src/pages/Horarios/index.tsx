@@ -33,7 +33,7 @@ export function Horarios() {
 
       <div className={styles.container}>
         <h2>Adicionar horários</h2>
-        <div className={styles.containerButton}>
+        <div className={styles.containerButtonTop}>
           <button type="button" onClick={() => addNewScheduleItem()} className={styles.button}>
             Adicionar horario
             <FiPlus />
@@ -44,59 +44,64 @@ export function Horarios() {
             e.preventDefault();
             formikHorarios.handleSubmit(e);
           }}
-          className={styles.form}
+          style={{
+            width: '100%',
+          }}
         >
-          {formikHorarios?.values?.schedules?.map((schedule, index) => (
-            <div key={index} className={styles.containerHorarios}>
-              <select
-                className={styles.select}
-                name={`schedules[${index}].week_day`}
-                value={schedule.week_day}
-                onChange={formikHorarios.handleChange}
-              >
-                <option value="">Selecione um dia da semana</option>
-                <option value={0}>Domingo</option>
-                <option value={1}>Segunda-feira</option>
-                <option value={2}>Terça-feira</option>
-                <option value={3}>Quarta-feira</option>
-                <option value={4}>Quinta-feira</option>
-                <option value={5}>Sexta-feira</option>
-                <option value={6}>Sábado</option>
-              </select>
-
-              <input
-                className={styles.time}
-                type="time"
-                name={`schedules[${index}].from`}
-                placeholder="De"
-                onChange={formikHorarios.handleChange}
-                onBlur={formikHorarios.handleBlur}
-                value={schedule.from}
-              />
-
-              <input
-                className={styles.time}
-                type="time"
-                name={`schedules[${index}].to`}
-                placeholder="Até"
-                onChange={formikHorarios.handleChange}
-                onBlur={formikHorarios.handleBlur}
-                value={schedule.to}
-                maxLength={100}
-              />
-
-              {formikHorarios.values.schedules.length > 1 && (
-                <button
-                  className={styles.buttonRemove}
-                  onClick={() => {
-                    removeScheduleItem(index);
-                  }}
+          <div className={styles.form}>
+            {formikHorarios?.values?.schedules?.map((schedule, index) => (
+              <div key={index} className={styles.containerHorarios}>
+                <select
+                  className={styles.select}
+                  name={`schedules[${index}].week_day`}
+                  value={schedule.week_day}
+                  onChange={formikHorarios.handleChange}
                 >
-                  <FiSlash color="#FFF" size={18} style={{ marginTop: '6px' }} />
-                </button>
-              )}
-            </div>
-          ))}
+                  <option value="">Selecione um dia da semana</option>
+                  <option value={0}>Domingo</option>
+                  <option value={1}>Segunda-feira</option>
+                  <option value={2}>Terça-feira</option>
+                  <option value={3}>Quarta-feira</option>
+                  <option value={4}>Quinta-feira</option>
+                  <option value={5}>Sexta-feira</option>
+                  <option value={6}>Sábado</option>
+                </select>
+
+                <div className={styles.containerTime}>
+                  <input
+                    className={styles.time}
+                    type="time"
+                    name={`schedules[${index}].from`}
+                    placeholder="De"
+                    onChange={formikHorarios.handleChange}
+                    onBlur={formikHorarios.handleBlur}
+                    value={schedule.from}
+                  />
+
+                  <input
+                    className={styles.time}
+                    type="time"
+                    name={`schedules[${index}].to`}
+                    placeholder="Até"
+                    onChange={formikHorarios.handleChange}
+                    onBlur={formikHorarios.handleBlur}
+                    value={schedule.to}
+                    maxLength={100}
+                  />
+                  {formikHorarios.values.schedules.length > 1 && (
+                    <button
+                      className={styles.buttonRemove}
+                      onClick={() => {
+                        removeScheduleItem(index);
+                      }}
+                    >
+                      <FiSlash color="#FFF" size={18} style={{ marginTop: '6px' }} />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
           <div className={styles.containerButton} style={{ justifyContent: 'center' }}>
             <Button type="submit">Salvar horários</Button>
           </div>
