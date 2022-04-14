@@ -48,6 +48,8 @@
   width: 350px;
   border-radius: 10px;
   flex-direction: column;
+  display: flex;
+  align-items: center;
 }
 
 .containerTime {
@@ -195,7 +197,7 @@
 
   .containerButtonTop {
     display: flex;
-    width: 70%;
+    width: 50rem;
     justify-content: flex-end;
     margin-bottom: 22px;
     margin-top: 22px;
@@ -218,15 +220,15 @@
   }
 
   .containerHorarios {
-    align-items: center;
     display: flex;
+    background: var(--shape);
+    border-radius: 10px;
     flex-direction: row;
     height: 10vh;
     justify-content: center;
     margin-bottom: 10px;
-    width: 85%;
-    background: var(--shape);
-    border-radius: 10px;
+    width: 50rem;
+    align-items: center;
   }
 
   .button {
@@ -277,6 +279,8 @@
     font-size: 16px;
 
     text-indent: 10px;
+
+    margin-left: 12px;
 
     &::placeholder {
       color: var(--gray);
