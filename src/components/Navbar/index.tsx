@@ -1,12 +1,17 @@
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
+import logoDark from 'assets/Logo_dark.png';
 import logo from 'assets/Logo.png';
 import { NavBarProps } from 'types/IComponents';
+
+import { useTheme } from 'contexts/Theme';
 
 import styles from './Navbar.module.scss';
 
 export function Navbar(props: NavBarProps) {
+  const { theme } = useTheme();
+
   const navigate = useNavigate();
   return (
     <>
@@ -22,7 +27,7 @@ export function Navbar(props: NavBarProps) {
         )}
         {props.logo && (
           <img
-            src={logo}
+            src={theme === 'light' ? logoDark : logo}
             alt="Logo"
             className={styles.logo}
             onClick={() => {
