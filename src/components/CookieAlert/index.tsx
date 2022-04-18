@@ -14,9 +14,18 @@ const css = {
   fontSize: '14px',
 };
 
+const ONE_DAY = 1;
+
 export function CookieAlert() {
   return (
-    <CookieConsent location="bottom" buttonText="OK" cookieName="alert" style={css} buttonStyle={buttonCss} expires={1}>
+    <CookieConsent
+      location="bottom"
+      buttonText="OK"
+      cookieName="alert"
+      style={css}
+      buttonStyle={buttonCss}
+      expires={ONE_DAY}
+    >
       Este site está em modo de desenvolvimento, por isso, podem ocorrer erros e bugs.
     </CookieConsent>
   );
