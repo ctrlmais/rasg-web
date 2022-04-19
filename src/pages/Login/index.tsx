@@ -1,10 +1,10 @@
 import { FiLock, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
+import { Ring } from '@uiball/loaders';
 import barberImage from 'assets/barber.png';
 import logoDark from 'assets/Logo_dark.png';
 import logo from 'assets/Logo.png';
-import { SpinnerCircular } from 'spinners-react';
 
 import { Button } from 'components/Button';
 import { ButtonGoogle } from 'components/ButtonGoogle';
@@ -63,7 +63,9 @@ export function Login() {
                 icon={<FiLock color="#666360" size={24} />}
               />
 
-              <Button type="submit">{loading ? <SpinnerCircular color="#28262e" size={32} /> : 'Entrar'}</Button>
+              <Button type="submit">
+                {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Entrar'}
+              </Button>
             </div>
           </form>
 

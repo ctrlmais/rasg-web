@@ -1,4 +1,4 @@
-import { SpinnerCircular } from 'spinners-react';
+import { Ring } from '@uiball/loaders';
 import { ClienteMetadata } from 'types/IContext';
 
 import { Alert } from 'components/Alert';
@@ -31,7 +31,7 @@ export function MyTicket() {
           )}
           <h2>Apresente esse ticket para o seu barbeiro</h2>
           {loading ? (
-            <SpinnerCircular color="#ff9000" size={64} />
+            <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
           ) : (
             <>
               <ComponentToPrint ref={componentToPrintRef}>

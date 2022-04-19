@@ -1,10 +1,10 @@
 import { FiCheck, FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
+import { Ring } from '@uiball/loaders';
 import logoDark from 'assets/Logo_dark.png';
 import logo from 'assets/Logo.png';
 import salaoImage from 'assets/salao.png';
-import { SpinnerCircular } from 'spinners-react';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
@@ -96,7 +96,7 @@ export function Register() {
               )}
 
               <Button type="submit">
-                {loading ? <SpinnerCircular color="#28262e" size={32} /> : 'Confirmar cadastro'}
+                {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Confirmar cadastro'}
               </Button>
             </div>
           </form>

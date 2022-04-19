@@ -1,6 +1,6 @@
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 
-import { SpinnerCircular } from 'spinners-react';
+import { Ring } from '@uiball/loaders';
 
 import { Button } from 'components/Button';
 import Dropzone from 'components/Dropzone';
@@ -112,7 +112,7 @@ export function Profile() {
 
             <div className={styles.buttonContainer}>
               <Button type="submit">
-                {loading ? <SpinnerCircular color="#28262e" size={32} /> : 'Confirmar mudanças'}
+                {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Confirmar mudanças'}
               </Button>
             </div>
           </form>

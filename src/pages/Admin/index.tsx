@@ -1,6 +1,6 @@
 import { FiCheck, FiSlash } from 'react-icons/fi';
 
-import { SpinnerCircular } from 'spinners-react';
+import { Ring } from '@uiball/loaders';
 import { UserMetadata } from 'types/IContext';
 
 import { CardBarbeiro } from 'components/CardBarbeiro';
@@ -31,7 +31,7 @@ export function Admin() {
 
           <div className={styles.containerList}>
             {loading ? (
-              <SpinnerCircular color="#ff9000" size={64} />
+              <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
             ) : (
               <>
                 {barbeiros.length > 0 &&
@@ -61,7 +61,7 @@ export function Admin() {
 
           <div className={styles.containerList}>
             {loading ? (
-              <SpinnerCircular color="#ff9000" size={64} />
+              <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
             ) : (
               <>
                 {barbeirosAprovados.length > 0 &&

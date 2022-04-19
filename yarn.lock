@@ -2486,6 +2486,11 @@
     "@typescript-eslint/types" "5.17.0"
     eslint-visitor-keys "^3.0.0"
 
+"@uiball/loaders@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@uiball/loaders/-/loaders-1.2.1.tgz#4247ab3fd3d8957ec92e44e2471be17b4c521fa0"
+  integrity sha512-xBfESsCn5AE1zOmNKkrW2jDORB1lOvWStV4uL1Re612zucFz0RhVaDx1LclXnkswksobGHdRyNuEG5Cl2T3etg==
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
@@ -9733,11 +9738,6 @@ spdy@^4.0.2:
     http-deceiver "^1.2.7"
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
-
-spinners-react@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/spinners-react/-/spinners-react-1.0.6.tgz#b7e43d6097fa30107718df718108f3586d50088f"
-  integrity sha512-5J3sPZ9xogVA3CbLjFD3vTWhcuHb+mKFSBBEm5c8+8JSdPGweLQ6sPU+SD51FwZ2lqHks8DpiLk/lyLUa70oJA==
 
 split2@^3.0.0:
   version "3.2.2"
