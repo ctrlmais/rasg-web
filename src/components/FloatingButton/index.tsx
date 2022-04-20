@@ -7,7 +7,7 @@ import styles from './FloatingButton.module.scss';
 export function FloatingButton(props: FloatingButtonProps) {
   return (
     <div className={styles.floating} onClick={props.onClick}>
-      <IoBug color="#fff" size={24} />
+      <IoBug color="#fff" size={18} />
     </div>
   );
 }
