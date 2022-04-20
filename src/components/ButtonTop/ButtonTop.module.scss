@@ -1,6 +1,6 @@
 .floatingButton {
-  right: 40px;
-  bottom: 110px;
+  right: 15px;
+  bottom: 60px;
   z-index: 1001;
   display: flex;
   width: 32px;
@@ -21,4 +21,31 @@
 
 .floatingButtonNone {
   display: none;
+}
+
+@media screen and (min-width: 839px) {
+  .floatingButton {
+    right: 85px;
+    bottom: 40px;
+    z-index: 1001;
+    display: flex;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background: var(--orange);
+    position: fixed;
+    text-align: center;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: 0.4s;
+    }
+  }
+
+  .floatingButtonNone {
+    display: none;
+  }
 }
