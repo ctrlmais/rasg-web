@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { AuthContextProps } from 'types/IContext';
 import { loginSchema } from 'validations/Login';
 
+import { getBarbeiro } from 'services/get/barbeiros';
 import { getPhoto } from 'services/get/photo';
 import { getUser } from 'services/get/user';
 import { signIn } from 'services/post/signIn';
@@ -19,6 +20,7 @@ export function AuthProvider({ children }: any) {
   const [user, setUser] = useState<any>();
   const [ocupacao, setOcupacao] = useState('cliente');
   const [loading, setLoading] = useState(false);
+  const [approved, setApproved] = useState('');
 
   function isSigned() {
     const storagedUser = localStorage.getItem('supabase.auth.token');
@@ -48,6 +50,14 @@ export function AuthProvider({ children }: any) {
 
   function isAlexander() {
     if (user?.email === 'xanderzinho26@gmail.com') {
+      return true;
+    }
+
+    return false;
+  }
+
+  function isBarbeiroAprroved() {
+    if (approved === 'S') {
       return true;
     }
 
@@ -106,12 +116,36 @@ export function AuthProvider({ children }: any) {
     }
   }
 
+  async function verificarStatusBarbeiro() {
+    const { data, status, error } = await getBarbeiro(user?.id || '', true);
+
+    if (error) {
+      switch (status) {
+        default:
+          return;
+      }
+    }
+
+    if (!data) return;
+    if (!data[0].j) return;
+
+    if (data[0].j === null) {
+      return;
+    }
+
+    setApproved(data[0].j[0].admin_confirmed);
+  }
+
   useEffect(() => {
     checkUser();
 
     window.addEventListener('hashchange', () => {
       checkUser();
     });
+  }, []);
+
+  useEffect(() => {
+    verificarStatusBarbeiro();
   }, []);
 
   const formikLogin = useFormik({
@@ -205,6 +239,7 @@ export function AuthProvider({ children }: any) {
         isBarbeiro: isBarbeiro(),
         isCliente: isCliente(),
         isAlexander: isAlexander(),
+        isBarbeiroAprroved: isBarbeiroAprroved(),
       }}
     >
       {children}

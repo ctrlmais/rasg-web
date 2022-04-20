@@ -4,44 +4,14 @@ import { format } from 'date-fns';
 
 import { useUser } from 'contexts/User';
 
-import { getBarbeiro } from 'services/get/barbeiros';
-
-import { useAuth } from './useAuth';
-
 const THIRTYMINUTES = 30 * 60 * 1000;
 
 export function useBarbeiro() {
-  const { user } = useAuth();
   const { getFirstCliente, buscaClientesHorario, buscarClientes } = useUser();
   const [visible, setVisible] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState(format(new Date(), 'HH:mm:ss'));
-  const [approved, setApproved] = useState('');
-
-  async function verificarStatusBarbeiro() {
-    const { data, status, error } = await getBarbeiro(user?.id || '');
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-
-    if (data[0].j === null) {
-      return;
-    }
-
-    setApproved(data[0].j[0].admin_confirmed);
-  }
-
-  useEffect(() => {
-    verificarStatusBarbeiro();
-  }, []);
 
   function tick() {
     setDate(new Date());
@@ -118,6 +88,5 @@ export function useBarbeiro() {
     customStyles,
     date,
     ultimaAtualizacao,
-    approved,
   };
 }

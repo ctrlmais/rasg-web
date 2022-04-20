@@ -13,12 +13,14 @@ import { getDiaSemana } from 'utils/diaDaSemana';
 
 import { useUser } from 'contexts/User';
 
+import { useAuth } from 'hooks/useAuth';
 import { useBarbeiro } from 'hooks/useBarbeiro';
 
 import styles from './Barbeiro.module.scss';
 
 export function Barbeiro() {
   const navigate = useNavigate();
+  const { isBarbeiroAprroved } = useAuth();
   const {
     clientes,
     selectDay,
@@ -31,14 +33,13 @@ export function Barbeiro() {
     getFirstCliente,
     verificaHorarioDeTrabalho,
   } = useUser();
-
-  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date, ultimaAtualizacao, approved } =
+  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date, ultimaAtualizacao } =
     useBarbeiro();
 
   return (
     <>
       <div className={styles.containerBarbeiro}>
-        {approved === 'N' ? (
+        {isBarbeiroAprroved === false ? (
           <div className={styles.containerAviso}>
             <h2 className={styles.titleHome}>
               Você ainda não foi aprovado para trabalhar como barbeiro.

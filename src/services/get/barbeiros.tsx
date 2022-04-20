@@ -19,7 +19,7 @@ export async function getBarbeiros() {
   return { data, error, status };
 }
 
-export async function getBarbeiro(id: string) {
+export async function getBarbeiro(id: string, confirmation: boolean = false) {
   const { data, error, status } = await supabase.rpc('busca_filtrada_usuarios', {
     p_id: id,
     p_name: '',
@@ -32,7 +32,7 @@ export async function getBarbeiro(id: string) {
     p_limit: 10,
     p_orderby: 'name',
     p_ascordsc: 'asc',
-    p_admin_confirmed: false,
+    p_admin_confirmed: confirmation,
   });
 
   return { data, error, status };
