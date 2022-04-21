@@ -26,7 +26,7 @@ export function MyTicket() {
         <div className={styles.container}>
           {verificaHorarioCancelamento(cliente as ClienteMetadata) && (
             <div className={styles.containerAlert}>
-              <Alert title="Você só cancelar o agendamento 1 hora antes do seu horário" warning />
+              <Alert title="Você só pode cancelar o agendamento 30 minutos antes do seu horário" warning />
             </div>
           )}
           <h2>Apresente esse ticket para o seu barbeiro</h2>

@@ -60,7 +60,7 @@ export function useTicket() {
     const diff = new Date(dataAgenda).getTime() - new Date(dataHoraAtual).getTime();
     const diffMinutes = Math.round(diff / 1000 / 60);
 
-    if (diffMinutes < 60) {
+    if (diffMinutes < 30) {
       return true;
     }
 
