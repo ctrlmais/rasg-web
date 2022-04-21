@@ -16,13 +16,13 @@ export function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
       <Route path="/ticket/:id" element={<MyTicket />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-      {isBarbeiro ? <Route path="/horarios" element={<Horarios />} /> : null}
-      {isAlexander ? <Route path="/admin" element={<Admin />} /> : null}
-      {isBarbeiro ? <Route path="/valida/:id" element={<NotFound />} /> : null}
+      {isBarbeiro && <Route path="/horarios" element={<Horarios />} />}
+      {isAlexander && <Route path="/admin" element={<Admin />} />}
+      {isBarbeiro && <Route path="/valida/:id" element={<NotFound />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
