@@ -70,6 +70,7 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
           <img src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture} alt={props.barbeiro?.nome} />
         )}
       </div>
+
       <div className={styles.containerInfo}>
         <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
         <strong className={styles.info}>
@@ -93,8 +94,17 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
             </>
           ) : (
             <>
-              <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-              Hoje de {getHorarioAtual(diaAtual)}
+              {getHorarioAtual(diaAtual).length === 0 ? (
+                <>
+                  <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                  Hoje | Fechado
+                </>
+              ) : (
+                <>
+                  <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                  Hoje | {getHorarioAtual(diaAtual)}
+                </>
+              )}
             </>
           )}
         </strong>
