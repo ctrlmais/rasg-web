@@ -1691,7 +1691,7 @@
   dependencies:
     cross-fetch "^3.1.5"
 
-"@supabase/gotrue-js@^1.22.12":
+"@supabase/gotrue-js@^1.22.13":
   version "1.22.13"
   resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-1.22.13.tgz#4b680b40e34f2ea37f4d227ae0147d60dd6288fa"
   integrity sha512-Ylus1KWkLRo6Hy9wLzzE4jAr+Fkt8Bi8a1YnX9aWIXPl/R8PxMb4fL928UAEm9fuyFZ1Z1F+BTTK2RM6NLReUQ==
@@ -1720,13 +1720,13 @@
   dependencies:
     cross-fetch "^3.1.0"
 
-"@supabase/supabase-js@^1.35.0":
-  version "1.35.0"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.35.0.tgz#946bdc25cecd9640684a839da2a9f632a59669b0"
-  integrity sha512-IXdSE/z+GQOaQWgwX7Gq48WSwRUhRczBKuHJHJxoKPGeY3S8NuJtZbOG62eTjDXq5YZBw+0c4pbRDb6OZQzWCw==
+"@supabase/supabase-js@^1.35.1":
+  version "1.35.1"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.35.1.tgz#8a82e6dbc904560bf1eb3cf47fc118ffb6822efc"
+  integrity sha512-w/pdDHxJx60OAB21mU9Zy/dUvWYE3MS7tSXzAITnpXM903TxbKSpsB+ZQcGy0W7FfP1E7CXOnPeprmxfUdnY2A==
   dependencies:
     "@supabase/functions-js" "^1.3.3"
-    "@supabase/gotrue-js" "^1.22.12"
+    "@supabase/gotrue-js" "^1.22.13"
     "@supabase/postgrest-js" "^0.37.2"
     "@supabase/realtime-js" "^1.7.1"
     "@supabase/storage-js" "^1.7.0"
@@ -2484,10 +2484,10 @@
     "@typescript-eslint/types" "5.17.0"
     eslint-visitor-keys "^3.0.0"
 
-"@uiball/loaders@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@uiball/loaders/-/loaders-1.2.1.tgz#4247ab3fd3d8957ec92e44e2471be17b4c521fa0"
-  integrity sha512-xBfESsCn5AE1zOmNKkrW2jDORB1lOvWStV4uL1Re612zucFz0RhVaDx1LclXnkswksobGHdRyNuEG5Cl2T3etg==
+"@uiball/loaders@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@uiball/loaders/-/loaders-1.2.3.tgz#130b0e189e92d2c41dd028088d3f0a8361dcfc87"
+  integrity sha512-yI7nKOvepGjHsGeCuyxUqPMzN6xHGJe2SGLR9gAAvBZKLy0Eb85BBblfvi6av9Te7sDuOfrglN41+ZrcEAVi3w==
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -8860,10 +8860,10 @@ react-modal@^3.14.4:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-parallax-tilt@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/react-parallax-tilt/-/react-parallax-tilt-1.7.2.tgz#aa34a262d843a6e7a67702acabe68c932e100385"
-  integrity sha512-OL4L7FN23P0p7Uk67DGmAFkR1RIaIyExKe5zdVsgu6dDDAZlvCswF2yUFxOQBAcUhJud1P4mRm6I3u1Y2kF0uw==
+react-parallax-tilt@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/react-parallax-tilt/-/react-parallax-tilt-1.7.3.tgz#41cdd3aec7ec0702d7c42ddfa5db9f7477d83bb9"
+  integrity sha512-C19vP9EvPr0hWL9nPukP3/+6WDYis5jJ0DD0raaO/DD+I2ZDV7KduXOUR/3mcXLIq4BpgR7Qp54N/kLLCY26NQ==
 
 react-refresh@^0.11.0:
   version "0.11.0"
