@@ -67,7 +67,7 @@ export interface DropdownItemProps {
 }
 
 export type CardBarbeiroProps = {
-  barbeiro: UserMetadata | undefined;
+  barbeiro?: UserMetadata | undefined;
   onClick?: () => void;
 };
 
@@ -79,4 +79,9 @@ export type CardClienteProps = {
 
 export interface FloatingButtonProps {
   onClick?: () => void;
+}
+
+export interface OcupacaoProps {
+  cliente?: string;
+  barbeiro?: string;
 }
