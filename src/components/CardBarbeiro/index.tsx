@@ -71,44 +71,50 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
         )}
       </div>
 
-      <div className={styles.containerInfo}>
-        <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
-        <strong className={styles.info}>
-          {schedules === undefined || schedules === null ? (
-            <>
-              <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-              Sem data definida
-            </>
-          ) : (
-            <>
-              <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-              {getDiasFuncionamento()[0]} à {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
-            </>
-          )}
-        </strong>
-        <strong className={styles.info}>
-          {schedules === undefined || schedules === null ? (
-            <>
-              <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-              Sem horário definido
-            </>
-          ) : (
-            <>
-              {getHorarioAtual(diaAtual).length === 0 ? (
-                <>
-                  <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-                  Hoje | Fechado
-                </>
-              ) : (
-                <>
-                  <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-                  Hoje | {getHorarioAtual(diaAtual)}
-                </>
-              )}
-            </>
-          )}
-        </strong>
-      </div>
+      {props.cliente === true ? (
+        <div className={styles.containerInfo}>
+          <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
+        </div>
+      ) : (
+        <div className={styles.containerInfo}>
+          <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
+          <strong className={styles.info}>
+            {schedules === undefined || schedules === null ? (
+              <>
+                <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                Sem data definida
+              </>
+            ) : (
+              <>
+                <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                {getDiasFuncionamento()[0]} à {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
+              </>
+            )}
+          </strong>
+          <strong className={styles.info}>
+            {schedules === undefined || schedules === null ? (
+              <>
+                <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                Sem horário definido
+              </>
+            ) : (
+              <>
+                {getHorarioAtual(diaAtual).length === 0 ? (
+                  <>
+                    <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                    Hoje | Fechado
+                  </>
+                ) : (
+                  <>
+                    <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                    Hoje | {getHorarioAtual(diaAtual)}
+                  </>
+                )}
+              </>
+            )}
+          </strong>
+        </div>
+      )}
     </div>
   );
 }
