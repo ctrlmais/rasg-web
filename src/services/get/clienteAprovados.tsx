@@ -1,6 +1,6 @@
 import { supabase } from 'services/supabase';
 
-export async function getClientesApproved(confirm: boolean) {
+export async function getClientesApproved(confirm: boolean, page: number) {
   const { data, error, status } = await supabase.rpc('busca_filtrada_usuarios', {
     p_id: '',
     p_name: '',
@@ -9,8 +9,8 @@ export async function getClientesApproved(confirm: boolean) {
     p_email: '',
     p_picture: '',
     p_avatar_url: '',
-    p_page: 0,
-    p_limit: 500,
+    p_page: page,
+    p_limit: 5,
     p_orderby: 'name',
     p_ascordsc: 'asc',
     p_admin_confirmed: confirm,
