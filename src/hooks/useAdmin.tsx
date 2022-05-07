@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+
+import { UserMetadata } from 'types/IContext';
 
 import { useToast } from 'contexts/Toast';
 
 import { getBarbeirosApproved } from 'services/get/aprovar';
+import { getClientesApproved } from 'services/get/clienteAprovados';
 import { confirmUser } from 'services/post/confirmUser';
 
 export function useAdmin() {
@@ -10,6 +13,16 @@ export function useAdmin() {
   const [loading, setLoading] = useState(false);
   const [barbeiros, setBarbeiros] = useState([]);
   const [barbeirosAprovados, setBarbeirosAprovados] = useState([]);
+  const [clientesAprovados, setClientesAprovados] = useState<UserMetadata[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [page, setPage] = useState(0);
+
+  const clienteQtd = clientesAprovados[0]?.qtd || 0;
+
+  function handleChangePage(event: ChangeEvent<unknown>, value: number) {
+    setPage(value - 1);
+    setCurrentPage(value);
+  }
 
   async function buscarBarbeirosParaAprovar() {
     setLoading(true);
@@ -31,6 +44,29 @@ export function useAdmin() {
     }
 
     setBarbeiros(data[0].j);
+    setLoading(false);
+  }
+
+  async function buscarClientesAprovados() {
+    setLoading(true);
+    const { data, error, status } = await getClientesApproved(false, page);
+
+    if (error) {
+      switch (status) {
+        default:
+          return;
+      }
+    }
+
+    if (!data) return;
+
+    if (data[0].j === null) {
+      setClientesAprovados([]);
+      setLoading(false);
+      return;
+    }
+
+    setClientesAprovados(data[0].j);
     setLoading(false);
   }
 
@@ -92,7 +128,12 @@ export function useAdmin() {
   useEffect(() => {
     buscarBarbeirosParaAprovar();
     buscarBarbeirosParaReprovar();
+    buscarClientesAprovados();
   }, []);
+
+  useEffect(() => {
+    buscarClientesAprovados();
+  }, [currentPage]);
 
   return {
     loading,
@@ -100,5 +141,9 @@ export function useAdmin() {
     barbeiros,
     barbeirosAprovados,
     disabledBarbeiro,
+    clientesAprovados,
+    currentPage,
+    handleChangePage,
+    clienteQtd,
   };
 }
