@@ -67,6 +67,7 @@ export interface DropdownItemProps {
 }
 
 export type CardBarbeiroProps = {
+  cliente?: boolean;
   barbeiro?: UserMetadata | undefined;
   onClick?: () => void;
 };

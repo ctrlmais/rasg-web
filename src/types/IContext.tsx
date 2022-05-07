@@ -23,6 +23,7 @@ export interface UserMetadata {
   ocupacao: string;
   schedules: any;
   sub: string;
+  qtd?: number;
 }
 
 export interface ClienteMetadata {
