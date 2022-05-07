@@ -125,7 +125,7 @@ export function Admin() {
               </div>
             </>
           )}
-          {clienteQtd && (
+          {clienteQtd && ocupacao === 'cliente' && (
             <Pagination
               count={Math.ceil(clienteQtd / 5)}
               variant="outlined"
