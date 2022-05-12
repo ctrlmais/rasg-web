@@ -11,7 +11,7 @@ export async function getClientesApproved(confirm: boolean, page: number) {
     p_avatar_url: '',
     p_page: page,
     p_limit: 5,
-    p_orderby: 'name',
+    p_orderby: 'created_at',
     p_ascordsc: 'asc',
     p_admin_confirmed: confirm,
   });
