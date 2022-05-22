@@ -26,7 +26,7 @@ Extras:
   - [Sass](https://sass-lang.com/)
   - [Supabase](https://app.supabase.io/)
   - [Formik](https://formik.org/)
-  - Para mais detalhes, veja o <kbd>[package.json](https://github.com/ialexanderbrito/rastre.io/blob/master/package.json)</kbd>
+  - Para mais detalhes, veja o <kbd>[package.json](https://github.com/ialexanderbrito/barber/blob/master/package.json)</kbd>
 
 - Estilos
   - [EditorConfig](https://editorconfig.org/)
