@@ -14,29 +14,27 @@ export function Navbar(props: NavBarProps) {
 
   const navigate = useNavigate();
   return (
-    <>
-      <nav className={styles.navbar}>
-        {props.back && (
-          <IoArrowBackOutline
-            size={24}
-            className={styles.icon}
-            onClick={() => {
-              navigate('/');
-            }}
-          />
-        )}
-        {props.logo && (
-          <img
-            src={theme === 'light' ? logoDark : logo}
-            alt="Logo"
-            className={styles.logo}
-            onClick={() => {
-              navigate('/');
-            }}
-          />
-        )}
-        <ul className={styles.navbarNav}>{props.children}</ul>
-      </nav>
-    </>
+    <nav className={styles.navbar}>
+      {props.back && (
+        <IoArrowBackOutline
+          size={24}
+          className={styles.icon}
+          onClick={() => {
+            navigate('/');
+          }}
+        />
+      )}
+      {props.logo && (
+        <img
+          src={theme === 'light' ? logoDark : logo}
+          alt="Logo"
+          className={styles.logo}
+          onClick={() => {
+            navigate('/');
+          }}
+        />
+      )}
+      <ul className={styles.navbarNav}>{props.children}</ul>
+    </nav>
   );
 }

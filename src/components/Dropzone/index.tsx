@@ -46,13 +46,11 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
         <div className={styles.profile}>
           <p>
             {user?.user_metadata.picture || user?.user_metadata.avatar_url ? (
-              <>
-                <img
-                  src={user?.user_metadata.picture || user?.user_metadata.avatar_url}
-                  alt="Perfil"
-                  className={styles.preview}
-                />
-              </>
+              <img
+                src={user?.user_metadata.picture || user?.user_metadata.avatar_url}
+                alt="Perfil"
+                className={styles.preview}
+              />
             ) : (
               <Avvvatars value={user?.user_metadata.name || ''} size={160} />
             )}

@@ -18,52 +18,50 @@ export function ResetPassword() {
   const { formikResetPassword } = useForgetPassword();
 
   return (
-    <>
-      <div className={styles.home} data-theme={theme}>
-        <img src={salaoImage} alt="baberiro" className={styles.image} />
+    <div className={styles.home} data-theme={theme}>
+      <img src={salaoImage} alt="baberiro" className={styles.image} />
 
-        <div className={styles.logon}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              formikResetPassword.handleSubmit(e);
-            }}
-          >
-            <div className={styles.form}>
-              <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
-              <h2>Redefinir senha</h2>
+      <div className={styles.logon}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formikResetPassword.handleSubmit(e);
+          }}
+        >
+          <div className={styles.form}>
+            <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
+            <h2>Redefinir senha</h2>
 
-              <Input
-                type="password"
-                name="senha"
-                placeholder="Senha"
-                onChange={formikResetPassword.handleChange}
-                onBlur={formikResetPassword.handleBlur}
-                value={formikResetPassword.values.senha}
-                icon={<FiLock color="#666360" size={24} />}
-              />
-              {formikResetPassword.errors.senha && formikResetPassword.touched.senha && (
-                <span className={styles.error}>{formikResetPassword.errors.senha}</span>
-              )}
+            <Input
+              type="password"
+              name="senha"
+              placeholder="Senha"
+              onChange={formikResetPassword.handleChange}
+              onBlur={formikResetPassword.handleBlur}
+              value={formikResetPassword.values.senha}
+              icon={<FiLock color="#666360" size={24} />}
+            />
+            {formikResetPassword.errors.senha && formikResetPassword.touched.senha && (
+              <span className={styles.error}>{formikResetPassword.errors.senha}</span>
+            )}
 
-              <Input
-                type="password"
-                name="confirmarSenha"
-                placeholder="Confirmar senha"
-                onChange={formikResetPassword.handleChange}
-                onBlur={formikResetPassword.handleBlur}
-                value={formikResetPassword.values.confirmarSenha}
-                icon={<FiLock color="#666360" size={24} />}
-              />
-              {formikResetPassword.errors.confirmarSenha && formikResetPassword.touched.confirmarSenha && (
-                <span className={styles.error}>{formikResetPassword.errors.confirmarSenha}</span>
-              )}
+            <Input
+              type="password"
+              name="confirmarSenha"
+              placeholder="Confirmar senha"
+              onChange={formikResetPassword.handleChange}
+              onBlur={formikResetPassword.handleBlur}
+              value={formikResetPassword.values.confirmarSenha}
+              icon={<FiLock color="#666360" size={24} />}
+            />
+            {formikResetPassword.errors.confirmarSenha && formikResetPassword.touched.confirmarSenha && (
+              <span className={styles.error}>{formikResetPassword.errors.confirmarSenha}</span>
+            )}
 
-              <Button type="submit">Alterar senha</Button>
-            </div>
-          </form>
-        </div>
+            <Button type="submit">Alterar senha</Button>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }

@@ -22,93 +22,91 @@ export function Register() {
   const { formikRegister, loading, status } = useRegister();
 
   return (
-    <>
-      <div className={styles.home} data-theme={theme}>
-        {status === 'success' && (
-          <Overlay title="Cadastramento concluído" description="Agora é só verificar seu email e fazer o login">
-            <FiCheck color="#04D361" size={62} />
-          </Overlay>
-        )}
+    <div className={styles.home} data-theme={theme}>
+      {status === 'success' && (
+        <Overlay title="Cadastramento concluído" description="Agora é só verificar seu email e fazer o login">
+          <FiCheck color="#04D361" size={62} />
+        </Overlay>
+      )}
 
-        <img src={salaoImage} alt="baberiro" className={styles.image} />
+      <img src={salaoImage} alt="baberiro" className={styles.image} />
 
-        <div className={styles.logon}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              formikRegister.handleSubmit(e);
-            }}
-          >
-            <div className={styles.form}>
-              <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
-              <h2>Faça seu cadastro</h2>
-              <Ocupacao />
+      <div className={styles.logon}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formikRegister.handleSubmit(e);
+          }}
+        >
+          <div className={styles.form}>
+            <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
+            <h2>Faça seu cadastro</h2>
+            <Ocupacao />
 
-              <Input
-                type="text"
-                name="nome"
-                placeholder="Nome"
-                onChange={formikRegister.handleChange}
-                onBlur={formikRegister.handleBlur}
-                value={formikRegister.values.nome}
-                maxLength={100}
-                icon={<FiUser color="#666360" size={24} />}
-              />
-              {formikRegister.errors.nome && formikRegister.touched.nome && (
-                <span className={styles.error}>{formikRegister.errors.nome}</span>
-              )}
-              <Input
-                type="email"
-                name="email"
-                placeholder="Email"
-                onChange={formikRegister.handleChange}
-                onBlur={formikRegister.handleBlur}
-                value={formikRegister.values.email}
-                icon={<FiMail color="#666360" size={24} />}
-              />
-              {formikRegister.errors.email && formikRegister.touched.email && (
-                <span className={styles.error}>{formikRegister.errors.email}</span>
-              )}
-              <Input
-                type="password"
-                name="senha"
-                placeholder="Senha"
-                onChange={formikRegister.handleChange}
-                onBlur={formikRegister.handleBlur}
-                value={formikRegister.values.senha}
-                icon={<FiLock color="#666360" size={24} />}
-              />
-              {formikRegister.errors.senha && formikRegister.touched.senha && (
-                <span className={styles.error}>{formikRegister.errors.senha}</span>
-              )}
+            <Input
+              type="text"
+              name="nome"
+              placeholder="Nome"
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+              value={formikRegister.values.nome}
+              maxLength={100}
+              icon={<FiUser color="#666360" size={24} />}
+            />
+            {formikRegister.errors.nome && formikRegister.touched.nome && (
+              <span className={styles.error}>{formikRegister.errors.nome}</span>
+            )}
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+              value={formikRegister.values.email}
+              icon={<FiMail color="#666360" size={24} />}
+            />
+            {formikRegister.errors.email && formikRegister.touched.email && (
+              <span className={styles.error}>{formikRegister.errors.email}</span>
+            )}
+            <Input
+              type="password"
+              name="senha"
+              placeholder="Senha"
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+              value={formikRegister.values.senha}
+              icon={<FiLock color="#666360" size={24} />}
+            />
+            {formikRegister.errors.senha && formikRegister.touched.senha && (
+              <span className={styles.error}>{formikRegister.errors.senha}</span>
+            )}
 
-              <Input
-                type="password"
-                name="confirmarSenha"
-                placeholder="Confirmar senha"
-                onChange={formikRegister.handleChange}
-                onBlur={formikRegister.handleBlur}
-                value={formikRegister.values.confirmarSenha}
-                icon={<FiLock color="#666360" size={24} />}
-              />
-              {formikRegister.errors.confirmarSenha && formikRegister.touched.confirmarSenha && (
-                <span className={styles.error}>{formikRegister.errors.confirmarSenha}</span>
-              )}
+            <Input
+              type="password"
+              name="confirmarSenha"
+              placeholder="Confirmar senha"
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+              value={formikRegister.values.confirmarSenha}
+              icon={<FiLock color="#666360" size={24} />}
+            />
+            {formikRegister.errors.confirmarSenha && formikRegister.touched.confirmarSenha && (
+              <span className={styles.error}>{formikRegister.errors.confirmarSenha}</span>
+            )}
 
-              <Button type="submit">
-                {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Confirmar cadastro'}
-              </Button>
-            </div>
-          </form>
+            <Button type="submit">
+              {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Confirmar cadastro'}
+            </Button>
+          </div>
+        </form>
 
-          <p>
-            Já tem uma conta?{' '}
-            <Link to="/" className={styles.link}>
-              Faça seu login
-            </Link>
-          </p>
-        </div>
+        <p>
+          Já tem uma conta?{' '}
+          <Link to="/" className={styles.link}>
+            Faça seu login
+          </Link>
+        </p>
       </div>
-    </>
+    </div>
   );
 }
