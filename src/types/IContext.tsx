@@ -111,7 +111,7 @@ export interface AuthContextProps {
   isBarbeiro: boolean;
   isCliente: boolean;
   isAlexander: boolean;
-  isBarbeiroAprroved: boolean;
+  isBarbeiroApproved: boolean;
 }
 
 export interface FormikProps {

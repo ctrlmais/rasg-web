@@ -56,12 +56,12 @@ export function AuthProvider({ children }: any) {
     return false;
   }
 
-  function isBarbeiroAprroved() {
-    if (approved === 'S') {
-      return true;
+  function isBarbeiroApproved() {
+    if (approved === '') {
+      return false;
     }
 
-    return false;
+    return true;
   }
 
   async function checkUser() {
@@ -117,7 +117,11 @@ export function AuthProvider({ children }: any) {
   }
 
   async function verificarStatusBarbeiro() {
-    const { data, status, error } = await getBarbeiro(user?.id || '', true);
+    const storagedUser = JSON.parse(localStorage.getItem('supabase.auth.token') || '{}');
+
+    const id = storagedUser?.currentSession?.user.id;
+
+    const { data, status, error } = await getBarbeiro(id, true);
 
     if (error) {
       switch (status) {
@@ -239,7 +243,7 @@ export function AuthProvider({ children }: any) {
         isBarbeiro: isBarbeiro(),
         isCliente: isCliente(),
         isAlexander: isAlexander(),
-        isBarbeiroAprroved: isBarbeiroAprroved(),
+        isBarbeiroApproved: isBarbeiroApproved(),
       }}
     >
       {children}

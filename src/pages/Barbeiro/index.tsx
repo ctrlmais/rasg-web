@@ -20,7 +20,7 @@ import styles from './Barbeiro.module.scss';
 
 export function Barbeiro() {
   const navigate = useNavigate();
-  const { isBarbeiroAprroved } = useAuth();
+  const { isBarbeiroApproved } = useAuth();
   const {
     clientes,
     selectDay,
@@ -38,7 +38,7 @@ export function Barbeiro() {
 
   return (
     <div className={styles.containerBarbeiro}>
-      {isBarbeiroAprroved === false ? (
+      {isBarbeiroApproved === false ? (
         <div className={styles.containerAviso}>
           <h2 className={styles.titleHome}>
             Você ainda não foi aprovado para trabalhar como barbeiro.
