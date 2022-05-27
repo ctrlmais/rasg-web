@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/ialexanderbrito/barber/compare/v1.0.1...v1.0.2) (2022-05-27)
+
+
+### Bug Fixes
+
+* **style:** pagination ([e1415b8](https://github.com/ialexanderbrito/barber/commit/e1415b812627abccfcb408e29fefa2586ed0422e))
+
 ## [1.0.1](https://github.com/ialexanderbrito/barber/compare/v1.0.0...v1.0.1) (2022-05-27)
 
 
