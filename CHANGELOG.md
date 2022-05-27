@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/ialexanderbrito/barber/compare/v1.0.0...v1.0.1) (2022-05-27)
+
+
+### Bug Fixes
+
+* approved barber ([393f0ff](https://github.com/ialexanderbrito/barber/commit/393f0fff17363ec3d8ff439f469e3a2ba5d87645))
+* remove disabled calendar barber ([307a765](https://github.com/ialexanderbrito/barber/commit/307a765385da080523a24be9de0ed67dbfdcf4c5))
+
 # 1.0.0 (2022-05-23)
 
 
