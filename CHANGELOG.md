@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/ialexanderbrito/barber/compare/v1.2.0...v1.3.0) (2022-05-28)
+
+
+### Features
+
+* add alert barber warning ([54277c0](https://github.com/ialexanderbrito/barber/commit/54277c0759e098baf672620d726739c20bf8639b))
+
 # [1.2.0](https://github.com/ialexanderbrito/barber/compare/v1.1.0...v1.2.0) (2022-05-28)
 
 
