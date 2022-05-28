@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/ialexanderbrito/barber/compare/v1.0.2...v1.1.0) (2022-05-28)
+
+
+### Features
+
+* add export monthly report in excel ([cc9c818](https://github.com/ialexanderbrito/barber/commit/cc9c8184f82a6c8bcca2c7a9f9a7a3ad6a823f0a))
+* add new dependency xlsx ([c9c6a29](https://github.com/ialexanderbrito/barber/commit/c9c6a29e70a7ddb0f1e0b66712a7fb8f91def280))
+* add new service monthly report ([0d7e95e](https://github.com/ialexanderbrito/barber/commit/0d7e95e43b10545347152b2e2a73daa6bec8d343))
+
 ## [1.0.2](https://github.com/ialexanderbrito/barber/compare/v1.0.1...v1.0.2) (2022-05-27)
 
 
