@@ -13,6 +13,7 @@ import { getClientesMonth } from 'services/get/clientes';
 
 const THIRTYMINUTES = 30 * 60 * 1000;
 const ONE_MONTH = 30;
+const ONE_DAY = 1;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
@@ -111,7 +112,26 @@ export function useBarbeiro() {
   }, [dataInicial, dataFinal]);
 
   useEffect(() => {
-    if (Cookies.get('barbeiro_modal') === 'false' || Cookies.get('barbeiro_modal') === undefined) {
+    if (Cookies.get('barbeiro_warning') === 'false' || Cookies.get('barbeiro_warning') === undefined) {
+      Swal.fire({
+        title: 'Atenção!',
+        html: 'Caro barbeiro, caso esteja aparecendo a mensagem que você não está aprovado na plataforma peço que atualize a página. Caso a mensagem persista, entre em contato com o suporte. Estamos trabalhando para resolver o problema.',
+        icon: 'warning',
+        confirmButtonColor: '#ff9000',
+        background: '#312e38',
+        color: '#f4ede8',
+        confirmButtonText: 'Entendi!',
+      }).then(() => {
+        Cookies.set('barbeiro_warning', 'true', { expires: ONE_DAY });
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      (Cookies.get('barbeiro_modal') === 'false' && Cookies.get('barbeiro_warning') === 'true') ||
+      (Cookies.get('barbeiro_modal') === undefined && Cookies.get('barbeiro_warning') === 'true')
+    ) {
       Swal.fire({
         title: 'Novidade no ar!',
         html: 'Agora você pode fazer relatórios do mês. Basta clicar no botão "Download do mês" e selecionar o periodo desejado.',
@@ -121,7 +141,6 @@ export function useBarbeiro() {
         color: '#f4ede8',
         confirmButtonText: 'Entendi!',
       }).then(() => {
-        // add to cookie
         Cookies.set('barbeiro_modal', 'true', { expires: ONE_MONTH });
       });
     }
