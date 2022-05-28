@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/ialexanderbrito/barber/compare/v1.1.0...v1.2.0) (2022-05-28)
+
+
+### Features
+
+* add alert modal new ([7587665](https://github.com/ialexanderbrito/barber/commit/7587665a7ff6918b5097e50c1bd82987ae65c05e))
+* add js-cookie and sweetalert2 ([5d97906](https://github.com/ialexanderbrito/barber/commit/5d97906b2490bd2e15e95a27b41086917bbd0c1c))
+
 # [1.1.0](https://github.com/ialexanderbrito/barber/compare/v1.0.2...v1.1.0) (2022-05-28)
 
 
