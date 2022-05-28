@@ -7,6 +7,7 @@ import { ClienteMetadata } from 'types/IContext';
 
 import { Agenda } from 'components/Agenda';
 import { Alert } from 'components/Alert';
+import { Button } from 'components/Button';
 import { CardCliente } from 'components/CardCliente';
 
 import { getDiaSemana } from 'utils/diaDaSemana';
@@ -33,8 +34,20 @@ export function Barbeiro() {
     getFirstCliente,
     verificaHorarioDeTrabalho,
   } = useUser();
-  const { visible, setVisible, modalIsOpen, openModal, closeModal, customStyles, date, ultimaAtualizacao } =
-    useBarbeiro();
+  const {
+    visible,
+    setVisible,
+    modalIsOpen,
+    openModal,
+    closeModal,
+    customStyles,
+    date,
+    ultimaAtualizacao,
+    range,
+    setRange,
+    exportToExcel,
+    pastMonth,
+  } = useBarbeiro();
 
   return (
     <div className={styles.containerBarbeiro}>
@@ -58,7 +71,7 @@ export function Barbeiro() {
                     setVisible(!visible);
                   }}
                 >
-                  Ocultar calendário
+                  Download do mês
                 </button>
               </div>
               <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
@@ -66,7 +79,6 @@ export function Barbeiro() {
                 <DayPicker
                   mode="single"
                   locale={ptBR}
-                  fromMonth={new Date()}
                   selected={selectDay}
                   onDayClick={(day) => {
                     setSelectDay(day);
@@ -78,16 +90,27 @@ export function Barbeiro() {
               </div>
             </div>
           ) : (
-            <div className={styles.containerCalendar}>
-              <button
-                className={styles.button}
-                type="button"
-                onClick={() => {
-                  setVisible(!visible);
-                }}
-              >
-                Exibir calendário
-              </button>
+            <div className={styles.containerRightCalendar}>
+              <div className={styles.containerCalendar}>
+                <button
+                  className={styles.button}
+                  type="button"
+                  onClick={() => {
+                    setVisible(!visible);
+                  }}
+                >
+                  Voltar
+                </button>
+              </div>
+              <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
+              <div className={styles.calendar}>
+                <DayPicker locale={ptBR} mode="range" defaultMonth={pastMonth} selected={range} onSelect={setRange} />
+              </div>
+              <div className={styles.containerButton}>
+                <Button type="button" onClick={() => exportToExcel()}>
+                  Download
+                </Button>
+              </div>
             </div>
           )}
           <div className={styles.list}>

@@ -22,6 +22,15 @@
   margin-right: 0px;
 }
 
+.containerButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 18px;
+}
+
 .hourContainer {
   display: flex;
   background: var(--black-medium);
@@ -155,9 +164,18 @@
   .containerRightCalendar {
     display: flex;
     flex-direction: column;
-    height: 50vh;
+    height: 60vh;
     margin-right: 22px;
     margin-top: 35px;
+  }
+
+  .containerButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 18px;
   }
 
   .hourContainer {
