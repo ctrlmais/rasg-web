@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
+import Cookies from 'js-cookie';
 import { AuthContextProps } from 'types/IContext';
 import { loginSchema } from 'validations/Login';
 
@@ -184,6 +185,7 @@ export function AuthProvider({ children }: any) {
     }
 
     localStorage.removeItem('cliente');
+    Cookies.remove('barbeiro_modal');
     toast.success('Deslogado com sucesso', { id: 'login' });
     setUser(null);
 
