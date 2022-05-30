@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/ialexanderbrito/barber/compare/v1.3.1...v1.3.2) (2022-05-30)
+
+
+### Bug Fixes
+
+* news alert ([ec3e6d5](https://github.com/ialexanderbrito/barber/commit/ec3e6d53cc9f4e47bc8e2f2cde45cb275829d4df))
+
 ## [1.3.1](https://github.com/ialexanderbrito/barber/compare/v1.3.0...v1.3.1) (2022-05-30)
 
 
