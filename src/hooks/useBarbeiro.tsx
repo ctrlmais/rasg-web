@@ -9,10 +9,10 @@ import * as XLSX from 'xlsx';
 
 import { useUser } from 'contexts/User';
 
+import { getBarbeiro } from 'services/get/barbeiros';
 import { getClientesMonth } from 'services/get/clientes';
 
 const THIRTYMINUTES = 30 * 60 * 1000;
-const ONE_MONTH = 30;
 const ONE_DAY = 1;
 const pastMonth = new Date();
 
@@ -21,6 +21,7 @@ export function useBarbeiro() {
   const [visible, setVisible] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [approved, setApproved] = useState('');
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState(format(new Date(), 'HH:mm:ss'));
   const [dataExport, setDataExport] = useState<ClienteMetadata[]>([]);
   const defaultSelected: DateRange = {
@@ -31,6 +32,28 @@ export function useBarbeiro() {
 
   const dataInicial = format(range?.from as Date, 'yyyy-MM-dd');
   const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
+
+  async function verificarStatusBarbeiro() {
+    console.log('id ->', clientId);
+
+    const { data, status, error } = await getBarbeiro(clientId as string, true);
+
+    if (error) {
+      switch (status) {
+        default:
+          return;
+      }
+    }
+
+    if (!data) return;
+    if (!data[0].j) return;
+
+    if (data[0].j === null) {
+      return;
+    }
+
+    setApproved(data[0].j[0].admin_confirmed);
+  }
 
   async function buscarDadosParaExcel() {
     const { data, error, status } = await getClientesMonth(clientId || '', dataInicial, dataFinal);
@@ -75,6 +98,14 @@ export function useBarbeiro() {
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function isBarbeiroApproved() {
+    if (approved === 'S') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   useEffect(() => {
@@ -128,22 +159,7 @@ export function useBarbeiro() {
   }, []);
 
   useEffect(() => {
-    if (
-      (Cookies.get('barbeiro_modal') === 'false' && Cookies.get('barbeiro_warning') === 'true') ||
-      (Cookies.get('barbeiro_modal') === undefined && Cookies.get('barbeiro_warning') === 'true')
-    ) {
-      Swal.fire({
-        title: 'Novidade no ar!',
-        html: 'Agora você pode fazer relatórios do mês. Basta clicar no botão "Download do mês" e selecionar o periodo desejado.',
-        icon: 'info',
-        confirmButtonColor: '#ff9000',
-        background: '#312e38',
-        color: '#f4ede8',
-        confirmButtonText: 'Entendi!',
-      }).then(() => {
-        Cookies.set('barbeiro_modal', 'true', { expires: ONE_MONTH });
-      });
-    }
+    verificarStatusBarbeiro();
   }, []);
 
   const customStyles = {
@@ -183,5 +199,6 @@ export function useBarbeiro() {
     setRange,
     exportToExcel,
     pastMonth,
+    isBarbeiroApproved: isBarbeiroApproved(),
   };
 }

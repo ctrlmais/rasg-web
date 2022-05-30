@@ -14,14 +14,12 @@ import { getDiaSemana } from 'utils/diaDaSemana';
 
 import { useUser } from 'contexts/User';
 
-import { useAuth } from 'hooks/useAuth';
 import { useBarbeiro } from 'hooks/useBarbeiro';
 
 import styles from './Barbeiro.module.scss';
 
 export function Barbeiro() {
   const navigate = useNavigate();
-  const { isBarbeiroApproved } = useAuth();
   const {
     clientes,
     selectDay,
@@ -47,6 +45,7 @@ export function Barbeiro() {
     setRange,
     exportToExcel,
     pastMonth,
+    isBarbeiroApproved,
   } = useBarbeiro();
 
   return (
