@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/ialexanderbrito/barber/compare/v1.4.0...v1.5.0) (2022-05-31)
+
+
+### Features
+
+* add visible and hidden calendar barber ([bb04e30](https://github.com/ialexanderbrito/barber/commit/bb04e306a34ee9ac6b7240a944803cd775415168))
+
 # [1.4.0](https://github.com/ialexanderbrito/barber/compare/v1.3.3...v1.4.0) (2022-05-31)
 
 
