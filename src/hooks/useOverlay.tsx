@@ -1,7 +1,14 @@
 import { useUser } from 'contexts/User';
 
 export function useOverlay() {
-  const { barbeiro, generateGoogleCalendarEvent, startDate, endDate, selectDayFormatted, selectHours } = useUser();
+  const {
+    barbeiro,
+    generateGoogleCalendarEvent,
+    startDate,
+    endDate,
+    selectDayFormatted,
+    selectHours,
+  } = useUser();
 
   const hourFormattedCalendar = selectHours.replace(':', '');
   const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
@@ -22,7 +29,13 @@ export function useOverlay() {
     const description = `Barbearia do ${barbeiro?.nome}`;
     const location = '';
 
-    generateGoogleCalendarEvent(title, startDate, endDate, description, location);
+    generateGoogleCalendarEvent(
+      title,
+      startDate,
+      endDate,
+      description,
+      location,
+    );
   }
 
   return {

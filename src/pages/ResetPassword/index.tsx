@@ -41,9 +41,12 @@ export function ResetPassword() {
               value={formikResetPassword.values.senha}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikResetPassword.errors.senha && formikResetPassword.touched.senha && (
-              <span className={styles.error}>{formikResetPassword.errors.senha}</span>
-            )}
+            {formikResetPassword.errors.senha &&
+              formikResetPassword.touched.senha && (
+                <span className={styles.error}>
+                  {formikResetPassword.errors.senha}
+                </span>
+              )}
 
             <Input
               type="password"
@@ -54,9 +57,12 @@ export function ResetPassword() {
               value={formikResetPassword.values.confirmarSenha}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikResetPassword.errors.confirmarSenha && formikResetPassword.touched.confirmarSenha && (
-              <span className={styles.error}>{formikResetPassword.errors.confirmarSenha}</span>
-            )}
+            {formikResetPassword.errors.confirmarSenha &&
+              formikResetPassword.touched.confirmarSenha && (
+                <span className={styles.error}>
+                  {formikResetPassword.errors.confirmarSenha}
+                </span>
+              )}
 
             <Button type="submit">Alterar senha</Button>
           </div>

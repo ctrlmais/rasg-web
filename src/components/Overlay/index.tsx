@@ -37,7 +37,9 @@ export function Overlay(props: OverlayProps) {
             {isIOS && (
               <button className={styles.apple} type="button">
                 <SiApple />
-                <ICalendarLink event={eventSaveCliente}>Adicionar ao Apple Calendar</ICalendarLink>
+                <ICalendarLink event={eventSaveCliente}>
+                  Adicionar ao Apple Calendar
+                </ICalendarLink>
               </button>
             )}
 
@@ -55,7 +57,9 @@ export function Overlay(props: OverlayProps) {
                 </button>
                 <button className={styles.apple} type="button">
                   <SiApple />
-                  <ICalendarLink event={eventSaveCliente}>Adicionar ao Apple Calendar</ICalendarLink>
+                  <ICalendarLink event={eventSaveCliente}>
+                    Adicionar ao Apple Calendar
+                  </ICalendarLink>
                 </button>
               </>
             )}

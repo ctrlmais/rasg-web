@@ -62,12 +62,21 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
   }
 
   return (
-    <div className={styles.card} onClick={props.onClick} key={props.barbeiro?.id}>
+    <div
+      className={styles.card}
+      onClick={props.onClick}
+      key={props.barbeiro?.id}
+    >
       <div className={styles.containerImg}>
-        {photo === '' && (props.barbeiro?.avatar_url === null || props.barbeiro?.avatar_url === undefined) ? (
+        {photo === '' &&
+        (props.barbeiro?.avatar_url === null ||
+          props.barbeiro?.avatar_url === undefined) ? (
           <Avvvatars value={props.barbeiro?.nome || ''} size={72} />
         ) : (
-          <img src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture} alt={props.barbeiro?.nome} />
+          <img
+            src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture}
+            alt={props.barbeiro?.nome}
+          />
         )}
       </div>
 
@@ -81,32 +90,53 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
           <strong className={styles.info}>
             {schedules === undefined || schedules === null ? (
               <>
-                <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                <BsCalendar
+                  color="#FF9000"
+                  size={16}
+                  style={{ marginRight: '12px' }}
+                />
                 Sem data definida
               </>
             ) : (
               <>
-                <BsCalendar color="#FF9000" size={16} style={{ marginRight: '12px' }} />
-                {getDiasFuncionamento()[0]} à {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
+                <BsCalendar
+                  color="#FF9000"
+                  size={16}
+                  style={{ marginRight: '12px' }}
+                />
+                {getDiasFuncionamento()[0]} à{' '}
+                {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
               </>
             )}
           </strong>
           <strong className={styles.info}>
             {schedules === undefined || schedules === null ? (
               <>
-                <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                <BsClock
+                  color="#FF9000"
+                  size={16}
+                  style={{ marginRight: '12px' }}
+                />
                 Sem horário definido
               </>
             ) : (
               <>
                 {getHorarioAtual(diaAtual).length === 0 ? (
                   <>
-                    <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                    <BsClock
+                      color="#FF9000"
+                      size={16}
+                      style={{ marginRight: '12px' }}
+                    />
                     Hoje | Fechado
                   </>
                 ) : (
                   <>
-                    <BsClock color="#FF9000" size={16} style={{ marginRight: '12px' }} />
+                    <BsClock
+                      color="#FF9000"
+                      size={16}
+                      style={{ marginRight: '12px' }}
+                    />
                     Hoje | {getHorarioAtual(diaAtual)}
                   </>
                 )}

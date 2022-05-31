@@ -42,11 +42,13 @@ export function useHorarios() {
   useEffect(() => {
     if (!user) return;
 
-    const schedules = user?.user_metadata?.schedules?.map((schedule: Schedule) => ({
-      week_day: schedule.week_day,
-      from: schedule.from,
-      to: schedule.to,
-    }));
+    const schedules = user?.user_metadata?.schedules?.map(
+      (schedule: Schedule) => ({
+        week_day: schedule.week_day,
+        from: schedule.from,
+        to: schedule.to,
+      }),
+    );
 
     if (!schedules) return;
 

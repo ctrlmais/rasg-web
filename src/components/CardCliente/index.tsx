@@ -46,11 +46,17 @@ export function CardCliente(props: CardClienteProps) {
         <br />
       </div>
       <div className={styles.containerImg}>
-        {photo === '' && (props.cliente?.client_avatar === null || props.cliente?.client_avatar === undefined) ? (
+        {photo === '' &&
+        (props.cliente?.client_avatar === null ||
+          props.cliente?.client_avatar === undefined) ? (
           <Avvvatars value={props.cliente?.client_name || ''} size={50} />
         ) : (
           <img
-            src={photo || props.cliente?.client_avatar || props.cliente?.client_picture}
+            src={
+              photo ||
+              props.cliente?.client_avatar ||
+              props.cliente?.client_picture
+            }
             alt={props.cliente?.client_name}
           />
         )}
@@ -60,7 +66,11 @@ export function CardCliente(props: CardClienteProps) {
         <strong className={styles.info}>
           <BsClock color="#FF9000" size={16} style={{ marginRight: '8px' }} />
           {props.cliente?.hour} |{' '}
-          <BsScissors color="#FF9000" size={16} style={{ marginLeft: '6px', marginRight: '3px' }} />
+          <BsScissors
+            color="#FF9000"
+            size={16}
+            style={{ marginLeft: '6px', marginRight: '3px' }}
+          />
           {props.cliente?.barber_name}
         </strong>
       </div>

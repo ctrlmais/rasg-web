@@ -36,7 +36,11 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
       {selectedFileUrl ? (
         <div className={styles.profile}>
           <p>
-            <img src={selectedFileUrl} alt="Point thumbnail" className={styles.preview} />
+            <img
+              src={selectedFileUrl}
+              alt="Point thumbnail"
+              className={styles.preview}
+            />
           </p>
           <div className={styles.upload}>
             <FiCamera />
@@ -47,7 +51,9 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
           <p>
             {user?.user_metadata.picture || user?.user_metadata.avatar_url ? (
               <img
-                src={user?.user_metadata.picture || user?.user_metadata.avatar_url}
+                src={
+                  user?.user_metadata.picture || user?.user_metadata.avatar_url
+                }
                 alt="Perfil"
                 className={styles.preview}
               />
