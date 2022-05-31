@@ -16,10 +16,7 @@ export function Horarios() {
   const { formikHorarios } = useHorarios();
 
   function addNewScheduleItem() {
-    const newSchedule = [
-      ...formikHorarios.values.schedules,
-      { week_day: '', from: '', to: '' },
-    ];
+    const newSchedule = [...formikHorarios.values.schedules, { week_day: '', from: '', to: '' }];
     if (newSchedule.length > 7) {
       toast.error('Você não pode adicionar mais horários.', { id: 'toast' });
       newSchedule.splice(newSchedule.length - 1, 1);
@@ -40,11 +37,7 @@ export function Horarios() {
       <div className={styles.container}>
         <h2>Adicionar horários</h2>
         <div className={styles.containerButtonTop}>
-          <button
-            type="button"
-            onClick={() => addNewScheduleItem()}
-            className={styles.button}
-          >
+          <button type="button" onClick={() => addNewScheduleItem()} className={styles.button}>
             Adicionar horario
             <FiPlus />
           </button>
@@ -105,21 +98,14 @@ export function Horarios() {
                         removeScheduleItem(index);
                       }}
                     >
-                      <FiSlash
-                        color="#FFF"
-                        size={18}
-                        style={{ marginTop: '6px' }}
-                      />
+                      <FiSlash color="#FFF" size={18} style={{ marginTop: '6px' }} />
                     </button>
                   )}
                 </div>
               </div>
             ))}
           </div>
-          <div
-            className={styles.containerButton}
-            style={{ justifyContent: 'center' }}
-          >
+          <div className={styles.containerButton} style={{ justifyContent: 'center' }}>
             <Button type="submit">Salvar horários</Button>
           </div>
         </form>

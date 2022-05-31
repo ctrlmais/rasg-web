@@ -13,9 +13,7 @@ import { signIn } from 'services/post/signIn';
 import { signInGoogleProvider } from 'services/post/signInGoogleProvider';
 import { signOut } from 'services/post/signOut';
 
-export const AuthContext = createContext<AuthContextProps>(
-  {} as AuthContextProps,
-);
+export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export function AuthProvider({ children }: any) {
   const navigate = useNavigate();

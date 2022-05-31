@@ -80,12 +80,9 @@ export function Profile() {
               value={formikProfile.values.password}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikProfile.errors.password &&
-              formikProfile.touched.password && (
-                <span className={styles.error}>
-                  {formikProfile.errors.password}
-                </span>
-              )}
+            {formikProfile.errors.password && formikProfile.touched.password && (
+              <span className={styles.error}>{formikProfile.errors.password}</span>
+            )}
             <Input
               type="password"
               name="newPassword"
@@ -95,12 +92,9 @@ export function Profile() {
               value={formikProfile.values.newPassword}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikProfile.errors.newPassword &&
-              formikProfile.touched.newPassword && (
-                <span className={styles.error}>
-                  {formikProfile.errors.newPassword}
-                </span>
-              )}
+            {formikProfile.errors.newPassword && formikProfile.touched.newPassword && (
+              <span className={styles.error}>{formikProfile.errors.newPassword}</span>
+            )}
             <Input
               type="password"
               name="confirmPassword"
@@ -110,21 +104,14 @@ export function Profile() {
               value={formikProfile.values.confirmPassword}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikProfile.errors.confirmPassword &&
-              formikProfile.touched.confirmPassword && (
-                <span className={styles.error}>
-                  {formikProfile.errors.confirmPassword}
-                </span>
-              )}
+            {formikProfile.errors.confirmPassword && formikProfile.touched.confirmPassword && (
+              <span className={styles.error}>{formikProfile.errors.confirmPassword}</span>
+            )}
           </div>
 
           <div className={styles.buttonContainer}>
             <Button type="submit">
-              {loading ? (
-                <Ring speed={2} lineWeight={5} color="#28262e" size={32} />
-              ) : (
-                'Confirmar mudanças'
-              )}
+              {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Confirmar mudanças'}
             </Button>
           </div>
         </form>

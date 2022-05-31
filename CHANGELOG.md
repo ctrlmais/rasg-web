@@ -1,10 +1,3 @@
-## [1.3.3](https://github.com/ialexanderbrito/barber/compare/v1.3.2...v1.3.3) (2022-05-30)
-
-
-### Bug Fixes
-
-* remove cookie logout ([dff3a3d](https://github.com/ialexanderbrito/barber/commit/dff3a3d4bce412dd8cf6df1632ca2eb1b091e8d6))
-
 ## [1.3.2](https://github.com/ialexanderbrito/barber/compare/v1.3.1...v1.3.2) (2022-05-30)
 
 

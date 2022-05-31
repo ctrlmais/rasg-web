@@ -20,10 +20,7 @@ export function ReportBug() {
   if (state.succeeded) {
     return (
       <div className={styles.home} data-theme={theme}>
-        <Overlay
-          title="Obrigado!"
-          description="Seu relatório foi enviado com sucesso!"
-        >
+        <Overlay title="Obrigado!" description="Seu relatório foi enviado com sucesso!">
           <FiCheck color="#04D361" size={62} />
         </Overlay>
       </div>

@@ -30,11 +30,7 @@ export function Home() {
       <ButtonTopPage />
       <Header logo />
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
         <ReportBug />
       </Modal>
 

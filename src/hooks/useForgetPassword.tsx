@@ -1,10 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
-import {
-  forgetPasswordSchema,
-  resetPasswordSchema,
-} from 'validations/ForgetPassword';
+import { forgetPasswordSchema, resetPasswordSchema } from 'validations/ForgetPassword';
 
 import { useToast } from 'contexts/Toast';
 

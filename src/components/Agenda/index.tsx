@@ -25,9 +25,7 @@ export function Agenda() {
 
         <button className={styles.apple} type="button">
           <SiApple />
-          <ICalendarLink event={enventSaveBarbeiro}>
-            Adicionar ao Apple Calendar
-          </ICalendarLink>
+          <ICalendarLink event={enventSaveBarbeiro}>Adicionar ao Apple Calendar</ICalendarLink>
         </button>
       </div>
     </div>

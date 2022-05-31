@@ -26,8 +26,7 @@ export function CookieAlert() {
       buttonStyle={buttonCss}
       expires={ONE_DAY}
     >
-      Este site está em modo de desenvolvimento, por isso, podem ocorrer erros e
-      bugs.
+      Este site está em modo de desenvolvimento, por isso, podem ocorrer erros e bugs.
     </CookieConsent>
   );
 }

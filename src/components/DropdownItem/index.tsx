@@ -20,11 +20,7 @@ export function DropdownItem(props: DropdownItemProps) {
     <Link
       to={props.link || ''}
       className={styles.menuItem}
-      onClick={() =>
-        props.logout
-          ? handleLogout()
-          : props.goToMenu && setActiveMenu(props.goToMenu)
-      }
+      onClick={() => (props.logout ? handleLogout() : props.goToMenu && setActiveMenu(props.goToMenu))}
     >
       <span className={styles.iconButton}>{props.leftIcon}</span>
       {props.children}

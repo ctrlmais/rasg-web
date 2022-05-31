@@ -57,8 +57,7 @@ export function useTicket() {
     const dataHoraAtual = `${dataAtualFormatted}T${horaAtual}`;
     const dataAgenda = dataAgendamento?.appointment_date;
 
-    const diff =
-      new Date(dataAgenda).getTime() - new Date(dataHoraAtual).getTime();
+    const diff = new Date(dataAgenda).getTime() - new Date(dataHoraAtual).getTime();
     const diffMinutes = Math.round(diff / 1000 / 60);
 
     if (diffMinutes < 30) {
@@ -70,11 +69,7 @@ export function useTicket() {
 
   async function buscaCliente() {
     setLoading(true);
-    const { data, error, status } = await getHorarioSelecionado(
-      params?.id || '',
-      dayFormatted,
-      selectHours,
-    );
+    const { data, error, status } = await getHorarioSelecionado(params?.id || '', dayFormatted, selectHours);
 
     if (error) {
       setLoading(false);

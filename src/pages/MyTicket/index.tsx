@@ -15,14 +15,8 @@ import styles from './MyTicket.module.scss';
 
 export function MyTicket() {
   const { theme } = useTheme();
-  const {
-    loading,
-    cliente,
-    componentToPrintRef,
-    handleClickPrint,
-    cancelarAgendamento,
-    verificaHorarioCancelamento,
-  } = useTicket();
+  const { loading, cliente, componentToPrintRef, handleClickPrint, cancelarAgendamento, verificaHorarioCancelamento } =
+    useTicket();
 
   return (
     <div className={styles.home} data-theme={theme}>
@@ -31,10 +25,7 @@ export function MyTicket() {
       <div className={styles.container}>
         {verificaHorarioCancelamento(cliente as ClienteMetadata) && (
           <div className={styles.containerAlert}>
-            <Alert
-              title="Você só pode cancelar o agendamento 30 minutos antes do seu horário"
-              warning
-            />
+            <Alert title="Você só pode cancelar o agendamento 30 minutos antes do seu horário" warning />
           </div>
         )}
         <h2>Apresente esse ticket para o seu barbeiro</h2>

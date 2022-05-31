@@ -19,15 +19,8 @@ export function Cliente() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
-  const {
-    setBarbeiro,
-    barbeiros,
-    horariosAgendados,
-    buscarAgendamentosData,
-    setSelectHours,
-    selectDay,
-    setSelectDay,
-  } = useUser();
+  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours, selectDay, setSelectDay } =
+    useUser();
 
   function nextDay() {
     const nextDay = new Date(selectDay);
@@ -96,9 +89,7 @@ export function Cliente() {
         </div>
       ) : (
         <div className={styles.containerHorarios}>
-          <h2 className={styles.titleHome}>
-            Você não tem horários agendados para hoje.
-          </h2>
+          <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
         </div>
       )}
       <h2 className={styles.titleHome}>

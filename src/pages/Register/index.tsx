@@ -24,10 +24,7 @@ export function Register() {
   return (
     <div className={styles.home} data-theme={theme}>
       {status === 'success' && (
-        <Overlay
-          title="Cadastramento concluído"
-          description="Agora é só verificar seu email e fazer o login"
-        >
+        <Overlay title="Cadastramento concluído" description="Agora é só verificar seu email e fazer o login">
           <FiCheck color="#04D361" size={62} />
         </Overlay>
       )}
@@ -69,9 +66,7 @@ export function Register() {
               icon={<FiMail color="#666360" size={24} />}
             />
             {formikRegister.errors.email && formikRegister.touched.email && (
-              <span className={styles.error}>
-                {formikRegister.errors.email}
-              </span>
+              <span className={styles.error}>{formikRegister.errors.email}</span>
             )}
             <Input
               type="password"
@@ -83,9 +78,7 @@ export function Register() {
               icon={<FiLock color="#666360" size={24} />}
             />
             {formikRegister.errors.senha && formikRegister.touched.senha && (
-              <span className={styles.error}>
-                {formikRegister.errors.senha}
-              </span>
+              <span className={styles.error}>{formikRegister.errors.senha}</span>
             )}
 
             <Input
@@ -97,19 +90,12 @@ export function Register() {
               value={formikRegister.values.confirmarSenha}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikRegister.errors.confirmarSenha &&
-              formikRegister.touched.confirmarSenha && (
-                <span className={styles.error}>
-                  {formikRegister.errors.confirmarSenha}
-                </span>
-              )}
+            {formikRegister.errors.confirmarSenha && formikRegister.touched.confirmarSenha && (
+              <span className={styles.error}>{formikRegister.errors.confirmarSenha}</span>
+            )}
 
             <Button type="submit">
-              {loading ? (
-                <Ring speed={2} lineWeight={5} color="#28262e" size={32} />
-              ) : (
-                'Confirmar cadastro'
-              )}
+              {loading ? <Ring speed={2} lineWeight={5} color="#28262e" size={32} /> : 'Confirmar cadastro'}
             </Button>
           </div>
         </form>

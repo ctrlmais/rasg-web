@@ -40,12 +40,9 @@ export function ForgetPassword() {
               value={formikForgetPassword.values.email}
               icon={<FiUser color="#666360" size={24} />}
             />
-            {formikForgetPassword.errors.email &&
-              formikForgetPassword.touched.email && (
-                <span className={styles.error}>
-                  {formikForgetPassword.errors.email}
-                </span>
-              )}
+            {formikForgetPassword.errors.email && formikForgetPassword.touched.email && (
+              <span className={styles.error}>{formikForgetPassword.errors.email}</span>
+            )}
 
             <Button type="submit">Recuperar</Button>
           </div>

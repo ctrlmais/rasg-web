@@ -17,15 +17,12 @@ const TWO_DAYS = 2;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
-  const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } =
-    useUser();
+  const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } = useUser();
   const [visible, setVisible] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [approved, setApproved] = useState('');
-  const [ultimaAtualizacao, setUltimaAtualizacao] = useState(
-    format(new Date(), 'HH:mm:ss'),
-  );
+  const [ultimaAtualizacao, setUltimaAtualizacao] = useState(format(new Date(), 'HH:mm:ss'));
   const [dataExport, setDataExport] = useState<ClienteMetadata[]>([]);
   const defaultSelected: DateRange = {
     from: pastMonth,
@@ -37,6 +34,8 @@ export function useBarbeiro() {
   const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
 
   async function verificarStatusBarbeiro() {
+    console.log('id ->', clientId);
+
     const { data, status, error } = await getBarbeiro(clientId as string, true);
 
     if (error) {
@@ -56,26 +55,8 @@ export function useBarbeiro() {
     setApproved(data[0].j[0].admin_confirmed);
   }
 
-  function verificarTurno(shift: string) {
-    if (shift === 'morning') {
-      return 'Manhã';
-    }
-
-    if (shift === 'afternoon') {
-      return 'Tarde';
-    }
-
-    if (shift === 'night') {
-      return 'Noite';
-    }
-  }
-
   async function buscarDadosParaExcel() {
-    const { data, error, status } = await getClientesMonth(
-      clientId || '',
-      dataInicial,
-      dataFinal,
-    );
+    const { data, error, status } = await getClientesMonth(clientId || '', dataInicial, dataFinal);
 
     if (error) {
       switch (status) {
@@ -93,7 +74,8 @@ export function useBarbeiro() {
       Nome: cliente.client_name,
       Horario: cliente.hour,
       Data: format(new Date(cliente.appointment_date), 'dd/MM/yyyy'),
-      Turno: verificarTurno(cliente.shift),
+      // eslint-disable-next-line no-nested-ternary
+      Turno: cliente.shift === 'morning' ? 'Manhã' : cliente.shift === 'afternoon' ? 'Tarde' : 'Noite',
     }));
 
     setDataExport(newValues);
@@ -138,10 +120,7 @@ export function useBarbeiro() {
     const actualHour = format(date, 'HH:mm:ss');
     const dateCliente = `${getFirstCliente()?.hour}:00`;
 
-    const actualHourMinutePlusOne = format(
-      new Date(date.setMinutes(date.getMinutes() + 1)),
-      'HH:mm',
-    );
+    const actualHourMinutePlusOne = format(new Date(date.setMinutes(date.getMinutes() + 1)), 'HH:mm');
 
     if (actualHour === dateCliente) {
       buscaClientesHorario(actualHourMinutePlusOne);
@@ -164,10 +143,7 @@ export function useBarbeiro() {
   }, [dataInicial, dataFinal]);
 
   useEffect(() => {
-    if (
-      Cookies.get('barbeiro_modal') === 'false' ||
-      Cookies.get('barbeiro_modal') === undefined
-    ) {
+    if (Cookies.get('barbeiro_modal') === 'false' || Cookies.get('barbeiro_modal') === undefined) {
       Swal.fire({
         title: 'Novidade no ar!',
         html: 'Agora você pode fazer relatórios do mês. Basta clicar no botão "Download do mês" e selecionar o periodo desejado.',
