@@ -48,6 +48,12 @@
   justify-content: space-around;
 }
 
+.containerOcupacao {
+  display: flex;
+  margin-top: 24px;
+  width: 100%;
+}
+
 .button {
   border: none;
   background: var(--orange);
@@ -173,4 +179,9 @@
     border-radius: 4px;
     height: 32px;
   }
+}
+
+.paginationContainer {
+  display: flex;
+  margin-bottom: 20px;
 }

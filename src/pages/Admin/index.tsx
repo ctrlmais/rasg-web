@@ -125,14 +125,16 @@ export function Admin() {
           </>
         )}
         {clienteQtd && ocupacao === 'cliente' && (
-          <Pagination
-            count={Math.ceil(clienteQtd / 5)}
-            variant="outlined"
-            shape="rounded"
-            page={currentPage}
-            onChange={handleChangePage}
-            className={styles.pagination}
-          />
+          <div className={styles.paginationContainer}>
+            <Pagination
+              count={Math.ceil(clienteQtd / 5)}
+              variant="outlined"
+              shape="rounded"
+              page={currentPage}
+              onChange={handleChangePage}
+              className={styles.pagination}
+            />
+          </div>
         )}
       </div>
     </div>
