@@ -1,4 +1,5 @@
 import { DayPicker } from 'react-day-picker';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,8 +34,8 @@ export function Barbeiro() {
     verificaHorarioDeTrabalho,
   } = useUser();
   const {
-    visible,
-    setVisible,
+    toggleDownload,
+    setToggleDownload,
     modalIsOpen,
     openModal,
     closeModal,
@@ -46,6 +47,8 @@ export function Barbeiro() {
     exportToExcel,
     pastMonth,
     isBarbeiroApproved,
+    visibleCalendar,
+    setVisibleCalendar,
   } = useBarbeiro();
 
   return (
@@ -60,33 +63,45 @@ export function Barbeiro() {
         </div>
       ) : (
         <>
-          {visible ? (
+          {toggleDownload ? (
             <div className={styles.containerRightCalendar}>
               <div className={styles.containerCalendar}>
                 <button
                   className={styles.button}
                   type="button"
                   onClick={() => {
-                    setVisible(!visible);
+                    setToggleDownload(!toggleDownload);
                   }}
                 >
                   Download do mês
                 </button>
+                <button
+                  className={styles.button}
+                  style={{ width: '45px' }}
+                  type="button"
+                  onClick={() => {
+                    setVisibleCalendar(!visibleCalendar);
+                  }}
+                >
+                  {visibleCalendar ? <FiEyeOff /> : <FiEye />}
+                </button>
               </div>
               <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
-              <div className={styles.calendar}>
-                <DayPicker
-                  mode="single"
-                  locale={ptBR}
-                  selected={selectDay}
-                  onDayClick={(day) => {
-                    setSelectDay(day);
-                  }}
-                  modifiers={{
-                    available: { dayOfWeek: [0, 1, 2, 3, 4, 5, 6] },
-                  }}
-                />
-              </div>
+              {visibleCalendar && (
+                <div className={styles.calendar}>
+                  <DayPicker
+                    mode="single"
+                    locale={ptBR}
+                    selected={selectDay}
+                    onDayClick={(day) => {
+                      setSelectDay(day);
+                    }}
+                    modifiers={{
+                      available: { dayOfWeek: [0, 1, 2, 3, 4, 5, 6] },
+                    }}
+                  />
+                </div>
+              )}
             </div>
           ) : (
             <div className={styles.containerRightCalendar}>
@@ -95,21 +110,41 @@ export function Barbeiro() {
                   className={styles.button}
                   type="button"
                   onClick={() => {
-                    setVisible(!visible);
+                    setToggleDownload(!toggleDownload);
                   }}
                 >
-                  Voltar
+                  Horários
+                </button>
+                <button
+                  className={styles.button}
+                  style={{ width: '45px' }}
+                  type="button"
+                  onClick={() => {
+                    setVisibleCalendar(!visibleCalendar);
+                  }}
+                >
+                  {visibleCalendar ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
               <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
-              <div className={styles.calendar}>
-                <DayPicker locale={ptBR} mode="range" defaultMonth={pastMonth} selected={range} onSelect={setRange} />
-              </div>
-              <div className={styles.containerButton}>
-                <Button type="button" onClick={() => exportToExcel()}>
-                  Download
-                </Button>
-              </div>
+              {visibleCalendar && (
+                <>
+                  <div className={styles.calendar}>
+                    <DayPicker
+                      locale={ptBR}
+                      mode="range"
+                      defaultMonth={pastMonth}
+                      selected={range}
+                      onSelect={setRange}
+                    />
+                  </div>
+                  <div className={styles.containerButton}>
+                    <Button type="button" onClick={() => exportToExcel()}>
+                      Download
+                    </Button>
+                  </div>
+                </>
+              )}
             </div>
           )}
           <div className={styles.list}>

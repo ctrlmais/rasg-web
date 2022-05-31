@@ -18,7 +18,8 @@ const pastMonth = new Date();
 
 export function useBarbeiro() {
   const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } = useUser();
-  const [visible, setVisible] = useState(true);
+  const [toggleDownload, setToggleDownload] = useState(true);
+  const [visibleCalendar, setVisibleCalendar] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [approved, setApproved] = useState('');
@@ -186,8 +187,8 @@ export function useBarbeiro() {
   };
 
   return {
-    visible,
-    setVisible,
+    toggleDownload,
+    setToggleDownload,
     modalIsOpen,
     setIsOpen,
     openModal,
@@ -200,5 +201,7 @@ export function useBarbeiro() {
     exportToExcel,
     pastMonth,
     isBarbeiroApproved: isBarbeiroApproved(),
+    visibleCalendar,
+    setVisibleCalendar,
   };
 }
