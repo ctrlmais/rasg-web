@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/ialexanderbrito/barber/compare/v1.5.0...v1.5.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* pagination admin ([bf4f337](https://github.com/ialexanderbrito/barber/commit/bf4f337ba7a83b95061d6b728221cc958907928e))
+
 # [1.5.0](https://github.com/ialexanderbrito/barber/compare/v1.4.0...v1.5.0) (2022-05-31)
 
 
