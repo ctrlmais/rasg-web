@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/ialexanderbrito/barber/compare/v1.3.3...v1.4.0) (2022-05-31)
+
+
+### Bug Fixes
+
+* lint and prettier ([1c10377](https://github.com/ialexanderbrito/barber/commit/1c10377b74c41be31c48231cae537262867f8d43))
+* revert commit ([d769173](https://github.com/ialexanderbrito/barber/commit/d769173602c8b573a1b9c74852f6f64e5e3abc5f))
+
+
+### Features
+
+* add new config eslint ([a108349](https://github.com/ialexanderbrito/barber/commit/a1083495b0bc6c1bf2c8cce33a2e33a091f5b929))
+* add new scripts and new config eslint ([62e3b8e](https://github.com/ialexanderbrito/barber/commit/62e3b8e2623474d7bc40eb640174a071fff80882))
+
 ## [1.3.2](https://github.com/ialexanderbrito/barber/compare/v1.3.1...v1.3.2) (2022-05-30)
 
 
