@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/ialexanderbrito/barber/compare/v1.5.1...v1.6.0) (2022-06-01)
+
+
+### Bug Fixes
+
+* remove toast ([c96c558](https://github.com/ialexanderbrito/barber/commit/c96c5583b15c8c2b260f605217d870e95ec7eb60))
+* style dropzone margin ([c7fad0d](https://github.com/ialexanderbrito/barber/commit/c7fad0dc60e19fcbfa97502f040d9e8eb29a68ad))
+* styles profile container ([e773b2a](https://github.com/ialexanderbrito/barber/commit/e773b2af3755f502ded40a7153fa2e678fb63cf7))
+
+
+### Features
+
+* add new hooks ([496719f](https://github.com/ialexanderbrito/barber/commit/496719f7bf19c72ffb713b26d952d27d2dfe48e1))
+
 ## [1.5.1](https://github.com/ialexanderbrito/barber/compare/v1.5.0...v1.5.1) (2022-05-31)
 
 
