@@ -53,8 +53,25 @@ export function useHorarios() {
     formikHorarios.setValues({ schedules });
   }, [user]);
 
+  function addNewScheduleItem() {
+    const newSchedule = [...formikHorarios.values.schedules, { week_day: '', from: '', to: '' }];
+    if (newSchedule.length > 7) {
+      toast.error('Você não pode adicionar mais horários.', { id: 'toast' });
+      newSchedule.splice(newSchedule.length - 1, 1);
+    }
+    formikHorarios.setFieldValue('schedules', newSchedule);
+  }
+
+  function removeScheduleItem(index: number) {
+    const newSchedule = [...formikHorarios.values.schedules];
+    newSchedule.splice(index, 1);
+    formikHorarios.setFieldValue('schedules', newSchedule);
+  }
+
   return {
     formikHorarios,
     loading,
+    addNewScheduleItem,
+    removeScheduleItem,
   };
 }
