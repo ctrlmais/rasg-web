@@ -40,7 +40,7 @@ export function Profile() {
           />
 
           <h2>Meu Perfil</h2>
-          <div className={styles.perfilContainer}>
+          <div className={styles.inputContainer}>
             <Input
               type="text"
               name="nome"
@@ -68,9 +68,7 @@ export function Profile() {
             {formikProfile.errors.email && formikProfile.touched.email && (
               <span className={styles.error}>{formikProfile.errors.email}</span>
             )}
-          </div>
 
-          <div className={styles.passwordContainer}>
             <Input
               type="password"
               name="password"
