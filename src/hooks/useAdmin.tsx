@@ -2,14 +2,11 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { UserMetadata } from 'types/IContext';
 
-import { useToast } from 'contexts/Toast';
-
 import { getBarbeirosApproved } from 'services/get/aprovar';
 import { getClientesApproved } from 'services/get/clienteAprovados';
 import { confirmUser } from 'services/post/confirmUser';
 
 export function useAdmin() {
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [barbeiros, setBarbeiros] = useState([]);
   const [barbeirosAprovados, setBarbeirosAprovados] = useState([]);
@@ -103,8 +100,6 @@ export function useAdmin() {
       }
     }
 
-    toast.success('Barbeiro aprovado com sucesso!', { id: 'toast' });
-
     buscarBarbeirosParaAprovar();
     buscarBarbeirosParaReprovar();
   }
@@ -118,8 +113,6 @@ export function useAdmin() {
           return;
       }
     }
-
-    toast.success('Barbeiro desabilitado com sucesso!', { id: 'toast' });
 
     buscarBarbeirosParaAprovar();
     buscarBarbeirosParaReprovar();
