@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,48 +7,18 @@ import { ClienteMetadata, UserMetadata } from 'types/IContext';
 import { CardBarbeiro } from 'components/CardBarbeiro';
 import { CardCliente } from 'components/CardCliente';
 
-import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
 import { useAuth } from 'hooks/useAuth';
+import { useCliente } from 'hooks/useCliente';
 
 import styles from './Cliente.module.scss';
 
 export function Cliente() {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { user } = useAuth();
-  const { setBarbeiro, barbeiros, horariosAgendados, buscarAgendamentosData, setSelectHours, selectDay, setSelectDay } =
-    useUser();
-
-  function nextDay() {
-    const nextDay = new Date(selectDay);
-    nextDay.setDate(nextDay.getDate() + 1);
-    setSelectDay(nextDay);
-  }
-
-  function previousDay() {
-    const prevDay = new Date(selectDay);
-    prevDay.setDate(prevDay.getDate() - 1);
-    setSelectDay(prevDay);
-  }
-
-  useEffect(() => {
-    const dateFormatted = format(selectDay, 'yyyy-MM-dd');
-
-    buscarAgendamentosData(dateFormatted);
-  }, [selectDay]);
-
-  function handleClickBarbeiro(barbeiro: UserMetadata) {
-    if (barbeiro?.schedules === null) {
-      toast.error('Este barbeiro não possui horários disponíveis.', {
-        id: 'toast',
-      });
-    } else {
-      setBarbeiro(barbeiro);
-      navigate(`/p/${barbeiro.id}`);
-    }
-  }
+  const { barbeiros, horariosAgendados, setSelectHours, selectDay } = useUser();
+  const { nextDay, previousDay, handleClickBarbeiro } = useCliente();
 
   return (
     <>
