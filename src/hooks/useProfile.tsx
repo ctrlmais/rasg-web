@@ -76,6 +76,9 @@ export function useProfile() {
         toast.success('Perfil atualizado com sucesso', { id: 'toast' });
         setLoading(false);
         setUser(userData);
+        formikProfile.setFieldValue('password', '');
+        formikProfile.setFieldValue('newPassword', '');
+        formikProfile.setFieldValue('confirmPassword', '');
       }
     },
   });
