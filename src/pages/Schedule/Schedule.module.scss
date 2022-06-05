@@ -52,6 +52,12 @@
   font-size: 14px;
   border: none;
 
+  &:hover {
+    transition: 0.4s;
+    filter: brightness(0.8);
+    border: 1px solid var(--orange);
+  }
+
   &:disabled {
     background: var(--shape);
     color: var(--input);

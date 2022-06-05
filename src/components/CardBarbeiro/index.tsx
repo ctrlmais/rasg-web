@@ -62,7 +62,11 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
   }
 
   return (
-    <div className={styles.card} onClick={props.onClick} key={props.barbeiro?.id}>
+    <div
+      className={props.cliente === true ? styles.cardCliente : styles.card}
+      onClick={props.onClick}
+      key={props.barbeiro?.id}
+    >
       <div className={styles.containerImg}>
         {photo === '' && (props.barbeiro?.avatar_url === null || props.barbeiro?.avatar_url === undefined) ? (
           <Avvvatars value={props.barbeiro?.nome || ''} size={72} />

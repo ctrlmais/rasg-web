@@ -8,6 +8,12 @@
   margin-bottom: 12px;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    transition: 0.4s;
+    filter: brightness(0.8);
+    border: 1px solid var(--orange);
+  }
 }
 
 .cardFirst {
@@ -20,6 +26,12 @@
   margin-bottom: 12px;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    transition: 0.4s;
+    filter: brightness(0.8);
+    border: 1px solid var(--orange);
+  }
 }
 
 .alert {
@@ -83,5 +95,11 @@
     margin-bottom: 12px;
     align-items: center;
     cursor: pointer;
+
+    &:hover {
+      transition: 0.4s;
+      filter: brightness(0.8);
+      border: 1px solid var(--orange);
+    }
   }
 }
