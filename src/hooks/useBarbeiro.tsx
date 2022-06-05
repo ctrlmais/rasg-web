@@ -19,7 +19,7 @@ const pastMonth = new Date();
 export function useBarbeiro() {
   const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } = useUser();
   const [toggleDownload, setToggleDownload] = useState(true);
-  const [visibleCalendar, setVisibleCalendar] = useState(false);
+  const [visibleCalendar, setVisibleCalendar] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [approved, setApproved] = useState('');
@@ -75,11 +75,24 @@ export function useBarbeiro() {
       Nome: cliente.client_name,
       Horario: cliente.hour,
       Data: format(new Date(cliente.appointment_date), 'dd/MM/yyyy'),
-      // eslint-disable-next-line no-nested-ternary
-      Turno: cliente.shift === 'morning' ? 'Manhã' : cliente.shift === 'afternoon' ? 'Tarde' : 'Noite',
+      Turno: setShiftBarber(cliente.shift),
     }));
 
     setDataExport(newValues);
+  }
+
+  function setShiftBarber(turno: string) {
+    if (turno === 'morning') {
+      return 'Manhã';
+    }
+
+    if (turno === 'afternoon') {
+      return 'Tarde';
+    }
+
+    if (turno === 'night') {
+      return 'Noite';
+    }
   }
 
   function exportToExcel() {
