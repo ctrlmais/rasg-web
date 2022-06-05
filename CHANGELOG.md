@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/ialexanderbrito/barber/compare/v1.6.1...v1.6.2) (2022-06-05)
+
+
+### Bug Fixes
+
+* **style:** cards and add hover ([fa75d72](https://github.com/ialexanderbrito/barber/commit/fa75d7252e6271fce35fdb7cdb31da86cce79e17))
+
 ## [1.6.1](https://github.com/ialexanderbrito/barber/compare/v1.6.0...v1.6.1) (2022-06-02)
 
 
