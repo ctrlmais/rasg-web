@@ -1,3 +1,19 @@
+# [1.7.0](https://github.com/ialexanderbrito/barber/compare/v1.6.2...v1.7.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* alert styles and props ([a052759](https://github.com/ialexanderbrito/barber/commit/a0527592b02f42abb55b50b3581f7eba3e47b0de))
+* ignore files services worker ([09685d2](https://github.com/ialexanderbrito/barber/commit/09685d2aec5801db7f4e93b6b7ddb918cc6a7b8c))
+* remove alert new barber ([b25960c](https://github.com/ialexanderbrito/barber/commit/b25960c1634ccf65e510e59b2b6093fa9503f528))
+
+
+### Features
+
+* add alert info pwa install ([05f215d](https://github.com/ialexanderbrito/barber/commit/05f215d3580016b2969395a9930572aa25c9bc05))
+* add hook use pwa ([9c69006](https://github.com/ialexanderbrito/barber/commit/9c69006931946830762d8a07eef67ac5879d7aa2))
+* add pwa ([44edd3f](https://github.com/ialexanderbrito/barber/commit/44edd3f69a4727b779df8d7d141c71f759d65045))
+
 ## [1.6.2](https://github.com/ialexanderbrito/barber/compare/v1.6.1...v1.6.2) (2022-06-05)
 
 
