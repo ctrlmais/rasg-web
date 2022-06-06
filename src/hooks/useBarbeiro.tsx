@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { format, addDays } from 'date-fns';
-import Cookies from 'js-cookie';
-import Swal from 'sweetalert2';
 import { ClienteMetadata } from 'types/IContext';
 import * as XLSX from 'xlsx';
 
@@ -13,7 +11,6 @@ import { getBarbeiro } from 'services/get/barbeiros';
 import { getClientesMonth } from 'services/get/clientes';
 
 const THIRTYMINUTES = 30 * 60 * 1000;
-const TWO_DAYS = 2;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
@@ -155,22 +152,6 @@ export function useBarbeiro() {
   useEffect(() => {
     buscarDadosParaExcel();
   }, [dataInicial, dataFinal]);
-
-  useEffect(() => {
-    if (Cookies.get('barbeiro_modal') === 'false' || Cookies.get('barbeiro_modal') === undefined) {
-      Swal.fire({
-        title: 'Novidade no ar!',
-        html: 'Agora você pode fazer relatórios do mês. Basta clicar no botão "Download do mês" e selecionar o periodo desejado.',
-        icon: 'info',
-        confirmButtonColor: '#ff9000',
-        background: '#312e38',
-        color: '#f4ede8',
-        confirmButtonText: 'Entendi!',
-      }).then(() => {
-        Cookies.set('barbeiro_modal', 'true', { expires: TWO_DAYS });
-      });
-    }
-  }, []);
 
   useEffect(() => {
     verificarStatusBarbeiro();
