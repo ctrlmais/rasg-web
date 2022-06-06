@@ -155,6 +155,7 @@ export function Barbeiro() {
             {!verificaHorarioDeTrabalho() && (
               <div className={styles.containerAlert}>
                 <Alert
+                  close
                   title="Vi que você não tem horários cadastrados no seu perfil. Clique aqui para adicionar"
                   warning
                   onClick={() => {

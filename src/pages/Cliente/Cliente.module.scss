@@ -18,7 +18,7 @@
   flex-direction: row;
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 20rem;
   justify-content: space-around;
 
   font-size: 14px;
@@ -30,6 +30,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.containerAlert {
+  display: flex;
+  width: 20rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .button {
@@ -63,5 +70,12 @@
     justify-content: space-around;
 
     font-size: 18px;
+  }
+
+  .containerAlert {
+    display: flex;
+    width: 30rem;
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -12,6 +12,7 @@ interface IAlertProps {
   warning?: boolean;
   info?: boolean;
   onClick?: () => void;
+  close?: boolean;
 }
 
 export function Alert(props: IAlertProps) {
@@ -35,10 +36,11 @@ export function Alert(props: IAlertProps) {
           >
             {props.title}
           </strong>
-
-          <button className={styles.close} onClick={() => setOpen(false)}>
-            <IoMdClose size={20} />
-          </button>
+          {props.close && (
+            <button className={styles.close} onClick={() => setOpen(false)}>
+              <IoMdClose size={20} />
+            </button>
+          )}
         </div>
       )}
     </>

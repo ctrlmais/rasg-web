@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { ClienteMetadata, UserMetadata } from 'types/IContext';
 
+import { Alert } from 'components/Alert';
 import { CardBarbeiro } from 'components/CardBarbeiro';
 import { CardCliente } from 'components/CardCliente';
 
@@ -57,9 +58,11 @@ export function Cliente() {
           ))}
         </div>
       ) : (
-        <div className={styles.containerHorarios}>
-          <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
-        </div>
+        <>
+          <div className={styles.containerAlert}>
+            <Alert title="Você não tem horários agendados para hoje." info />
+          </div>
+        </>
       )}
       <h2 className={styles.titleHome}>
         {barbeiros.length >= 1
