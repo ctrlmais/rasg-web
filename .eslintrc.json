@@ -27,6 +27,11 @@
     "@typescript-eslint",
     "prettier"
   ],
+  "ignorePatterns": [
+    "service-worker.ts",
+    "serviceWorkerRegistration.ts",
+    "reportWebVitals.ts"
+  ],
   "rules": {
     "prettier/prettier": "error",
     "import-helpers/order-imports": [
