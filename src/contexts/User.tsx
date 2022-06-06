@@ -1,7 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usePWAInstall } from 'react-use-pwa-install';
 
 import { format } from 'date-fns';
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 import { ClienteMetadata, UserContextProps, UserMetadata } from 'types/IContext';
 
 import { useAuth } from 'hooks/useAuth';
@@ -14,6 +17,7 @@ import { shedule } from 'services/post/schedule';
 const User = createContext({} as UserContextProps);
 
 export function UserProvider({ children }: any) {
+  const install = usePWAInstall();
   const navigate = useNavigate();
 
   const { pathname } = window.location;
@@ -26,6 +30,7 @@ export function UserProvider({ children }: any) {
   const [selectDay, setSelectDay] = useState(new Date());
   const [selectHours, setSelectHours] = useState<string>('');
   const [status, setStatus] = useState<string>('');
+  const [installPwa, setInstallPwa] = useState(false);
 
   const clientId = user?.id;
   const barberId = barbeiro?.id;
@@ -347,6 +352,39 @@ export function UserProvider({ children }: any) {
       }
     }
   }, [barbeiro]);
+
+  useEffect(() => {
+    const pwaCookie = Cookies.get('installPwa');
+
+    if (pwaCookie !== 'true') {
+      Swal.fire({
+        title: 'Novidade no ar!',
+        text: 'Agora é possivel instalar o app no seu celular! Clique no botão abaixo para instalar e ele irá adicionar o app ao seu celular.',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#ff9000',
+        cancelButtonColor: '#CA0B00',
+        background: '#312e38',
+        color: '#f4ede8',
+        confirmButtonText: 'Instalar',
+        cancelButtonText: 'Cancelar',
+        html: ``,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setInstallPwa(true);
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const pwaCookie = Cookies.get('installPwa');
+
+    if (installPwa === true && pwaCookie !== 'true') {
+      install();
+      Cookies.set('installPwa', 'true', { expires: 1 });
+    }
+  }, [installPwa]);
 
   return (
     <User.Provider
