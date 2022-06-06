@@ -356,7 +356,7 @@ export function UserProvider({ children }: any) {
   useEffect(() => {
     const pwaCookie = Cookies.get('installPwa');
 
-    if (pwaCookie !== 'true') {
+    if ((isBarbeiro || isCliente) && pwaCookie !== 'true') {
       Swal.fire({
         title: 'Novidade no ar!',
         text: 'Agora é possivel instalar o app no seu celular! Clique no botão abaixo para instalar e ele irá adicionar o app ao seu celular.',
