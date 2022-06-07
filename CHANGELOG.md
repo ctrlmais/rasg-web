@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/ialexanderbrito/barber/compare/v1.7.3...v1.8.0) (2022-06-07)
+
+
+### Features
+
+* add password strength bar ([a8345f2](https://github.com/ialexanderbrito/barber/commit/a8345f24990c2f2dac9258ab649c3a7234455366))
+
 ## [1.7.3](https://github.com/ialexanderbrito/barber/compare/v1.7.2...v1.7.3) (2022-06-07)
 
 
