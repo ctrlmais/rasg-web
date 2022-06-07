@@ -25,12 +25,10 @@ export function useSchedule() {
 
   const schedules = JSON.parse(barbeiro?.schedules || '[]');
 
-  const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] = useState(
-    JSON.parse(barbeiro?.schedules)[weekDay]?.from,
-  );
-  const [horarioFinalBarbeiroSchedule, setHorarioFinalBarbeiroSchedule] = useState(
-    JSON.parse(barbeiro?.schedules)[weekDay]?.to,
-  );
+  const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] =
+    useState(JSON.parse(barbeiro?.schedules)[weekDay]?.from);
+  const [horarioFinalBarbeiroSchedule, setHorarioFinalBarbeiroSchedule] =
+    useState(JSON.parse(barbeiro?.schedules)[weekDay]?.to);
 
   function getHorarioAtual(week_day: string) {
     const horario = [] as string[];
@@ -64,7 +62,9 @@ export function useSchedule() {
 
   const numerosFaltantes = verificarNumerosFaltantes(diasDaSemanaBarbeiro);
 
-  function desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule: string) {
+  function desabilitarHorariosAnteriores(
+    horarioInicialBarbeiroSchedule: string,
+  ) {
     const horariosAnteriores = [] as string[];
     horariosManha.map((horario) => {
       if (horario < horarioInicialBarbeiroSchedule) {
@@ -84,7 +84,9 @@ export function useSchedule() {
     return horariosAnteriores;
   }
 
-  function desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule: string) {
+  function desabilitarHorariosPosteriores(
+    horarioFinalBarbeiroSchedule: string,
+  ) {
     const horariosPosteriores = [] as string[];
     horariosManha.map((horario) => {
       if (horario > horarioFinalBarbeiroSchedule) {
@@ -105,8 +107,12 @@ export function useSchedule() {
   }
 
   useEffect(() => {
-    setHorarioInicialBarbeiroSchedule(getSchedule(weekDay || '0').map((schedule) => schedule.from));
-    setHorarioFinalBarbeiroSchedule(getSchedule(weekDay || '0').map((schedule) => schedule.to));
+    setHorarioInicialBarbeiroSchedule(
+      getSchedule(weekDay || '0').map((schedule) => schedule.from),
+    );
+    setHorarioFinalBarbeiroSchedule(
+      getSchedule(weekDay || '0').map((schedule) => schedule.to),
+    );
   }, [weekDay]);
 
   return {

@@ -43,7 +43,9 @@ export function NavItem(props: NavItemProps) {
         <a
           href="#"
           className={styles.iconButton}
-          onClick={() => (props.children ? setOpen(!open) : props.onClick && props.onClick())}
+          onClick={() =>
+            props.children ? setOpen(!open) : props.onClick && props.onClick()
+          }
         >
           {props.icon}
         </a>

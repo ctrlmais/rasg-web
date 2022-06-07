@@ -32,7 +32,12 @@ export function useRegister() {
       try {
         setLoading(true);
 
-        const { error } = await registerUser(values.email, values.senha, values.nome, ocupacao);
+        const { error } = await registerUser(
+          values.email,
+          values.senha,
+          values.nome,
+          ocupacao,
+        );
 
         if (error) {
           toast.error(error.message, { id: 'toast' });

@@ -108,10 +108,16 @@ export function Schedule() {
                   disabled={
                     isHorarioMarcado(horario) ||
                     isDataEHorarioPassado(selectDayFormatted, horario) ||
-                    desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(horario) ||
-                    desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(horario)
+                    desabilitarHorariosAnteriores(
+                      horarioInicialBarbeiroSchedule,
+                    ).includes(horario) ||
+                    desabilitarHorariosPosteriores(
+                      horarioFinalBarbeiroSchedule,
+                    ).includes(horario)
                   }
-                  className={selectHours === horario ? styles.selected : styles.horario}
+                  className={
+                    selectHours === horario ? styles.selected : styles.horario
+                  }
                   onClick={() => {
                     setSelectHours(horario);
                   }}
@@ -130,10 +136,16 @@ export function Schedule() {
                   disabled={
                     isHorarioMarcado(horario) ||
                     isDataEHorarioPassado(selectDayFormatted, horario) ||
-                    desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(horario) ||
-                    desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(horario)
+                    desabilitarHorariosAnteriores(
+                      horarioInicialBarbeiroSchedule,
+                    ).includes(horario) ||
+                    desabilitarHorariosPosteriores(
+                      horarioFinalBarbeiroSchedule,
+                    ).includes(horario)
                   }
-                  className={selectHours === horario ? styles.selected : styles.horario}
+                  className={
+                    selectHours === horario ? styles.selected : styles.horario
+                  }
                   onClick={() => {
                     setSelectHours(horario);
                   }}
@@ -152,10 +164,16 @@ export function Schedule() {
                   disabled={
                     isHorarioMarcado(horario) ||
                     isDataEHorarioPassado(selectDayFormatted, horario) ||
-                    desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(horario) ||
-                    desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(horario)
+                    desabilitarHorariosAnteriores(
+                      horarioInicialBarbeiroSchedule,
+                    ).includes(horario) ||
+                    desabilitarHorariosPosteriores(
+                      horarioFinalBarbeiroSchedule,
+                    ).includes(horario)
                   }
-                  className={selectHours === horario ? styles.selected : styles.horario}
+                  className={
+                    selectHours === horario ? styles.selected : styles.horario
+                  }
                   onClick={() => {
                     setSelectHours(horario);
                   }}

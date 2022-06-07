@@ -5,7 +5,10 @@ export const forgetPasswordSchema = yup.object({
 });
 
 export const resetPasswordSchema = yup.object({
-  senha: yup.string().required('Campo obrigatório').min(6, 'Senha deve ter no mínimo 6 caracteres'),
+  senha: yup
+    .string()
+    .required('Campo obrigatório')
+    .min(6, 'Senha deve ter no mínimo 6 caracteres'),
   confirmarSenha: yup
     .string()
     .required('Campo obrigatório')

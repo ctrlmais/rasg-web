@@ -14,13 +14,16 @@ const THIRTYMINUTES = 30 * 60 * 1000;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
-  const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } = useUser();
+  const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } =
+    useUser();
   const [toggleDownload, setToggleDownload] = useState(true);
   const [visibleCalendar, setVisibleCalendar] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [approved, setApproved] = useState('');
-  const [ultimaAtualizacao, setUltimaAtualizacao] = useState(format(new Date(), 'HH:mm:ss'));
+  const [ultimaAtualizacao, setUltimaAtualizacao] = useState(
+    format(new Date(), 'HH:mm:ss'),
+  );
   const [dataExport, setDataExport] = useState<ClienteMetadata[]>([]);
   const defaultSelected: DateRange = {
     from: pastMonth,
@@ -54,7 +57,11 @@ export function useBarbeiro() {
   }
 
   async function buscarDadosParaExcel() {
-    const { data, error, status } = await getClientesMonth(clientId || '', dataInicial, dataFinal);
+    const { data, error, status } = await getClientesMonth(
+      clientId || '',
+      dataInicial,
+      dataFinal,
+    );
 
     if (error) {
       switch (status) {
@@ -131,7 +138,10 @@ export function useBarbeiro() {
     const actualHour = format(date, 'HH:mm:ss');
     const dateCliente = `${getFirstCliente()?.hour}:00`;
 
-    const actualHourMinutePlusOne = format(new Date(date.setMinutes(date.getMinutes() + 1)), 'HH:mm');
+    const actualHourMinutePlusOne = format(
+      new Date(date.setMinutes(date.getMinutes() + 1)),
+      'HH:mm',
+    );
 
     if (actualHour === dateCliente) {
       buscaClientesHorario(actualHourMinutePlusOne);

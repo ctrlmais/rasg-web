@@ -5,7 +5,11 @@ import { usePWAInstall } from 'react-use-pwa-install';
 import { format } from 'date-fns';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
-import { ClienteMetadata, UserContextProps, UserMetadata } from 'types/IContext';
+import {
+  ClienteMetadata,
+  UserContextProps,
+  UserMetadata,
+} from 'types/IContext';
 
 import { useAuth } from 'hooks/useAuth';
 
@@ -26,7 +30,9 @@ export function UserProvider({ children }: any) {
   const [barbeiro, setBarbeiro] = useState<UserMetadata>();
   const [barbeiros, setBarbeiros] = useState<UserMetadata[]>([]);
   const [clientes, setClientes] = useState<ClienteMetadata[]>([]);
-  const [horariosAgendados, setHorariosAgendados] = useState<ClienteMetadata[]>([]);
+  const [horariosAgendados, setHorariosAgendados] = useState<ClienteMetadata[]>(
+    [],
+  );
   const [selectDay, setSelectDay] = useState(new Date());
   const [selectHours, setSelectHours] = useState<string>('');
   const [status, setStatus] = useState<string>('');
@@ -45,7 +51,9 @@ export function UserProvider({ children }: any) {
   const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
 
   function verificaLoginGoogleEOcupacao() {
-    return user?.app_metadata.provider === 'google' && !user.user_metadata.ocupacao;
+    return (
+      user?.app_metadata.provider === 'google' && !user.user_metadata.ocupacao
+    );
   }
 
   function verificaOcupacao(ocupacao: string) {
@@ -124,7 +132,9 @@ export function UserProvider({ children }: any) {
   function getHorariosMarcados() {
     if (!clientes) return [];
 
-    const horariosMarcados = clientes.map((cliente: ClienteMetadata) => cliente.hour);
+    const horariosMarcados = clientes.map(
+      (cliente: ClienteMetadata) => cliente.hour,
+    );
 
     return horariosMarcados;
   }
@@ -201,7 +211,11 @@ export function UserProvider({ children }: any) {
     if (!clientId) return;
 
     if (isBarbeiro) {
-      const { data, error, status } = await getClientesHour(clientId, selectDayFormatted, hour);
+      const { data, error, status } = await getClientesHour(
+        clientId,
+        selectDayFormatted,
+        hour,
+      );
 
       if (error) {
         switch (status) {
@@ -225,7 +239,10 @@ export function UserProvider({ children }: any) {
     if (!clientId) return;
 
     if (isBarbeiro) {
-      const { data, error, status } = await getClientes(clientId, selectDayFormatted);
+      const { data, error, status } = await getClientes(
+        clientId,
+        selectDayFormatted,
+      );
 
       if (error) {
         switch (status) {
@@ -245,7 +262,10 @@ export function UserProvider({ children }: any) {
     }
 
     if (isCliente && barberId) {
-      const { data, error, status } = await getClientes(barberId || '', selectDayFormatted);
+      const { data, error, status } = await getClientes(
+        barberId || '',
+        selectDayFormatted,
+      );
 
       if (error) {
         switch (status) {
@@ -268,7 +288,10 @@ export function UserProvider({ children }: any) {
   async function buscarAgendamentos() {
     if (!clientId) return;
 
-    const { data, error, status } = await getHorarioMarcadoCliente(clientId, atualDayFormatted);
+    const { data, error, status } = await getHorarioMarcadoCliente(
+      clientId,
+      atualDayFormatted,
+    );
 
     if (error) {
       switch (status) {
@@ -292,7 +315,12 @@ export function UserProvider({ children }: any) {
     if (!barberId) return;
     if (!barbeiro) return;
 
-    const { error, status } = await shedule(clientId, barbeiro, selectDayFormatted, selectHours);
+    const { error, status } = await shedule(
+      clientId,
+      barbeiro,
+      selectDayFormatted,
+      selectHours,
+    );
 
     if (error) {
       setStatus('error');
@@ -308,7 +336,10 @@ export function UserProvider({ children }: any) {
   async function buscarAgendamentosData(diaSelecionado: string) {
     if (!clientId) return;
 
-    const { data, error, status } = await getHorarioMarcadoCliente(clientId, diaSelecionado);
+    const { data, error, status } = await getHorarioMarcadoCliente(
+      clientId,
+      diaSelecionado,
+    );
 
     if (error) {
       switch (status) {

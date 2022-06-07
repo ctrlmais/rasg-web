@@ -11,7 +11,8 @@ import styles from './Horarios.module.scss';
 
 export function Horarios() {
   const { theme } = useTheme();
-  const { formikHorarios, addNewScheduleItem, removeScheduleItem } = useHorarios();
+  const { formikHorarios, addNewScheduleItem, removeScheduleItem } =
+    useHorarios();
 
   return (
     <div className={styles.home} data-theme={theme}>
@@ -20,7 +21,11 @@ export function Horarios() {
       <div className={styles.container}>
         <h2>Adicionar horários</h2>
         <div className={styles.containerButtonTop}>
-          <button type="button" onClick={() => addNewScheduleItem()} className={styles.button}>
+          <button
+            type="button"
+            onClick={() => addNewScheduleItem()}
+            className={styles.button}
+          >
             Adicionar horario
             <FiPlus />
           </button>
@@ -81,14 +86,21 @@ export function Horarios() {
                         removeScheduleItem(index);
                       }}
                     >
-                      <FiSlash color="#FFF" size={18} style={{ marginTop: '6px' }} />
+                      <FiSlash
+                        color="#FFF"
+                        size={18}
+                        style={{ marginTop: '6px' }}
+                      />
                     </button>
                   )}
                 </div>
               </div>
             ))}
           </div>
-          <div className={styles.containerButton} style={{ justifyContent: 'center' }}>
+          <div
+            className={styles.containerButton}
+            style={{ justifyContent: 'center' }}
+          >
             <Button type="submit">Salvar horários</Button>
           </div>
         </form>

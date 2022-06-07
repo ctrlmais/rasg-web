@@ -6,10 +6,14 @@ export const profileSchema = yup.object({
   password: yup.string(),
   newPassword: yup
     .string()
-    .when('password', (password, field) => (password ? field.required('Campo obrigatório') : field)),
+    .when('password', (password, field) =>
+      password ? field.required('Campo obrigatório') : field,
+    ),
   confirmPassword: yup
     .string()
     .when('newPassword', (newPassword, field) =>
-      newPassword ? field.required('Campo obrigatório').oneOf([yup.ref('newPassword')]) : field,
+      newPassword
+        ? field.required('Campo obrigatório').oneOf([yup.ref('newPassword')])
+        : field,
     ),
 });

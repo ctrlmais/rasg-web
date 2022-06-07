@@ -50,7 +50,11 @@ export function Admin() {
                 {clientesAprovados.length > 0 &&
                   clientesAprovados.map((cliente: UserMetadata) => (
                     <div className={styles.containerBarber} key={cliente.id}>
-                      <CardBarbeiro key={cliente.id} barbeiro={cliente} cliente />
+                      <CardBarbeiro
+                        key={cliente.id}
+                        barbeiro={cliente}
+                        cliente
+                      />
                     </div>
                   ))}
               </>
@@ -62,9 +66,13 @@ export function Admin() {
           <>
             <div className={styles.titleContainer}>
               {barbeiros.length > 0 ? (
-                <h2 className={styles.titleHome}>Barbeiros para serem aprovados</h2>
+                <h2 className={styles.titleHome}>
+                  Barbeiros para serem aprovados
+                </h2>
               ) : (
-                <h2 className={styles.titleHome}>Não há barbeiros para serem aprovados.</h2>
+                <h2 className={styles.titleHome}>
+                  Não há barbeiros para serem aprovados.
+                </h2>
               )}
             </div>
             <div className={styles.containerList}>
@@ -82,7 +90,11 @@ export function Admin() {
                             aproveBarbeiro(barbeiro?.id);
                           }}
                         >
-                          <FiCheck color="#FFF" size={18} style={{ marginTop: '6px' }} />
+                          <FiCheck
+                            color="#FFF"
+                            size={18}
+                            style={{ marginTop: '6px' }}
+                          />
                         </button>
                       </div>
                     ))}
@@ -91,9 +103,13 @@ export function Admin() {
             </div>
             <div className={styles.titleContainer}>
               {barbeirosAprovados.length > 0 ? (
-                <h2 className={styles.titleHome}>Barbeiros para serem desativados</h2>
+                <h2 className={styles.titleHome}>
+                  Barbeiros para serem desativados
+                </h2>
               ) : (
-                <h2 className={styles.titleHome}>Não há barbeiros para serem desativados.</h2>
+                <h2 className={styles.titleHome}>
+                  Não há barbeiros para serem desativados.
+                </h2>
               )}
             </div>
 
@@ -115,7 +131,11 @@ export function Admin() {
                             disabledBarbeiro(barbeiro?.id);
                           }}
                         >
-                          <FiSlash color="#FFF" size={18} style={{ marginTop: '6px' }} />
+                          <FiSlash
+                            color="#FFF"
+                            size={18}
+                            style={{ marginTop: '6px' }}
+                          />
                         </button>
                       </div>
                     ))}

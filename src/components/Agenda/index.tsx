@@ -1,4 +1,3 @@
-import ICalendarLink from 'react-icalendar-link';
 import { SiApple, SiGooglecalendar } from 'react-icons/si';
 
 import { useAgenda } from 'hooks/useAgenda';
@@ -6,7 +5,8 @@ import { useAgenda } from 'hooks/useAgenda';
 import styles from './Agenda.module.scss';
 
 export function Agenda() {
-  const { handleGoogleCalendarCliente, enventSaveBarbeiro } = useAgenda();
+  const { handleGoogleCalendarCliente, eventSaveBarbeiro } = useAgenda();
+
   return (
     <div className={styles.wrapper}>
       <h2>Adicionar ao seu calendário</h2>
@@ -23,9 +23,15 @@ export function Agenda() {
           Adicionar ao Google Calendar
         </button>
 
-        <button className={styles.apple} type="button">
+        <button
+          className={styles.apple}
+          type="button"
+          onClick={() => {
+            eventSaveBarbeiro.download();
+          }}
+        >
           <SiApple />
-          <ICalendarLink event={enventSaveBarbeiro}>Adicionar ao Apple Calendar</ICalendarLink>
+          Adicionar ao Apple Calendar
         </button>
       </div>
     </div>

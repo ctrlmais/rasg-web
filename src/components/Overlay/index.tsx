@@ -1,6 +1,5 @@
-import { isAndroid, isWindows, isIOS, isMacOs } from 'react-device-detect';
-import ICalendarLink from 'react-icalendar-link';
-import { SiGooglecalendar, SiApple } from 'react-icons/si';
+import { isAndroid, isWindows, isMacOs, isIOS } from 'react-device-detect';
+import { SiApple, SiGooglecalendar } from 'react-icons/si';
 
 import { OverlayProps } from 'types/IComponents';
 
@@ -35,9 +34,15 @@ export function Overlay(props: OverlayProps) {
               </button>
             )}
             {isIOS && (
-              <button className={styles.apple} type="button">
+              <button
+                className={styles.apple}
+                type="button"
+                onClick={() => {
+                  eventSaveCliente.download();
+                }}
+              >
                 <SiApple />
-                <ICalendarLink event={eventSaveCliente}>Adicionar ao Apple Calendar</ICalendarLink>
+                Adicionar ao Apple Calendar
               </button>
             )}
 
@@ -53,9 +58,15 @@ export function Overlay(props: OverlayProps) {
                   <SiGooglecalendar />
                   Adicionar ao Google Calendar
                 </button>
-                <button className={styles.apple} type="button">
+                <button
+                  className={styles.apple}
+                  type="button"
+                  onClick={() => {
+                    eventSaveCliente.download();
+                  }}
+                >
                   <SiApple />
-                  <ICalendarLink event={eventSaveCliente}>Adicionar ao Apple Calendar</ICalendarLink>
+                  Adicionar ao Apple Calendar
                 </button>
               </>
             )}

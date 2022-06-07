@@ -10,7 +10,9 @@ export function useAdmin() {
   const [loading, setLoading] = useState(false);
   const [barbeiros, setBarbeiros] = useState([]);
   const [barbeirosAprovados, setBarbeirosAprovados] = useState([]);
-  const [clientesAprovados, setClientesAprovados] = useState<UserMetadata[]>([]);
+  const [clientesAprovados, setClientesAprovados] = useState<UserMetadata[]>(
+    [],
+  );
   const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState(0);
 
@@ -91,7 +93,11 @@ export function useAdmin() {
   }
 
   async function aproveBarbeiro(id: string) {
-    const { error, status } = await confirmUser('aa12bb33-d77d-4ec5-9b79-28aec4831abf', id, true);
+    const { error, status } = await confirmUser(
+      'aa12bb33-d77d-4ec5-9b79-28aec4831abf',
+      id,
+      true,
+    );
 
     if (error) {
       switch (status) {
@@ -105,7 +111,11 @@ export function useAdmin() {
   }
 
   async function disabledBarbeiro(id: string) {
-    const { error, status } = await confirmUser('aa12bb33-d77d-4ec5-9b79-28aec4831abf', id, false);
+    const { error, status } = await confirmUser(
+      'aa12bb33-d77d-4ec5-9b79-28aec4831abf',
+      id,
+      false,
+    );
 
     if (error) {
       switch (status) {

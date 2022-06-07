@@ -27,7 +27,9 @@ export function ButtonTopPage() {
 
   return (
     <div
-      className={`${styles.floatingButton} ${isActive ? styles.floatingButton : styles.floatingButtonNone}`}
+      className={`${styles.floatingButton} ${
+        isActive ? styles.floatingButton : styles.floatingButtonNone
+      }`}
       onClick={() => {
         handleScrollToTop();
       }}

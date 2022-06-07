@@ -10,7 +10,8 @@ import { useUser } from 'contexts/User';
 export function useCliente() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { setBarbeiro, buscarAgendamentosData, selectDay, setSelectDay } = useUser();
+  const { setBarbeiro, buscarAgendamentosData, selectDay, setSelectDay } =
+    useUser();
 
   function nextDay() {
     const nextDay = new Date(selectDay);

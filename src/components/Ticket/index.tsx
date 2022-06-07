@@ -59,21 +59,36 @@ export function Ticket(props: Props) {
         <div className="ticket">
           <div className="ticket-profile">
             <div className="ticket-profile-top">
-              {photo === '' && (props.cliente?.client_avatar === null || props.cliente?.client_avatar === undefined) ? (
+              {photo === '' &&
+              (props.cliente?.client_avatar === null ||
+                props.cliente?.client_avatar === undefined) ? (
                 <div className="ticket-profile-top-image">
-                  <Avvvatars value={props.cliente?.client_name || ''} size={82} />
+                  <Avvvatars
+                    value={props.cliente?.client_name || ''}
+                    size={82}
+                  />
                 </div>
               ) : (
                 <img
-                  src={photo || props.cliente?.client_picture || props.cliente?.client_avatar}
+                  src={
+                    photo ||
+                    props.cliente?.client_picture ||
+                    props.cliente?.client_avatar
+                  }
                   alt={name}
                   className="ticket-profile-top-image"
                 />
               )}
               <div className="ticket-profile-top-text">
-                <div className="ticket-profile-top-text-name">{props.cliente?.client_name}</div>
+                <div className="ticket-profile-top-text-name">
+                  {props.cliente?.client_name}
+                </div>
                 <div className="ticket-profile-top-text-profile">
-                  <a href="https://github.com/eddyw" target="_blank" rel="noreferrer">
+                  <a
+                    href="https://github.com/eddyw"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     {props.cliente?.client_id}
                   </a>
                 </div>
@@ -105,7 +120,9 @@ export function Ticket(props: Props) {
             </div>
           </div>
           <div className="ticket-number-wrapper">
-            <div className="ticket-number">№ {get8caracters(props.cliente?.id || '')}</div>
+            <div className="ticket-number">
+              № {get8caracters(props.cliente?.id || '')}
+            </div>
           </div>
         </div>
       </div>

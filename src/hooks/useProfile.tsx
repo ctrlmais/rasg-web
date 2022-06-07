@@ -70,7 +70,10 @@ export function useProfile() {
       }
 
       if (formikProfile.values.email !== userData.email) {
-        toast.success('Verifique a sua caixa de entrada para confirmar a mudança de email', { id: 'toast' });
+        toast.success(
+          'Verifique a sua caixa de entrada para confirmar a mudança de email',
+          { id: 'toast' },
+        );
         setLoading(false);
       } else {
         toast.success('Perfil atualizado com sucesso', { id: 'toast' });

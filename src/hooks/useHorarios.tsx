@@ -42,11 +42,13 @@ export function useHorarios() {
   useEffect(() => {
     if (!user) return;
 
-    const schedules = user?.user_metadata?.schedules?.map((schedule: Schedule) => ({
-      week_day: schedule.week_day,
-      from: schedule.from,
-      to: schedule.to,
-    }));
+    const schedules = user?.user_metadata?.schedules?.map(
+      (schedule: Schedule) => ({
+        week_day: schedule.week_day,
+        from: schedule.from,
+        to: schedule.to,
+      }),
+    );
 
     if (!schedules) return;
 
@@ -54,7 +56,10 @@ export function useHorarios() {
   }, [user]);
 
   function addNewScheduleItem() {
-    const newSchedule = [...formikHorarios.values.schedules, { week_day: '', from: '', to: '' }];
+    const newSchedule = [
+      ...formikHorarios.values.schedules,
+      { week_day: '', from: '', to: '' },
+    ];
     if (newSchedule.length > 7) {
       toast.error('Você não pode adicionar mais horários.', { id: 'toast' });
       newSchedule.splice(newSchedule.length - 1, 1);

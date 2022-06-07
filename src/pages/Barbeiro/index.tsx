@@ -58,7 +58,8 @@ export function Barbeiro() {
           <h2 className={styles.titleHome}>
             Você ainda não foi aprovado para trabalhar como barbeiro.
             <br />
-            Aguarde ser aprovado ou entre em contato com o administrador do sistema.
+            Aguarde ser aprovado ou entre em contato com o administrador do
+            sistema.
           </h2>
         </div>
       ) : (
@@ -86,7 +87,9 @@ export function Barbeiro() {
                   {visibleCalendar ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
-              <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
+              <div className={styles.hourContainer}>
+                {date?.toLocaleTimeString()}
+              </div>
               {visibleCalendar && (
                 <div className={styles.calendar}>
                   <DayPicker
@@ -126,7 +129,9 @@ export function Barbeiro() {
                   {visibleCalendar ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
-              <div className={styles.hourContainer}>{date?.toLocaleTimeString()}</div>
+              <div className={styles.hourContainer}>
+                {date?.toLocaleTimeString()}
+              </div>
               {visibleCalendar && (
                 <>
                   <div className={styles.calendar}>
@@ -148,7 +153,11 @@ export function Barbeiro() {
             </div>
           )}
           <div className={styles.list}>
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+            >
               <Agenda />
             </Modal>
 
@@ -168,28 +177,36 @@ export function Barbeiro() {
             <div className={styles.containerHorarioAgendados}>
               <h2 className={styles.titleHome}>Horários agendados</h2>
               <p className={styles.infoText}>
-                Hoje | Dia {new Date().getDate()} | {getDiaSemana()} | Última atualização: {ultimaAtualizacao}
+                Hoje | Dia {new Date().getDate()} | {getDiaSemana()} | Última
+                atualização: {ultimaAtualizacao}
               </p>
             </div>
 
             {getClientesMorning().length === 0 &&
               getClientesAfternoon().length === 0 &&
               getClientesNight().length === 0 && (
-                <h2 className={styles.titleHome}>Você não tem horários agendados para hoje.</h2>
+                <h2 className={styles.titleHome}>
+                  Você não tem horários agendados para hoje.
+                </h2>
               )}
 
             {selectDayFormatted >= atualDayFormatted ? (
               <>
                 {(getClientesMorning().length > 0 ||
                   getClientesAfternoon().length > 0 ||
-                  getClientesNight().length > 0) && <h2 className={styles.shift}>Atendimento a seguir</h2>}
+                  getClientesNight().length > 0) && (
+                  <h2 className={styles.shift}>Atendimento a seguir</h2>
+                )}
                 {getFirstCliente() && (
                   <CardCliente
                     key={getFirstCliente().id}
                     first
                     cliente={getFirstCliente()}
                     onClick={() => {
-                      localStorage.setItem('cliente', JSON.stringify(getFirstCliente()));
+                      localStorage.setItem(
+                        'cliente',
+                        JSON.stringify(getFirstCliente()),
+                      );
                       openModal();
                     }}
                   />
@@ -209,7 +226,10 @@ export function Barbeiro() {
                               key={cliente.id}
                               cliente={cliente}
                               onClick={() => {
-                                localStorage.setItem('cliente', JSON.stringify(cliente));
+                                localStorage.setItem(
+                                  'cliente',
+                                  JSON.stringify(cliente),
+                                );
                                 openModal();
                               }}
                             />
@@ -225,20 +245,25 @@ export function Barbeiro() {
                         Tarde
                         <div className={styles.line} />
                       </h2>
-                      {getClientesAfternoon().map((cliente: ClienteMetadata) => (
-                        <>
-                          {getFirstCliente().id !== cliente.id && (
-                            <CardCliente
-                              key={cliente.id}
-                              cliente={cliente}
-                              onClick={() => {
-                                localStorage.setItem('cliente', JSON.stringify(cliente));
-                                openModal();
-                              }}
-                            />
-                          )}
-                        </>
-                      ))}
+                      {getClientesAfternoon().map(
+                        (cliente: ClienteMetadata) => (
+                          <>
+                            {getFirstCliente().id !== cliente.id && (
+                              <CardCliente
+                                key={cliente.id}
+                                cliente={cliente}
+                                onClick={() => {
+                                  localStorage.setItem(
+                                    'cliente',
+                                    JSON.stringify(cliente),
+                                  );
+                                  openModal();
+                                }}
+                              />
+                            )}
+                          </>
+                        ),
+                      )}
                     </>
                   )}
 
@@ -255,7 +280,10 @@ export function Barbeiro() {
                               key={cliente.id}
                               cliente={cliente}
                               onClick={() => {
-                                localStorage.setItem('cliente', JSON.stringify(cliente));
+                                localStorage.setItem(
+                                  'cliente',
+                                  JSON.stringify(cliente),
+                                );
                                 openModal();
                               }}
                             />
