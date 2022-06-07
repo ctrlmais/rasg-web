@@ -26,12 +26,15 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
   );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*',
+    accept: {
+      'image/*': [],
+    },
+    maxFiles: 1,
   });
 
   return (
     <div className={styles.dropzone} {...getRootProps()}>
-      <input {...getInputProps()} accept="image/*" />
+      <input {...getInputProps()} />
 
       {selectedFileUrl ? (
         <div className={styles.profile}>
