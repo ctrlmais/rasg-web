@@ -10762,6 +10762,13 @@ react-parallax-tilt@^1.7.40:
   resolved "https://registry.yarnpkg.com/react-parallax-tilt/-/react-parallax-tilt-1.7.40.tgz#62b6cda0c6aa9ee2f6f374b0d370b008c3eca280"
   integrity sha512-bXbju8K/CH63RTgIdtvEFb+dPoozrAfvLtKOVdLRzDjSR0F9evLvtn1t8m/MGyEK5sjMRYQilsaYtVFRr3bOhA==
 
+react-password-strength-bar@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-password-strength-bar/-/react-password-strength-bar-0.4.1.tgz#381073552a99d3401b884195c5fa9a7d56913dd0"
+  integrity sha512-2NvYz4IUU8k7KDZgsXKoJWreKCZLKGaqF5QhIVhc09OsPBFXFMh0BeghNkBIRkaxLeI7/xjivknDCYfluBCXKA==
+  dependencies:
+    zxcvbn "4.4.2"
+
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
@@ -13432,3 +13439,8 @@ yup@^0.32.11:
     nanoclone "^0.2.1"
     property-expr "^2.0.4"
     toposort "^2.0.2"
+
+zxcvbn@4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
+  integrity sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=

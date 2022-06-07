@@ -1,4 +1,5 @@
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 import { Ring } from '@uiball/loaders';
 
@@ -92,6 +93,12 @@ export function Profile() {
               onBlur={formikProfile.handleBlur}
               value={formikProfile.values.newPassword}
               icon={<FiLock color="#666360" size={24} />}
+            />
+            <PasswordStrengthBar
+              className={styles.passwordStrengthBar}
+              shortScoreWord={'Fraca'}
+              password={formikProfile.values.newPassword}
+              scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
             />
             {formikProfile.errors.newPassword &&
               formikProfile.touched.newPassword && (

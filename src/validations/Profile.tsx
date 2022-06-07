@@ -8,12 +8,16 @@ export const profileSchema = yup.object({
     .string()
     .when('password', (password, field) =>
       password ? field.required('Campo obrigatório') : field,
-    ),
+    )
+    .typeError('Senha inválida'),
   confirmPassword: yup
     .string()
     .when('newPassword', (newPassword, field) =>
       newPassword
-        ? field.required('Campo obrigatório').oneOf([yup.ref('newPassword')])
+        ? field
+            .required('Campo obrigatório')
+            .oneOf([yup.ref('newPassword')], 'Senhas não conferem')
         : field,
-    ),
+    )
+    .typeError('Senha inválida'),
 });

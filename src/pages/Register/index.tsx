@@ -1,4 +1,5 @@
 import { FiCheck, FiLock, FiMail, FiUser } from 'react-icons/fi';
+import PasswordStrengthBar from 'react-password-strength-bar';
 import { Link } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
@@ -82,11 +83,12 @@ export function Register() {
               value={formikRegister.values.senha}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikRegister.errors.senha && formikRegister.touched.senha && (
-              <span className={styles.error}>
-                {formikRegister.errors.senha}
-              </span>
-            )}
+            <PasswordStrengthBar
+              className={styles.passwordStrengthBar}
+              shortScoreWord={'Fraca'}
+              password={formikRegister.values.senha}
+              scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
+            />
 
             <Input
               type="password"
