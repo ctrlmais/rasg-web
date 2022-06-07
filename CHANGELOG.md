@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/ialexanderbrito/barber/compare/v1.7.1...v1.7.2) (2022-06-07)
+
+
+### Bug Fixes
+
+* lint and new ics download ([3354eb9](https://github.com/ialexanderbrito/barber/commit/3354eb9db67ecbd795878694c4cfe0ddcb0bdc5a))
+
 ## [1.7.1](https://github.com/ialexanderbrito/barber/compare/v1.7.0...v1.7.1) (2022-06-07)
 
 
