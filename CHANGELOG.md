@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/ialexanderbrito/barber/compare/v1.7.2...v1.7.3) (2022-06-07)
+
+
+### Bug Fixes
+
+* dropzone version ([da11a77](https://github.com/ialexanderbrito/barber/commit/da11a77f15041e921f392fd612ca071a4b7a2b97))
+
 ## [1.7.2](https://github.com/ialexanderbrito/barber/compare/v1.7.1...v1.7.2) (2022-06-07)
 
 
