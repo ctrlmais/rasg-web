@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/ialexanderbrito/barber/compare/v1.7.0...v1.7.1) (2022-06-07)
+
+
+### Bug Fixes
+
+* alert client and barber ([1420903](https://github.com/ialexanderbrito/barber/commit/142090308b5c5f2d098a2c4e0e788821453ae337))
+
 # [1.7.0](https://github.com/ialexanderbrito/barber/compare/v1.6.2...v1.7.0) (2022-06-06)
 
 
