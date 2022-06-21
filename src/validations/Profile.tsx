@@ -20,4 +20,5 @@ export const profileSchema = yup.object({
         : field,
     )
     .typeError('Senha inválida'),
+  phone: yup.string().required('Campo obrigatório'),
 });
