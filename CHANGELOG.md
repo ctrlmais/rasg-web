@@ -1,3 +1,24 @@
+# [1.9.0](https://github.com/ialexanderbrito/barber/compare/v1.8.0...v1.9.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* remove console.log ([40b9f34](https://github.com/ialexanderbrito/barber/commit/40b9f345c911b5e58b9fcbf0c40678339fd43931))
+
+
+### Features
+
+* add alert telefone ([3bc3c18](https://github.com/ialexanderbrito/barber/commit/3bc3c1802ab0ea30ba15087751b8db8dcb1ed9d9))
+* add button whatsapp ([0a69dd0](https://github.com/ialexanderbrito/barber/commit/0a69dd0e220b3ce31891ac1ee7105c35eefced43))
+* add format telefone ([f280e6d](https://github.com/ialexanderbrito/barber/commit/f280e6d585bbf1c73f050ef5b15014257d1f4a30))
+* add function contact barber and client ([d7f218d](https://github.com/ialexanderbrito/barber/commit/d7f218d2aa254f83cb0aa99b225173de9bfe9e43))
+* add function verify telefone ([3dd5ae8](https://github.com/ialexanderbrito/barber/commit/3dd5ae88df6ee7b026ecf1eae24b2a5f000bf26a))
+* add input telefone profile pages ([d48c147](https://github.com/ialexanderbrito/barber/commit/d48c1477957acc3297e1992f09b9c0497c588c0c))
+* add new interfaces ([e37d8a9](https://github.com/ialexanderbrito/barber/commit/e37d8a99f25e2ff57fd3874621dc29ca98d4d949))
+* add telefone formik ([5926d5d](https://github.com/ialexanderbrito/barber/commit/5926d5df232f037fadc3731d804f78bed98e27ff))
+* add telefone services ([8e6413e](https://github.com/ialexanderbrito/barber/commit/8e6413ede96a2a695db2045a9356701d8f500357))
+* add validation telefone ([6a11dd4](https://github.com/ialexanderbrito/barber/commit/6a11dd4b016bcb6ab7588971eb0873fb146320de))
+
 # [1.8.0](https://github.com/ialexanderbrito/barber/compare/v1.7.3...v1.8.0) (2022-06-07)
 
 
