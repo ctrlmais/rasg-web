@@ -1,4 +1,5 @@
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 import { Ring } from '@uiball/loaders';
@@ -9,6 +10,7 @@ import { Header } from 'components/Header';
 import { Input } from 'components/Input';
 
 import { convertImageToBase64 } from 'utils/convertBase64';
+import { formatCellPhone } from 'utils/telefone';
 
 import { useTheme } from 'contexts/Theme';
 
@@ -68,6 +70,20 @@ export function Profile() {
             />
             {formikProfile.errors.email && formikProfile.touched.email && (
               <span className={styles.error}>{formikProfile.errors.email}</span>
+            )}
+
+            <Input
+              type="text"
+              name="phone"
+              placeholder="WhatsApp"
+              onChange={formikProfile.handleChange}
+              onBlur={formikProfile.handleBlur}
+              value={formatCellPhone(formikProfile.values.phone)}
+              maxLength={11}
+              icon={<SiWhatsapp color="#666360" size={24} />}
+            />
+            {formikProfile.errors.phone && formikProfile.touched.phone && (
+              <span className={styles.error}>{formikProfile.errors.phone}</span>
             )}
 
             <Input
