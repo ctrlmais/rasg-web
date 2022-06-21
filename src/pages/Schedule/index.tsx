@@ -1,5 +1,6 @@
 import { DayPicker } from 'react-day-picker';
 import { FiCheck } from 'react-icons/fi';
+import { SiWhatsapp } from 'react-icons/si';
 
 import ptBR from 'date-fns/locale/pt-BR';
 
@@ -13,6 +14,7 @@ import { horariosManha, horariosTarde, horariosNoite } from 'utils/horarios';
 import { useTheme } from 'contexts/Theme';
 import { useUser } from 'contexts/User';
 
+import { useOverlay } from 'hooks/useOverlay';
 import { useSchedule } from 'hooks/useSchedule';
 
 import { css } from 'styles/calendar.styles';
@@ -46,6 +48,8 @@ export function Schedule() {
     setWeekDay,
   } = useSchedule();
 
+  const { contactBarbeiro } = useOverlay();
+
   return (
     <>
       <style>{css}</style>
@@ -65,6 +69,15 @@ export function Schedule() {
         <div className={styles.container}>
           <div className={styles.containerCard}>
             <CardBarbeiroSelected barbeiro={barbeiro} />
+            <button
+              className={styles.whatsapp}
+              disabled={barbeiro?.phone === null}
+              onClick={() => {
+                contactBarbeiro(barbeiro?.phone || '');
+              }}
+            >
+              <SiWhatsapp color="#fff" size={24} />
+            </button>
           </div>
 
           <div className={styles.containerTitle}>

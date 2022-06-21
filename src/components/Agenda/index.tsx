@@ -1,15 +1,19 @@
-import { SiApple, SiGooglecalendar } from 'react-icons/si';
+import { SiApple, SiGooglecalendar, SiWhatsapp } from 'react-icons/si';
 
 import { useAgenda } from 'hooks/useAgenda';
 
 import styles from './Agenda.module.scss';
 
 export function Agenda() {
-  const { handleGoogleCalendarCliente, eventSaveBarbeiro } = useAgenda();
+  const { handleGoogleCalendarCliente, eventSaveBarbeiro, contactCliente } =
+    useAgenda();
+
+  const cliente = JSON.parse(localStorage.getItem('cliente') || '');
+  const whatsAppNumber = cliente?.phone;
 
   return (
     <div className={styles.wrapper}>
-      <h2>Adicionar ao seu calendário</h2>
+      <h2>Opções adicionais</h2>
 
       <div className={styles.containerButton}>
         <button
@@ -32,6 +36,17 @@ export function Agenda() {
         >
           <SiApple />
           Adicionar ao Apple Calendar
+        </button>
+
+        <button
+          className={styles.whatsapp}
+          type="button"
+          onClick={() => {
+            contactCliente(whatsAppNumber);
+          }}
+        >
+          <SiWhatsapp />
+          Entrar em contato via Whatsapp
         </button>
       </div>
     </div>
