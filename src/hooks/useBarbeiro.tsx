@@ -35,8 +35,6 @@ export function useBarbeiro() {
   const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
 
   async function verificarStatusBarbeiro() {
-    console.log('id ->', clientId);
-
     const { data, status, error } = await getBarbeiro(clientId as string, true);
 
     if (error) {
