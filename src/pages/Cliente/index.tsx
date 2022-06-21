@@ -18,11 +18,29 @@ import styles from './Cliente.module.scss';
 export function Cliente() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { barbeiros, horariosAgendados, setSelectHours, selectDay } = useUser();
+  const {
+    barbeiros,
+    horariosAgendados,
+    setSelectHours,
+    selectDay,
+    verificaTelefone,
+  } = useUser();
   const { nextDay, previousDay, handleClickBarbeiro } = useCliente();
 
   return (
     <>
+      {!verificaTelefone() && (
+        <div className={styles.containerAlertTelefone}>
+          <Alert
+            close
+            title="Adicione um telefone para que o barbeiro possa entrar em contato com você"
+            warning
+            onClick={() => {
+              navigate('/profile');
+            }}
+          />
+        </div>
+      )}
       <div className={styles.titleContainer}>
         <button
           type="button"
