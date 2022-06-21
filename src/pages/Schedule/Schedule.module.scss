@@ -91,10 +91,32 @@
 
 .containerCard {
   display: flex;
-  width: 100%;
+  width: 20rem;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.whatsapp {
+  display: flex;
+  background-color: rgb(37, 211, 102);
+  width: 50px;
+  height: 50px;
+  border: none;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: rgb(37, 211, 102);
+    filter: grayscale(50%);
+    color: rgb(255, 255, 255);
+    cursor: not-allowed;
+  }
 }
 
 @media screen and (min-width: 839px) {
@@ -164,5 +186,13 @@
     text-align: center;
     border-radius: 10px;
     font-size: 14px;
+  }
+
+  .containerCard {
+    display: flex;
+    width: 25rem;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
   }
 }
