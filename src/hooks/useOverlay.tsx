@@ -26,6 +26,10 @@ export function useOverlay() {
     location: '',
   });
 
+  function contactBarbeiro(number: string) {
+    window.open(`https://wa.me/${number}`);
+  }
+
   function handleGoogleCalendar() {
     const title = `Barba, cabelo e bigode com ${barbeiro?.nome}`;
     const description = `Barbearia do ${barbeiro?.nome}`;
@@ -43,5 +47,6 @@ export function useOverlay() {
   return {
     handleGoogleCalendar,
     eventSaveCliente,
+    contactBarbeiro,
   };
 }

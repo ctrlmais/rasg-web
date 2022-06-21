@@ -51,8 +51,13 @@ export function useAgenda() {
     );
   }
 
+  function contactCliente(number: string) {
+    window.open(`https://wa.me/${number}`);
+  }
+
   return {
     handleGoogleCalendarCliente,
     eventSaveBarbeiro,
+    contactCliente,
   };
 }
