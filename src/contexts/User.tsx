@@ -177,6 +177,16 @@ export function UserProvider({ children }: any) {
     return false;
   }
 
+  function verificaTelefone() {
+    const telefone = user?.user_metadata.phone;
+
+    if (telefone) {
+      return true;
+    }
+
+    return false;
+  }
+
   function generateGoogleCalendarEvent(
     title: string,
     startDate: string,
@@ -457,6 +467,7 @@ export function UserProvider({ children }: any) {
         endDate,
         buscaClientesHorario,
         verificaHorarioDeTrabalho,
+        verificaTelefone,
       }}
     >
       {children}
