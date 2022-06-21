@@ -39,6 +39,7 @@ export function useProfile() {
       password: '',
       newPassword: '',
       confirmPassword: '',
+      phone: '',
     },
     validationSchema: profileSchema,
     onSubmit: async (values) => {
@@ -49,6 +50,7 @@ export function useProfile() {
         values.password,
         values.newPassword,
         values.nome,
+        values.phone,
       );
 
       if (!userData) return;
@@ -89,6 +91,7 @@ export function useProfile() {
   useEffect(() => {
     formikProfile.setFieldValue('nome', user?.user_metadata.name);
     formikProfile.setFieldValue('email', user?.email);
+    formikProfile.setFieldValue('phone', user?.user_metadata.phone);
   }, [user]);
 
   return {
