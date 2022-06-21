@@ -24,6 +24,7 @@ export interface UserMetadata {
   schedules: any;
   sub: string;
   qtd?: number;
+  phone: string;
 }
 
 export interface ClienteMetadata {
@@ -184,4 +185,5 @@ export interface UserContextProps {
   endDate: string;
   buscaClientesHorario: (horario: string) => void;
   verificaHorarioDeTrabalho: () => boolean;
+  verificaTelefone: () => boolean;
 }
