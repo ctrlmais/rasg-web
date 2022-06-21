@@ -5,11 +5,12 @@ export async function updateProfile(
   password: string,
   newPassword: string,
   name: string,
+  phone: string,
 ) {
   const { user, error } = await supabase.auth.update({
     email,
     password: password === '' ? undefined : newPassword,
-    data: { name },
+    data: { name, phone },
   });
 
   return { user, error };
