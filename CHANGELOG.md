@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/ialexanderbrito/barber/compare/v1.9.0...v1.9.1) (2022-07-04)
+
+
+### Bug Fixes
+
+* update eslint config ([e162771](https://github.com/ialexanderbrito/barber/commit/e162771892f918c31541d95b97fec82a9b03bcfb))
+
 # [1.9.0](https://github.com/ialexanderbrito/barber/compare/v1.8.0...v1.9.0) (2022-06-21)
 
 
