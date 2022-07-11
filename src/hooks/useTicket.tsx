@@ -36,6 +36,8 @@ export function useTicket() {
     handlePrint();
   }
 
+  const urlPathname = window.location.pathname;
+
   async function cancelarAgendamento(idAgendamento: string) {
     const { data, error } = await deleteSchedule(idAgendamento);
 
@@ -46,7 +48,10 @@ export function useTicket() {
 
     if (data) {
       toast.success('Agendamento cancelado com sucesso!', { id: 'toast' });
-      navigate('/');
+
+      if (urlPathname.includes('/ticket')) {
+        navigate('/');
+      }
     }
   }
 
