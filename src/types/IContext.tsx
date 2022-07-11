@@ -25,6 +25,7 @@ export interface UserMetadata {
   sub: string;
   qtd?: number;
   phone: string;
+  pictureId?: string;
 }
 
 export interface ClienteMetadata {
