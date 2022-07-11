@@ -94,6 +94,7 @@ export function AuthProvider({ children }: any) {
         ...userData.user_metadata,
         avatar_url: infoUser.src,
         picture: infoUser.src,
+        pictureId: infoUser.id,
       },
       updated_at: infoUser.updated_at,
     };

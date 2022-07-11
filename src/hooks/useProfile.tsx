@@ -7,6 +7,7 @@ import { useToast } from 'contexts/Toast';
 
 import { useAuth } from 'hooks/useAuth';
 
+import { deletePicture } from 'services/delete/picture';
 import { updateProfile } from 'services/update/profile';
 import { updateProfilePhoto } from 'services/update/profileAvatar';
 
@@ -15,6 +16,8 @@ export function useProfile() {
   const { user, setUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const idPictureProfile = user?.user_metadata.pictureId;
 
   function isGoogle() {
     if (user?.app_metadata.provider === 'google') {
@@ -34,6 +37,21 @@ export function useProfile() {
 
   function showNewPassword() {
     setShowPassword(!showPassword);
+  }
+
+  async function apagarPicture() {
+    const { data, error } = await deletePicture(idPictureProfile || '');
+
+    if (error) {
+      toast.error(error.message, { id: 'toast' });
+      return;
+    }
+
+    if (data) {
+      toast.success('Foto apagada com sucesso!', { id: 'toast' });
+
+      window.location.reload();
+    }
   }
 
   const formikProfile = useFormik({
@@ -106,5 +124,7 @@ export function useProfile() {
     isEmail,
     showNewPassword,
     showPassword,
+    apagarPicture,
+    idPictureProfile,
   };
 }

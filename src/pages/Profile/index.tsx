@@ -21,8 +21,15 @@ import styles from './Profile.module.scss';
 export function Profile() {
   const { theme } = useTheme();
 
-  const { formikProfile, loading, isGoogle, showNewPassword, showPassword } =
-    useProfile();
+  const {
+    formikProfile,
+    loading,
+    isGoogle,
+    showNewPassword,
+    showPassword,
+    apagarPicture,
+    idPictureProfile,
+  } = useProfile();
 
   return (
     <div className={styles.home} data-theme={theme}>
@@ -42,6 +49,16 @@ export function Profile() {
               });
             }}
           />
+          {idPictureProfile && (
+            <div
+              className={styles.removePicture}
+              onClick={() => {
+                apagarPicture();
+              }}
+            >
+              Apagar foto de perfil
+            </div>
+          )}
 
           <h2>Meu Perfil</h2>
           <div
