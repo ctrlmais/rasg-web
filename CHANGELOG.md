@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/ialexanderbrito/barber/compare/v1.10.0...v1.11.0) (2022-07-11)
+
+
+### Features
+
+* add new page profile and update password ([6f3890f](https://github.com/ialexanderbrito/barber/commit/6f3890ff0860f70c7827a8ae037b011a85ec5b17))
+
 # [1.10.0](https://github.com/ialexanderbrito/barber/compare/v1.9.1...v1.10.0) (2022-07-11)
 
 
