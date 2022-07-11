@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/ialexanderbrito/barber/compare/v1.9.1...v1.10.0) (2022-07-11)
+
+
+### Features
+
+* add cancel button to barber ([13b2c2b](https://github.com/ialexanderbrito/barber/commit/13b2c2b18842a1c76bd2450697f07a175fe3c2ea))
+
 ## [1.9.1](https://github.com/ialexanderbrito/barber/compare/v1.9.0...v1.9.1) (2022-07-04)
 
 
