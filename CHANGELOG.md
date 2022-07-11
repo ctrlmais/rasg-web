@@ -1,3 +1,12 @@
+# [1.13.0](https://github.com/ialexanderbrito/barber/compare/v1.12.0...v1.13.0) (2022-07-11)
+
+
+### Features
+
+* add new interface ([8cd2226](https://github.com/ialexanderbrito/barber/commit/8cd222691a0b568a8cd708d14d307b328922ee5e))
+* add new services delete picture ([d7d1cdb](https://github.com/ialexanderbrito/barber/commit/d7d1cdbaec3b5a3e0812d1d8bf9fdfbaf34df4fb))
+* add remove picture profile ([5da87ac](https://github.com/ialexanderbrito/barber/commit/5da87ac5a0692988b223f7dbd02649c3084a9ed4))
+
 # [1.12.0](https://github.com/ialexanderbrito/barber/compare/v1.11.0...v1.12.0) (2022-07-11)
 
 
