@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/ialexanderbrito/barber/compare/v1.11.0...v1.12.0) (2022-07-11)
+
+
+### Features
+
+* update dependencies ([bc3f545](https://github.com/ialexanderbrito/barber/commit/bc3f54504245d7d98063c259413e32180d7b5e60))
+
 # [1.11.0](https://github.com/ialexanderbrito/barber/compare/v1.10.0...v1.11.0) (2022-07-11)
 
 
