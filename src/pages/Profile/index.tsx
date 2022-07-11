@@ -21,7 +21,8 @@ import styles from './Profile.module.scss';
 export function Profile() {
   const { theme } = useTheme();
 
-  const { formikProfile, loading, isGoogle } = useProfile();
+  const { formikProfile, loading, isGoogle, showNewPassword, showPassword } =
+    useProfile();
 
   return (
     <div className={styles.home} data-theme={theme}>
@@ -43,7 +44,12 @@ export function Profile() {
           />
 
           <h2>Meu Perfil</h2>
-          <div className={styles.inputContainer}>
+          <div
+            className={styles.inputContainer}
+            style={{
+              height: showPassword ? '28rem' : '13rem',
+            }}
+          >
             <Input
               type="text"
               name="nome"
@@ -86,60 +92,72 @@ export function Profile() {
               <span className={styles.error}>{formikProfile.errors.phone}</span>
             )}
 
-            <Input
-              type="password"
-              name="password"
-              placeholder="Senha Atual"
-              onChange={formikProfile.handleChange}
-              onBlur={formikProfile.handleBlur}
-              value={formikProfile.values.password}
-              icon={<FiLock color="#666360" size={24} />}
-            />
-            {formikProfile.errors.password &&
-              formikProfile.touched.password && (
-                <span className={styles.error}>
-                  {formikProfile.errors.password}
-                </span>
-              )}
-            <Input
-              type="password"
-              name="newPassword"
-              placeholder="Nova Senha"
-              onChange={formikProfile.handleChange}
-              onBlur={formikProfile.handleBlur}
-              value={formikProfile.values.newPassword}
-              icon={<FiLock color="#666360" size={24} />}
-            />
-            <PasswordStrengthBar
-              className={styles.passwordStrengthBar}
-              shortScoreWord={'Fraca'}
-              password={formikProfile.values.newPassword}
-              scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
-            />
-            {formikProfile.errors.newPassword &&
-              formikProfile.touched.newPassword && (
-                <span className={styles.error}>
-                  {formikProfile.errors.newPassword}
-                </span>
-              )}
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirmar Senha"
-              onChange={formikProfile.handleChange}
-              onBlur={formikProfile.handleBlur}
-              value={formikProfile.values.confirmPassword}
-              icon={<FiLock color="#666360" size={24} />}
-            />
-            {formikProfile.errors.confirmPassword &&
-              formikProfile.touched.confirmPassword && (
-                <span className={styles.error}>
-                  {formikProfile.errors.confirmPassword}
-                </span>
-              )}
+            {showPassword && (
+              <>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Senha Atual"
+                  onChange={formikProfile.handleChange}
+                  onBlur={formikProfile.handleBlur}
+                  value={formikProfile.values.password}
+                  icon={<FiLock color="#666360" size={24} />}
+                />
+                {formikProfile.errors.password &&
+                  formikProfile.touched.password && (
+                    <span className={styles.error}>
+                      {formikProfile.errors.password}
+                    </span>
+                  )}
+                <Input
+                  type="password"
+                  name="newPassword"
+                  placeholder="Nova Senha"
+                  onChange={formikProfile.handleChange}
+                  onBlur={formikProfile.handleBlur}
+                  value={formikProfile.values.newPassword}
+                  icon={<FiLock color="#666360" size={24} />}
+                />
+                <PasswordStrengthBar
+                  className={styles.passwordStrengthBar}
+                  shortScoreWord={'Fraca'}
+                  password={formikProfile.values.newPassword}
+                  scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
+                />
+                {formikProfile.errors.newPassword &&
+                  formikProfile.touched.newPassword && (
+                    <span className={styles.error}>
+                      {formikProfile.errors.newPassword}
+                    </span>
+                  )}
+                <Input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirmar Senha"
+                  onChange={formikProfile.handleChange}
+                  onBlur={formikProfile.handleBlur}
+                  value={formikProfile.values.confirmPassword}
+                  icon={<FiLock color="#666360" size={24} />}
+                />
+                {formikProfile.errors.confirmPassword &&
+                  formikProfile.touched.confirmPassword && (
+                    <span className={styles.error}>
+                      {formikProfile.errors.confirmPassword}
+                    </span>
+                  )}
+              </>
+            )}
           </div>
 
           <div className={styles.buttonContainer}>
+            <Button
+              type="button"
+              onClick={() => {
+                showNewPassword();
+              }}
+            >
+              Trocar de senha
+            </Button>
             <Button type="submit">
               {loading ? (
                 <Ring speed={2} lineWeight={5} color="#28262e" size={32} />

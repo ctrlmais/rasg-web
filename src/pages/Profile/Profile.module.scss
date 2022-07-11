@@ -18,9 +18,11 @@
 .buttonContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   margin-top: 10px;
   margin-bottom: 20px;
+  flex-direction: column;
+  height: 10rem;
 }
 
 .passwordStrengthBar {

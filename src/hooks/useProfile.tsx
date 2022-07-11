@@ -14,6 +14,7 @@ export function useProfile() {
   const { toast } = useToast();
   const { user, setUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   function isGoogle() {
     if (user?.app_metadata.provider === 'google') {
@@ -29,6 +30,10 @@ export function useProfile() {
     }
 
     return false;
+  }
+
+  function showNewPassword() {
+    setShowPassword(!showPassword);
   }
 
   const formikProfile = useFormik({
@@ -99,5 +104,7 @@ export function useProfile() {
     loading,
     isGoogle,
     isEmail,
+    showNewPassword,
+    showPassword,
   };
 }
