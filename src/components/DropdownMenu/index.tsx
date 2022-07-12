@@ -10,7 +10,7 @@ import { useDropdown } from 'hooks/useDropdown';
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
-  const { user, isAlexander, isBarbeiro } = useAuth();
+  const { user, isAlexander, isBarbeiro, isCliente } = useAuth();
   const { activeMenu, dropdownRef, calcHeight, menuHeight, photo } =
     useDropdown();
 
@@ -53,7 +53,7 @@ export function DropdownMenu() {
           {isBarbeiro && (
             <DropdownItem link="/horarios">Atualizar horários</DropdownItem>
           )}
-
+          {isCliente && <DropdownItem link="/history">Histórico</DropdownItem>}
           <DropdownItem logout>Sair</DropdownItem>
         </div>
       </CSSTransition>
