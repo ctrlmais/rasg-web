@@ -8,6 +8,8 @@ import { NotFound } from 'pages/NotFound';
 import { Profile } from 'pages/Profile';
 import { ResetPassword } from 'pages/ResetPassword';
 import { Schedule } from 'pages/Schedule';
+import { Validate } from 'pages/Validate';
+import { ValidateId } from 'pages/ValidateId';
 
 import { useAuth } from 'hooks/useAuth';
 
@@ -20,9 +22,10 @@ export function PrivateRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
       <Route path="/ticket/:id" element={<MyTicket />} />
+      {isBarbeiro && <Route path="/validate" element={<Validate />} />}
+      {isBarbeiro && <Route path="/validate/:id" element={<ValidateId />} />}
       {isBarbeiro && <Route path="/horarios" element={<Horarios />} />}
       {isAlexander && <Route path="/admin" element={<Admin />} />}
-      {isBarbeiro && <Route path="/valida/:id" element={<NotFound />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
