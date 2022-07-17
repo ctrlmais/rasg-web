@@ -98,7 +98,7 @@ export function Ticket(props: Props) {
               <div className="text-description-container">
                 <div className="qr-code">
                   <QRCodeSVG
-                    value={`/valida/${props.cliente?.id}`}
+                    value={`/validate/${props.cliente?.id}`}
                     size={100}
                     bgColor={'#ffffff'}
                     fgColor={'#000000'}
