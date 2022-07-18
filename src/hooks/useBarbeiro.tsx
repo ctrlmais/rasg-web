@@ -125,6 +125,10 @@ export function useBarbeiro() {
   }
 
   useEffect(() => {
+    verificarStatusBarbeiro();
+  }, []);
+
+  useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
 
     return function cleanup() {
@@ -160,10 +164,6 @@ export function useBarbeiro() {
   useEffect(() => {
     buscarDadosParaExcel();
   }, [dataInicial, dataFinal]);
-
-  useEffect(() => {
-    verificarStatusBarbeiro();
-  }, []);
 
   const customStyles = {
     content: {
