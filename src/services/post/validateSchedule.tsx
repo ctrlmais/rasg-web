@@ -1,10 +1,18 @@
 import { supabase } from 'services/supabase';
 
-export async function validateSchedule(validar: boolean, idSchedule: string) {
-  const { data, error } = await supabase
-    .from('tb_schedule')
-    .update({ validate: validar })
-    .match({ id: idSchedule });
+export async function validateSchedule(
+  idSchedule: string,
+  idProfile: string,
+  validate: boolean,
+) {
+  const { status, error } = await supabase.rpc(
+    'ebarscheduleupdatevalidatefield',
+    {
+      p_id: idSchedule,
+      p_user_id: idProfile,
+      p_validate: validate,
+    },
+  );
 
-  return { data, error };
+  return { status, error };
 }
