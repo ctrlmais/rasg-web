@@ -100,14 +100,8 @@ export function Ticket(props: Props) {
                     {props.cliente?.client_name}
                   </div>
                   <div className="ticket-profile-top-text-profile">
-                    <a
-                      onClick={() => {
-                        console.log('as');
-                      }}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {props.cliente?.client_id}
+                    <a target="_blank" rel="noreferrer">
+                      {props.cliente?.id}
                     </a>
                   </div>
                 </div>
@@ -116,7 +110,7 @@ export function Ticket(props: Props) {
                 <div className="text-description-container">
                   <div className="qr-code">
                     <QRCodeSVG
-                      value={`http://192.168.100.38:3000/validate/${props.cliente?.id}`}
+                      value={`${process.env.REACT_APP_URL}/validate/${props.cliente?.id}`}
                       size={100}
                       bgColor={'#ffffff'}
                       fgColor={'#000000'}
