@@ -1,7 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import { CookieAlert } from 'components/CookieAlert';
-
 import { AuthProvider } from 'contexts/Auth';
 import { ThemeProvider } from 'contexts/Theme';
 import { ToastProvider } from 'contexts/Toast';
@@ -19,7 +17,6 @@ export function App() {
         <UserProvider>
           <ToastProvider>
             <ThemeProvider>
-              <CookieAlert />
               <MainRoutes />
             </ThemeProvider>
           </ToastProvider>
