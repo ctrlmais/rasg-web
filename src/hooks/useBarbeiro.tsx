@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { format, addDays } from 'date-fns';
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 import { ClienteMetadata } from 'types/IContext';
 import * as XLSX from 'xlsx';
 
@@ -164,6 +166,29 @@ export function useBarbeiro() {
   useEffect(() => {
     buscarDadosParaExcel();
   }, [dataInicial, dataFinal]);
+
+  useEffect(() => {
+    const barberNewNotification = Cookies.get('barbeiro_notification');
+
+    if (barberNewNotification !== 'success') {
+      Swal.fire({
+        title: 'Novidade no ar!',
+        text: 'Agora você barbeiro pode validar o horário de seus clientes! Basta você ir no menu "Validar Horário" ou abrir sua camera e scanear o QR code do cliente. Essa opção é opcional, mas é util para ter um controle de quem marca e não comparece no horário marcado.',
+        icon: 'info',
+        confirmButtonColor: '#ff9000',
+        cancelButtonColor: '#CA0B00',
+        background: '#312e38',
+        color: '#f4ede8',
+        confirmButtonText: 'Okay',
+      }).then((result) => {
+        if (result.value) {
+          Cookies.set('barbeiro_notification', 'success', {
+            expires: 1,
+          });
+        }
+      });
+    }
+  }, []);
 
   const customStyles = {
     content: {
