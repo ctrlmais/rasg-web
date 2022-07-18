@@ -53,6 +53,9 @@ export function DropdownMenu() {
           {isBarbeiro && (
             <DropdownItem link="/horarios">Atualizar horários</DropdownItem>
           )}
+          {isBarbeiro && (
+            <DropdownItem link="/validate">Validar Horário</DropdownItem>
+          )}
 
           <DropdownItem logout>Sair</DropdownItem>
         </div>

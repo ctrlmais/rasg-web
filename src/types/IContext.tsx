@@ -45,6 +45,7 @@ export interface ClienteMetadata {
   barber_name: string;
   barber_picture: string;
   barber_avatar: string;
+  validate: boolean;
 }
 
 export interface IdentityData {
