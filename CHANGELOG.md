@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/ialexanderbrito/barber/compare/v1.14.0...v1.15.0) (2022-07-18)
+
+
+### Features
+
+* remove cookie consent alert message ([3d5d5df](https://github.com/ialexanderbrito/barber/commit/3d5d5df3f8a6b3f1f46af885320e7b651271ea40))
+
 # [1.14.0](https://github.com/ialexanderbrito/barber/compare/v1.13.0...v1.14.0) (2022-07-18)
 
 
