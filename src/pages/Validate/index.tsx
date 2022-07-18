@@ -1,23 +1,21 @@
-import { useEffect, useState } from 'react';
-import { QrReader } from 'react-qr-reader';
-import { useNavigate } from 'react-router-dom';
+import { FiUser } from 'react-icons/fi';
 
+import { Ring } from '@uiball/loaders';
+
+import { Button } from 'components/Button';
 import { Header } from 'components/Header';
+import { Input } from 'components/Input';
 
 import { useTheme } from 'contexts/Theme';
+
+import { useValidate } from 'hooks/useValidate';
 
 import styles from './Validate.module.scss';
 
 export function Validate() {
-  const navigate = useNavigate();
   const { theme } = useTheme();
-  const [link, setLink] = useState('No result');
-
-  useEffect(() => {
-    if (link === 'No result') {
-      navigate(link);
-    }
-  }, [link]);
+  const { idSchedule, setIdSchedule, loading, validarAgendamento } =
+    useValidate();
 
   return (
     <>
@@ -28,33 +26,35 @@ export function Validate() {
           <h2>Validar horário</h2>
         </div>
 
-        <QrReader
-          onResult={(result: any) => {
-            if (result) {
-              setLink(result?.text);
-            }
-          }}
-          containerStyle={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          videoContainerStyle={{
-            paddingTop: '22rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          videoStyle={{
-            display: 'flex',
-            border: '8px dashed #ff9000',
-            width: '29rem',
-            left: 'none',
-          }}
-          constraints={{
-            facingMode: 'user',
-          }}
-        />
+        <div className={styles.wrapperContainer}>
+          <div className={styles.inputContainer}>
+            <Input
+              type="text"
+              name="text"
+              placeholder="Digite o ID do agendamento"
+              onChange={(e) => setIdSchedule(e.target.value)}
+              onBlur={(e) => setIdSchedule(e.target.value)}
+              value={idSchedule}
+              icon={<FiUser color="#666360" size={24} />}
+            />
+
+            <div className={styles.containerButton}>
+              <Button
+                disabled={idSchedule === ''}
+                type="button"
+                onClick={() => {
+                  validarAgendamento();
+                }}
+              >
+                {loading ? (
+                  'Validar'
+                ) : (
+                  <Ring speed={2} lineWeight={5} color="#28262e" size={32} />
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
