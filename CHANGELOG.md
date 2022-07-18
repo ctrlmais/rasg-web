@@ -1,3 +1,28 @@
+# [1.14.0](https://github.com/ialexanderbrito/barber/compare/v1.13.0...v1.14.0) (2022-07-18)
+
+
+### Bug Fixes
+
+* change data to status ([2b102f4](https://github.com/ialexanderbrito/barber/commit/2b102f42e7decd2055268c5682a3654e8686ccad))
+* disabled button ([1dbf27d](https://github.com/ialexanderbrito/barber/commit/1dbf27dcd024bf97503fdc6610ae4fa08f03bb7f))
+* permission to only barber ([7980ed4](https://github.com/ialexanderbrito/barber/commit/7980ed4ac7b4d4cf6b2b449b5388192c3dff1a19))
+* update env and id ticket and remove console.log ([727f7ff](https://github.com/ialexanderbrito/barber/commit/727f7ff09aca91585e7eebc4daa735f2e304358a))
+* url validate ([980e6c1](https://github.com/ialexanderbrito/barber/commit/980e6c1e0beb1d83551546bb9d46e5a0d5e26ad4))
+* useffect order status barber ([7c01d25](https://github.com/ialexanderbrito/barber/commit/7c01d257157ba26da6990757cdb7cc854d6322b7))
+
+
+### Features
+
+* add copy to clipboard ticket id ([f07b051](https://github.com/ialexanderbrito/barber/commit/f07b05177fcd32d25789fcc8c7da1c72974a55dc))
+* add dependencies copy to clipboard ([3cd1c64](https://github.com/ialexanderbrito/barber/commit/3cd1c648b1d0026ce6e5c9affacc568cc93e8776))
+* add new hook validate ([a81791b](https://github.com/ialexanderbrito/barber/commit/a81791bbab97e5ab0789196ccca1191db515e40a))
+* add new interfaces ([80f78c1](https://github.com/ialexanderbrito/barber/commit/80f78c19fc4fb962be4b70bdaa245c550dde1dea))
+* add new routes validate schedule ([b32ba75](https://github.com/ialexanderbrito/barber/commit/b32ba75b2a94daeb773cd0c32fad15fc5e7f7e0c))
+* add page validate id ([418efc6](https://github.com/ialexanderbrito/barber/commit/418efc6c1fc8c2d2d90b8a1e9fc6c80dda630ea1))
+* add page validate schedule ([8bc5e66](https://github.com/ialexanderbrito/barber/commit/8bc5e665bd4f442ecda34d778342edc769f3f4a3))
+* add qr reader ([257378d](https://github.com/ialexanderbrito/barber/commit/257378d6105d8c906b44707d7f447c049bd5af8c))
+* add service update validate schedule ([d5a6d92](https://github.com/ialexanderbrito/barber/commit/d5a6d921cca303c483593b3b4496c82883d937d9))
+
 # [1.13.0](https://github.com/ialexanderbrito/barber/compare/v1.12.0...v1.13.0) (2022-07-11)
 
 
