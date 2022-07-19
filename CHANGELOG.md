@@ -1,3 +1,10 @@
+## [1.17.3](https://github.com/ialexanderbrito/barber/compare/v1.17.2...v1.17.3) (2022-07-19)
+
+
+### Bug Fixes
+
+* width images pages initial ([b6e6a73](https://github.com/ialexanderbrito/barber/commit/b6e6a737d867db91696e2ec9e58b328287978957))
+
 ## [1.17.2](https://github.com/ialexanderbrito/barber/compare/v1.17.1...v1.17.2) (2022-07-19)
 
 
