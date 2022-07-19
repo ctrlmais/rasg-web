@@ -1,4 +1,5 @@
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { IoMdClose } from 'react-icons/io';
 import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
@@ -49,14 +50,15 @@ export function Profile() {
               });
             }}
           />
+
           {idPictureProfile && (
             <div
-              className={styles.removePicture}
+              className={styles.removeButton}
               onClick={() => {
                 apagarPicture();
               }}
             >
-              Apagar foto de perfil
+              <IoMdClose />
             </div>
           )}
 
