@@ -1,3 +1,10 @@
+## [1.17.6](https://github.com/ialexanderbrito/barber/compare/v1.17.5...v1.17.6) (2022-07-19)
+
+
+### Bug Fixes
+
+* loading list barber ([0a21de9](https://github.com/ialexanderbrito/barber/commit/0a21de9792f7908fb84b34c93bbfad057d93c10a))
+
 ## [1.17.5](https://github.com/ialexanderbrito/barber/compare/v1.17.4...v1.17.5) (2022-07-19)
 
 
