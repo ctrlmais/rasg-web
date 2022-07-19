@@ -1,3 +1,10 @@
+## [1.17.5](https://github.com/ialexanderbrito/barber/compare/v1.17.4...v1.17.5) (2022-07-19)
+
+
+### Bug Fixes
+
+* loading page barbeiro ([4528407](https://github.com/ialexanderbrito/barber/commit/4528407860d4f56bcb20352c79471e4106a856ef))
+
 ## [1.17.4](https://github.com/ialexanderbrito/barber/compare/v1.17.3...v1.17.4) (2022-07-19)
 
 
