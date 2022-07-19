@@ -1,6 +1,7 @@
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
+import { Ring } from '@uiball/loaders';
 import { format } from 'date-fns';
 import { ClienteMetadata, UserMetadata } from 'types/IContext';
 
@@ -24,6 +25,7 @@ export function Cliente() {
     setSelectHours,
     selectDay,
     verificaTelefone,
+    loading,
   } = useUser();
   const { nextDay, previousDay, handleClickBarbeiro } = useCliente();
 
@@ -82,25 +84,32 @@ export function Cliente() {
           </div>
         </>
       )}
-      <h2 className={styles.titleHome}>
-        {barbeiros.length >= 1
-          ? `
+
+      {loading ? (
+        <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
+      ) : (
+        <>
+          <h2 className={styles.titleHome}>
+            {barbeiros.length >= 1
+              ? `
         Olá ${user?.user_metadata.name}, eu encontrei ${barbeiros.length}
         ${barbeiros.length > 1 ? 'barbeiros' : 'barbeiro'} para você!
         `
-          : 'Ops não encontrei nenhum barbeiro. 😢'}
-      </h2>
-      <div className={styles.containerList}>
-        {barbeiros.map((barbeiro: UserMetadata) => (
-          <CardBarbeiro
-            key={barbeiro.id}
-            barbeiro={barbeiro}
-            onClick={() => {
-              handleClickBarbeiro(barbeiro);
-            }}
-          />
-        ))}
-      </div>
+              : 'Ops não encontrei nenhum barbeiro. 😢'}
+          </h2>
+          <div className={styles.containerList}>
+            {barbeiros.map((barbeiro: UserMetadata) => (
+              <CardBarbeiro
+                key={barbeiro.id}
+                barbeiro={barbeiro}
+                onClick={() => {
+                  handleClickBarbeiro(barbeiro);
+                }}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 }

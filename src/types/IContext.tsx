@@ -188,4 +188,5 @@ export interface UserContextProps {
   buscaClientesHorario: (horario: string) => void;
   verificaHorarioDeTrabalho: () => boolean;
   verificaTelefone: () => boolean;
+  loading: boolean;
 }
