@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/ialexanderbrito/barber/compare/v1.17.1...v1.17.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* width image ([36de3be](https://github.com/ialexanderbrito/barber/commit/36de3beb983b1219b3a92c316683fb02fc0308ad))
+
 ## [1.17.1](https://github.com/ialexanderbrito/barber/compare/v1.17.0...v1.17.1) (2022-07-19)
 
 
