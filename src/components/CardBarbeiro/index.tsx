@@ -1,51 +1,26 @@
-import { useEffect, useState } from 'react';
 import { BsCalendar, BsClock } from 'react-icons/bs';
 
 import Avvvatars from 'avvvatars-react';
 import { CardBarbeiroProps } from 'types/IComponents';
+import { Schedule } from 'types/IContext';
 
 import { getDiaSemana } from 'utils/semanas';
 
-import { getPhoto } from 'services/get/photo';
+import { usePhoto } from 'hooks/usePhoto';
 
 import styles from './CardBarbeiro.module.scss';
 
 export function CardBarbeiro(props: CardBarbeiroProps) {
-  const [photo, setPhoto] = useState('');
-  const [name, setName] = useState('');
+  const { photo, name } = usePhoto(props.barbeiro?.id || '');
 
   const diaAtual = String(new Date().getDay());
   const schedules = JSON.parse(props.barbeiro?.schedules);
 
-  async function getPhotoUser(id: string) {
-    const { data, error, status } = await getPhoto(id);
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    setPhoto(data[0].j[0].src);
-    setName(data[0].j[0].name);
-  }
-
-  useEffect(() => {
-    if (props.barbeiro) {
-      getPhotoUser(props.barbeiro.id);
-    }
-  }, [props.barbeiro]);
-
   function getDiasFuncionamento() {
     const dias = [] as string[];
-    schedules?.map((schedule: any) => {
+    schedules?.map((schedule: Schedule) => {
       if (schedule.week_day !== '') {
-        dias.push(getDiaSemana(schedule?.week_day));
+        dias.push(getDiaSemana(schedule?.week_day || ''));
       }
     });
     return dias;
@@ -53,7 +28,7 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
 
   function getHorarioAtual(week_day: string) {
     const horario = [] as string[];
-    schedules?.map((schedule: any) => {
+    schedules?.map((schedule: Schedule) => {
       if (schedule.week_day === week_day) {
         horario.push(schedule.from + ' às ' + schedule.to);
       }

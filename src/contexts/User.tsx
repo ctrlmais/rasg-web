@@ -295,31 +295,6 @@ export function UserProvider({ children }: any) {
     }
   }
 
-  async function buscarAgendamentos() {
-    if (!clientId) return;
-
-    const { data, error, status } = await getHorarioMarcadoCliente(
-      clientId,
-      atualDayFormatted,
-    );
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-
-    if (data[0].j === null) {
-      setHorariosAgendados([]);
-      return;
-    }
-
-    setHorariosAgendados(data[0].j);
-  }
-
   async function postShedule() {
     if (!clientId) return;
     if (!barberId) return;
@@ -375,6 +350,31 @@ export function UserProvider({ children }: any) {
   }, [isCliente]);
 
   useEffect(() => {
+    async function buscarAgendamentos() {
+      if (!clientId) return;
+
+      const { data, error, status } = await getHorarioMarcadoCliente(
+        clientId,
+        atualDayFormatted,
+      );
+
+      if (error) {
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) return;
+
+      if (data[0].j === null) {
+        setHorariosAgendados([]);
+        return;
+      }
+
+      setHorariosAgendados(data[0].j);
+    }
+
     if (isCliente) {
       buscarAgendamentos();
     }

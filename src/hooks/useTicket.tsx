@@ -73,37 +73,37 @@ export function useTicket() {
     return false;
   }
 
-  async function buscaCliente() {
-    setLoading(true);
-    const { data, error, status } = await getHorarioSelecionado(
-      params?.id || '',
-      dayFormatted,
-      selectHours,
-    );
-
-    if (error) {
-      setLoading(false);
-      navigate('/');
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    if (data[0].j === null) {
-      setLoading(false);
-      return;
-    }
-
-    setCliente(data[0].j[0]);
-    setLoading(false);
-  }
-
   useEffect(() => {
+    async function buscaCliente() {
+      setLoading(true);
+      const { data, error, status } = await getHorarioSelecionado(
+        params?.id || '',
+        dayFormatted,
+        selectHours,
+      );
+
+      if (error) {
+        setLoading(false);
+        navigate('/');
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) return;
+      if (!data[0].j) return;
+      if (!data[0].j[0]) return;
+
+      if (data[0].j === null) {
+        setLoading(false);
+        return;
+      }
+
+      setCliente(data[0].j[0]);
+      setLoading(false);
+    }
+
     buscaCliente();
   }, []);
 

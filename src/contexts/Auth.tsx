@@ -96,7 +96,6 @@ export function AuthProvider({ children }: any) {
         picture: infoUser.src,
         pictureId: infoUser.id,
       },
-      updated_at: infoUser.updated_at,
     };
 
     if (params === 'reset-password') {

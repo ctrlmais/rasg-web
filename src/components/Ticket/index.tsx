@@ -8,9 +8,8 @@ import { ClienteMetadata } from 'types/IContext';
 
 import { useToast } from 'contexts/Toast';
 
-import { getPhoto } from 'services/get/photo';
-
 import './styles.scss';
+import { usePhoto } from 'hooks/usePhoto';
 
 interface Props {
   cliente?: ClienteMetadata | undefined;
@@ -18,33 +17,9 @@ interface Props {
 
 export function Ticket(props: Props) {
   const { toast } = useToast();
-  const [photo, setPhoto] = useState('');
-  const [name, setName] = useState('');
+  const { photo, name } = usePhoto(props.cliente?.client_id || '');
+
   const [copied, setCopied] = useState(false);
-
-  async function getPhotoUser(id: string) {
-    const { data, error, status } = await getPhoto(id);
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    setPhoto(data[0].j[0].src);
-    setName(data[0].j[0].name);
-  }
-
-  useEffect(() => {
-    if (props.cliente) {
-      getPhotoUser(props.cliente.client_id);
-    }
-  }, [props.cliente]);
 
   function get8caracters(str: string) {
     return str?.substring(0, 8).toUpperCase();

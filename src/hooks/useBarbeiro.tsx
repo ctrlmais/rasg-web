@@ -32,58 +32,10 @@ export function useBarbeiro() {
     to: addDays(pastMonth, 4),
   };
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
+  const [loading, setLoading] = useState(true);
 
   const dataInicial = format(range?.from as Date, 'yyyy-MM-dd');
   const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
-
-  async function verificarStatusBarbeiro() {
-    const { data, status, error } = await getBarbeiro(clientId as string, true);
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-
-    if (data[0].j === null) {
-      return;
-    }
-
-    setApproved(data[0].j[0].admin_confirmed);
-  }
-
-  async function buscarDadosParaExcel() {
-    const { data, error, status } = await getClientesMonth(
-      clientId || '',
-      dataInicial,
-      dataFinal,
-    );
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    const newValues = data[0].j.map((cliente: ClienteMetadata) => ({
-      id: cliente.id,
-      Nome: cliente.client_name,
-      Horario: cliente.hour,
-      Data: format(new Date(cliente.appointment_date), 'dd/MM/yyyy'),
-      Turno: setShiftBarber(cliente.shift),
-    }));
-
-    setDataExport(newValues);
-  }
 
   function setShiftBarber(turno: string) {
     if (turno === 'morning') {
@@ -127,6 +79,39 @@ export function useBarbeiro() {
   }
 
   useEffect(() => {
+    async function verificarStatusBarbeiro() {
+      setLoading(true);
+      const { data, status, error } = await getBarbeiro(
+        clientId as string,
+        true,
+      );
+
+      if (error) {
+        switch (status) {
+          default:
+            setLoading(false);
+            return;
+        }
+      }
+
+      if (!data) {
+        setLoading(false);
+        return;
+      }
+      if (!data[0].j) {
+        setLoading(false);
+        return;
+      }
+
+      if (data[0].j === null) {
+        setLoading(false);
+        return;
+      }
+
+      setApproved(data[0].j[0].admin_confirmed);
+      setLoading(false);
+    }
+
     verificarStatusBarbeiro();
   }, []);
 
@@ -164,6 +149,35 @@ export function useBarbeiro() {
   }, []);
 
   useEffect(() => {
+    async function buscarDadosParaExcel() {
+      const { data, error, status } = await getClientesMonth(
+        clientId || '',
+        dataInicial,
+        dataFinal,
+      );
+
+      if (error) {
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) return;
+      if (!data[0].j) return;
+      if (!data[0].j[0]) return;
+
+      const newValues = data[0].j.map((cliente: ClienteMetadata) => ({
+        id: cliente.id,
+        Nome: cliente.client_name,
+        Horario: cliente.hour,
+        Data: format(new Date(cliente.appointment_date), 'dd/MM/yyyy'),
+        Turno: setShiftBarber(cliente.shift),
+      }));
+
+      setDataExport(newValues);
+    }
+
     buscarDadosParaExcel();
   }, [dataInicial, dataFinal]);
 
@@ -230,5 +244,6 @@ export function useBarbeiro() {
     isBarbeiroApproved: isBarbeiroApproved(),
     visibleCalendar,
     setVisibleCalendar,
+    loading,
   };
 }

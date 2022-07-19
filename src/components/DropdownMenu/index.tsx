@@ -6,13 +6,15 @@ import { DropdownItem } from 'components/DropdownItem';
 
 import { useAuth } from 'hooks/useAuth';
 import { useDropdown } from 'hooks/useDropdown';
+import { usePhoto } from 'hooks/usePhoto';
 
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
   const { user, isAlexander, isBarbeiro } = useAuth();
-  const { activeMenu, dropdownRef, calcHeight, menuHeight, photo } =
-    useDropdown();
+  const { activeMenu, dropdownRef, calcHeight, menuHeight } = useDropdown();
+
+  const { photo } = usePhoto(user?.id || '');
 
   return (
     <div

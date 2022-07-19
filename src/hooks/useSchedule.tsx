@@ -10,17 +10,6 @@ export function useSchedule() {
   const { barbeiro } = useUser();
   const [weekDay, setWeekDay] = useState<string>(String(new Date().getDay()));
 
-  function getSchedule(weekDay: string) {
-    const schedule = [] as Schedule[];
-    const schedules = JSON.parse(barbeiro?.schedules || '[]');
-    schedules.map((scheduleItem: Schedule) => {
-      if (scheduleItem.week_day === weekDay) {
-        schedule.push(scheduleItem);
-      }
-    });
-    return schedule;
-  }
-
   if (!barbeiro) window.location.assign('/');
 
   const schedules = JSON.parse(barbeiro?.schedules || '[]');
@@ -107,6 +96,17 @@ export function useSchedule() {
   }
 
   useEffect(() => {
+    function getSchedule(weekDay: string) {
+      const schedule = [] as Schedule[];
+      const schedules = JSON.parse(barbeiro?.schedules || '[]');
+      schedules.map((scheduleItem: Schedule) => {
+        if (scheduleItem.week_day === weekDay) {
+          schedule.push(scheduleItem);
+        }
+      });
+      return schedule;
+    }
+
     setHorarioInicialBarbeiroSchedule(
       getSchedule(weekDay || '0').map((schedule) => schedule.from),
     );
