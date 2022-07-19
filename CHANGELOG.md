@@ -1,3 +1,13 @@
+## [1.17.1](https://github.com/ialexanderbrito/barber/compare/v1.17.0...v1.17.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* border radius nav item ([78e0235](https://github.com/ialexanderbrito/barber/commit/78e0235b0bda8c28d753cbc420325cadf873b179))
+* input icon margin ([2d0509c](https://github.com/ialexanderbrito/barber/commit/2d0509c01f0075814162eeac5d8ae5cc7467d0fd))
+* size button left and right ([ed2ebec](https://github.com/ialexanderbrito/barber/commit/ed2ebec1da4b7b89c36c2ba31bd0916713cb7610))
+* spacing container ocupacao ([ba3f1fe](https://github.com/ialexanderbrito/barber/commit/ba3f1febb1675615b868307dbf46986c52f12430))
+
 # [1.17.0](https://github.com/ialexanderbrito/barber/compare/v1.16.0...v1.17.0) (2022-07-19)
 
 
