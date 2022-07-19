@@ -1,3 +1,12 @@
+## [1.17.4](https://github.com/ialexanderbrito/barber/compare/v1.17.3...v1.17.4) (2022-07-19)
+
+
+### Bug Fixes
+
+* password strength bar visible ([99f7f28](https://github.com/ialexanderbrito/barber/commit/99f7f28131315071f29ecad24bc3ce34c9b02c7e))
+* style size button floating ([985b4dd](https://github.com/ialexanderbrito/barber/commit/985b4dd3e3e29b35c310597558add5641ef1ef78))
+* styles size alert ([fecbcc4](https://github.com/ialexanderbrito/barber/commit/fecbcc47f114c8c9088df1b0f6037a4516644b11))
+
 ## [1.17.3](https://github.com/ialexanderbrito/barber/compare/v1.17.2...v1.17.3) (2022-07-19)
 
 
