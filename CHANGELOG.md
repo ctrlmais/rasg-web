@@ -1,3 +1,16 @@
+# [1.17.0](https://github.com/ialexanderbrito/barber/compare/v1.16.0...v1.17.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* background color dropdown menu ([9f3b88f](https://github.com/ialexanderbrito/barber/commit/9f3b88fdb1641fd7855e02dbcdf814a70d9fca69))
+* button remove avatar ([557f396](https://github.com/ialexanderbrito/barber/commit/557f396385ffa28f35e1d44aa25dfa89203cd3ee))
+
+
+### Features
+
+* add hover button dropzone ([f761168](https://github.com/ialexanderbrito/barber/commit/f76116870c6b689cdedc85cc0374445db67bfe89))
+
 # [1.16.0](https://github.com/ialexanderbrito/barber/compare/v1.15.0...v1.16.0) (2022-07-18)
 
 
