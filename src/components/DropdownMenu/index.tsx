@@ -11,7 +11,7 @@ import { usePhoto } from 'hooks/usePhoto';
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
-  const { user, isAlexander, isBarbeiro } = useAuth();
+  const { user, isAlexander, isBarbeiro, handleLogout } = useAuth();
   const { activeMenu, dropdownRef, calcHeight, menuHeight } = useDropdown();
 
   const { photo } = usePhoto(user?.id || '');
@@ -58,8 +58,11 @@ export function DropdownMenu() {
           {isBarbeiro && (
             <DropdownItem link="/validate">Validar Horário</DropdownItem>
           )}
+          <DropdownItem link="/bug">Relatar um bug</DropdownItem>
 
-          <DropdownItem logout>Sair</DropdownItem>
+          <DropdownItem onClick={() => handleLogout()} logout>
+            Sair
+          </DropdownItem>
         </div>
       </CSSTransition>
     </div>
