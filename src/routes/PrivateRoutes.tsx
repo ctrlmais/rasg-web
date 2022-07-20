@@ -6,6 +6,7 @@ import { Horarios } from 'pages/Horarios';
 import { MyTicket } from 'pages/MyTicket';
 import { NotFound } from 'pages/NotFound';
 import { Profile } from 'pages/Profile';
+import { ReportBug } from 'pages/ReportBug';
 import { ResetPassword } from 'pages/ResetPassword';
 import { Schedule } from 'pages/Schedule';
 import { Validate } from 'pages/Validate';
@@ -22,6 +23,7 @@ export function PrivateRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
       <Route path="/ticket/:id" element={<MyTicket />} />
+      <Route path="/bug" element={<ReportBug />} />
       {isBarbeiro && <Route path="/validate" element={<Validate />} />}
       {isBarbeiro && <Route path="/validate/:id" element={<ValidateId />} />}
       {isBarbeiro && <Route path="/horarios" element={<Horarios />} />}
