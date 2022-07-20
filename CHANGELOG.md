@@ -1,3 +1,17 @@
+# [1.20.0](https://github.com/ialexanderbrito/barber/compare/v1.19.2...v1.20.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* rules password strength bar ([0a0897c](https://github.com/ialexanderbrito/barber/commit/0a0897c3d318cf2958291dc1b0db8b8773e0eb35))
+
+
+### Features
+
+* add component badge ([ef73e1a](https://github.com/ialexanderbrito/barber/commit/ef73e1a833ef9a7f62f0b6ec20ab8ea04f506cfe))
+* add icons dropdown menu ([dc1ba56](https://github.com/ialexanderbrito/barber/commit/dc1ba561218afe40dd07036519d15251065b2490))
+* add rules password strength bar ([0266728](https://github.com/ialexanderbrito/barber/commit/0266728471297a729717f5a4f0ff3b2b5fde3b8e))
+
 ## [1.19.2](https://github.com/ialexanderbrito/barber/compare/v1.19.1...v1.19.2) (2022-07-20)
 
 
