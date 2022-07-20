@@ -167,7 +167,7 @@ export function Barbeiro() {
                   onRequestClose={closeModal}
                   style={customStyles}
                 >
-                  <Agenda />
+                  <Agenda onClick={closeModal} />
                 </Modal>
 
                 {!verificaHorarioDeTrabalho() && (
