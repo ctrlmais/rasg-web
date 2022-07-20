@@ -6,9 +6,7 @@ export function useReport() {
       page: '',
       message: '',
     },
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: () => {},
   });
 
   return {
