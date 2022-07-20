@@ -52,6 +52,10 @@ export function useTicket() {
       if (urlPathname.includes('/ticket')) {
         navigate('/');
       }
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   }
 
@@ -104,12 +108,16 @@ export function useTicket() {
       setLoading(false);
     }
 
-    buscaCliente();
+    if (params?.id !== undefined) {
+      buscaCliente();
+    }
   }, []);
 
   useEffect(() => {
     setSelectHours('');
-    setSelectDay(new Date());
+    if (params?.id !== undefined) {
+      setSelectDay(new Date());
+    }
   }, [params.id]);
 
   return {
