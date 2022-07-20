@@ -83,15 +83,14 @@ export function Register() {
               value={formikRegister.values.senha}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikRegister.values.senha &&
-              formikRegister.values.senha.length >= 6 && (
-                <PasswordStrengthBar
-                  className={styles.passwordStrengthBar}
-                  shortScoreWord={'Fraca'}
-                  password={formikRegister.values.senha}
-                  scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
-                />
-              )}
+            {formikRegister.values.senha.length >= 6 && (
+              <PasswordStrengthBar
+                className={styles.passwordStrengthBar}
+                shortScoreWord={'Fraca'}
+                password={formikRegister.values.senha}
+                scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
+              />
+            )}
 
             <Input
               type="password"
