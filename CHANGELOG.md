@@ -1,3 +1,12 @@
+## [1.19.1](https://github.com/ialexanderbrito/barber/compare/v1.19.0...v1.19.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* hook use report ([0650d71](https://github.com/ialexanderbrito/barber/commit/0650d71537a99a22952c233eee998297c4e8fbe6))
+* refactor hook use ticket timeout ([da292b6](https://github.com/ialexanderbrito/barber/commit/da292b655464e8cf24813cb0f8f38cca5f8e0967))
+* styles container alert ([72c57b4](https://github.com/ialexanderbrito/barber/commit/72c57b44c8adf9ba954271b44d82539e351b365b))
+
 # [1.19.0](https://github.com/ialexanderbrito/barber/compare/v1.18.0...v1.19.0) (2022-07-20)
 
 
