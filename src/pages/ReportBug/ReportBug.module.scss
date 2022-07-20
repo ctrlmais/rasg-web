@@ -1,13 +1,18 @@
 .home {
   background: var(--background);
-  height: 60vh;
+  height: 100vh;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  background: var(--background);
+
+  h2 {
+    font-weight: bold;
+    color: var(--white);
+  }
 }
 
 .title {
@@ -22,6 +27,8 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
+  margin-top: 32px;
+  height: 42vh;
 }
 
 .label {
@@ -63,7 +70,6 @@ textarea {
 @media screen and (min-width: 839px) {
   .home {
     background: var(--background);
-    height: 60vh;
   }
 
   .container {

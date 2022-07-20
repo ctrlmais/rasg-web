@@ -3,6 +3,7 @@ import { FiCheck, FiMessageSquare } from 'react-icons/fi';
 import { useForm } from '@formspree/react';
 
 import { Button } from 'components/Button';
+import { Header } from 'components/Header';
 import { Input } from 'components/Input';
 import { Overlay } from 'components/Overlay';
 
@@ -32,6 +33,7 @@ export function ReportBug() {
 
   return (
     <div className={styles.home} data-theme={theme}>
+      <Header back />
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>
           <h2 className={styles.title}>Enviar bug</h2>
