@@ -178,7 +178,9 @@ export function useBarbeiro() {
       setDataExport(newValues);
     }
 
-    buscarDadosParaExcel();
+    if (toggleDownload === false) {
+      buscarDadosParaExcel();
+    }
   }, [dataInicial, dataFinal]);
 
   useEffect(() => {
@@ -213,8 +215,8 @@ export function useBarbeiro() {
       borderRadius: '4px',
       outline: 'none',
       padding: '0px',
-      height: '40vh',
-      width: '25rem',
+      height: '45vh',
+      width: '22rem',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -224,6 +226,7 @@ export function useBarbeiro() {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      zIndex: '10',
     },
   };
 

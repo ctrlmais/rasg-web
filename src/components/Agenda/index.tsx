@@ -1,3 +1,6 @@
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { FiCopy } from 'react-icons/fi';
+import { IoMdClose } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { SiApple, SiGooglecalendar, SiWhatsapp } from 'react-icons/si';
 
@@ -6,10 +9,18 @@ import { useTicket } from 'hooks/useTicket';
 
 import styles from './Agenda.module.scss';
 
-export function Agenda() {
-  const { handleGoogleCalendarCliente, eventSaveBarbeiro, contactCliente } =
-    useAgenda();
+interface IAgendaProps {
+  onClick: () => void;
+}
+
+export function Agenda(props: IAgendaProps) {
   const { cancelarAgendamento } = useTicket();
+  const {
+    handleGoogleCalendarCliente,
+    eventSaveBarbeiro,
+    contactCliente,
+    copyToClipboard,
+  } = useAgenda();
 
   const cliente = JSON.parse(localStorage.getItem('cliente') || '');
   const whatsAppNumber = cliente?.phone;
@@ -17,7 +28,15 @@ export function Agenda() {
 
   return (
     <div className={styles.wrapper}>
-      <h2>Opções adicionais</h2>
+      <div className={styles.close} onClick={props.onClick}>
+        <IoMdClose size={20} style={{ cursor: 'pointer' }} />
+      </div>
+      <h2>
+        <CopyToClipboard text={cliente?.id} onCopy={() => copyToClipboard()}>
+          <FiCopy size={20} style={{ cursor: 'pointer' }} />
+        </CopyToClipboard>
+        Opções adicionais
+      </h2>
 
       <div className={styles.containerButton}>
         <button
