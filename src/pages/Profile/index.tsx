@@ -137,12 +137,14 @@ export function Profile() {
                   value={formikProfile.values.newPassword}
                   icon={<FiLock color="#666360" size={24} />}
                 />
-                <PasswordStrengthBar
-                  className={styles.passwordStrengthBar}
-                  shortScoreWord={'Fraca'}
-                  password={formikProfile.values.newPassword}
-                  scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
-                />
+                {formikProfile.values.newPassword.length >= 6 && (
+                  <PasswordStrengthBar
+                    className={styles.passwordStrengthBar}
+                    shortScoreWord={'Fraca'}
+                    password={formikProfile.values.newPassword}
+                    scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
+                  />
+                )}
                 {formikProfile.errors.newPassword &&
                   formikProfile.touched.newPassword && (
                     <span className={styles.error}>
@@ -175,7 +177,7 @@ export function Profile() {
                 showNewPassword();
               }}
             >
-              Trocar de senha
+              {showPassword ? 'Cancelar' : 'Trocar de senha'}
             </Button>
             <Button type="submit">
               {loading ? (
