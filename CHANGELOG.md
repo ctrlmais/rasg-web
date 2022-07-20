@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/ialexanderbrito/barber/compare/v1.19.1...v1.19.2) (2022-07-20)
+
+
+### Bug Fixes
+
+* button style remove picture ([f639a81](https://github.com/ialexanderbrito/barber/commit/f639a81eb8851765c18236438f54878ee8073bcd))
+
 ## [1.19.1](https://github.com/ialexanderbrito/barber/compare/v1.19.0...v1.19.1) (2022-07-20)
 
 
