@@ -1,3 +1,7 @@
+import { FiClock } from 'react-icons/fi';
+import { IoTicketOutline } from 'react-icons/io5';
+import { RiAdminLine, RiBugLine } from 'react-icons/ri';
+import { TbLogout } from 'react-icons/tb';
 import { CSSTransition } from 'react-transition-group';
 
 import Avvvatars from 'avvvatars-react';
@@ -50,17 +54,32 @@ export function DropdownMenu() {
           </DropdownItem>
 
           {isAlexander && (
-            <DropdownItem link="/admin">Painel Admin</DropdownItem>
+            <DropdownItem link="/admin" leftIcon={<RiAdminLine size={18} />}>
+              Painel Admin
+            </DropdownItem>
           )}
           {isBarbeiro && (
-            <DropdownItem link="/horarios">Atualizar horários</DropdownItem>
+            <DropdownItem link="/horarios" leftIcon={<FiClock size={18} />}>
+              Atualizar horários
+            </DropdownItem>
           )}
           {isBarbeiro && (
-            <DropdownItem link="/validate">Validar Horário</DropdownItem>
+            <DropdownItem
+              link="/validate"
+              leftIcon={<IoTicketOutline size={18} />}
+            >
+              Validar Horário
+            </DropdownItem>
           )}
-          <DropdownItem link="/bug">Relatar um bug</DropdownItem>
+          <DropdownItem link="/bug" leftIcon={<RiBugLine size={18} />}>
+            Relatar um bug
+          </DropdownItem>
 
-          <DropdownItem onClick={() => handleLogout()} logout>
+          <DropdownItem
+            onClick={() => handleLogout()}
+            logout
+            leftIcon={<TbLogout size={18} />}
+          >
             Sair
           </DropdownItem>
         </div>
