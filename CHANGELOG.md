@@ -1,3 +1,17 @@
+# [1.18.0](https://github.com/ialexanderbrito/barber/compare/v1.17.6...v1.18.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* modal agenda and copy to clipboard id schedule ([a30a3af](https://github.com/ialexanderbrito/barber/commit/a30a3af20c974eb599052f2b4a4820e51cdf368e))
+* props onclick agenda ([cc985e9](https://github.com/ialexanderbrito/barber/commit/cc985e9cf88bced58cd0e0590d16e1d4880132a5))
+* remove floating button and modal ([d48150b](https://github.com/ialexanderbrito/barber/commit/d48150bfe4612cf5556ab25d872064ee5aeb5ab2))
+
+
+### Features
+
+* remove floating button ([f3a9f85](https://github.com/ialexanderbrito/barber/commit/f3a9f852a2438eb3b1fd0e50f27bf8b6c6aa5bdc))
+
 ## [1.17.6](https://github.com/ialexanderbrito/barber/compare/v1.17.5...v1.17.6) (2022-07-19)
 
 
