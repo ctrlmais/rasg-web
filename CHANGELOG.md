@@ -1,3 +1,16 @@
+# [1.19.0](https://github.com/ialexanderbrito/barber/compare/v1.18.0...v1.19.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* add header page report bug ([154b704](https://github.com/ialexanderbrito/barber/commit/154b704f7cf91ceb88bd3f6bf3c7ffa40e92623d))
+* dropdown menu and bug link ([5383e02](https://github.com/ialexanderbrito/barber/commit/5383e0272d136e841ba61f9ce926207d85edf1ab))
+
+
+### Features
+
+* add routes bug ([e043839](https://github.com/ialexanderbrito/barber/commit/e043839c9752f224de238133e5a9047c34546f72))
+
 # [1.18.0](https://github.com/ialexanderbrito/barber/compare/v1.17.6...v1.18.0) (2022-07-20)
 
 
