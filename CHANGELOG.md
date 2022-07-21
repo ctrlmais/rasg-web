@@ -1,3 +1,10 @@
+## [1.20.2](https://github.com/ialexanderbrito/barber/compare/v1.20.1...v1.20.2) (2022-07-21)
+
+
+### Bug Fixes
+
+* remove mock id admin ([5c93c95](https://github.com/ialexanderbrito/barber/commit/5c93c957cdc91ae62c052e07c03be81cc608c93a))
+
 ## [1.20.1](https://github.com/ialexanderbrito/barber/compare/v1.20.0...v1.20.1) (2022-07-21)
 
 
