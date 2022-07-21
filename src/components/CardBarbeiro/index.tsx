@@ -1,6 +1,7 @@
 import { BsCalendar, BsClock } from 'react-icons/bs';
 
 import Avvvatars from 'avvvatars-react';
+import cx from 'classnames';
 import { CardBarbeiroProps } from 'types/IComponents';
 import { Schedule } from 'types/IContext';
 
@@ -38,7 +39,10 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
 
   return (
     <div
-      className={props.cliente === true ? styles.cardCliente : styles.card}
+      className={cx(styles.card, {
+        [styles.cardAdmin]: props.hover,
+        [styles.cardCliente]: props.cliente,
+      })}
       onClick={props.onClick}
       key={props.barbeiro?.id}
     >
