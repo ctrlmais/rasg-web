@@ -70,6 +70,7 @@ export type CardBarbeiroProps = {
   cliente?: boolean;
   barbeiro?: UserMetadata | undefined;
   onClick?: () => void;
+  hover?: boolean;
 };
 
 export type CardClienteProps = {
