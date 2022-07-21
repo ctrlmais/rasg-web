@@ -24,7 +24,6 @@ export function useHorarios() {
         },
       ],
     },
-    // validationSchema: profileSchema,
     onSubmit: async (values) => {
       setLoading(true);
 
