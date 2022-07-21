@@ -1,3 +1,13 @@
+## [1.20.1](https://github.com/ialexanderbrito/barber/compare/v1.20.0...v1.20.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* interface ([5b9e70b](https://github.com/ialexanderbrito/barber/commit/5b9e70b51d61932ed9c340b00016b7a11e14a84c))
+* margin left button remove picture ([bd6d1c4](https://github.com/ialexanderbrito/barber/commit/bd6d1c4db0c2b6fa87b4b3fad6e06337534217c8))
+* styles card barbeiro ([632cea3](https://github.com/ialexanderbrito/barber/commit/632cea391a00475387297c5767606c17387a5ed5))
+* text screen ([714266d](https://github.com/ialexanderbrito/barber/commit/714266d0d30f1c156849e613d0c4f79a253fc3bd))
+
 # [1.20.0](https://github.com/ialexanderbrito/barber/compare/v1.19.2...v1.20.0) (2022-07-20)
 
 
