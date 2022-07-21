@@ -53,7 +53,7 @@ export function Cliente() {
         >
           <FiArrowLeft color="#fff" size={18} />
         </button>
-        Seus horários agendados para {format(selectDay, 'dd/MM')}:
+        Seus horários agendados para {format(selectDay, 'dd/MM')}
         <button
           type="button"
           className={styles.button}
@@ -105,6 +105,7 @@ export function Cliente() {
                 onClick={() => {
                   handleClickBarbeiro(barbeiro);
                 }}
+                hover
               />
             ))}
           </div>
