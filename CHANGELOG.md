@@ -1,3 +1,25 @@
+# [1.21.0](https://github.com/ialexanderbrito/barber/compare/v1.20.2...v1.21.0) (2022-07-25)
+
+
+### Bug Fixes
+
+* functions imports use barbeiro ([7b233ae](https://github.com/ialexanderbrito/barber/commit/7b233aeedf731f466fc226ce82bf1e56806317b6))
+* interfaces imports ([88b0c07](https://github.com/ialexanderbrito/barber/commit/88b0c0703b97ff7fcb4a1b9b9ed44240a4ea2802))
+* styles and add social button ([46a9c70](https://github.com/ialexanderbrito/barber/commit/46a9c7010ad575ffada7e9a68c8fd17cfba420a5))
+* styles and import horario marcacao ([a39ed65](https://github.com/ialexanderbrito/barber/commit/a39ed650b375692ea9c1357e2db3dc76a84b0642))
+* styles overlay and add social button ([09bb609](https://github.com/ialexanderbrito/barber/commit/09bb609b867b83cd0f1d4f45f83e3fa6e104d5a3))
+* styles ticket ([e362001](https://github.com/ialexanderbrito/barber/commit/e36200124f3d5f30f7c243a40ef6e6e52e702acf))
+* update env ([bef2ee7](https://github.com/ialexanderbrito/barber/commit/bef2ee77b8c80a4e2047471441fe01ee02322d2d))
+* updates interfaces ([4616fb0](https://github.com/ialexanderbrito/barber/commit/4616fb0d60796cc2d1a1943e0a0be64cbc60a1cf))
+
+
+### Features
+
+* add component horarios marcacao ([92d1bcc](https://github.com/ialexanderbrito/barber/commit/92d1bcc063fbaebd1a41ed4276aba66e51714779))
+* add new env ([33f115b](https://github.com/ialexanderbrito/barber/commit/33f115ba00ae07be284672e1f6764ee5fb0d7613))
+* add new functions ([1388424](https://github.com/ialexanderbrito/barber/commit/1388424dd676385208fed88c8c010783f4b7f277))
+* add social button ([4a9cfdb](https://github.com/ialexanderbrito/barber/commit/4a9cfdb13f34119be31e828d9c889db149efafdb))
+
 ## [1.20.2](https://github.com/ialexanderbrito/barber/compare/v1.20.1...v1.20.2) (2022-07-21)
 
 
