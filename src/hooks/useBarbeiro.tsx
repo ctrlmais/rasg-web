@@ -16,8 +16,15 @@ const THIRTYMINUTES = 30 * 60 * 1000;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
-  const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } =
-    useUser();
+  const {
+    getFirstCliente,
+    buscaClientesHorario,
+    buscarClientes,
+    clientId,
+    getClientesMorning,
+    getClientesAfternoon,
+    getClientesNight,
+  } = useUser();
   const [toggleDownload, setToggleDownload] = useState(true);
   const [visibleCalendar, setVisibleCalendar] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -76,6 +83,27 @@ export function useBarbeiro() {
     } else {
       return false;
     }
+  }
+
+  function handleSetClienteLocalStorage(cliente: ClienteMetadata) {
+    localStorage.setItem('cliente', JSON.stringify(cliente));
+    openModal();
+  }
+
+  function clienteEqualsZero() {
+    return (
+      getClientesMorning().length === 0 &&
+      getClientesAfternoon().length === 0 &&
+      getClientesNight().length === 0
+    );
+  }
+
+  function clienteGreaterZero() {
+    return (
+      getClientesMorning().length > 0 ||
+      getClientesAfternoon().length > 0 ||
+      getClientesNight().length > 0
+    );
   }
 
   useEffect(() => {
@@ -248,5 +276,8 @@ export function useBarbeiro() {
     visibleCalendar,
     setVisibleCalendar,
     loading,
+    handleSetClienteLocalStorage,
+    clienteEqualsZero,
+    clienteGreaterZero,
   };
 }

@@ -7,7 +7,14 @@ import { horariosManha, horariosNoite, horariosTarde } from 'utils/horarios';
 import { useUser } from 'contexts/User';
 
 export function useSchedule() {
-  const { barbeiro } = useUser();
+  const {
+    barbeiro,
+    setSelectDay,
+    setSelectHours,
+    selectDayFormatted,
+    isHorarioMarcado,
+    isDataEHorarioPassado,
+  } = useUser();
   const [weekDay, setWeekDay] = useState<string>(String(new Date().getDay()));
 
   if (!barbeiro) window.location.assign('/');
@@ -95,6 +102,27 @@ export function useSchedule() {
     return horariosPosteriores;
   }
 
+  function handleSelectDay(day: Date) {
+    const weekDayClick = day.getDay();
+    getHorarioAtual(String(weekDayClick));
+    setWeekDay(String(weekDayClick));
+    setSelectHours('');
+    setSelectDay(day);
+  }
+
+  function disableSchedule(horario: string): boolean {
+    return (
+      isHorarioMarcado(horario) ||
+      isDataEHorarioPassado(selectDayFormatted, horario) ||
+      desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(
+        horario,
+      ) ||
+      desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(
+        horario,
+      )
+    );
+  }
+
   useEffect(() => {
     function getSchedule(weekDay: string) {
       const schedule = [] as Schedule[];
@@ -125,5 +153,7 @@ export function useSchedule() {
     horarioInicialBarbeiroSchedule,
     horarioFinalBarbeiroSchedule,
     setWeekDay,
+    handleSelectDay,
+    disableSchedule,
   };
 }
