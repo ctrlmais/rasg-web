@@ -1,0 +1,119 @@
+.button {
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 10px;
+  width: 300px;
+  height: 56px;
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+
+  a {
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+  }
+}
+
+.google {
+  background-color: rgb(66, 133, 244);
+  border: none;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 10px;
+  width: 300px;
+  height: 56px;
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+
+  a {
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+  }
+}
+
+.apple {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+  height: 56px;
+  border: none;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+
+  a {
+    color: #000;
+    font-size: 16px;
+    text-decoration: none;
+  }
+}
+
+@media screen and (min-width: 839px) {
+  .google {
+    background-color: rgb(66, 133, 244);
+    border: none;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 10px;
+    width: 340px;
+    height: 56px;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+  }
+
+  .apple {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    width: 340px;
+    height: 56px;
+    border: none;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+
+    a {
+      color: #000;
+      font-size: 16px;
+      text-decoration: none;
+    }
+  }
+
+  .whatsapp {
+    display: flex;
+    background-color: rgb(37, 211, 102);
+    width: 340px;
+    height: 56px;
+    border: none;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+
+    a {
+      color: #000;
+      font-size: 16px;
+      text-decoration: none;
+    }
+  }
+}
