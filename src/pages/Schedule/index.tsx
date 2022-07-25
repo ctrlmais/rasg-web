@@ -7,9 +7,10 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { Button } from 'components/Button';
 import { CardBarbeiroSelected } from 'components/CardBarbeiroSelect';
 import { Header } from 'components/Header';
+import { HorariosMarcacao } from 'components/Horarios';
 import { Overlay } from 'components/Overlay';
 
-import { horariosManha, horariosTarde, horariosNoite } from 'utils/horarios';
+import { horariosManha, horariosNoite, horariosTarde } from 'utils/horarios';
 
 import { useTheme } from 'contexts/Theme';
 import { useUser } from 'contexts/User';
@@ -26,27 +27,15 @@ export function Schedule() {
   const {
     barbeiro,
     selectDay,
-    setSelectDay,
     selectHours,
     setSelectHours,
-    selectDayFormatted,
     selectDayFormattedBR,
     postShedule,
-    isHorarioMarcado,
-    isDataEHorarioPassado,
     verificaDataEHoraSelecionada,
     status,
   } = useUser();
 
-  const {
-    getHorarioAtual,
-    desabilitarHorariosAnteriores,
-    desabilitarHorariosPosteriores,
-    horarioInicialBarbeiroSchedule,
-    horarioFinalBarbeiroSchedule,
-    numerosFaltantes,
-    setWeekDay,
-  } = useSchedule();
+  const { disableSchedule, numerosFaltantes, handleSelectDay } = useSchedule();
 
   const { contactBarbeiro } = useOverlay();
 
@@ -91,11 +80,7 @@ export function Schedule() {
               fromMonth={new Date()}
               selected={selectDay}
               onDayClick={(day) => {
-                const weekDayClick = day.getDay();
-                getHorarioAtual(String(weekDayClick));
-                setWeekDay(String(weekDayClick));
-                setSelectHours('');
-                setSelectDay(day);
+                handleSelectDay(day);
               }}
               modifiers={{
                 available: { dayOfWeek: [0, 1, 2, 3, 4, 5, 6] },
@@ -116,27 +101,16 @@ export function Schedule() {
 
             <div className={styles.containerHorario}>
               {horariosManha.map((horario) => (
-                <button
+                <HorariosMarcacao
                   key={horario}
-                  disabled={
-                    isHorarioMarcado(horario) ||
-                    isDataEHorarioPassado(selectDayFormatted, horario) ||
-                    desabilitarHorariosAnteriores(
-                      horarioInicialBarbeiroSchedule,
-                    ).includes(horario) ||
-                    desabilitarHorariosPosteriores(
-                      horarioFinalBarbeiroSchedule,
-                    ).includes(horario)
-                  }
-                  className={
-                    selectHours === horario ? styles.selected : styles.horario
-                  }
+                  disabled={disableSchedule(horario)}
                   onClick={() => {
                     setSelectHours(horario);
                   }}
+                  horario={horario}
                 >
                   {horario}
-                </button>
+                </HorariosMarcacao>
               ))}
             </div>
 
@@ -144,27 +118,16 @@ export function Schedule() {
 
             <div className={styles.containerHorario}>
               {horariosTarde.map((horario) => (
-                <button
+                <HorariosMarcacao
                   key={horario}
-                  disabled={
-                    isHorarioMarcado(horario) ||
-                    isDataEHorarioPassado(selectDayFormatted, horario) ||
-                    desabilitarHorariosAnteriores(
-                      horarioInicialBarbeiroSchedule,
-                    ).includes(horario) ||
-                    desabilitarHorariosPosteriores(
-                      horarioFinalBarbeiroSchedule,
-                    ).includes(horario)
-                  }
-                  className={
-                    selectHours === horario ? styles.selected : styles.horario
-                  }
+                  horario={horario}
+                  disabled={disableSchedule(horario)}
                   onClick={() => {
                     setSelectHours(horario);
                   }}
                 >
                   {horario}
-                </button>
+                </HorariosMarcacao>
               ))}
             </div>
 
@@ -172,27 +135,16 @@ export function Schedule() {
 
             <div className={styles.containerHorario}>
               {horariosNoite.map((horario) => (
-                <button
+                <HorariosMarcacao
                   key={horario}
-                  disabled={
-                    isHorarioMarcado(horario) ||
-                    isDataEHorarioPassado(selectDayFormatted, horario) ||
-                    desabilitarHorariosAnteriores(
-                      horarioInicialBarbeiroSchedule,
-                    ).includes(horario) ||
-                    desabilitarHorariosPosteriores(
-                      horarioFinalBarbeiroSchedule,
-                    ).includes(horario)
-                  }
-                  className={
-                    selectHours === horario ? styles.selected : styles.horario
-                  }
+                  horario={horario}
+                  disabled={disableSchedule(horario)}
                   onClick={() => {
                     setSelectHours(horario);
                   }}
                 >
                   {horario}
-                </button>
+                </HorariosMarcacao>
               ))}
             </div>
           </div>
