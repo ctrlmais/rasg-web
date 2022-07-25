@@ -1,13 +1,9 @@
 import cx from 'classnames';
+import { BadgeProps } from 'types/IComponents';
 
 import styles from './Badge.module.scss';
 
-interface IBadgeProps {
-  primary: boolean;
-  children: React.ReactNode;
-}
-
-export function Badge(props: IBadgeProps) {
+export function Badge(props: BadgeProps) {
   return (
     <>
       <span
