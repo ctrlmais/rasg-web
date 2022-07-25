@@ -4,18 +4,15 @@ import Tilt from 'react-parallax-tilt';
 
 import Avvvatars from 'avvvatars-react';
 import { QRCodeSVG } from 'qrcode.react';
-import { ClienteMetadata } from 'types/IContext';
+import { TicketProps } from 'types/IComponents';
 
 import { useToast } from 'contexts/Toast';
 
-import './styles.scss';
 import { usePhoto } from 'hooks/usePhoto';
 
-interface Props {
-  cliente?: ClienteMetadata | undefined;
-}
+import './Ticket.module.scss';
 
-export function Ticket(props: Props) {
+export function Ticket(props: TicketProps) {
   const { toast } = useToast();
   const { photo, name } = usePhoto(props.cliente?.client_id || '');
 
