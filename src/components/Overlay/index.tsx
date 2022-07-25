@@ -4,6 +4,7 @@ import { SiApple, SiGooglecalendar } from 'react-icons/si';
 import { OverlayProps } from 'types/IComponents';
 
 import { Button } from 'components/Button';
+import { SocialButton } from 'components/SocialButton';
 
 import { useOverlay } from 'hooks/useOverlay';
 
@@ -22,52 +23,44 @@ export function Overlay(props: OverlayProps) {
         {props.calendar && (
           <>
             {isAndroid && (
-              <button
-                className={styles.google}
-                type="button"
+              <SocialButton
+                icon={<SiGooglecalendar />}
+                text=" Adicionar ao Google Calendar"
                 onClick={() => {
                   handleGoogleCalendar();
                 }}
-              >
-                <SiGooglecalendar />
-                Adicionar ao Google Calendar
-              </button>
+                google
+              />
             )}
             {isIOS && (
-              <button
-                className={styles.apple}
-                type="button"
+              <SocialButton
                 onClick={() => {
                   eventSaveCliente.download();
                 }}
-              >
-                <SiApple />
-                Adicionar ao Apple Calendar
-              </button>
+                icon={<SiApple />}
+                text="Adicionar ao Apple Calendar"
+                apple
+              />
             )}
 
             {(isWindows || isMacOs) && (
               <>
-                <button
-                  className={styles.google}
-                  type="button"
+                <SocialButton
                   onClick={() => {
                     handleGoogleCalendar();
                   }}
-                >
-                  <SiGooglecalendar />
-                  Adicionar ao Google Calendar
-                </button>
-                <button
-                  className={styles.apple}
-                  type="button"
+                  icon={<SiGooglecalendar />}
+                  text="Adicionar ao Google Calendar"
+                  google
+                />
+                <SocialButton
                   onClick={() => {
                     eventSaveCliente.download();
                   }}
-                >
-                  <SiApple />
-                  Adicionar ao Apple Calendar
-                </button>
+                  icon={<SiApple />}
+                  text="Adicionar ao Apple Calendar"
+                  apple
+                />
               </>
             )}
           </>
