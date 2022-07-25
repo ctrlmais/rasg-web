@@ -16,7 +16,9 @@ import styles from './ReportBug.module.scss';
 export function ReportBug() {
   const { theme } = useTheme();
   const { formikReportBug } = useReport();
-  const [state, handleSubmit] = useForm('xqkndjda');
+  const [state, handleSubmit] = useForm(
+    process.env.REACT_APP_FORMSPREE_API as string,
+  );
 
   if (state.succeeded) {
     return (
