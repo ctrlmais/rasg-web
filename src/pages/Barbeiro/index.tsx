@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
 import { ptBR } from 'date-fns/locale';
-import { ClienteMetadata } from 'types/IContext';
 
 import { Agenda } from 'components/Agenda';
 import { Alert } from 'components/Alert';
@@ -39,7 +38,6 @@ export function Barbeiro() {
     toggleDownload,
     setToggleDownload,
     modalIsOpen,
-    openModal,
     closeModal,
     customStyles,
     date,
@@ -52,6 +50,9 @@ export function Barbeiro() {
     visibleCalendar,
     setVisibleCalendar,
     loading,
+    handleSetClienteLocalStorage,
+    clienteEqualsZero,
+    clienteGreaterZero,
   } = useBarbeiro();
 
   return (
@@ -204,19 +205,15 @@ export function Barbeiro() {
                   </p>
                 </div>
 
-                {getClientesMorning().length === 0 &&
-                  getClientesAfternoon().length === 0 &&
-                  getClientesNight().length === 0 && (
-                    <h2 className={styles.titleHome}>
-                      Você não tem horários agendados para hoje.
-                    </h2>
-                  )}
+                {clienteEqualsZero() && (
+                  <h2 className={styles.titleHome}>
+                    Você não tem horários agendados para hoje.
+                  </h2>
+                )}
 
                 {selectDayFormatted >= atualDayFormatted ? (
                   <>
-                    {(getClientesMorning().length > 0 ||
-                      getClientesAfternoon().length > 0 ||
-                      getClientesNight().length > 0) && (
+                    {clienteGreaterZero() && (
                       <h2 className={styles.shift}>Atendimento a seguir</h2>
                     )}
                     {getFirstCliente() && (
@@ -225,11 +222,7 @@ export function Barbeiro() {
                         first
                         cliente={getFirstCliente()}
                         onClick={() => {
-                          localStorage.setItem(
-                            'cliente',
-                            JSON.stringify(getFirstCliente()),
-                          );
-                          openModal();
+                          handleSetClienteLocalStorage(getFirstCliente());
                         }}
                       />
                     )}
@@ -241,25 +234,19 @@ export function Barbeiro() {
                             Manhã
                             <div className={styles.line} />
                           </h3>
-                          {getClientesMorning().map(
-                            (cliente: ClienteMetadata) => (
-                              <>
-                                {getFirstCliente().id !== cliente.id && (
-                                  <CardCliente
-                                    key={cliente.id}
-                                    cliente={cliente}
-                                    onClick={() => {
-                                      localStorage.setItem(
-                                        'cliente',
-                                        JSON.stringify(cliente),
-                                      );
-                                      openModal();
-                                    }}
-                                  />
-                                )}
-                              </>
-                            ),
-                          )}
+                          {getClientesMorning().map((cliente) => (
+                            <>
+                              {getFirstCliente().id !== cliente.id && (
+                                <CardCliente
+                                  key={cliente.id}
+                                  cliente={cliente}
+                                  onClick={() => {
+                                    handleSetClienteLocalStorage(cliente);
+                                  }}
+                                />
+                              )}
+                            </>
+                          ))}
                         </>
                       )}
 
@@ -269,25 +256,19 @@ export function Barbeiro() {
                             Tarde
                             <div className={styles.line} />
                           </h2>
-                          {getClientesAfternoon().map(
-                            (cliente: ClienteMetadata) => (
-                              <>
-                                {getFirstCliente().id !== cliente.id && (
-                                  <CardCliente
-                                    key={cliente.id}
-                                    cliente={cliente}
-                                    onClick={() => {
-                                      localStorage.setItem(
-                                        'cliente',
-                                        JSON.stringify(cliente),
-                                      );
-                                      openModal();
-                                    }}
-                                  />
-                                )}
-                              </>
-                            ),
-                          )}
+                          {getClientesAfternoon().map((cliente) => (
+                            <>
+                              {getFirstCliente().id !== cliente.id && (
+                                <CardCliente
+                                  key={cliente.id}
+                                  cliente={cliente}
+                                  onClick={() => {
+                                    handleSetClienteLocalStorage(cliente);
+                                  }}
+                                />
+                              )}
+                            </>
+                          ))}
                         </>
                       )}
 
@@ -297,32 +278,26 @@ export function Barbeiro() {
                             Noite
                             <div className={styles.line} />
                           </h2>
-                          {getClientesNight().map(
-                            (cliente: ClienteMetadata) => (
-                              <>
-                                {getFirstCliente().id !== cliente.id && (
-                                  <CardCliente
-                                    key={cliente.id}
-                                    cliente={cliente}
-                                    onClick={() => {
-                                      localStorage.setItem(
-                                        'cliente',
-                                        JSON.stringify(cliente),
-                                      );
-                                      openModal();
-                                    }}
-                                  />
-                                )}
-                              </>
-                            ),
-                          )}
+                          {getClientesNight().map((cliente) => (
+                            <>
+                              {getFirstCliente().id !== cliente.id && (
+                                <CardCliente
+                                  key={cliente.id}
+                                  cliente={cliente}
+                                  onClick={() => {
+                                    handleSetClienteLocalStorage(cliente);
+                                  }}
+                                />
+                              )}
+                            </>
+                          ))}
                         </>
                       )}
                     </div>
                   </>
                 ) : (
                   <>
-                    {clientes.map((cliente: ClienteMetadata) => (
+                    {clientes.map((cliente) => (
                       <CardCliente key={cliente.id} cliente={cliente} />
                     ))}
                   </>
