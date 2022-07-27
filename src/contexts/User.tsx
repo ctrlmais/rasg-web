@@ -254,6 +254,7 @@ export function UserProvider({ children }: any) {
 
   async function buscarClientes() {
     if (!clientId) return;
+    if (selectDayFormatted < atualDayFormatted) return;
 
     if (isBarbeiro) {
       const { data, error, status } = await getClientes(
