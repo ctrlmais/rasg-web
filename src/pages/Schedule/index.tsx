@@ -89,6 +89,8 @@ export function Schedule() {
               disabled={[
                 {
                   dayOfWeek: numerosFaltantes,
+                },
+                {
                   before: new Date(),
                 },
               ]}
