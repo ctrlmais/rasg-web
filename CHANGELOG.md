@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/ialexanderbrito/barber/compare/v1.21.0...v1.21.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* remove request previous days ([e781089](https://github.com/ialexanderbrito/barber/commit/e781089ef01afc7c63c3d7b61fb46c33d9104016))
+
 # [1.21.0](https://github.com/ialexanderbrito/barber/compare/v1.20.2...v1.21.0) (2022-07-25)
 
 
