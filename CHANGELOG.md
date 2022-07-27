@@ -1,3 +1,10 @@
+## [1.21.3](https://github.com/ialexanderbrito/barber/compare/v1.21.2...v1.21.3) (2022-07-27)
+
+
+### Bug Fixes
+
+* calendar previous blocked ([4667b8f](https://github.com/ialexanderbrito/barber/commit/4667b8f85c2f1223de28fedf1bdd0e3fc7a7623d))
+
 ## [1.21.2](https://github.com/ialexanderbrito/barber/compare/v1.21.1...v1.21.2) (2022-07-27)
 
 
