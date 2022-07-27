@@ -4,6 +4,7 @@ import { SiWhatsapp } from 'react-icons/si';
 
 import ptBR from 'date-fns/locale/pt-BR';
 
+import { Alert } from 'components/Alert';
 import { Button } from 'components/Button';
 import { CardBarbeiroSelected } from 'components/CardBarbeiroSelect';
 import { Header } from 'components/Header';
@@ -95,58 +96,68 @@ export function Schedule() {
           </div>
 
           <div className={styles.containerTitle}>
-            <h2 className={styles.title}>Escolha o horário</h2>
+            <>
+              {selectDay < new Date() ? (
+                <div className={styles.containerAlert}>
+                  <Alert title="Horários indisponíveis" warning />
+                </div>
+              ) : (
+                <>
+                  <h2 className={styles.title}>Escolha o horário</h2>
 
-            <p>Manhã</p>
+                  <p>Manhã</p>
 
-            <div className={styles.containerHorario}>
-              {horariosManha.map((horario) => (
-                <HorariosMarcacao
-                  key={horario}
-                  disabled={disableSchedule(horario)}
-                  onClick={() => {
-                    setSelectHours(horario);
-                  }}
-                  horario={horario}
-                >
-                  {horario}
-                </HorariosMarcacao>
-              ))}
-            </div>
+                  <div className={styles.containerHorario}>
+                    {horariosManha.map((horario) => (
+                      <HorariosMarcacao
+                        key={horario}
+                        disabled={disableSchedule(horario)}
+                        onClick={() => {
+                          setSelectHours(horario);
+                        }}
+                        horario={horario}
+                      >
+                        {horario}
+                      </HorariosMarcacao>
+                    ))}
+                  </div>
 
-            <p>Tarde</p>
+                  <p>Tarde</p>
 
-            <div className={styles.containerHorario}>
-              {horariosTarde.map((horario) => (
-                <HorariosMarcacao
-                  key={horario}
-                  horario={horario}
-                  disabled={disableSchedule(horario)}
-                  onClick={() => {
-                    setSelectHours(horario);
-                  }}
-                >
-                  {horario}
-                </HorariosMarcacao>
-              ))}
-            </div>
+                  <div className={styles.containerHorario}>
+                    {horariosTarde.map((horario) => (
+                      <HorariosMarcacao
+                        key={horario}
+                        horario={horario}
+                        disabled={disableSchedule(horario)}
+                        onClick={() => {
+                          setSelectHours(horario);
+                        }}
+                      >
+                        {horario}
+                      </HorariosMarcacao>
+                    ))}
+                  </div>
 
-            <p>Noite</p>
+                  <p>Noite</p>
 
-            <div className={styles.containerHorario}>
-              {horariosNoite.map((horario) => (
-                <HorariosMarcacao
-                  key={horario}
-                  horario={horario}
-                  disabled={disableSchedule(horario)}
-                  onClick={() => {
-                    setSelectHours(horario);
-                  }}
-                >
-                  {horario}
-                </HorariosMarcacao>
-              ))}
-            </div>
+                  <div className={styles.containerHorario}>
+                    {horariosNoite.map((horario) => (
+                      <HorariosMarcacao
+                        key={horario}
+                        horario={horario}
+                        disabled={disableSchedule(horario)}
+                        onClick={() => {
+                          setSelectHours(horario);
+                        }}
+                      >
+                        {horario}
+                      </HorariosMarcacao>
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
           </div>
           <Button
             type="button"

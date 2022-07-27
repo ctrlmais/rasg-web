@@ -76,6 +76,13 @@
   }
 }
 
+.containerAlert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
 @media screen and (min-width: 839px) {
   .home {
     background: var(--background);
