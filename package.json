@@ -1,6 +1,6 @@
 {
   "name": "barber",
-  "version": "1.21.4",
+  "version": "1.21.5",
   "private": true,
   "scripts": {
     "start": "serve -s build",
