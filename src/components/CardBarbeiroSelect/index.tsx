@@ -1,39 +1,12 @@
-import { useEffect, useState } from 'react';
-
 import Avvvatars from 'avvvatars-react';
 import { CardBarbeiroProps } from 'types/IComponents';
 
-import { getPhoto } from 'services/get/photo';
+import { usePhoto } from 'hooks/usePhoto';
 
 import styles from './CardBarbeiroSelect.module.scss';
 
 export function CardBarbeiroSelected(props: CardBarbeiroProps) {
-  const [photo, setPhoto] = useState('');
-  const [name, setName] = useState('');
-
-  async function getPhotoUser(id: string) {
-    const { data, error, status } = await getPhoto(id);
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    setPhoto(data[0].j[0].src);
-    setName(data[0].j[0].name);
-  }
-
-  useEffect(() => {
-    if (props.barbeiro) {
-      getPhotoUser(props.barbeiro.id);
-    }
-  }, [props.barbeiro]);
+  const { photo, name } = usePhoto(props.barbeiro?.id || '');
 
   return (
     <div key={props.barbeiro?.id} className={styles.containerCard}>

@@ -1,15 +1,26 @@
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { FiCopy } from 'react-icons/fi';
+import { IoMdClose } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { SiApple, SiGooglecalendar, SiWhatsapp } from 'react-icons/si';
+
+import { AgendaProps } from 'types/IComponents';
+
+import { SocialButton } from 'components/SocialButton';
 
 import { useAgenda } from 'hooks/useAgenda';
 import { useTicket } from 'hooks/useTicket';
 
 import styles from './Agenda.module.scss';
 
-export function Agenda() {
-  const { handleGoogleCalendarCliente, eventSaveBarbeiro, contactCliente } =
-    useAgenda();
+export function Agenda(props: AgendaProps) {
   const { cancelarAgendamento } = useTicket();
+  const {
+    handleGoogleCalendarCliente,
+    eventSaveBarbeiro,
+    contactCliente,
+    copyToClipboard,
+  } = useAgenda();
 
   const cliente = JSON.parse(localStorage.getItem('cliente') || '');
   const whatsAppNumber = cliente?.phone;
@@ -17,41 +28,43 @@ export function Agenda() {
 
   return (
     <div className={styles.wrapper}>
-      <h2>Opções adicionais</h2>
+      <div className={styles.close} onClick={props.onClick}>
+        <IoMdClose size={20} style={{ cursor: 'pointer' }} />
+      </div>
+      <h2>
+        <CopyToClipboard text={cliente?.id} onCopy={() => copyToClipboard()}>
+          <FiCopy size={20} style={{ cursor: 'pointer' }} />
+        </CopyToClipboard>
+        Opções adicionais
+      </h2>
 
       <div className={styles.containerButton}>
-        <button
-          className={styles.google}
-          type="button"
+        <SocialButton
+          google
           onClick={() => {
             handleGoogleCalendarCliente();
           }}
-        >
-          <SiGooglecalendar />
-          Adicionar ao Google Calendar
-        </button>
+          text="Adicionar ao Google Calendar"
+          icon={<SiGooglecalendar />}
+        />
 
-        <button
-          className={styles.apple}
-          type="button"
+        <SocialButton
+          apple
           onClick={() => {
             eventSaveBarbeiro.download();
           }}
-        >
-          <SiApple />
-          Adicionar ao Apple Calendar
-        </button>
+          text="Adicionar ao Apple Calendar"
+          icon={<SiApple />}
+        />
 
-        <button
-          className={styles.whatsapp}
-          type="button"
+        <SocialButton
+          whatsapp
           onClick={() => {
             contactCliente(whatsAppNumber);
           }}
-        >
-          <SiWhatsapp />
-          Entrar em contato via Whatsapp
-        </button>
+          text="Enviar mensagem via Whatsapp"
+          icon={<SiWhatsapp />}
+        />
 
         <button
           className={styles.cancel}

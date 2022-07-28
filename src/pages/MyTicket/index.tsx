@@ -56,7 +56,10 @@ export function MyTicket() {
           </Button>
           <Button
             type="button"
-            disabled={verificaHorarioCancelamento(cliente as ClienteMetadata)}
+            disabled={
+              verificaHorarioCancelamento(cliente as ClienteMetadata) ||
+              cliente?.validate === true
+            }
             style={{
               backgroundColor: '#CA0B00',
               color: '#FFF',

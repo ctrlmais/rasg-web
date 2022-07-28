@@ -3,6 +3,7 @@ import { FiCheck, FiMessageSquare } from 'react-icons/fi';
 import { useForm } from '@formspree/react';
 
 import { Button } from 'components/Button';
+import { Header } from 'components/Header';
 import { Input } from 'components/Input';
 import { Overlay } from 'components/Overlay';
 
@@ -15,7 +16,9 @@ import styles from './ReportBug.module.scss';
 export function ReportBug() {
   const { theme } = useTheme();
   const { formikReportBug } = useReport();
-  const [state, handleSubmit] = useForm('xqkndjda');
+  const [state, handleSubmit] = useForm(
+    process.env.REACT_APP_FORMSPREE_API as string,
+  );
 
   if (state.succeeded) {
     return (
@@ -32,6 +35,7 @@ export function ReportBug() {
 
   return (
     <div className={styles.home} data-theme={theme}>
+      <Header back />
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>
           <h2 className={styles.title}>Enviar bug</h2>

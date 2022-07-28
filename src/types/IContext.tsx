@@ -45,6 +45,7 @@ export interface ClienteMetadata {
   barber_name: string;
   barber_picture: string;
   barber_avatar: string;
+  validate: boolean;
 }
 
 export interface IdentityData {
@@ -187,4 +188,5 @@ export interface UserContextProps {
   buscaClientesHorario: (horario: string) => void;
   verificaHorarioDeTrabalho: () => boolean;
   verificaTelefone: () => boolean;
+  loading: boolean;
 }

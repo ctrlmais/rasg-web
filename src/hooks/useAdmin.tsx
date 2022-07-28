@@ -6,7 +6,10 @@ import { getBarbeirosApproved } from 'services/get/aprovar';
 import { getClientesApproved } from 'services/get/clienteAprovados';
 import { confirmUser } from 'services/post/confirmUser';
 
+import { useAuth } from './useAuth';
+
 export function useAdmin() {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [barbeiros, setBarbeiros] = useState([]);
   const [barbeirosAprovados, setBarbeirosAprovados] = useState([]);
@@ -93,11 +96,7 @@ export function useAdmin() {
   }
 
   async function aproveBarbeiro(id: string) {
-    const { error, status } = await confirmUser(
-      'aa12bb33-d77d-4ec5-9b79-28aec4831abf',
-      id,
-      true,
-    );
+    const { error, status } = await confirmUser(user?.id || '', id, true);
 
     if (error) {
       switch (status) {
@@ -111,11 +110,7 @@ export function useAdmin() {
   }
 
   async function disabledBarbeiro(id: string) {
-    const { error, status } = await confirmUser(
-      'aa12bb33-d77d-4ec5-9b79-28aec4831abf',
-      id,
-      false,
-    );
+    const { error, status } = await confirmUser(user?.id || '', id, false);
 
     if (error) {
       switch (status) {

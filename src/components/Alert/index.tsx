@@ -2,20 +2,11 @@ import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
 import cx from 'classnames';
+import { AlertProps } from 'types/IComponents';
 
 import styles from './Alert.module.scss';
 
-interface IAlertProps {
-  title: string;
-  success?: boolean;
-  error?: boolean;
-  warning?: boolean;
-  info?: boolean;
-  onClick?: () => void;
-  close?: boolean;
-}
-
-export function Alert(props: IAlertProps) {
+export function Alert(props: AlertProps) {
   const [open, setOpen] = useState(true);
   return (
     <>

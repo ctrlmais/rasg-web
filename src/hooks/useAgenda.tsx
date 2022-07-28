@@ -1,10 +1,16 @@
+import { useEffect, useState } from 'react';
+
 import { format } from 'date-fns';
 import { ICalendar } from 'datebook';
 import { ClienteMetadata } from 'types/IContext';
 
+import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
 export function useAgenda() {
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
   const cliente = JSON.parse(
     localStorage.getItem('cliente') || '',
   ) as ClienteMetadata;
@@ -55,9 +61,21 @@ export function useAgenda() {
     window.open(`https://wa.me/${number}`);
   }
 
+  function copyToClipboard() {
+    setCopied(!copied);
+  }
+
+  useEffect(() => {
+    if (copied) {
+      toast.success('Código de agendamento copiado!', { id: 'toast' });
+      setCopied(false);
+    }
+  }, [copied]);
+
   return {
     handleGoogleCalendarCliente,
     eventSaveBarbeiro,
     contactCliente,
+    copyToClipboard,
   };
 }

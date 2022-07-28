@@ -1,3 +1,7 @@
+import { FiClock } from 'react-icons/fi';
+import { IoTicketOutline } from 'react-icons/io5';
+import { RiAdminLine, RiBugLine } from 'react-icons/ri';
+import { TbLogout } from 'react-icons/tb';
 import { CSSTransition } from 'react-transition-group';
 
 import Avvvatars from 'avvvatars-react';
@@ -6,13 +10,15 @@ import { DropdownItem } from 'components/DropdownItem';
 
 import { useAuth } from 'hooks/useAuth';
 import { useDropdown } from 'hooks/useDropdown';
+import { usePhoto } from 'hooks/usePhoto';
 
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
-  const { user, isAlexander, isBarbeiro, isCliente } = useAuth();
-  const { activeMenu, dropdownRef, calcHeight, menuHeight, photo } =
-    useDropdown();
+  const { user, isAlexander, isBarbeiro, handleLogout, isCliente } = useAuth();
+  const { activeMenu, dropdownRef, calcHeight, menuHeight } = useDropdown();
+
+  const { photo } = usePhoto(user?.id || '');
 
   return (
     <div
@@ -48,13 +54,42 @@ export function DropdownMenu() {
           </DropdownItem>
 
           {isAlexander && (
-            <DropdownItem link="/admin">Painel Admin</DropdownItem>
+            <DropdownItem link="/admin" leftIcon={<RiAdminLine size={18} />}>
+              Painel Admin
+            </DropdownItem>
           )}
           {isBarbeiro && (
-            <DropdownItem link="/horarios">Atualizar horários</DropdownItem>
+            <DropdownItem link="/horarios" leftIcon={<FiClock size={18} />}>
+              Atualizar horários
+            </DropdownItem>
           )}
-          {isCliente && <DropdownItem link="/history">Histórico</DropdownItem>}
-          <DropdownItem logout>Sair</DropdownItem>
+          {isBarbeiro && (
+            <DropdownItem
+              link="/validate"
+              leftIcon={<IoTicketOutline size={18} />}
+            >
+              Validar Horário
+            </DropdownItem>
+          )}
+          {isCliente && (
+            <DropdownItem
+              link="/history"
+              leftIcon={<IoTicketOutline size={18} />}
+            >
+              Histórico
+            </DropdownItem>
+          )}
+          <DropdownItem link="/bug" leftIcon={<RiBugLine size={18} />}>
+            Relatar um bug
+          </DropdownItem>
+
+          <DropdownItem
+            onClick={() => handleLogout()}
+            logout
+            leftIcon={<TbLogout size={18} />}
+          >
+            Sair
+          </DropdownItem>
         </div>
       </CSSTransition>
     </div>

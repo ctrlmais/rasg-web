@@ -1,3 +1,226 @@
+## [1.21.4](https://github.com/ialexanderbrito/barber/compare/v1.21.3...v1.21.4) (2022-07-28)
+
+
+### Bug Fixes
+
+* remove horarios indisponiveis ([4e77dca](https://github.com/ialexanderbrito/barber/commit/4e77dcaa849f928903a2d40b006123e7a5dc4afc))
+
+## [1.21.3](https://github.com/ialexanderbrito/barber/compare/v1.21.2...v1.21.3) (2022-07-27)
+
+
+### Bug Fixes
+
+* calendar previous blocked ([4667b8f](https://github.com/ialexanderbrito/barber/commit/4667b8f85c2f1223de28fedf1bdd0e3fc7a7623d))
+
+## [1.21.2](https://github.com/ialexanderbrito/barber/compare/v1.21.1...v1.21.2) (2022-07-27)
+
+
+### Bug Fixes
+
+* horarios indisponiveis ([6538d63](https://github.com/ialexanderbrito/barber/commit/6538d6334ffd47ee5fb84181e649a4de85d6707d))
+
+## [1.21.1](https://github.com/ialexanderbrito/barber/compare/v1.21.0...v1.21.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* remove request previous days ([e781089](https://github.com/ialexanderbrito/barber/commit/e781089ef01afc7c63c3d7b61fb46c33d9104016))
+
+# [1.21.0](https://github.com/ialexanderbrito/barber/compare/v1.20.2...v1.21.0) (2022-07-25)
+
+
+### Bug Fixes
+
+* functions imports use barbeiro ([7b233ae](https://github.com/ialexanderbrito/barber/commit/7b233aeedf731f466fc226ce82bf1e56806317b6))
+* interfaces imports ([88b0c07](https://github.com/ialexanderbrito/barber/commit/88b0c0703b97ff7fcb4a1b9b9ed44240a4ea2802))
+* styles and add social button ([46a9c70](https://github.com/ialexanderbrito/barber/commit/46a9c7010ad575ffada7e9a68c8fd17cfba420a5))
+* styles and import horario marcacao ([a39ed65](https://github.com/ialexanderbrito/barber/commit/a39ed650b375692ea9c1357e2db3dc76a84b0642))
+* styles overlay and add social button ([09bb609](https://github.com/ialexanderbrito/barber/commit/09bb609b867b83cd0f1d4f45f83e3fa6e104d5a3))
+* styles ticket ([e362001](https://github.com/ialexanderbrito/barber/commit/e36200124f3d5f30f7c243a40ef6e6e52e702acf))
+* update env ([bef2ee7](https://github.com/ialexanderbrito/barber/commit/bef2ee77b8c80a4e2047471441fe01ee02322d2d))
+* updates interfaces ([4616fb0](https://github.com/ialexanderbrito/barber/commit/4616fb0d60796cc2d1a1943e0a0be64cbc60a1cf))
+
+
+### Features
+
+* add component horarios marcacao ([92d1bcc](https://github.com/ialexanderbrito/barber/commit/92d1bcc063fbaebd1a41ed4276aba66e51714779))
+* add new env ([33f115b](https://github.com/ialexanderbrito/barber/commit/33f115ba00ae07be284672e1f6764ee5fb0d7613))
+* add new functions ([1388424](https://github.com/ialexanderbrito/barber/commit/1388424dd676385208fed88c8c010783f4b7f277))
+* add social button ([4a9cfdb](https://github.com/ialexanderbrito/barber/commit/4a9cfdb13f34119be31e828d9c889db149efafdb))
+
+## [1.20.2](https://github.com/ialexanderbrito/barber/compare/v1.20.1...v1.20.2) (2022-07-21)
+
+
+### Bug Fixes
+
+* remove mock id admin ([5c93c95](https://github.com/ialexanderbrito/barber/commit/5c93c957cdc91ae62c052e07c03be81cc608c93a))
+
+## [1.20.1](https://github.com/ialexanderbrito/barber/compare/v1.20.0...v1.20.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* interface ([5b9e70b](https://github.com/ialexanderbrito/barber/commit/5b9e70b51d61932ed9c340b00016b7a11e14a84c))
+* margin left button remove picture ([bd6d1c4](https://github.com/ialexanderbrito/barber/commit/bd6d1c4db0c2b6fa87b4b3fad6e06337534217c8))
+* styles card barbeiro ([632cea3](https://github.com/ialexanderbrito/barber/commit/632cea391a00475387297c5767606c17387a5ed5))
+* text screen ([714266d](https://github.com/ialexanderbrito/barber/commit/714266d0d30f1c156849e613d0c4f79a253fc3bd))
+
+# [1.20.0](https://github.com/ialexanderbrito/barber/compare/v1.19.2...v1.20.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* rules password strength bar ([0a0897c](https://github.com/ialexanderbrito/barber/commit/0a0897c3d318cf2958291dc1b0db8b8773e0eb35))
+
+
+### Features
+
+* add component badge ([ef73e1a](https://github.com/ialexanderbrito/barber/commit/ef73e1a833ef9a7f62f0b6ec20ab8ea04f506cfe))
+* add icons dropdown menu ([dc1ba56](https://github.com/ialexanderbrito/barber/commit/dc1ba561218afe40dd07036519d15251065b2490))
+* add rules password strength bar ([0266728](https://github.com/ialexanderbrito/barber/commit/0266728471297a729717f5a4f0ff3b2b5fde3b8e))
+
+## [1.19.2](https://github.com/ialexanderbrito/barber/compare/v1.19.1...v1.19.2) (2022-07-20)
+
+
+### Bug Fixes
+
+* button style remove picture ([f639a81](https://github.com/ialexanderbrito/barber/commit/f639a81eb8851765c18236438f54878ee8073bcd))
+
+## [1.19.1](https://github.com/ialexanderbrito/barber/compare/v1.19.0...v1.19.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* hook use report ([0650d71](https://github.com/ialexanderbrito/barber/commit/0650d71537a99a22952c233eee998297c4e8fbe6))
+* refactor hook use ticket timeout ([da292b6](https://github.com/ialexanderbrito/barber/commit/da292b655464e8cf24813cb0f8f38cca5f8e0967))
+* styles container alert ([72c57b4](https://github.com/ialexanderbrito/barber/commit/72c57b44c8adf9ba954271b44d82539e351b365b))
+
+# [1.19.0](https://github.com/ialexanderbrito/barber/compare/v1.18.0...v1.19.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* add header page report bug ([154b704](https://github.com/ialexanderbrito/barber/commit/154b704f7cf91ceb88bd3f6bf3c7ffa40e92623d))
+* dropdown menu and bug link ([5383e02](https://github.com/ialexanderbrito/barber/commit/5383e0272d136e841ba61f9ce926207d85edf1ab))
+
+
+### Features
+
+* add routes bug ([e043839](https://github.com/ialexanderbrito/barber/commit/e043839c9752f224de238133e5a9047c34546f72))
+
+# [1.18.0](https://github.com/ialexanderbrito/barber/compare/v1.17.6...v1.18.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* modal agenda and copy to clipboard id schedule ([a30a3af](https://github.com/ialexanderbrito/barber/commit/a30a3af20c974eb599052f2b4a4820e51cdf368e))
+* props onclick agenda ([cc985e9](https://github.com/ialexanderbrito/barber/commit/cc985e9cf88bced58cd0e0590d16e1d4880132a5))
+* remove floating button and modal ([d48150b](https://github.com/ialexanderbrito/barber/commit/d48150bfe4612cf5556ab25d872064ee5aeb5ab2))
+
+
+### Features
+
+* remove floating button ([f3a9f85](https://github.com/ialexanderbrito/barber/commit/f3a9f852a2438eb3b1fd0e50f27bf8b6c6aa5bdc))
+
+## [1.17.6](https://github.com/ialexanderbrito/barber/compare/v1.17.5...v1.17.6) (2022-07-19)
+
+
+### Bug Fixes
+
+* loading list barber ([0a21de9](https://github.com/ialexanderbrito/barber/commit/0a21de9792f7908fb84b34c93bbfad057d93c10a))
+
+## [1.17.5](https://github.com/ialexanderbrito/barber/compare/v1.17.4...v1.17.5) (2022-07-19)
+
+
+### Bug Fixes
+
+* loading page barbeiro ([4528407](https://github.com/ialexanderbrito/barber/commit/4528407860d4f56bcb20352c79471e4106a856ef))
+
+## [1.17.4](https://github.com/ialexanderbrito/barber/compare/v1.17.3...v1.17.4) (2022-07-19)
+
+
+### Bug Fixes
+
+* password strength bar visible ([99f7f28](https://github.com/ialexanderbrito/barber/commit/99f7f28131315071f29ecad24bc3ce34c9b02c7e))
+* style size button floating ([985b4dd](https://github.com/ialexanderbrito/barber/commit/985b4dd3e3e29b35c310597558add5641ef1ef78))
+* styles size alert ([fecbcc4](https://github.com/ialexanderbrito/barber/commit/fecbcc47f114c8c9088df1b0f6037a4516644b11))
+
+## [1.17.3](https://github.com/ialexanderbrito/barber/compare/v1.17.2...v1.17.3) (2022-07-19)
+
+
+### Bug Fixes
+
+* width images pages initial ([b6e6a73](https://github.com/ialexanderbrito/barber/commit/b6e6a737d867db91696e2ec9e58b328287978957))
+
+## [1.17.2](https://github.com/ialexanderbrito/barber/compare/v1.17.1...v1.17.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* width image ([36de3be](https://github.com/ialexanderbrito/barber/commit/36de3beb983b1219b3a92c316683fb02fc0308ad))
+
+## [1.17.1](https://github.com/ialexanderbrito/barber/compare/v1.17.0...v1.17.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* border radius nav item ([78e0235](https://github.com/ialexanderbrito/barber/commit/78e0235b0bda8c28d753cbc420325cadf873b179))
+* input icon margin ([2d0509c](https://github.com/ialexanderbrito/barber/commit/2d0509c01f0075814162eeac5d8ae5cc7467d0fd))
+* size button left and right ([ed2ebec](https://github.com/ialexanderbrito/barber/commit/ed2ebec1da4b7b89c36c2ba31bd0916713cb7610))
+* spacing container ocupacao ([ba3f1fe](https://github.com/ialexanderbrito/barber/commit/ba3f1febb1675615b868307dbf46986c52f12430))
+
+# [1.17.0](https://github.com/ialexanderbrito/barber/compare/v1.16.0...v1.17.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* background color dropdown menu ([9f3b88f](https://github.com/ialexanderbrito/barber/commit/9f3b88fdb1641fd7855e02dbcdf814a70d9fca69))
+* button remove avatar ([557f396](https://github.com/ialexanderbrito/barber/commit/557f396385ffa28f35e1d44aa25dfa89203cd3ee))
+
+
+### Features
+
+* add hover button dropzone ([f761168](https://github.com/ialexanderbrito/barber/commit/f76116870c6b689cdedc85cc0374445db67bfe89))
+
+# [1.16.0](https://github.com/ialexanderbrito/barber/compare/v1.15.0...v1.16.0) (2022-07-18)
+
+
+### Features
+
+* add new alert barber ([17f0490](https://github.com/ialexanderbrito/barber/commit/17f0490e0a0836325295becf03ff56d28b5e00e0))
+
+# [1.15.0](https://github.com/ialexanderbrito/barber/compare/v1.14.0...v1.15.0) (2022-07-18)
+
+
+### Features
+
+* remove cookie consent alert message ([3d5d5df](https://github.com/ialexanderbrito/barber/commit/3d5d5df3f8a6b3f1f46af885320e7b651271ea40))
+
+# [1.14.0](https://github.com/ialexanderbrito/barber/compare/v1.13.0...v1.14.0) (2022-07-18)
+
+
+### Bug Fixes
+
+* change data to status ([2b102f4](https://github.com/ialexanderbrito/barber/commit/2b102f42e7decd2055268c5682a3654e8686ccad))
+* disabled button ([1dbf27d](https://github.com/ialexanderbrito/barber/commit/1dbf27dcd024bf97503fdc6610ae4fa08f03bb7f))
+* permission to only barber ([7980ed4](https://github.com/ialexanderbrito/barber/commit/7980ed4ac7b4d4cf6b2b449b5388192c3dff1a19))
+* update env and id ticket and remove console.log ([727f7ff](https://github.com/ialexanderbrito/barber/commit/727f7ff09aca91585e7eebc4daa735f2e304358a))
+* url validate ([980e6c1](https://github.com/ialexanderbrito/barber/commit/980e6c1e0beb1d83551546bb9d46e5a0d5e26ad4))
+* useffect order status barber ([7c01d25](https://github.com/ialexanderbrito/barber/commit/7c01d257157ba26da6990757cdb7cc854d6322b7))
+
+
+### Features
+
+* add copy to clipboard ticket id ([f07b051](https://github.com/ialexanderbrito/barber/commit/f07b05177fcd32d25789fcc8c7da1c72974a55dc))
+* add dependencies copy to clipboard ([3cd1c64](https://github.com/ialexanderbrito/barber/commit/3cd1c648b1d0026ce6e5c9affacc568cc93e8776))
+* add new hook validate ([a81791b](https://github.com/ialexanderbrito/barber/commit/a81791bbab97e5ab0789196ccca1191db515e40a))
+* add new interfaces ([80f78c1](https://github.com/ialexanderbrito/barber/commit/80f78c19fc4fb962be4b70bdaa245c550dde1dea))
+* add new routes validate schedule ([b32ba75](https://github.com/ialexanderbrito/barber/commit/b32ba75b2a94daeb773cd0c32fad15fc5e7f7e0c))
+* add page validate id ([418efc6](https://github.com/ialexanderbrito/barber/commit/418efc6c1fc8c2d2d90b8a1e9fc6c80dda630ea1))
+* add page validate schedule ([8bc5e66](https://github.com/ialexanderbrito/barber/commit/8bc5e665bd4f442ecda34d778342edc769f3f4a3))
+* add qr reader ([257378d](https://github.com/ialexanderbrito/barber/commit/257378d6105d8c906b44707d7f447c049bd5af8c))
+* add service update validate schedule ([d5a6d92](https://github.com/ialexanderbrito/barber/commit/d5a6d921cca303c483593b3b4496c82883d937d9))
+
 # [1.13.0](https://github.com/ialexanderbrito/barber/compare/v1.12.0...v1.13.0) (2022-07-11)
 
 

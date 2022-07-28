@@ -1,6 +1,6 @@
 {
   "name": "barber",
-  "version": "1.13.0",
+  "version": "1.21.4",
   "private": true,
   "scripts": {
     "start": "serve -s build",
@@ -36,7 +36,7 @@
     "js-cookie": "^3.0.1",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
-    "react-cookie-consent": "^7.5.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-day-picker": "^8.0.7",
     "react-device-detect": "^2.2.2",
     "react-dom": "^18.2.0",
@@ -79,6 +79,7 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@types/js-cookie": "^3.0.2",
+    "@types/react-copy-to-clipboard": "^5.0.3",
     "@types/react-dom": "^18.0.6",
     "@types/react-dropzone": "^5.1.0",
     "@types/react-modal": "^3.13.1",

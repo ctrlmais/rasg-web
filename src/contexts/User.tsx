@@ -37,6 +37,7 @@ export function UserProvider({ children }: any) {
   const [selectHours, setSelectHours] = useState<string>('');
   const [status, setStatus] = useState<string>('');
   const [installPwa, setInstallPwa] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const clientId = user?.id;
   const barberId = barbeiro?.id;
@@ -199,6 +200,7 @@ export function UserProvider({ children }: any) {
   }
 
   async function buscarBarbeiros() {
+    setLoading(true);
     const { data, error, status } = await getBarbeiros();
 
     if (error) {
@@ -208,13 +210,18 @@ export function UserProvider({ children }: any) {
       }
     }
 
-    if (!data) return;
+    if (!data) {
+      setLoading(false);
+      return;
+    }
 
     if (data[0].j === null) {
+      setLoading(false);
       return;
     }
 
     setBarbeiros(data[0].j);
+    setLoading(false);
   }
 
   async function buscaClientesHorario(hour: string) {
@@ -247,6 +254,7 @@ export function UserProvider({ children }: any) {
 
   async function buscarClientes() {
     if (!clientId) return;
+    if (selectDayFormatted < atualDayFormatted) return;
 
     if (isBarbeiro) {
       const { data, error, status } = await getClientes(
@@ -293,31 +301,6 @@ export function UserProvider({ children }: any) {
 
       setClientes(data[0].j);
     }
-  }
-
-  async function buscarAgendamentos() {
-    if (!clientId) return;
-
-    const { data, error, status } = await getHorarioMarcadoCliente(
-      clientId,
-      atualDayFormatted,
-    );
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-
-    if (data[0].j === null) {
-      setHorariosAgendados([]);
-      return;
-    }
-
-    setHorariosAgendados(data[0].j);
   }
 
   async function postShedule() {
@@ -375,6 +358,31 @@ export function UserProvider({ children }: any) {
   }, [isCliente]);
 
   useEffect(() => {
+    async function buscarAgendamentos() {
+      if (!clientId) return;
+
+      const { data, error, status } = await getHorarioMarcadoCliente(
+        clientId,
+        atualDayFormatted,
+      );
+
+      if (error) {
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) return;
+
+      if (data[0].j === null) {
+        setHorariosAgendados([]);
+        return;
+      }
+
+      setHorariosAgendados(data[0].j);
+    }
+
     if (isCliente) {
       buscarAgendamentos();
     }
@@ -468,6 +476,7 @@ export function UserProvider({ children }: any) {
         buscaClientesHorario,
         verificaHorarioDeTrabalho,
         verificaTelefone,
+        loading,
       }}
     >
       {children}

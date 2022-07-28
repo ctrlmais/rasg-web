@@ -70,6 +70,7 @@ export type CardBarbeiroProps = {
   cliente?: boolean;
   barbeiro?: UserMetadata | undefined;
   onClick?: () => void;
+  hover?: boolean;
 };
 
 export type CardClienteProps = {
@@ -85,4 +86,43 @@ export interface FloatingButtonProps {
 export interface OcupacaoProps {
   cliente?: string;
   barbeiro?: string;
+}
+
+export interface TicketProps {
+  cliente?: ClienteMetadata | undefined;
+}
+
+export interface AgendaProps {
+  onClick: () => void;
+}
+
+export interface AlertProps {
+  title: string;
+  success?: boolean;
+  error?: boolean;
+  warning?: boolean;
+  info?: boolean;
+  onClick?: () => void;
+  close?: boolean;
+}
+
+export interface BadgeProps {
+  primary: boolean;
+  children: React.ReactNode;
+}
+
+export interface HorariosProps {
+  horario: string;
+  disabled: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+export interface SocialButtonProps {
+  onClick: () => void;
+  icon?: React.ReactElement;
+  text: string;
+  apple?: boolean;
+  google?: boolean;
+  whatsapp?: boolean;
 }

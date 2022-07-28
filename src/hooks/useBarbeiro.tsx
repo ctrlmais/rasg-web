@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { format, addDays } from 'date-fns';
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 import { ClienteMetadata } from 'types/IContext';
 import * as XLSX from 'xlsx';
 
@@ -14,8 +16,15 @@ const THIRTYMINUTES = 30 * 60 * 1000;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
-  const { getFirstCliente, buscaClientesHorario, buscarClientes, clientId } =
-    useUser();
+  const {
+    getFirstCliente,
+    buscaClientesHorario,
+    buscarClientes,
+    clientId,
+    getClientesMorning,
+    getClientesAfternoon,
+    getClientesNight,
+  } = useUser();
   const [toggleDownload, setToggleDownload] = useState(true);
   const [visibleCalendar, setVisibleCalendar] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -30,58 +39,10 @@ export function useBarbeiro() {
     to: addDays(pastMonth, 4),
   };
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
+  const [loading, setLoading] = useState(true);
 
   const dataInicial = format(range?.from as Date, 'yyyy-MM-dd');
   const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
-
-  async function verificarStatusBarbeiro() {
-    const { data, status, error } = await getBarbeiro(clientId as string, true);
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-
-    if (data[0].j === null) {
-      return;
-    }
-
-    setApproved(data[0].j[0].admin_confirmed);
-  }
-
-  async function buscarDadosParaExcel() {
-    const { data, error, status } = await getClientesMonth(
-      clientId || '',
-      dataInicial,
-      dataFinal,
-    );
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    const newValues = data[0].j.map((cliente: ClienteMetadata) => ({
-      id: cliente.id,
-      Nome: cliente.client_name,
-      Horario: cliente.hour,
-      Data: format(new Date(cliente.appointment_date), 'dd/MM/yyyy'),
-      Turno: setShiftBarber(cliente.shift),
-    }));
-
-    setDataExport(newValues);
-  }
 
   function setShiftBarber(turno: string) {
     if (turno === 'morning') {
@@ -124,6 +85,64 @@ export function useBarbeiro() {
     }
   }
 
+  function handleSetClienteLocalStorage(cliente: ClienteMetadata) {
+    localStorage.setItem('cliente', JSON.stringify(cliente));
+    openModal();
+  }
+
+  function clienteEqualsZero() {
+    return (
+      getClientesMorning().length === 0 &&
+      getClientesAfternoon().length === 0 &&
+      getClientesNight().length === 0
+    );
+  }
+
+  function clienteGreaterZero() {
+    return (
+      getClientesMorning().length > 0 ||
+      getClientesAfternoon().length > 0 ||
+      getClientesNight().length > 0
+    );
+  }
+
+  useEffect(() => {
+    async function verificarStatusBarbeiro() {
+      setLoading(true);
+      const { data, status, error } = await getBarbeiro(
+        clientId as string,
+        true,
+      );
+
+      if (error) {
+        switch (status) {
+          default:
+            setLoading(false);
+            return;
+        }
+      }
+
+      if (!data) {
+        setLoading(false);
+        return;
+      }
+      if (!data[0].j) {
+        setLoading(false);
+        return;
+      }
+
+      if (data[0].j === null) {
+        setLoading(false);
+        return;
+      }
+
+      setApproved(data[0].j[0].admin_confirmed);
+      setLoading(false);
+    }
+
+    verificarStatusBarbeiro();
+  }, []);
+
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
 
@@ -158,11 +177,61 @@ export function useBarbeiro() {
   }, []);
 
   useEffect(() => {
-    buscarDadosParaExcel();
+    async function buscarDadosParaExcel() {
+      const { data, error, status } = await getClientesMonth(
+        clientId || '',
+        dataInicial,
+        dataFinal,
+      );
+
+      if (error) {
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) return;
+      if (!data[0].j) return;
+      if (!data[0].j[0]) return;
+
+      const newValues = data[0].j.map((cliente: ClienteMetadata) => ({
+        id: cliente.id,
+        Nome: cliente.client_name,
+        Horario: cliente.hour,
+        Data: format(new Date(cliente.appointment_date), 'dd/MM/yyyy'),
+        Turno: setShiftBarber(cliente.shift),
+      }));
+
+      setDataExport(newValues);
+    }
+
+    if (toggleDownload === false) {
+      buscarDadosParaExcel();
+    }
   }, [dataInicial, dataFinal]);
 
   useEffect(() => {
-    verificarStatusBarbeiro();
+    const barberNewNotification = Cookies.get('barbeiro_notification');
+
+    if (barberNewNotification !== 'success') {
+      Swal.fire({
+        title: 'Novidade no ar!',
+        text: 'Agora você barbeiro pode validar o horário de seus clientes! Basta você ir no menu "Validar Horário" ou abrir sua camera e scanear o QR code do cliente. Essa opção é opcional, mas é util para ter um controle de quem marca e não comparece no horário marcado.',
+        icon: 'info',
+        confirmButtonColor: '#ff9000',
+        cancelButtonColor: '#CA0B00',
+        background: '#312e38',
+        color: '#f4ede8',
+        confirmButtonText: 'Okay',
+      }).then((result) => {
+        if (result.value) {
+          Cookies.set('barbeiro_notification', 'success', {
+            expires: 1,
+          });
+        }
+      });
+    }
   }, []);
 
   const customStyles = {
@@ -174,8 +243,8 @@ export function useBarbeiro() {
       borderRadius: '4px',
       outline: 'none',
       padding: '0px',
-      height: '40vh',
-      width: '25rem',
+      height: '45vh',
+      width: '22rem',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -185,6 +254,7 @@ export function useBarbeiro() {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      zIndex: '10',
     },
   };
 
@@ -205,5 +275,9 @@ export function useBarbeiro() {
     isBarbeiroApproved: isBarbeiroApproved(),
     visibleCalendar,
     setVisibleCalendar,
+    loading,
+    handleSetClienteLocalStorage,
+    clienteEqualsZero,
+    clienteGreaterZero,
   };
 }

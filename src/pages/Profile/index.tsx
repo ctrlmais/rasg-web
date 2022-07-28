@@ -1,4 +1,5 @@
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { IoMdClose } from 'react-icons/io';
 import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
@@ -49,14 +50,15 @@ export function Profile() {
               });
             }}
           />
+
           {idPictureProfile && (
             <div
-              className={styles.removePicture}
+              className={styles.removeButton}
               onClick={() => {
                 apagarPicture();
               }}
             >
-              Apagar foto de perfil
+              <IoMdClose />
             </div>
           )}
 
@@ -135,12 +137,14 @@ export function Profile() {
                   value={formikProfile.values.newPassword}
                   icon={<FiLock color="#666360" size={24} />}
                 />
-                <PasswordStrengthBar
-                  className={styles.passwordStrengthBar}
-                  shortScoreWord={'Fraca'}
-                  password={formikProfile.values.newPassword}
-                  scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
-                />
+                {formikProfile.values.newPassword.length >= 6 && (
+                  <PasswordStrengthBar
+                    className={styles.passwordStrengthBar}
+                    shortScoreWord={'Fraca'}
+                    password={formikProfile.values.newPassword}
+                    scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
+                  />
+                )}
                 {formikProfile.errors.newPassword &&
                   formikProfile.touched.newPassword && (
                     <span className={styles.error}>
@@ -173,7 +177,7 @@ export function Profile() {
                 showNewPassword();
               }}
             >
-              Trocar de senha
+              {showPassword ? 'Cancelar' : 'Trocar de senha'}
             </Button>
             <Button type="submit">
               {loading ? (

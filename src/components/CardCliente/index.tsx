@@ -1,40 +1,14 @@
-import { useEffect, useState } from 'react';
 import { BsClock, BsScissors } from 'react-icons/bs';
 
 import Avvvatars from 'avvvatars-react';
 import { CardClienteProps } from 'types/IComponents';
 
-import { getPhoto } from 'services/get/photo';
+import { usePhoto } from 'hooks/usePhoto';
 
 import styles from './CardCliente.module.scss';
 
 export function CardCliente(props: CardClienteProps) {
-  const [photo, setPhoto] = useState('');
-  const [name, setName] = useState('');
-
-  async function getPhotoUser(id: string) {
-    const { data, error, status } = await getPhoto(id);
-
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    setPhoto(data[0].j[0].src);
-    setName(data[0].j[0].name);
-  }
-
-  useEffect(() => {
-    if (props.cliente) {
-      getPhotoUser(props.cliente.client_id);
-    }
-  }, [props.cliente]);
+  const { photo, name } = usePhoto(props.cliente?.client_id || '');
 
   return (
     <div
