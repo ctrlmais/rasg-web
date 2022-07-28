@@ -1,3 +1,10 @@
+## [1.21.4](https://github.com/ialexanderbrito/barber/compare/v1.21.3...v1.21.4) (2022-07-28)
+
+
+### Bug Fixes
+
+* remove horarios indisponiveis ([4e77dca](https://github.com/ialexanderbrito/barber/commit/4e77dcaa849f928903a2d40b006123e7a5dc4afc))
+
 ## [1.21.3](https://github.com/ialexanderbrito/barber/compare/v1.21.2...v1.21.3) (2022-07-27)
 
 
