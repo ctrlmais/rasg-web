@@ -1,3 +1,10 @@
+## [1.21.5](https://github.com/ialexanderbrito/barber/compare/v1.21.4...v1.21.5) (2022-07-28)
+
+
+### Bug Fixes
+
+* ticket css import ([d501da1](https://github.com/ialexanderbrito/barber/commit/d501da183fee4627f35e6beb6b05effc1693fede))
+
 ## [1.21.4](https://github.com/ialexanderbrito/barber/compare/v1.21.3...v1.21.4) (2022-07-28)
 
 
