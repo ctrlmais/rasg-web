@@ -1,6 +1,6 @@
 import { FiClock } from 'react-icons/fi';
 import { IoTicketOutline } from 'react-icons/io5';
-import { RiAdminLine, RiBugLine } from 'react-icons/ri';
+import { RiAdminLine, RiBugLine, RiHistoryLine } from 'react-icons/ri';
 import { TbLogout } from 'react-icons/tb';
 import { CSSTransition } from 'react-transition-group';
 
@@ -74,7 +74,7 @@ export function DropdownMenu() {
           {isCliente && (
             <DropdownItem
               link="/history"
-              leftIcon={<IoTicketOutline size={18} />}
+              leftIcon={<RiHistoryLine size={18} />}
             >
               Histórico
             </DropdownItem>
