@@ -1,6 +1,7 @@
-import { BsClock, BsScissors } from 'react-icons/bs';
+import { BsCalendarDate, BsClock, BsScissors } from 'react-icons/bs';
 
 import Avvvatars from 'avvvatars-react';
+import { format } from 'date-fns';
 import { CardClienteProps } from 'types/IComponents';
 
 import { usePhoto } from 'hooks/usePhoto';
@@ -9,6 +10,9 @@ import styles from './CardCliente.module.scss';
 
 export function CardCliente(props: CardClienteProps) {
   const { photo, name } = usePhoto(props.cliente?.client_id || '');
+
+  const dateFormatted =
+    format(new Date(props.cliente?.date || ''), 'dd/MM/yyyy') || '';
 
   return (
     <div
@@ -40,12 +44,25 @@ export function CardCliente(props: CardClienteProps) {
         <strong className={styles.info}>
           <BsClock color="#FF9000" size={16} style={{ marginRight: '8px' }} />
           {props.cliente?.hour} |{' '}
-          <BsScissors
-            color="#FF9000"
-            size={16}
-            style={{ marginLeft: '6px', marginRight: '3px' }}
-          />
-          {props.cliente?.barber_name}
+          {props.data ? (
+            <>
+              <BsCalendarDate
+                color="#FF9000"
+                size={16}
+                style={{ marginLeft: '6px', marginRight: '3px' }}
+              />
+              {dateFormatted}
+            </>
+          ) : (
+            <>
+              <BsScissors
+                color="#FF9000"
+                size={16}
+                style={{ marginLeft: '6px', marginRight: '3px' }}
+              />
+              {props.cliente?.barber_name}
+            </>
+          )}
         </strong>
       </div>
     </div>
