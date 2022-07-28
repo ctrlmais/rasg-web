@@ -188,9 +188,7 @@ export function AuthProvider({ children }: any) {
 
     localStorage.removeItem('cliente');
     Cookies.remove('barbeiro_modal');
-    toast.success('Deslogado com sucesso', { id: 'login' });
     setUser(null);
-
     navigate('/');
   }
 
