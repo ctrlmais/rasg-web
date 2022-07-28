@@ -11,10 +11,25 @@
   background: var(--background);
 }
 
-.titleHome {
+.title {
   font-weight: bold;
   color: var(--white);
   font-size: 22px;
+  margin-top: 24px;
+}
+
+.calendar {
+  margin-top: 12px;
+  background: var(--calendar);
+  border-radius: 10px;
+}
+
+.containerHorario {
+  display: flex;
+  flex-direction: row;
+  width: 350px;
+  margin-top: 12px;
+  justify-content: space-evenly;
 }
 
 .titleContainer {
@@ -84,10 +99,19 @@
     background: var(--background);
   }
 
-  .titleHome {
+  .title {
     font-weight: bold;
     color: var(--white);
     font-size: 22px;
+    margin-top: 24px;
+  }
+
+  .containerHorario {
+    display: flex;
+    flex-direction: row;
+    width: 370px;
+    margin-top: 12px;
+    justify-content: space-evenly;
   }
 
   .titleContainer {
