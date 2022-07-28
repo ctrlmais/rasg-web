@@ -1,62 +1,82 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { DateRange } from 'react-day-picker';
+
+import { addDays, format } from 'date-fns';
 
 import { getHorarioMarcadoMensal } from 'services/get/horarioMarcado';
+
+const pastMonth = new Date();
 
 export function useHistory() {
   const [loading, setLoading] = useState(true);
   const [agendamentos, setAgendamentos] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [page, setPage] = useState(0);
+  const defaultSelected: DateRange = {
+    from: addDays(pastMonth, -2),
+    to: addDays(pastMonth, 0),
+  };
+  const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
+
+  const dataInicial = format(range?.from as Date, 'yyyy-MM-dd');
+  const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
 
   const storagedUser = JSON.parse(
     localStorage.getItem('supabase.auth.token') || '{}',
   );
 
   const id = storagedUser.currentSession.user.id;
-  const agendamentosQtd = agendamentos.length || 0;
-
-  function handleChangePage(event: ChangeEvent<unknown>, value: number) {
-    setPage(value - 1);
-    setCurrentPage(value);
-  }
-
-  async function buscarHorariosMarcadosMensal() {
-    setLoading(true);
-
-    const { data, error, status } = await getHorarioMarcadoMensal(id, page);
-
-    if (error) {
-      setLoading(false);
-      switch (status) {
-        default:
-          return;
-      }
-    }
-
-    if (!data) return;
-    if (!data[0].j) return;
-    if (!data[0].j[0]) return;
-
-    if (data[0].j === null) {
-      setLoading(false);
-      return;
-    }
-
-    console.log(data[0].j);
-    setAgendamentos(data[0].j);
-    setLoading(false);
-  }
 
   useEffect(() => {
+    async function buscarHorariosMarcadosMensal() {
+      setLoading(true);
+
+      const { data, error, status } = await getHorarioMarcadoMensal(
+        id,
+        dataInicial,
+        dataFinal,
+      );
+
+      if (error) {
+        setLoading(false);
+        switch (status) {
+          default:
+            return;
+        }
+      }
+
+      if (!data) {
+        setAgendamentos([]);
+        setLoading(false);
+        return;
+      }
+      if (!data[0].j) {
+        setAgendamentos([]);
+        setLoading(false);
+        return;
+      }
+      if (!data[0].j[0]) {
+        setAgendamentos([]);
+        setLoading(false);
+        return;
+      }
+
+      if (data[0].j === null) {
+        setAgendamentos([]);
+        setLoading(false);
+        return;
+      }
+
+      setAgendamentos(data[0].j);
+      setLoading(false);
+    }
+
     buscarHorariosMarcadosMensal();
-  }, [currentPage]);
+  }, [dataInicial, dataFinal]);
 
   return {
     loading,
     agendamentos,
-    agendamentosQtd,
-    handleChangePage,
-    currentPage,
-    page,
+    range,
+    setRange,
+    pastMonth,
   };
 }
