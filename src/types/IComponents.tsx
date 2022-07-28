@@ -77,6 +77,7 @@ export type CardClienteProps = {
   cliente: ClienteMetadata | undefined;
   onClick?: () => void;
   first?: boolean;
+  data?: boolean;
 };
 
 export interface FloatingButtonProps {
