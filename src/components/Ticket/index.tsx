@@ -10,7 +10,7 @@ import { useToast } from 'contexts/Toast';
 
 import { usePhoto } from 'hooks/usePhoto';
 
-import './Ticket.module.scss';
+import './Ticket.scss';
 
 export function Ticket(props: TicketProps) {
   const { toast } = useToast();
