@@ -1,6 +1,6 @@
 import { FiClock } from 'react-icons/fi';
 import { IoTicketOutline } from 'react-icons/io5';
-import { RiAdminLine, RiBugLine } from 'react-icons/ri';
+import { RiAdminLine, RiBugLine, RiHistoryLine } from 'react-icons/ri';
 import { TbLogout } from 'react-icons/tb';
 import { CSSTransition } from 'react-transition-group';
 
@@ -15,7 +15,7 @@ import { usePhoto } from 'hooks/usePhoto';
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
-  const { user, isAlexander, isBarbeiro, handleLogout } = useAuth();
+  const { user, isAlexander, isBarbeiro, handleLogout, isCliente } = useAuth();
   const { activeMenu, dropdownRef, calcHeight, menuHeight } = useDropdown();
 
   const { photo } = usePhoto(user?.id || '');
@@ -69,6 +69,14 @@ export function DropdownMenu() {
               leftIcon={<IoTicketOutline size={18} />}
             >
               Validar Horário
+            </DropdownItem>
+          )}
+          {isCliente && (
+            <DropdownItem
+              link="/history"
+              leftIcon={<RiHistoryLine size={18} />}
+            >
+              Histórico
             </DropdownItem>
           )}
           <DropdownItem link="/bug" leftIcon={<RiBugLine size={18} />}>

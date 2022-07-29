@@ -52,3 +52,26 @@ export async function getHorarioSelecionado(
 
   return { data, error, status };
 }
+
+export async function getHorarioMarcadoMensal(
+  clientId: string,
+  dataInicio: string,
+  dataFim: string,
+) {
+  const { data, error, status } = await supabase.rpc(
+    'busca_filtrada_schedules',
+    {
+      p_id: [],
+      p_barber_id: [],
+      p_client_id: [clientId],
+      p_dt_inicio: `${dataInicio}T23:59`,
+      p_dt_fim: `${dataFim}T00:00`,
+      p_page: 0,
+      p_limit: 100,
+      p_orderby: 'hour',
+      p_ascordsc: 'asc',
+    },
+  );
+
+  return { data, error, status };
+}

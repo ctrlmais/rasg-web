@@ -19,30 +19,13 @@ import styles from './Cliente.module.scss';
 export function Cliente() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const {
-    barbeiros,
-    horariosAgendados,
-    setSelectHours,
-    selectDay,
-    verificaTelefone,
-    loading,
-  } = useUser();
+  const { barbeiros, horariosAgendados, setSelectHours, selectDay, loading } =
+    useUser();
   const { nextDay, previousDay, handleClickBarbeiro } = useCliente();
+  const username = user?.user_metadata.name;
 
   return (
     <>
-      {!verificaTelefone() && (
-        <div className={styles.containerAlertTelefone}>
-          <Alert
-            close
-            title="Adicione um telefone para que o barbeiro possa entrar em contato com você"
-            warning
-            onClick={() => {
-              navigate('/profile');
-            }}
-          />
-        </div>
-      )}
       <div className={styles.titleContainer}>
         <button
           type="button"
@@ -92,7 +75,7 @@ export function Cliente() {
           <h2 className={styles.titleHome}>
             {barbeiros.length >= 1
               ? `
-        Olá ${user?.user_metadata.name}, eu encontrei ${barbeiros.length}
+        Olá ${username}, eu encontrei ${barbeiros.length}
         ${barbeiros.length > 1 ? 'barbeiros' : 'barbeiro'} para você!
         `
               : 'Ops não encontrei nenhum barbeiro. 😢'}
