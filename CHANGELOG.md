@@ -1,3 +1,26 @@
+# [1.22.0](https://github.com/ialexanderbrito/barber/compare/v1.21.5...v1.22.0) (2022-07-29)
+
+
+### Bug Fixes
+
+* add icon history ([ed71ced](https://github.com/ialexanderbrito/barber/commit/ed71cede340e5487ece2d7aaba97d25ea0d19017))
+* add new interfaces ([a2a5c89](https://github.com/ialexanderbrito/barber/commit/a2a5c8976295a504d0c0b56bb0d86e44aacd2130))
+* home cliente and remove alert ([627f664](https://github.com/ialexanderbrito/barber/commit/627f664857af14627aa21ed58d0a7ede4b9984a8))
+* hook use history ([ae18169](https://github.com/ialexanderbrito/barber/commit/ae1816983587cdf3e935e1ba0d221eba880f9859))
+* page history add calendar ([9b27b7c](https://github.com/ialexanderbrito/barber/commit/9b27b7cb7fae29168c588e0db4961d941ee57e27))
+* remove toast logout ([e03ce5a](https://github.com/ialexanderbrito/barber/commit/e03ce5ac06a76d08461a3c0152d567ca3d36d648))
+* service get history client ([cb8b706](https://github.com/ialexanderbrito/barber/commit/cb8b706accb3c8f8bd2a2ecb741f9fcf1ca374a5))
+* styles page history ([d9be97f](https://github.com/ialexanderbrito/barber/commit/d9be97f0f7de1d514a4792f0554d8a2ec9775a33))
+* styles title page report bug ([ff8e153](https://github.com/ialexanderbrito/barber/commit/ff8e15318b7f298b47e635de5c8c517c571f2c15))
+
+
+### Features
+
+* add alert warning phone ([12a067b](https://github.com/ialexanderbrito/barber/commit/12a067bd9165f649f78a2251ad2ca7a7b2383b06))
+* add card cliente data ([1397e7c](https://github.com/ialexanderbrito/barber/commit/1397e7c3633edd36631035385bdd2b8543a1e663))
+* add history in menu ([ccece55](https://github.com/ialexanderbrito/barber/commit/ccece5593f4f700a4c0db7c792264a5107aa8d67))
+* add routes history ([a556639](https://github.com/ialexanderbrito/barber/commit/a5566392bafef90882249ac8dd17dcc2e78d1522))
+
 ## [1.21.5](https://github.com/ialexanderbrito/barber/compare/v1.21.4...v1.21.5) (2022-07-28)
 
 
