@@ -1,3 +1,10 @@
+## [1.22.2](https://github.com/ialexanderbrito/barber/compare/v1.22.1...v1.22.2) (2022-07-31)
+
+
+### Bug Fixes
+
+* update alert phone barber ([50658d0](https://github.com/ialexanderbrito/barber/commit/50658d0955395617c449a7c69890c7061f650bff))
+
 ## [1.22.1](https://github.com/ialexanderbrito/barber/compare/v1.22.0...v1.22.1) (2022-07-31)
 
 
