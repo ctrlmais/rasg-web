@@ -15,11 +15,11 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
   const { photo, name } = usePhoto(props.barbeiro?.id || '');
 
   const diaAtual = String(new Date().getDay());
-  const schedules = JSON.parse(props.barbeiro?.schedules);
+  const schedules: Schedule[] = JSON.parse(props.barbeiro?.schedules);
 
   function getDiasFuncionamento() {
     const dias = [] as string[];
-    schedules?.map((schedule: Schedule) => {
+    schedules?.map((schedule) => {
       if (schedule.week_day !== '') {
         dias.push(getDiaSemana(schedule?.week_day || ''));
       }
@@ -29,7 +29,7 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
 
   function getHorarioAtual(week_day: string) {
     const horario = [] as string[];
-    schedules?.map((schedule: Schedule) => {
+    schedules?.map((schedule) => {
       if (schedule.week_day === week_day) {
         horario.push(schedule.from + ' às ' + schedule.to);
       }
@@ -42,6 +42,7 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
       className={cx(styles.card, {
         [styles.cardAdmin]: props.hover,
         [styles.cardCliente]: props.cliente,
+        [styles.cardDisabled]: props.disabled,
       })}
       onClick={props.onClick}
       key={props.barbeiro?.id}

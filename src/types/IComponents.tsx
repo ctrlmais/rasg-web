@@ -71,6 +71,7 @@ export type CardBarbeiroProps = {
   barbeiro?: UserMetadata | undefined;
   onClick?: () => void;
   hover?: boolean;
+  disabled?: boolean;
 };
 
 export type CardClienteProps = {

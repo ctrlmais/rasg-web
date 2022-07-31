@@ -17,6 +17,16 @@
   }
 }
 
+.cardDisabled {
+  cursor: not-allowed !important;
+
+  &:hover {
+    transition: none;
+    filter: none;
+    border: none;
+  }
+}
+
 .card {
   display: flex;
   width: 327px;
