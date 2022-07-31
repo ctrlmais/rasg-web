@@ -11,8 +11,10 @@ import { useAuth } from './useAuth';
 export function useAdmin() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [barbeiros, setBarbeiros] = useState([]);
-  const [barbeirosAprovados, setBarbeirosAprovados] = useState([]);
+  const [barbeiros, setBarbeiros] = useState<UserMetadata[]>([]);
+  const [barbeirosAprovados, setBarbeirosAprovados] = useState<UserMetadata[]>(
+    [],
+  );
   const [clientesAprovados, setClientesAprovados] = useState<UserMetadata[]>(
     [],
   );

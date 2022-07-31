@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { addDays, format } from 'date-fns';
+import { ClienteMetadata } from 'types/IContext';
 
 import { getHorarioMarcadoMensal } from 'services/get/horarioMarcado';
 
@@ -9,7 +10,7 @@ const pastMonth = new Date();
 
 export function useHistory() {
   const [loading, setLoading] = useState(true);
-  const [agendamentos, setAgendamentos] = useState([]);
+  const [agendamentos, setAgendamentos] = useState<ClienteMetadata[]>([]);
   const defaultSelected: DateRange = {
     from: addDays(pastMonth, -2),
     to: addDays(pastMonth, 0),

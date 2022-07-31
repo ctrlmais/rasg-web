@@ -133,9 +133,7 @@ export function UserProvider({ children }: any) {
   function getHorariosMarcados() {
     if (!clientes) return [];
 
-    const horariosMarcados = clientes.map(
-      (cliente: ClienteMetadata) => cliente.hour,
-    );
+    const horariosMarcados = clientes.map((cliente) => cliente.hour);
 
     return horariosMarcados;
   }

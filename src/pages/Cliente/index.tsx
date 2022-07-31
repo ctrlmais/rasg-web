@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
 import { format } from 'date-fns';
-import { ClienteMetadata, UserMetadata } from 'types/IContext';
 
 import { Alert } from 'components/Alert';
 import { CardBarbeiro } from 'components/CardBarbeiro';
@@ -49,7 +48,7 @@ export function Cliente() {
       </div>
       {horariosAgendados.length > 0 ? (
         <div className={styles.containerHorarios}>
-          {horariosAgendados.map((horario: ClienteMetadata) => (
+          {horariosAgendados.map((horario) => (
             <CardCliente
               key={horario.id}
               cliente={horario}
@@ -81,7 +80,7 @@ export function Cliente() {
               : 'Ops não encontrei nenhum barbeiro. 😢'}
           </h2>
           <div className={styles.containerList}>
-            {barbeiros.map((barbeiro: UserMetadata) => (
+            {barbeiros.map((barbeiro) => (
               <CardBarbeiro
                 key={barbeiro.id}
                 barbeiro={barbeiro}
@@ -89,6 +88,7 @@ export function Cliente() {
                   handleClickBarbeiro(barbeiro);
                 }}
                 hover
+                disabled={barbeiro.schedules === null}
               />
             ))}
           </div>

@@ -2,7 +2,6 @@ import { FiCheck, FiSlash } from 'react-icons/fi';
 
 import Pagination from '@mui/material/Pagination';
 import { Ring } from '@uiball/loaders';
-import { UserMetadata } from 'types/IContext';
 
 import { ButtonTopPage } from 'components/ButtonTop';
 import { CardBarbeiro } from 'components/CardBarbeiro';
@@ -48,7 +47,7 @@ export function Admin() {
             ) : (
               <>
                 {clientesAprovados.length > 0 &&
-                  clientesAprovados.map((cliente: UserMetadata) => (
+                  clientesAprovados.map((cliente) => (
                     <div className={styles.containerBarber} key={cliente.id}>
                       <CardBarbeiro
                         key={cliente.id}
@@ -81,7 +80,7 @@ export function Admin() {
               ) : (
                 <>
                   {barbeiros.length > 0 &&
-                    barbeiros.map((barbeiro: UserMetadata) => (
+                    barbeiros.map((barbeiro) => (
                       <div className={styles.containerBarber} key={barbeiro.id}>
                         <CardBarbeiro key={barbeiro.id} barbeiro={barbeiro} />
                         <button
@@ -119,7 +118,7 @@ export function Admin() {
               ) : (
                 <>
                   {barbeirosAprovados.length > 0 &&
-                    barbeirosAprovados.map((barbeiro: UserMetadata) => (
+                    barbeirosAprovados.map((barbeiro) => (
                       <div className={styles.containerBarber} key={barbeiro.id}>
                         <CardBarbeiro key={barbeiro.id} barbeiro={barbeiro} />
                         <button

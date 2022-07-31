@@ -19,7 +19,7 @@ export function useSchedule() {
 
   if (!barbeiro) window.location.assign('/');
 
-  const schedules = JSON.parse(barbeiro?.schedules || '[]');
+  const schedules: Schedule[] = JSON.parse(barbeiro?.schedules || '[]');
 
   const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] =
     useState(JSON.parse(barbeiro?.schedules)[weekDay]?.from);
@@ -28,7 +28,7 @@ export function useSchedule() {
 
   function getHorarioAtual(week_day: string) {
     const horario = [] as string[];
-    schedules?.map((schedule: Schedule) => {
+    schedules?.map((schedule) => {
       if (schedule.week_day === week_day) {
         horario.push(schedule.from + ' às ' + schedule.to);
       }

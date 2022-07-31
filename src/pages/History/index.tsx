@@ -2,7 +2,6 @@ import { DayPicker } from 'react-day-picker';
 
 import { Ring } from '@uiball/loaders';
 import { ptBR } from 'date-fns/locale';
-import { ClienteMetadata } from 'types/IContext';
 
 import { ButtonTopPage } from 'components/ButtonTop';
 import { CardCliente } from 'components/CardCliente';
@@ -48,7 +47,7 @@ export function History() {
             ) : (
               <>
                 {agendamentos.length > 0 ? (
-                  agendamentos.map((cliente: ClienteMetadata) => (
+                  agendamentos.map((cliente) => (
                     <>
                       <div className={styles.containerBarber} key={cliente.id}>
                         <CardCliente key={cliente.id} cliente={cliente} data />
