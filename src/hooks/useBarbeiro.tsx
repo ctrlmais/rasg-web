@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
+import { useNavigate } from 'react-router-dom';
 
 import { format, addDays } from 'date-fns';
 import Cookies from 'js-cookie';
@@ -16,6 +17,7 @@ const THIRTYMINUTES = 30 * 60 * 1000;
 const pastMonth = new Date();
 
 export function useBarbeiro() {
+  const navigate = useNavigate();
   const {
     getFirstCliente,
     buscaClientesHorario,
@@ -24,6 +26,7 @@ export function useBarbeiro() {
     getClientesMorning,
     getClientesAfternoon,
     getClientesNight,
+    verificaTelefone,
   } = useUser();
   const [toggleDownload, setToggleDownload] = useState(true);
   const [visibleCalendar, setVisibleCalendar] = useState(true);
@@ -229,6 +232,24 @@ export function useBarbeiro() {
           Cookies.set('barbeiro_notification', 'success', {
             expires: 1,
           });
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!verificaTelefone()) {
+      Swal.fire({
+        title: 'Atenção!',
+        text: 'Para continuar utilizando o app, é necessário informar seu telefone. Estamos atualizando algumas coisas no sistema, então não se preocupe, isso não vai demorar nada.',
+        icon: 'warning',
+        confirmButtonColor: '#ff9000',
+        background: '#312e38',
+        color: '#f4ede8',
+        confirmButtonText: 'Adicionar telefone',
+      }).then((result) => {
+        if (result.value) {
+          navigate('/profile');
         }
       });
     }

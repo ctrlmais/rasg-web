@@ -32,7 +32,6 @@ export function Barbeiro() {
     getClientesNight,
     getFirstCliente,
     verificaHorarioDeTrabalho,
-    verificaTelefone,
   } = useUser();
   const {
     toggleDownload,
@@ -179,19 +178,6 @@ export function Barbeiro() {
                       warning
                       onClick={() => {
                         navigate('/horarios');
-                      }}
-                    />
-                  </div>
-                )}
-
-                {!verificaTelefone() && (
-                  <div className={styles.containerAlert}>
-                    <Alert
-                      close
-                      title="Adicione um telefone para que o cliente possa entrar em contato com você"
-                      warning
-                      onClick={() => {
-                        navigate('/profile');
                       }}
                     />
                   </div>
