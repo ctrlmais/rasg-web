@@ -1,3 +1,11 @@
+## [1.22.1](https://github.com/ialexanderbrito/barber/compare/v1.22.0...v1.22.1) (2022-07-31)
+
+
+### Bug Fixes
+
+* disabled card barbeiro ([c8c6500](https://github.com/ialexanderbrito/barber/commit/c8c65007a44a94b04af398ea5f8ded7ab719c60f))
+* types ([931ed03](https://github.com/ialexanderbrito/barber/commit/931ed036f27ac911fd9faadde3e147fff9e95356))
+
 # [1.22.0](https://github.com/ialexanderbrito/barber/compare/v1.21.5...v1.22.0) (2022-07-29)
 
 
