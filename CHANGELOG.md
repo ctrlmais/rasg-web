@@ -1,3 +1,10 @@
+## [1.22.3](https://github.com/ialexanderbrito/barber/compare/v1.22.2...v1.22.3) (2022-08-01)
+
+
+### Bug Fixes
+
+* update variables names ([96b4e69](https://github.com/ialexanderbrito/barber/commit/96b4e69f62698df95e80608e303ab619dee81686))
+
 ## [1.22.2](https://github.com/ialexanderbrito/barber/compare/v1.22.1...v1.22.2) (2022-07-31)
 
 
