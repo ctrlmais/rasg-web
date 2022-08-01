@@ -34,33 +34,33 @@ export function ResetPassword() {
 
             <Input
               type="password"
-              name="senha"
+              name="password"
               placeholder="Senha"
               onChange={formikResetPassword.handleChange}
               onBlur={formikResetPassword.handleBlur}
-              value={formikResetPassword.values.senha}
+              value={formikResetPassword.values.password}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikResetPassword.errors.senha &&
-              formikResetPassword.touched.senha && (
+            {formikResetPassword.errors.password &&
+              formikResetPassword.touched.password && (
                 <span className={styles.error}>
-                  {formikResetPassword.errors.senha}
+                  {formikResetPassword.errors.password}
                 </span>
               )}
 
             <Input
               type="password"
-              name="confirmarSenha"
+              name="confirmPassword"
               placeholder="Confirmar senha"
               onChange={formikResetPassword.handleChange}
               onBlur={formikResetPassword.handleBlur}
-              value={formikResetPassword.values.confirmarSenha}
+              value={formikResetPassword.values.confirmPassword}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikResetPassword.errors.confirmarSenha &&
-              formikResetPassword.touched.confirmarSenha && (
+            {formikResetPassword.errors.confirmPassword &&
+              formikResetPassword.touched.confirmPassword && (
                 <span className={styles.error}>
-                  {formikResetPassword.errors.confirmarSenha}
+                  {formikResetPassword.errors.confirmPassword}
                 </span>
               )}
 

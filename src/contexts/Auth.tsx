@@ -120,13 +120,13 @@ export function AuthProvider({ children }: any) {
   const formikLogin = useFormik({
     initialValues: {
       email: '',
-      senha: '',
+      password: '',
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       setLoading(true);
 
-      const { user, error } = await signIn(values.email, values.senha);
+      const { user, error } = await signIn(values.email, values.password);
 
       if (error && error.message === 'Invalid login credentials') {
         toast.error('Usuário ou senha inválidos', { id: 'toast' });

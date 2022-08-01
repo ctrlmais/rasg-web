@@ -1,8 +1,8 @@
 import { supabase } from 'services/supabase';
 
-export async function updatePassword(senha: string) {
+export async function updatePassword(password: string) {
   const { error } = await supabase.auth.update({
-    password: senha,
+    password,
   });
 
   return { error };

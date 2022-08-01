@@ -56,11 +56,11 @@ export function Login() {
 
             <Input
               type="password"
-              name="senha"
+              name="password"
               placeholder="Senha"
               onChange={formikLogin.handleChange}
               onBlur={formikLogin.handleBlur}
-              value={formikLogin.values.senha}
+              value={formikLogin.values.password}
               icon={<FiLock color="#666360" size={24} />}
             />
 

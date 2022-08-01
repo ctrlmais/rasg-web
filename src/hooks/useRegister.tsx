@@ -23,8 +23,8 @@ export function useRegister() {
     initialValues: {
       nome: '',
       email: '',
-      senha: '',
-      confirmarSenha: '',
+      password: '',
+      confirmPassword: '',
       ocupacao: '',
     },
     validationSchema: registerSchema,
@@ -34,7 +34,7 @@ export function useRegister() {
 
         const { error } = await registerUser(
           values.email,
-          values.senha,
+          values.password,
           values.nome,
           ocupacao,
         );

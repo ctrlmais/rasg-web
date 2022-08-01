@@ -39,13 +39,13 @@ export function useForgetPassword() {
 
   const formikResetPassword = useFormik({
     initialValues: {
-      senha: '',
-      confirmarSenha: '',
+      password: '',
+      confirmPassword: '',
     },
     validationSchema: resetPasswordSchema,
     onSubmit: async (values) => {
       toast.loading('Alterando senha...', { id: 'toast' });
-      const { error } = await updatePassword(values.senha);
+      const { error } = await updatePassword(values.password);
 
       if (error) {
         toast.error(error.message, { id: 'toast' });

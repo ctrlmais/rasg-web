@@ -76,18 +76,18 @@ export function Register() {
             )}
             <Input
               type="password"
-              name="senha"
+              name="password"
               placeholder="Senha"
               onChange={formikRegister.handleChange}
               onBlur={formikRegister.handleBlur}
-              value={formikRegister.values.senha}
+              value={formikRegister.values.password}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikRegister.values.senha.length >= 6 && (
+            {formikRegister.values.password.length >= 6 && (
               <PasswordStrengthBar
                 className={styles.passwordStrengthBar}
                 shortScoreWord={'Fraca'}
-                password={formikRegister.values.senha}
+                password={formikRegister.values.password}
                 scoreWords={['Fraca', 'Média', 'Forte', 'Muito forte']}
               />
             )}
@@ -98,13 +98,13 @@ export function Register() {
               placeholder="Confirmar senha"
               onChange={formikRegister.handleChange}
               onBlur={formikRegister.handleBlur}
-              value={formikRegister.values.confirmarSenha}
+              value={formikRegister.values.confirmPassword}
               icon={<FiLock color="#666360" size={24} />}
             />
-            {formikRegister.errors.confirmarSenha &&
-              formikRegister.touched.confirmarSenha && (
+            {formikRegister.errors.confirmPassword &&
+              formikRegister.touched.confirmPassword && (
                 <span className={styles.error}>
-                  {formikRegister.errors.confirmarSenha}
+                  {formikRegister.errors.confirmPassword}
                 </span>
               )}
 

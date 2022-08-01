@@ -119,15 +119,15 @@ export interface AuthContextProps {
 export interface FormikProps {
   values: {
     email: string;
-    senha: string;
+    password: string;
   };
   errors: FormikErrors<{
     email: string;
-    senha: string;
+    password: string;
   }>;
   touched: FormikTouched<{
     email: boolean;
-    senha: boolean;
+    password: boolean;
   }>;
   handleChange: (e: ChangeEvent) => void;
   handleBlur: (e: ChangeEvent) => void;
