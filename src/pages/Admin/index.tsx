@@ -30,6 +30,8 @@ export function Admin() {
   } = useAdmin();
   const { ocupacao } = useAuth();
 
+  console.log('fix');
+
   return (
     <div className={styles.home} data-theme={theme}>
       <Header logo />
