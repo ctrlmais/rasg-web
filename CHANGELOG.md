@@ -1,3 +1,12 @@
+# [1.23.0](https://github.com/ialexanderbrito/barber/compare/v1.22.3...v1.23.0) (2022-08-22)
+
+
+### Features
+
+* add input phone register ([382f027](https://github.com/ialexanderbrito/barber/commit/382f027dc4b40043442858aa498bba3cb54e1137))
+* add services phone ([487d057](https://github.com/ialexanderbrito/barber/commit/487d057c0d06d5f2b4a0fd08b0505c6f22f0d661))
+* add validation phone ([e74b2c4](https://github.com/ialexanderbrito/barber/commit/e74b2c4222ab213f805d8080a4e5e299f55c451b))
+
 ## [1.22.3](https://github.com/ialexanderbrito/barber/compare/v1.22.2...v1.22.3) (2022-08-01)
 
 
