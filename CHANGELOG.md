@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/ialexanderbrito/barber/compare/v1.23.0...v1.23.1) (2022-08-22)
+
+
+### Bug Fixes
+
+* hour selected home ([9a97493](https://github.com/ialexanderbrito/barber/commit/9a974930aad4a615afb2b38eb9de373a77734196))
+
 # [1.23.0](https://github.com/ialexanderbrito/barber/compare/v1.22.3...v1.23.0) (2022-08-22)
 
 
