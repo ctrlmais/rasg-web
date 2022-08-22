@@ -3,7 +3,6 @@ import { format } from 'date-fns';
 import { supabase } from 'services/supabase';
 
 const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
-const atualHourFormatted = format(new Date(), 'HH:mm');
 
 export async function getHorarioMarcadoCliente(
   clientId: string,
@@ -17,7 +16,7 @@ export async function getHorarioMarcadoCliente(
       p_client_id: [clientId],
       p_dt_inicio:
         atualDayFormatted === selectDayFormatted
-          ? `${selectDayFormatted}T${atualHourFormatted}`
+          ? `${selectDayFormatted}T00:00`
           : `${selectDayFormatted}T00:00`,
       p_dt_fim: `${selectDayFormatted}T23:59`,
       p_page: 0,
