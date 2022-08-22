@@ -5,6 +5,7 @@ export async function registerUser(
   password: string,
   name: string,
   ocupacao: string,
+  phone: string,
 ) {
   const { error } = await supabase.auth.signUp(
     {
@@ -15,6 +16,7 @@ export async function registerUser(
       data: {
         name,
         ocupacao,
+        phone,
       },
     },
   );
