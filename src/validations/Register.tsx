@@ -10,4 +10,8 @@ export const registerSchema = yup.object({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password'), null], 'As senhas não conferem'),
+  phone: yup
+    .string()
+    .required('Campo obrigatório')
+    .min(11, 'O telefone deve ter no mínimo 11 caracteres'),
 });
