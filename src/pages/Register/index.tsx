@@ -1,4 +1,5 @@
 import { FiCheck, FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { Link } from 'react-router-dom';
 
@@ -11,6 +12,8 @@ import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { Ocupacao } from 'components/Ocupacao';
 import { Overlay } from 'components/Overlay';
+
+import { formatCellPhone } from 'utils/telefone';
 
 import { useTheme } from 'contexts/Theme';
 
@@ -72,6 +75,21 @@ export function Register() {
             {formikRegister.errors.email && formikRegister.touched.email && (
               <span className={styles.error}>
                 {formikRegister.errors.email}
+              </span>
+            )}
+            <Input
+              type="text"
+              name="phone"
+              placeholder="WhatsApp"
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+              value={formatCellPhone(formikRegister.values.phone)}
+              icon={<SiWhatsapp color="#666360" size={24} />}
+              maxLength={11}
+            />
+            {formikRegister.errors.phone && formikRegister.touched.phone && (
+              <span className={styles.error}>
+                {formikRegister.errors.phone}
               </span>
             )}
             <Input

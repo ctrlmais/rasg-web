@@ -26,6 +26,7 @@ export function useRegister() {
       password: '',
       confirmPassword: '',
       ocupacao: '',
+      phone: '',
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
@@ -37,6 +38,7 @@ export function useRegister() {
           values.password,
           values.nome,
           ocupacao,
+          values.phone,
         );
 
         if (error) {
