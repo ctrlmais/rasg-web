@@ -4,6 +4,7 @@ import { Admin } from 'pages/Admin';
 import { History } from 'pages/History';
 import { Home } from 'pages/Home';
 import { Horarios } from 'pages/Horarios';
+import { Maintenance } from 'pages/Maintenance';
 import { MyTicket } from 'pages/MyTicket';
 import { NotFound } from 'pages/NotFound';
 import { Profile } from 'pages/Profile';
@@ -19,7 +20,8 @@ export function PrivateRoutes() {
   const { isBarbeiro, isAlexander } = useAuth();
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Maintenance />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
