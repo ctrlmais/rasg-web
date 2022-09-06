@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/ialexanderbrito/barber/compare/v1.23.1...v1.24.0) (2022-09-06)
+
+
+### Features
+
+* add page mintenance ([e19dce9](https://github.com/ialexanderbrito/barber/commit/e19dce9dbd4ee1f5ad232c18ade3278acb68dd94))
+
 ## [1.23.1](https://github.com/ialexanderbrito/barber/compare/v1.23.0...v1.23.1) (2022-08-22)
 
 
