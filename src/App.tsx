@@ -13,15 +13,15 @@ import 'styles/global.scss';
 export function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <UserProvider>
-          <ToastProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <UserProvider>
             <ThemeProvider>
               <MainRoutes />
             </ThemeProvider>
-          </ToastProvider>
-        </UserProvider>
-      </AuthProvider>
+          </UserProvider>
+        </AuthProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }
