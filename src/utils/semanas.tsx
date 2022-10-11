@@ -15,6 +15,6 @@ export function getDiaSemana(dia: string) {
     case '6':
       return 'Sábado';
     default:
-      return '';
+      return 'Dia inválido';
   }
 }
