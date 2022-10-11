@@ -24,7 +24,7 @@ export function History() {
     <>
       <style>{css}</style>
       <div className={styles.home} data-theme={theme}>
-        <Header logo />
+        <Header logo path="/history" />
         <div className={styles.container}>
           <h2 className={styles.title}>Histórico</h2>
 

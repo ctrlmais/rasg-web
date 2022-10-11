@@ -26,7 +26,7 @@ export function MyTicket() {
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header back />
+      <Header logo path="/history" />
 
       <div className={styles.container}>
         {verificaHorarioCancelamento(cliente as ClienteMetadata) && (
