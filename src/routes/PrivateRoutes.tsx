@@ -4,7 +4,6 @@ import { Admin } from 'pages/Admin';
 import { History } from 'pages/History';
 import { Home } from 'pages/Home';
 import { Horarios } from 'pages/Horarios';
-import { Maintenance } from 'pages/Maintenance';
 import { MyTicket } from 'pages/MyTicket';
 import { NotFound } from 'pages/NotFound';
 import { Profile } from 'pages/Profile';
@@ -14,14 +13,13 @@ import { Schedule } from 'pages/Schedule';
 import { Validate } from 'pages/Validate';
 import { ValidateId } from 'pages/ValidateId';
 
-import { useAuth } from 'hooks/useAuth';
+import { usePerfil } from 'hooks/usePerfil';
 
 export function PrivateRoutes() {
-  const { isBarbeiro, isAlexander } = useAuth();
+  const { isBarbeiro, isAdmin } = usePerfil();
   return (
     <Routes>
-      <Route path="/" element={<Maintenance />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
@@ -31,7 +29,7 @@ export function PrivateRoutes() {
       {isBarbeiro && <Route path="/validate" element={<Validate />} />}
       {isBarbeiro && <Route path="/validate/:id" element={<ValidateId />} />}
       {isBarbeiro && <Route path="/horarios" element={<Horarios />} />}
-      {isAlexander && <Route path="/admin" element={<Admin />} />}
+      {isAdmin && <Route path="/admin" element={<Admin />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
