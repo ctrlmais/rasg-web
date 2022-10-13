@@ -13,7 +13,7 @@ export function Header(props: HeaderProps) {
   const { theme, switchTheme } = useTheme();
 
   return (
-    <Navbar logo={props.logo} back={props.back}>
+    <Navbar logo={props.logo} back={props.back} path={props.path}>
       <NavItem
         onClick={() => {
           switchTheme();
@@ -22,7 +22,7 @@ export function Header(props: HeaderProps) {
       />
 
       <NavItem icon={<RiArrowDownSFill />}>
-        <DropdownMenu></DropdownMenu>
+        <DropdownMenu />
       </NavItem>
     </Navbar>
   );
