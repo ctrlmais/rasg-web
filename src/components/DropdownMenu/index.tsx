@@ -10,15 +10,15 @@ import { DropdownItem } from 'components/DropdownItem';
 
 import { useAuth } from 'hooks/useAuth';
 import { useDropdown } from 'hooks/useDropdown';
-import { usePhoto } from 'hooks/usePhoto';
+import { usePerfil } from 'hooks/usePerfil';
 
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
-  const { user, isAlexander, isBarbeiro, handleLogout, isCliente } = useAuth();
+  const { user, handleLogout } = useAuth();
   const { activeMenu, dropdownRef, calcHeight, menuHeight } = useDropdown();
 
-  const { photo } = usePhoto(user?.id || '');
+  const { isAdmin, isBarbeiro, isCliente } = usePerfil();
 
   return (
     <div
@@ -35,25 +35,13 @@ export function DropdownMenu() {
       >
         <div className={styles.menu}>
           <DropdownItem link="/profile">
-            {photo === '' &&
-            (user?.user_metadata.avatar_url === null ||
-              user?.user_metadata.avatar_url === undefined) ? (
-              <div className={styles.imgProfile}>
-                <Avvvatars value={user?.user_metadata.name || ''} size={30} />
-              </div>
-            ) : (
-              <img
-                src={
-                  user?.user_metadata.avatar_url || user?.user_metadata.picture
-                }
-                alt={user?.user_metadata.name}
-                className={styles.imgProfile}
-              />
-            )}
+            <div className={styles.imgProfile}>
+              <Avvvatars value={user?.nmUsuario || ''} size={30} />
+            </div>
             Meu Perfil
           </DropdownItem>
 
-          {isAlexander && (
+          {isAdmin && (
             <DropdownItem link="/admin" leftIcon={<RiAdminLine size={18} />}>
               Painel Admin
             </DropdownItem>
