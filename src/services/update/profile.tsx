@@ -1,17 +1,18 @@
-import { supabase } from 'services/supabase';
+import { api } from 'services/api';
 
-export async function updateProfile(
-  email: string,
-  password: string,
-  newPassword: string,
-  name: string,
-  phone: string,
-) {
-  const { user, error } = await supabase.auth.update({
-    email,
-    password: password === '' ? undefined : newPassword,
-    data: { name, phone },
-  });
+interface PayloadAWS {
+  cdUsuario: string | undefined;
+  nmUsuario: string;
+  nmSenha: string | undefined;
+  nmEmail: string;
+  nmTelefone: string;
+  dtCadastro: string | undefined;
+  situacaoUsuario: {} | undefined;
+  tipoUsuario: {} | undefined;
+}
 
-  return { user, error };
+export async function updateProfileAWS(payload: PayloadAWS) {
+  const { data, status } = await api.put('usuarios', payload);
+
+  return { data, status };
 }
