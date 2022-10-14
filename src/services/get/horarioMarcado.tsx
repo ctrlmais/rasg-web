@@ -5,7 +5,7 @@ import { supabase } from 'services/supabase';
 const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
 
 export async function getHorarioMarcadoCliente(
-  clientId: string,
+  clientId: number,
   selectDayFormatted: string,
 ) {
   const { data, error, status } = await supabase.rpc(

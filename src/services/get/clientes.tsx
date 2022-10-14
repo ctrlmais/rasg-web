@@ -6,7 +6,7 @@ const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
 const atualHourFormatted = format(new Date(), 'HH:mm');
 
 export async function getClientes(
-  barberId: string,
+  barberId: number,
   selectDayFormatted: string,
 ) {
   const { data, error, status } = await supabase.rpc(
@@ -34,7 +34,7 @@ export async function getClientes(
 }
 
 export async function getClientesHour(
-  barberId: string,
+  barberId: number,
   selectDayFormatted: string,
   selectHour: string,
 ) {
@@ -63,7 +63,7 @@ export async function getClientesHour(
 }
 
 export async function getClientesMonth(
-  barberId: string,
+  barberId: number,
   dataInicio: string,
   dataFim: string,
 ) {

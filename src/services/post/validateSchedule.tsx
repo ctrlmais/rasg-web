@@ -2,7 +2,7 @@ import { supabase } from 'services/supabase';
 
 export async function validateSchedule(
   idSchedule: string,
-  idProfile: string,
+  idProfile: number,
   validate: boolean,
 ) {
   const { status, error } = await supabase.rpc(
