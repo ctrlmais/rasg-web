@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { ToastContextProps } from 'types/IContext';
+import { ToastContextProps } from 'types/ContextProps';
 
 const ToastContext = createContext<ToastContextProps>({} as ToastContextProps);
 

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { ThemeContextProps } from 'types/IContext';
+import { ThemeContextProps } from 'types/ContextProps';
 import useLocalStorage from 'use-local-storage';
 
 const Theme = createContext({} as ThemeContextProps);
