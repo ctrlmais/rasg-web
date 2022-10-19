@@ -1,17 +1,17 @@
 import logoGoogle from 'assets/google-icon.svg';
-import { ButtonGoogleProps } from 'types/IComponents';
+import { ButtonProps } from 'types/ComponentsProps';
 
 import styles from './ButtonGoogle.module.scss';
 
-export function ButtonGoogle(props: ButtonGoogleProps) {
+export function ButtonGoogle(props: ButtonProps) {
   return (
-    <div className={styles.googleBtn} onClick={props.onClick}>
+    <button className={styles.googleBtn} {...props}>
       <div className={styles.googleIconWrapper}>
         <img className={styles.googleIcon} src={logoGoogle} />
       </div>
       <p className={styles.btnText}>
         <b>Fazer login com o Google</b>
       </p>
-    </div>
+    </button>
   );
 }
