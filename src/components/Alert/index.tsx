@@ -2,32 +2,40 @@ import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
 import cx from 'classnames';
-import { AlertProps } from 'types/IComponents';
+import { AlertProps } from 'types/ComponentsProps';
 
 import styles from './Alert.module.scss';
 
-export function Alert(props: AlertProps) {
+export function Alert({
+  onClick,
+  title,
+  success,
+  error,
+  warning,
+  info,
+  close,
+}: AlertProps) {
   const [open, setOpen] = useState(true);
   return (
     <>
       {open && (
         <div
           className={cx(styles.alert, {
-            [styles.success]: props.success,
-            [styles.error]: props.error,
-            [styles.warning]: props.warning,
-            [styles.info]: props.info,
+            [styles.success]: success,
+            [styles.error]: error,
+            [styles.warning]: warning,
+            [styles.info]: info,
           })}
         >
           <strong
             style={{
-              cursor: props.onClick ? 'pointer' : 'default',
+              cursor: onClick ? 'pointer' : 'default',
             }}
-            onClick={props.onClick}
+            onClick={onClick}
           >
-            {props.title}
+            {title}
           </strong>
-          {props.close && (
+          {close && (
             <button className={styles.close} onClick={() => setOpen(false)}>
               <IoMdClose size={20} />
             </button>
