@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import RASGdark from 'assets/rasg_dark.png';
 import RASG from 'assets/rasg.png';
-import { NavBarProps } from 'types/IComponents';
+import { NavBarProps } from 'types/ComponentsProps';
 
 import { MenuHamburguer } from 'components/MenuHamburguer';
 import { NavItem } from 'components/NavItem';
@@ -15,13 +15,13 @@ import { usePerfil } from 'hooks/usePerfil';
 
 import styles from './Navbar.module.scss';
 
-export function Navbar(props: NavBarProps) {
+export function Navbar({ children, back, logo, path }: NavBarProps) {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const { isBarbeiro, isCliente } = usePerfil();
 
   function verifyPath(pathname: string) {
-    if (pathname === props.path) {
+    if (pathname === path) {
       return true;
     }
     return false;
@@ -29,7 +29,7 @@ export function Navbar(props: NavBarProps) {
 
   return (
     <nav className={styles.navbar}>
-      {props.back && (
+      {back && (
         <IoArrowBackOutline
           size={24}
           className={styles.icon}
@@ -38,7 +38,7 @@ export function Navbar(props: NavBarProps) {
           }}
         />
       )}
-      {props.logo && (
+      {logo && (
         <img
           src={theme === 'light' ? RASGdark : RASG}
           alt="Logo"
@@ -81,15 +81,15 @@ export function Navbar(props: NavBarProps) {
 
           {isCliente && (
             <div className={styles.linkMenu}>
-              <Link to="/ticket" className={styles.active}>
+              <Link to="/tickets" className={styles.active}>
                 Tickets
               </Link>
-              {verifyPath('/ticket') && <div className={styles.statusbar} />}
+              {verifyPath('/tickets') && <div className={styles.statusbar} />}
             </div>
           )}
         </div>
       </div>
-      <ul className={styles.navbarNav}>{props.children}</ul>
+      <ul className={styles.navbarNav}>{children}</ul>
     </nav>
   );
 }
