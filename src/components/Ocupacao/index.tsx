@@ -1,21 +1,21 @@
-import { OcupacaoProps } from 'types/IComponents';
+import { OcupacaoProps } from 'types/ComponentsProps';
 
 import { useAuth } from 'hooks/useAuth';
 
 import styles from './Ocupacao.module.scss';
 
-export function Ocupacao(props: OcupacaoProps) {
+export function Ocupacao({ cliente, barbeiro }: OcupacaoProps) {
   const { ocupacao, setOcupacao } = useAuth();
 
   return (
     <div className={styles.ocupacao}>
       {ocupacao === 'CLIENTE' ? (
         <div className={styles.active} onClick={() => setOcupacao('CLIENTE')}>
-          <p>{props.cliente ? props?.cliente : 'Sou Cliente'}</p>
+          <p>{cliente || 'Sou Cliente'}</p>
         </div>
       ) : (
         <div onClick={() => setOcupacao('CLIENTE')} className={styles.none}>
-          <p>{props.cliente ? props?.cliente : 'Sou Cliente'}</p>
+          <p>{cliente || 'Sou Cliente'}</p>
         </div>
       )}
 
@@ -24,11 +24,11 @@ export function Ocupacao(props: OcupacaoProps) {
           className={styles.active}
           onClick={() => setOcupacao('GERENCIADOR')}
         >
-          <p>{props.barbeiro ? props?.barbeiro : 'Sou Barbeiro'}</p>
+          <p>{barbeiro || 'Sou Barbeiro'}</p>
         </div>
       ) : (
         <div onClick={() => setOcupacao('GERENCIADOR')} className={styles.none}>
-          <p>{props.barbeiro ? props?.barbeiro : 'Sou Barbeiro'}</p>
+          <p>{barbeiro || 'Sou Barbeiro'}</p>
         </div>
       )}
     </div>
