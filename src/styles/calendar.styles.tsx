@@ -2,6 +2,8 @@ export const css = `
 width: 380px;
 .rdp {
   border-radius: 10px;
+
+
 }
 .rdp-months {
   border-collapse: separate;
@@ -20,16 +22,21 @@ width: 380px;
 }
 .rdp-button {
   padding-bottom: 0px;
-  background: #3e3b47;
+  background: var(--calendar-button);
+  color: var(--white);
   border-radius: 10px;
   margin: 3px;
 }
+.rdp-button:hover {
+  background: var(--orange) !important;
+  filter: brightness(0.9);
+}
 .rdp-caption_label,
 .rdp-head_cell {
-  color: #f4ede8;
+  color: var(--white);
 }
 .rdp-nav {
-  color: #999591 !important;
+  color: var(--white) !important;
 }
 .rdp-nav_prev {
   right: auto;
@@ -39,13 +46,13 @@ width: 380px;
 .rdp-button:focus:not([disabled]),
 .rdp-button:active:not([disabled]) {
   border: none;
-  color: inherit;
-  background: inherit;
+  color: var(--white);
+  background: var(--orange);
 }
 .rdp-Caption {
   margin-bottom: 1em;
   padding: 0 1em;
-  color: #f4ede8;
+  color: var(--white);
   > div {
     text-align: center;
   }
@@ -57,7 +64,7 @@ width: 380px;
 .rdp-day_available {
   background: #3e3b47;
   border-radius: 10px;
-  color: #fff;
+  color: var(--white);
 }
 .rdp:not(.DayPicker--interactionDisabled)
   .rdp-day:not(.rdp-day_disabled):not(.rdp-day_selected):not(.rdp-day_outside):hover {
@@ -75,4 +82,7 @@ width: 380px;
   border-radius: 10px;
   color: #232129 !important;
 }
+
+
+
 `;
