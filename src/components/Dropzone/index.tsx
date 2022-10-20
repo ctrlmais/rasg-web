@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { FiCamera } from 'react-icons/fi';
 
 import Avvvatars from 'avvvatars-react';
-import { DropzoneProps } from 'types/IComponents';
+import { DropzoneProps } from 'types/ComponentsProps';
 
 import { useAuth } from 'hooks/useAuth';
 
@@ -52,17 +52,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFileUploaded }) => {
       ) : (
         <div className={styles.profile}>
           <p>
-            {user?.user_metadata.picture || user?.user_metadata.avatar_url ? (
-              <img
-                src={
-                  user?.user_metadata.picture || user?.user_metadata.avatar_url
-                }
-                alt="Perfil"
-                className={styles.preview}
-              />
-            ) : (
-              <Avvvatars value={user?.user_metadata.name || ''} size={160} />
-            )}
+            <Avvvatars value={user?.nmUsuario || ''} size={160} />
           </p>
           <div className={styles.upload}>
             <FiCamera />
