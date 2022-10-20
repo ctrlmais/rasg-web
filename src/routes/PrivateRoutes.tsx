@@ -10,6 +10,7 @@ import { Profile } from 'pages/Profile';
 import { ReportBug } from 'pages/ReportBug';
 import { ResetPassword } from 'pages/ResetPassword';
 import { Schedule } from 'pages/Schedule';
+import { Tickets } from 'pages/Tickets';
 import { Validate } from 'pages/Validate';
 import { ValidateId } from 'pages/ValidateId';
 
@@ -24,6 +25,7 @@ export function PrivateRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
       <Route path="/ticket/:id" element={<MyTicket />} />
+      <Route path="/tickets" element={<Tickets />} />
       <Route path="/history" element={<History />} />
       <Route path="/bug" element={<ReportBug />} />
       {isBarbeiro && <Route path="/validate" element={<Validate />} />}
