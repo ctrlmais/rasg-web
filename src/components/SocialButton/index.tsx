@@ -1,21 +1,28 @@
 import cx from 'classnames';
-import { SocialButtonProps } from 'types/IComponents';
+import { SocialButtonProps } from 'types/ComponentsProps';
 
 import styles from './SocialButton.module.scss';
 
-export function SocialButton(props: SocialButtonProps) {
+export function SocialButton({
+  icon,
+  text,
+  apple,
+  google,
+  whatsapp,
+  ...props
+}: SocialButtonProps) {
   return (
     <button
       className={cx(styles.button, {
-        [styles.google]: props.google,
-        [styles.apple]: props.apple,
-        [styles.whatsapp]: props.whatsapp,
+        [styles.google]: google,
+        [styles.apple]: apple,
+        [styles.whatsapp]: whatsapp,
       })}
       type="button"
-      onClick={props.onClick}
+      {...props}
     >
-      {props.icon}
-      {props.text}
+      {icon}
+      {text}
     </button>
   );
 }
