@@ -112,7 +112,7 @@ export function Register() {
 
             <Input
               type="password"
-              name="confirmarSenha"
+              name="confirmPassword"
               placeholder="Confirmar senha"
               onChange={formikRegister.handleChange}
               onBlur={formikRegister.handleBlur}
