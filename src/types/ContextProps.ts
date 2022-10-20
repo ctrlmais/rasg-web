@@ -68,14 +68,13 @@ export interface UserContextProps {
   buscarClientes: () => void;
   selectDayFormatted: string;
   atualDayFormatted: string;
-  verificaLoginGoogleEOcupacao?: () => boolean;
   verificaOcupacao: (
     ocupacao: string,
   ) => 'ADMINISTRADOR' | 'GERENCIADOR' | 'CLIENTE' | undefined;
   getClientesMorning: () => Content[];
   getClientesAfternoon: () => Content[];
   getClientesNight: () => Content[];
-  getFirstCliente: () => any;
+  getFirstCliente: () => Content;
   selectDayFormattedBR: string;
   postShedule: () => void;
   getHorariosMarcados: () => string[];
