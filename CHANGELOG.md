@@ -1,3 +1,10 @@
+## [1.25.1](https://github.com/ialexanderbrito/barber/compare/v1.25.0...v1.25.1) (2022-10-20)
+
+
+### Bug Fixes
+
+* link url ([7cacb7e](https://github.com/ialexanderbrito/barber/commit/7cacb7e7736a7dafe3b8fe47c3e849bd126a7679))
+
 # [1.25.0](https://github.com/ialexanderbrito/barber/compare/v1.24.0...v1.25.0) (2022-10-20)
 
 
