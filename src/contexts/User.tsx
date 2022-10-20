@@ -67,11 +67,9 @@ export function UserProvider({ children }: any) {
   const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
   const startDate = dateFormattedCalendar + 'T' + hourFormattedCalendar;
   const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
-
-  function verificaLoginGoogleEOcupacao() {
-    return false;
-    // user?.app_metadata.provider === 'google' && !user.user_metadata.ocupacao
-  }
+  const dataEHora = new Date(selectDayFormatted + ' ' + selectHours);
+  const selectHoursFormatted = addMinutes(new Date(dataEHora), 60);
+  const selectHoursFinish = format(selectHoursFormatted, 'HH:mm:ss');
 
   function verificaOcupacao(ocupacao: string) {
     if (authority === ocupacao) {
@@ -163,17 +161,15 @@ export function UserProvider({ children }: any) {
     const clientesAfternoon = getClientesAfternoon();
     const clientesNight = getClientesNight();
 
-    if (!clientesMorning || !clientesAfternoon || !clientesNight) return;
-
-    if (clientesMorning.length > 0) {
+    if (clientesMorning?.length > 0) {
       return clientesMorning[0];
     }
 
-    if (clientesAfternoon.length > 0) {
+    if (clientesAfternoon?.length > 0) {
       return clientesAfternoon[0];
     }
 
-    if (clientesNight.length > 0) {
+    if (clientesNight?.length > 0) {
       return clientesNight[0];
     }
 
@@ -345,7 +341,7 @@ export function UserProvider({ children }: any) {
       nmAgendamento: `${storagedUser.nmUsuario} - ${barbeiro.nmUsuario} - ${selectDayFormatted} ${selectHours}:00`,
       deAgendamento: `APROVADO DIA ${selectDayFormatted} AS ${selectHours}`,
       dtInicio: `${selectDayFormatted} ${selectHours}:00`,
-      dtTermino: `2022-10-14 13:00:00`,
+      dtTermino: `${selectDayFormatted} ${selectHoursFinish}`,
       situacaoAgendamento: situacaoAgendamento as SituacaoAgendamento,
       servico: {
         cdServico: 0,
@@ -532,7 +528,6 @@ export function UserProvider({ children }: any) {
         buscarClientes,
         selectDayFormatted,
         atualDayFormatted,
-        verificaLoginGoogleEOcupacao,
         verificaOcupacao,
         getClientesMorning,
         getClientesAfternoon,
