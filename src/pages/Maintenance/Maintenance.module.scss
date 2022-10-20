@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+strong {
+  color: var(--orange);
+}
+
 @media screen and (min-width: 839px) {
   .manutencao {
     display: flex;
