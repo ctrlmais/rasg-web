@@ -3,15 +3,13 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
-import Cookies from 'js-cookie';
-import { AuthContextProps } from 'types/IContext';
+import { AuthContextProps } from 'types/ContextProps';
+import { Cliente } from 'types/ServicesProps';
 import { loginSchema } from 'validations/Login';
 
-import { getPhoto } from 'services/get/photo';
-import { getUser } from 'services/get/user';
-import { signIn } from 'services/post/signIn';
-import { signInGoogleProvider } from 'services/post/signInGoogleProvider';
-import { signOut } from 'services/post/signOut';
+import { setToken } from 'services/api';
+import { getJourneyByIdAWS, getByIdAWS } from 'services/get';
+import { postSignInAWS, postSignOutAWS } from 'services/post';
 
 export const AuthContext = createContext<AuthContextProps>(
   {} as AuthContextProps,
@@ -19,38 +17,18 @@ export const AuthContext = createContext<AuthContextProps>(
 
 export function AuthProvider({ children }: any) {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>();
-  const [ocupacao, setOcupacao] = useState('cliente');
+  const [user, setUser] = useState<Cliente>();
+  const [ocupacao, setOcupacao] = useState('CLIENTE');
   const [loading, setLoading] = useState(false);
 
+  const storagedUser = JSON.parse(localStorage.getItem('@barber:user') || '{}');
+  const storagedToken = localStorage.getItem('@barber:token');
+  const storagedHorarios = JSON.parse(
+    localStorage.getItem('@barber:horarios') || '{}',
+  );
+
   function isSigned() {
-    const storagedUser = localStorage.getItem('supabase.auth.token');
-
-    if (storagedUser) {
-      return true;
-    }
-
-    return false;
-  }
-
-  function isBarbeiro() {
-    if (user?.user_metadata?.ocupacao === 'barbeiro') {
-      return true;
-    }
-
-    return false;
-  }
-
-  function isCliente() {
-    if (user?.user_metadata?.ocupacao === 'cliente') {
-      return true;
-    }
-
-    return false;
-  }
-
-  function isAlexander() {
-    if (user?.email === 'xanderzinho26@gmail.com') {
+    if (storagedToken) {
       return true;
     }
 
@@ -61,51 +39,27 @@ export function AuthProvider({ children }: any) {
     const hash = window.location.href.split('#')[0];
     const params = hash.split('/')[3];
 
-    const userData = getUser();
+    const user = localStorage.getItem('@barber:user') || '{}';
 
-    const { data, error, status } = await getPhoto(userData?.id || params);
+    const { cdUsuario } = JSON.parse(user);
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
+    if (cdUsuario === undefined) return;
+
+    try {
+      const { data } = await getByIdAWS(cdUsuario);
+
+      if (params === 'reset-password') {
+        navigate('/reset-password');
+      } else {
+        const newUser = JSON.parse(user);
+        setUser(newUser);
+
+        if (data && !isSigned()) {
+          navigate('/');
+        }
       }
-    }
-
-    if (!data) return;
-
-    if (!userData) return;
-
-    if (data[0].j === null) {
-      setUser(userData);
-    }
-
-    if (!data[0].j) return;
-
-    if (!data[0]?.j[0]) return;
-
-    const infoUser = data[0]?.j[0];
-
-    if (!infoUser) return;
-
-    const newUserData = {
-      ...userData,
-      user_metadata: {
-        ...userData.user_metadata,
-        avatar_url: infoUser.src,
-        picture: infoUser.src,
-        pictureId: infoUser.id,
-      },
-    };
-
-    if (params === 'reset-password') {
-      navigate('/reset-password');
-    } else {
-      setUser(newUserData);
-
-      if (userData && !isSigned()) {
-        navigate('/');
-      }
+    } catch (error) {
+      toast.error('Erro ao buscar usuário');
     }
   }
 
@@ -126,69 +80,43 @@ export function AuthProvider({ children }: any) {
     onSubmit: async (values) => {
       setLoading(true);
 
-      const { user, error } = await signIn(values.email, values.password);
+      try {
+        const { data } = await postSignInAWS({
+          nmEmail: values.email,
+          nmSenha: values.password,
+        });
 
-      if (error && error.message === 'Invalid login credentials') {
-        toast.error('Usuário ou senha inválidos', { id: 'toast' });
+        localStorage.setItem('@barber:token', data.token);
+        setToken(data.token);
+
+        const expires = new Date(Date.now() + 3 * 60 * 60 * 1000);
+        localStorage.setItem('@barber:expires', expires.toString());
+
+        localStorage.setItem('@barber:user', JSON.stringify(data.user));
+
+        if (data.user.tipoUsuario.authority === 'GERENCIADOR') {
+          const { data: horarios } = await getJourneyByIdAWS(
+            data.user.cdUsuario,
+          );
+
+          localStorage.setItem('@barber:horarios', JSON.stringify(horarios));
+        }
+
+        toast.success('Login realizado com sucesso', { id: 'toast' });
+
+        navigate('/');
+      } catch (error) {
+        toast.error('Erro ao fazer login, tente novamente', { id: 'toast' });
+      } finally {
         setLoading(false);
-        return;
       }
-
-      if (error && error.message === 'Email not confirmed') {
-        toast.error('Por favor, confirme seu email', { id: 'toast' });
-        setLoading(false);
-        return;
-      }
-
-      if (error) {
-        toast.error('Erro ao logar', { id: 'toast' });
-        setLoading(false);
-        return;
-      }
-
-      if (!user) return;
-
-      toast.success('Login realizado com sucesso', { id: 'toast' });
-
-      setLoading(false);
-
-      checkUser();
-
-      navigate('/');
     },
   });
 
-  async function handleLoginGoogle() {
-    const { user: userData, error } = await signInGoogleProvider();
-
-    if (!userData) return;
-
-    if (error && error.message === 'Email not confirmed') {
-      toast.error('Por favor, confirme seu email', { id: 'login' });
-      setLoading(false);
-      return;
-    }
-
-    if (error) {
-      toast.error('Erro ao logar', { id: 'login' });
-      setLoading(false);
-      return;
-    }
-
-    setUser(userData);
-  }
-
   async function handleLogout() {
-    const { error } = await signOut();
+    postSignOutAWS();
 
-    if (error) {
-      toast.error('Erro ao deslogar', { id: 'login' });
-      return;
-    }
-
-    localStorage.removeItem('cliente');
-    Cookies.remove('barbeiro_modal');
-    setUser(null);
+    setUser(undefined);
     navigate('/');
   }
 
@@ -199,14 +127,12 @@ export function AuthProvider({ children }: any) {
         user,
         setUser,
         handleLogout,
-        handleLoginGoogle,
         formikLogin,
         ocupacao,
         setOcupacao,
         loading,
-        isBarbeiro: isBarbeiro(),
-        isCliente: isCliente(),
-        isAlexander: isAlexander(),
+        storagedUser,
+        storagedHorarios,
       }}
     >
       {children}
