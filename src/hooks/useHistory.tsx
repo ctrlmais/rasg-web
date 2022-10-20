@@ -2,76 +2,91 @@ import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { addDays, format } from 'date-fns';
-import { ClienteMetadata } from 'types/IContext';
+import { Content } from 'types/ServicesProps';
 
-import { getHorarioMarcadoMensal } from 'services/get/horarioMarcado';
+import { useToast } from 'contexts/Toast';
+
+import { getsShedulesByDateAWS, getsShedulesByIdAWS } from 'services/get';
+
+import { usePerfil } from './usePerfil';
 
 const pastMonth = new Date();
 
 export function useHistory() {
+  const { toast } = useToast();
+  const { isBarbeiro } = usePerfil();
+
   const [loading, setLoading] = useState(true);
-  const [agendamentos, setAgendamentos] = useState<ClienteMetadata[]>([]);
+  const [agendamentos, setAgendamentos] = useState<Content[]>([]);
   const defaultSelected: DateRange = {
     from: addDays(pastMonth, -2),
     to: addDays(pastMonth, 0),
   };
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
 
-  const dataInicial = format(range?.from as Date, 'yyyy-MM-dd');
-  const dataFinal = format(range?.to as Date, 'yyyy-MM-dd');
+  const user = JSON.parse(localStorage.getItem('@barber:user') || '{}');
 
-  const storagedUser = JSON.parse(
-    localStorage.getItem('supabase.auth.token') || '{}',
-  );
-
-  const id = storagedUser.currentSession.user.id;
+  const id = user?.cdUsuario;
 
   useEffect(() => {
     async function buscarHorariosMarcadosMensal() {
-      setLoading(true);
+      if (!range?.from) return;
+      if (!range?.to) return;
 
-      const { data, error, status } = await getHorarioMarcadoMensal(
-        id,
-        dataInicial,
-        dataFinal,
-      );
+      const dataInicial =
+        format(new Date(range.from), 'yyyy-MM-dd 00:00:00') || '';
+      const dataFinal = format(new Date(range.to), 'yyyy-MM-dd 23:59:59') || '';
 
-      if (error) {
-        setLoading(false);
-        switch (status) {
-          default:
+      console.log(isBarbeiro);
+
+      try {
+        setLoading(true);
+
+        if (isBarbeiro) {
+          const { data } = await getsShedulesByDateAWS(
+            dataInicial,
+            dataFinal,
+            id,
+          );
+
+          if (!data) {
+            setAgendamentos([]);
+            setLoading(false);
             return;
+          }
+
+          setAgendamentos(data.content);
+          setLoading(false);
         }
-      }
 
-      if (!data) {
-        setAgendamentos([]);
-        setLoading(false);
-        return;
-      }
-      if (!data[0].j) {
-        setAgendamentos([]);
-        setLoading(false);
-        return;
-      }
-      if (!data[0].j[0]) {
-        setAgendamentos([]);
-        setLoading(false);
-        return;
-      }
+        if (!isBarbeiro) {
+          const { data } = await getsShedulesByIdAWS(
+            dataInicial,
+            dataFinal,
+            id,
+          );
 
-      if (data[0].j === null) {
-        setAgendamentos([]);
-        setLoading(false);
-        return;
-      }
+          if (!data) {
+            setAgendamentos([]);
+            setLoading(false);
+            return;
+          }
 
-      setAgendamentos(data[0].j);
-      setLoading(false);
+          setAgendamentos(data.content);
+          setLoading(false);
+        }
+      } catch (error) {
+        toast.error('Erro ao buscar agendamentos', {
+          id: 'toast',
+        });
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     }
 
     buscarHorariosMarcadosMensal();
-  }, [dataInicial, dataFinal]);
+  }, [range, id]);
 
   return {
     loading,
