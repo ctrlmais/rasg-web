@@ -1,27 +1,32 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
-import { UserMetadata } from 'types/IContext';
+import { Gerenciador } from 'types/ServicesProps';
 
-import { getBarbeirosApproved } from 'services/get/aprovar';
-import { getClientesApproved } from 'services/get/clienteAprovados';
-import { confirmUser } from 'services/post/confirmUser';
+import { useToast } from 'contexts/Toast';
 
-import { useAuth } from './useAuth';
+import {
+  getClientsApprovedAWS,
+  getBarberToApproveAWS,
+  getBarberApprovedAWS,
+  getBarberDisapprovedAWS,
+} from 'services/get';
+import {
+  patchApprovedUserAWS,
+  patchDisapprovedUserAWS,
+} from 'services/update/usuarios';
 
 export function useAdmin() {
-  const { user } = useAuth();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [barbeiros, setBarbeiros] = useState<UserMetadata[]>([]);
-  const [barbeirosAprovados, setBarbeirosAprovados] = useState<UserMetadata[]>(
+  const [barbeiros, setBarbeiros] = useState<Gerenciador[]>([]);
+  const [barbeirosAprovados, setBarbeirosAprovados] = useState<Gerenciador[]>(
     [],
   );
-  const [clientesAprovados, setClientesAprovados] = useState<UserMetadata[]>(
-    [],
-  );
+  const [clientesAprovados, setClientesAprovados] = useState<Gerenciador[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState(0);
 
-  const clienteQtd = clientesAprovados[0]?.qtd || 0;
+  const clienteQtd = clientesAprovados.length;
 
   function handleChangePage(event: ChangeEvent<unknown>, value: number) {
     setPage(value - 1);
@@ -29,100 +34,96 @@ export function useAdmin() {
   }
 
   async function buscarBarbeirosParaAprovar() {
-    setLoading(true);
-    const { data, error, status } = await getBarbeirosApproved(false);
+    try {
+      setLoading(true);
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
+      const { data } = await getBarberToApproveAWS(page);
+      const { data: dataReprovados } = await getBarberDisapprovedAWS(page);
 
-    if (!data) return;
+      const barbeirosParaAprovar = [...data.content, ...dataReprovados.content];
 
-    if (data[0].j === null) {
+      if (!data) return setLoading(false);
+
+      setBarbeiros(barbeirosParaAprovar);
+    } catch (error) {
+      toast.error('Erro ao buscar barbeiros aprovados', {
+        id: 'toast',
+      });
       setBarbeiros([]);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    setBarbeiros(data[0].j);
-    setLoading(false);
   }
 
   async function buscarClientesAprovados() {
-    setLoading(true);
-    const { data, error, status } = await getClientesApproved(false, page);
+    try {
+      setLoading(true);
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
+      const { data } = await getClientsApprovedAWS(page);
 
-    if (!data) return;
+      if (!data) return setLoading(false);
 
-    if (data[0].j === null) {
+      setClientesAprovados(data.content);
+    } catch (error) {
+      toast.error('Erro ao buscar clientes aprovados', {
+        id: 'toast',
+      });
       setClientesAprovados([]);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    setClientesAprovados(data[0].j);
-    setLoading(false);
   }
 
   async function buscarBarbeirosParaReprovar() {
-    setLoading(true);
-    const { data, error, status } = await getBarbeirosApproved(true);
+    try {
+      setLoading(true);
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
+      const { data } = await getBarberApprovedAWS(page);
 
-    if (!data) return;
+      if (!data) return setLoading(false);
 
-    if (data[0].j === null) {
-      setBarbeirosAprovados([]);
+      setBarbeirosAprovados(data.content);
+    } catch (error) {
+      toast.error('Erro ao buscar barbeiros para aprovados', {
+        id: 'toast',
+      });
+      setBarbeiros([]);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    setBarbeirosAprovados(data[0].j);
-    setLoading(false);
   }
 
-  async function aproveBarbeiro(id: string) {
-    const { error, status } = await confirmUser(user?.id || '', id, true);
+  async function aproveBarbeiro(id: number) {
+    const { status } = await patchApprovedUserAWS(Number(id));
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
+    if (status === 200) {
+      toast.success('Barbeiro aprovado com sucesso', {
+        id: 'toast',
+      });
+      buscarBarbeirosParaAprovar();
+      buscarBarbeirosParaReprovar();
+    } else {
+      toast.error('Erro ao aprovar barbeiro', {
+        id: 'toast',
+      });
     }
-
-    buscarBarbeirosParaAprovar();
-    buscarBarbeirosParaReprovar();
   }
 
-  async function disabledBarbeiro(id: string) {
-    const { error, status } = await confirmUser(user?.id || '', id, false);
+  async function disabledBarbeiro(id: number) {
+    const { status } = await patchDisapprovedUserAWS(Number(id));
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
+    if (status === 200) {
+      toast.success('Barbeiro desabilitado com sucesso', {
+        id: 'toast',
+      });
+
+      buscarBarbeirosParaAprovar();
+      buscarBarbeirosParaReprovar();
+    } else {
+      toast.error('Erro ao desabilitar barbeiro', {
+        id: 'toast',
+      });
     }
-
-    buscarBarbeirosParaAprovar();
-    buscarBarbeirosParaReprovar();
   }
 
   useEffect(() => {
