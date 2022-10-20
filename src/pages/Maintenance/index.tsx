@@ -26,8 +26,24 @@ export function Maintenance() {
               <br />
               Agora você pode acessar o sistema de forma mais rápida e fácil.
               <br />
-              Entrando pelo site <strong>www.rasg.com.br</strong> ou {''}
-              <strong>app.rasg.com.br</strong>
+              Entrando pelo site{' '}
+              <a
+                className={styles.link}
+                href="https://www.rasg.com.br"
+                target="_blank"
+                rel="noreferrer"
+              >
+                www.rasg.com.br
+              </a>{' '}
+              ou {''}
+              <a
+                className={styles.link}
+                href="https://app.rasg.com.br"
+                target="_blank"
+                rel="noreferrer"
+              >
+                app.rasg.com.br
+              </a>
               <br />
               <br />
             </h2>

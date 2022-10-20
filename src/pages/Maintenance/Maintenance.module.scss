@@ -26,8 +26,14 @@
   text-align: center;
 }
 
-strong {
+.link {
   color: var(--orange);
+
+  &:hover {
+    filter: brightness(0.8);
+    transition: 0.4s;
+    text-decoration: underline;
+  }
 }
 
 @media screen and (min-width: 839px) {
