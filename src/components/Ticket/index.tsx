@@ -3,24 +3,20 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Tilt from 'react-parallax-tilt';
 
 import Avvvatars from 'avvvatars-react';
+import { format } from 'date-fns';
 import { QRCodeSVG } from 'qrcode.react';
-import { TicketProps } from 'types/IComponents';
+import { TicketProps } from 'types/ComponentsProps';
+
+import { get8caracters } from 'utils/get8caracters';
 
 import { useToast } from 'contexts/Toast';
 
-import { usePhoto } from 'hooks/usePhoto';
-
 import './Ticket.scss';
 
-export function Ticket(props: TicketProps) {
+export function Ticket({ cliente, enable }: TicketProps) {
   const { toast } = useToast();
-  const { photo, name } = usePhoto(props.cliente?.client_id || '');
 
   const [copied, setCopied] = useState(false);
-
-  function get8caracters(str: string) {
-    return str?.substring(0, 8).toUpperCase();
-  }
 
   useEffect(() => {
     if (copied) {
@@ -35,45 +31,34 @@ export function Ticket(props: TicketProps) {
       glareMaxOpacity={0.1}
       glareColor="#ffffff"
       glarePosition="all"
-      tiltAxis={'y'}
       glareBorderRadius="30px"
       perspective={2000}
+      tiltEnable={!enable}
     >
       <CopyToClipboard
-        text={props.cliente?.id || ''}
-        onCopy={() => setCopied(!copied)}
+        text={String(cliente?.cdAgendamento) || ''}
+        onCopy={() => {
+          !enable && setCopied(!copied);
+        }}
       >
         <div className="ticket-wrapper">
           <div className="ticket">
             <div className="ticket-profile">
               <div className="ticket-profile-top">
-                {photo === '' &&
-                (props.cliente?.client_avatar === null ||
-                  props.cliente?.client_avatar === undefined) ? (
-                  <div className="ticket-profile-top-image">
-                    <Avvvatars
-                      value={props.cliente?.client_name || ''}
-                      size={82}
-                    />
-                  </div>
-                ) : (
-                  <img
-                    src={
-                      photo ||
-                      props.cliente?.client_picture ||
-                      props.cliente?.client_avatar
-                    }
-                    alt={name}
-                    className="ticket-profile-top-image"
+                <div className="ticket-profile-top-image">
+                  <Avvvatars
+                    value={cliente?.cliente.nmUsuario || ''}
+                    size={82}
                   />
-                )}
+                </div>
+
                 <div className="ticket-profile-top-text">
                   <div className="ticket-profile-top-text-name">
-                    {props.cliente?.client_name}
+                    {cliente?.cliente.nmUsuario}
                   </div>
                   <div className="ticket-profile-top-text-profile">
                     <a target="_blank" rel="noreferrer">
-                      {props.cliente?.id}
+                      #{get8caracters(String(cliente?.cliente.cdUsuario))}
                     </a>
                   </div>
                 </div>
@@ -82,7 +67,7 @@ export function Ticket(props: TicketProps) {
                 <div className="text-description-container">
                   <div className="qr-code">
                     <QRCodeSVG
-                      value={`${process.env.REACT_APP_URL}/validate/${props.cliente?.id}`}
+                      value={`${process.env.REACT_APP_URL}/validate/${cliente?.cdAgendamento}`}
                       size={100}
                       bgColor={'#ffffff'}
                       fgColor={'#000000'}
@@ -93,19 +78,22 @@ export function Ticket(props: TicketProps) {
                   <div>
                     Data e Hora
                     <br />
-                    {props.cliente?.br_date}
+                    {format(
+                      new Date(cliente?.dtInicio || ''),
+                      'dd/MM/yyyy HH:mm',
+                    )}
                   </div>
                   <div>
                     Barbeiro
                     <br />
-                    {props.cliente?.barber_name}
+                    {cliente?.gerenciador.nmUsuario}
                   </div>
                 </div>
               </div>
             </div>
             <div className="ticket-number-wrapper">
               <div className="ticket-number">
-                № {get8caracters(props.cliente?.id || '')}
+                № {get8caracters(String(cliente?.cdAgendamento))}
               </div>
             </div>
           </div>
