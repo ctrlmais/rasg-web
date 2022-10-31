@@ -3,27 +3,29 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 
 import { format } from 'date-fns';
-import { ClienteMetadata } from 'types/IContext';
+import { Content } from 'types/ServicesProps';
 
 import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
-import { deleteSchedule } from 'services/delete/schedule';
-import { getHorarioSelecionado } from 'services/get/horarioMarcado';
+import { deleteScheduleAWS } from 'services/delete';
+import { getSchedulesAWS, getSchedulesClientAWS } from 'services/get';
+
+import { useAuth } from './useAuth';
 
 export function useTicket() {
   const navigate = useNavigate();
   const params = useParams();
   const { toast } = useToast();
-  const { selectHours, selectDay, setSelectHours, setSelectDay } = useUser();
+  const { storagedUser } = useAuth();
+  const { setSelectHours, setSelectDay } = useUser();
 
-  const [cliente, setCliente] = useState<ClienteMetadata>();
+  const [cliente, setCliente] = useState<Content>();
+  const [tickets, setTickets] = useState<Content[]>([]);
   const [loading, setLoading] = useState(true);
   const [showPrint, setShowPrint] = useState(false);
 
   const componentToPrintRef = useRef<HTMLDivElement>(null);
-
-  const dayFormatted = format(selectDay, 'yyyy-MM-dd');
 
   const handlePrint =
     useReactToPrint({
@@ -38,15 +40,10 @@ export function useTicket() {
 
   const urlPathname = window.location.pathname;
 
-  async function cancelarAgendamento(idAgendamento: string) {
-    const { data, error } = await deleteSchedule(idAgendamento);
+  async function cancelarAgendamento(idAgendamento: number) {
+    const { status } = await deleteScheduleAWS(idAgendamento);
 
-    if (error) {
-      toast.error(error.message, { id: 'toast' });
-      return;
-    }
-
-    if (data) {
+    if (status === 200) {
       toast.success('Agendamento cancelado com sucesso!', { id: 'toast' });
 
       if (urlPathname.includes('/ticket')) {
@@ -59,12 +56,12 @@ export function useTicket() {
     }
   }
 
-  function verificaHorarioCancelamento(dataAgendamento: ClienteMetadata) {
+  function verificaHorarioCancelamento(dataAgendamento: Content) {
     const dataAtual = new Date();
     const dataAtualFormatted = format(dataAtual, 'yyyy-MM-dd');
     const horaAtual = format(dataAtual, 'HH:mm:ss');
     const dataHoraAtual = `${dataAtualFormatted}T${horaAtual}`;
-    const dataAgenda = dataAgendamento?.appointment_date;
+    const dataAgenda = dataAgendamento?.dtInicio;
 
     const diff =
       new Date(dataAgenda).getTime() - new Date(dataHoraAtual).getTime();
@@ -79,38 +76,51 @@ export function useTicket() {
 
   useEffect(() => {
     async function buscaCliente() {
-      setLoading(true);
-      const { data, error, status } = await getHorarioSelecionado(
-        params?.id || '',
-        dayFormatted,
-        selectHours,
-      );
+      try {
+        setLoading(true);
 
-      if (error) {
+        const { data } = await getSchedulesAWS(Number(params.id));
+
+        if (!data) return;
+
+        setCliente(data.content[0]);
+
         setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao buscar cliente', { id: 'toast' });
         navigate('/');
-        switch (status) {
-          default:
-            return;
-        }
-      }
-
-      if (!data) return;
-      if (!data[0].j) return;
-      if (!data[0].j[0]) return;
-
-      if (data[0].j === null) {
         setLoading(false);
-        return;
+      } finally {
+        setLoading(false);
       }
-
-      setCliente(data[0].j[0]);
-      setLoading(false);
     }
 
     if (params?.id !== undefined) {
       buscaCliente();
     }
+  }, []);
+
+  useEffect(() => {
+    async function buscarTickets() {
+      try {
+        setLoading(true);
+
+        const { data } = await getSchedulesClientAWS(storagedUser.cdUsuario);
+
+        if (!data) return;
+
+        setTickets(data.content);
+
+        setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao buscar cliente', { id: 'toast' });
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    buscarTickets();
   }, []);
 
   useEffect(() => {
@@ -128,5 +138,6 @@ export function useTicket() {
     showPrint,
     cancelarAgendamento,
     verificaHorarioCancelamento,
+    tickets,
   };
 }
