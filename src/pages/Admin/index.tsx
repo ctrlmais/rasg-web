@@ -142,7 +142,7 @@ export function Admin() {
                           }}
                           className={styles.button}
                           onClick={() => {
-                            disabledBarbeiro(barbeiro?.cdUsuario);
+                            disabledBarbeiro(Number(barbeiro?.cdUsuario));
                           }}
                         >
                           <FiSlash
