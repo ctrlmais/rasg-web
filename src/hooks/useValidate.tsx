@@ -22,7 +22,7 @@ export function useValidate() {
     setLoading(true);
     const { error, status } = await validateSchedule(
       (id as string) || idSchedule,
-      user?.id as string,
+      Number(user?.cdUsuario),
       true,
     );
 
