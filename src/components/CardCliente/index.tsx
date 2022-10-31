@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { BsCalendarDate, BsClock, BsScissors } from 'react-icons/bs';
 
 import Avvvatars from 'avvvatars-react';
@@ -12,11 +13,19 @@ export function CardCliente({
   first,
   ...props
 }: CardClienteProps) {
-  const dateFormatted =
-    format(new Date(cliente?.dtInicio || ''), 'dd/MM/yyyy') || '';
+  const [dateFormatted, setDateFormatted] = useState('');
+  const [hoursFormatted, setHoursFormatted] = useState('');
 
-  const hoursFormatted =
-    format(new Date(cliente?.dtInicio || ''), 'HH:mm') || '';
+  useEffect(() => {
+    async function loadDate() {
+      if (!cliente) return;
+
+      setDateFormatted(format(new Date(cliente?.dtInicio), 'dd/MM/yyyy'));
+      setHoursFormatted(format(new Date(cliente?.dtInicio), 'HH:mm'));
+    }
+
+    loadDate();
+  }, [cliente]);
 
   return (
     <div
@@ -28,10 +37,10 @@ export function CardCliente({
         <br />
       </div>
       <div className={styles.containerImg}>
-        <Avvvatars value={cliente?.cliente.nmUsuario || ''} size={50} />
+        <Avvvatars value={cliente?.cliente?.nmUsuario || ''} size={50} />
       </div>
       <div className={styles.containerInfo}>
-        <h2 className={styles.title}>{cliente?.cliente.nmUsuario}</h2>
+        <h2 className={styles.title}>{cliente?.cliente?.nmUsuario}</h2>
         <strong className={styles.info}>
           <BsClock color="#FF9000" size={16} style={{ marginRight: '8px' }} />
           {hoursFormatted} | {''}
@@ -51,7 +60,7 @@ export function CardCliente({
                 size={16}
                 style={{ marginLeft: '6px', marginRight: '3px' }}
               />
-              {cliente?.gerenciador.nmUsuario}
+              {cliente?.gerenciador?.nmUsuario}
             </>
           )}
         </strong>
