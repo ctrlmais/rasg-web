@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
+import { SituacaoUsuario, TipoUsuario } from 'types/ServicesProps';
 import { registerSchema } from 'validations/Register';
 
 import { useToast } from 'contexts/Toast';
 
 import { useAuth } from 'hooks/useAuth';
 
-import { registerUser } from 'services/post/register';
-import { updateOcupacao } from 'services/update/ocupacao';
+import { getUserSituationsAWS, getUserTypesAWS } from 'services/get';
+import { postRegisterUserAWS } from 'services/post';
 
 export function useRegister() {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ export function useRegister() {
   const { toast } = useToast();
 
   const [loading, setLoading] = useState(false);
+  const [tipoUsuario, setTipoUsuario] = useState<TipoUsuario>();
+  const [situacaoUsuario, setSituacaoUsuario] = useState<SituacaoUsuario>();
   const [status, setStatus] = useState<'success' | 'error' | ''>('');
 
   const formikRegister = useFormik({
@@ -33,23 +36,19 @@ export function useRegister() {
       try {
         setLoading(true);
 
-        const { error } = await registerUser(
-          values.email,
-          values.password,
-          values.nome,
-          ocupacao,
-          values.phone,
-        );
-
-        if (error) {
-          toast.error(error.message, { id: 'toast' });
-          setStatus('error');
-          setLoading(false);
-          return;
-        }
+        await postRegisterUserAWS({
+          nmUsuario: values.nome,
+          nmSenha: values.password,
+          nmEmail: values.email,
+          nmTelefone: values.phone,
+          situacaoUsuario: situacaoUsuario as SituacaoUsuario,
+          tipoUsuario: tipoUsuario as TipoUsuario,
+        });
 
         setStatus('success');
         setLoading(false);
+
+        navigate('/');
       } catch (error) {
         const { message } = error as Error;
 
@@ -57,35 +56,39 @@ export function useRegister() {
         setStatus('error');
         setLoading(false);
       } finally {
-        setTimeout(function () {
-          navigate('/');
-        }, 4000);
+        setLoading(false);
       }
     },
   });
 
-  const formikLoginGoogle = useFormik({
-    initialValues: {
-      ocupacao: '',
-    },
-    validationSchema: ocupacao ? '' : registerSchema,
-    onSubmit: async (values) => {
-      const { error } = await updateOcupacao(values.ocupacao);
+  useEffect(() => {
+    async function getTipoUsuario() {
+      if (ocupacao === 'CLIENTE') {
+        const { data: typeUser } = await getUserTypesAWS();
 
-      if (error) {
-        toast.error(error.message, { id: 'toast' });
-        return;
+        setTipoUsuario(typeUser[3]);
+
+        const { data: situation } = await getUserSituationsAWS();
+
+        setSituacaoUsuario(situation[0]);
       }
 
-      toast.success('Função adicionada com sucesso!', { id: 'toast' });
+      if (ocupacao === 'GERENCIADOR') {
+        const { data: typeUser } = await getUserTypesAWS();
 
-      window.location.reload();
-    },
-  });
+        setTipoUsuario(typeUser[2]);
+
+        const { data: situation } = await getUserSituationsAWS();
+
+        setSituacaoUsuario(situation[2]);
+      }
+    }
+
+    getTipoUsuario();
+  }, [ocupacao]);
 
   return {
     formikRegister,
-    formikLoginGoogle,
     loading,
     status,
   };
