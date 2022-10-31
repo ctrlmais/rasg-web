@@ -30,7 +30,9 @@
   flex-direction: row;
   width: 350px;
   margin-top: 12px;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -116,7 +118,9 @@
     flex-direction: row;
     width: 370px;
     margin-top: 12px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
   .title {
