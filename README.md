@@ -5,11 +5,11 @@
  <b>💈🪒🧔🏾 Agendamento de serviços de barba e cabelo</b>
 </h4>
 <p align="center">
-  <img alt="GitHub Language Count" src="https://img.shields.io/github/languages/count/ialexanderbrito/barber?style=flat-square" />
-  <img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/ialexanderbrito/barber?style=flat-square" />
-  <img alt="" src="https://img.shields.io/github/repo-size/ialexanderbrito/barber?style=flat-square" />
-  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/ialexanderbrito/barber?style=flat-square" />
-  <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/ialexanderbrito/barber?style=flat-square" />
+  <img alt="GitHub Language Count" src="https://img.shields.io/github/languages/count/ialexanderbrito/rasg?style=flat-square" />
+  <img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/ialexanderbrito/rasg?style=flat-square" />
+  <img alt="" src="https://img.shields.io/github/repo-size/ialexanderbrito/rasg?style=flat-square" />
+  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/ialexanderbrito/rasg?style=flat-square" />
+  <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/ialexanderbrito/rasg?style=flat-square" />
 
 </p>
 
@@ -26,7 +26,7 @@ Extras:
   - [Sass](https://sass-lang.com/)
   - [Supabase](https://app.supabase.io/)
   - [Formik](https://formik.org/)
-  - Para mais detalhes, veja o <kbd>[package.json](https://github.com/ialexanderbrito/barber/blob/master/package.json)</kbd>
+  - Para mais detalhes, veja o <kbd>[package.json](https://github.com/ialexanderbrito/rasg/blob/master/package.json)</kbd>
 
 - Estilos
   - [EditorConfig](https://editorconfig.org/)
@@ -57,10 +57,10 @@ E também será preciso um editor, eu indico o <b>[VSCode](https://code.visualst
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/ialexanderbrito/barber
+$ git clone https://github.com/ialexanderbrito/rasg
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd barber
+$ cd rasg
 
 # Instale as dependências
 $ npm install ou yarn
