@@ -10,8 +10,6 @@ import { Header } from 'components/Header';
 import { HorariosMarcacao } from 'components/Horarios';
 import { Overlay } from 'components/Overlay';
 
-import { horariosManha, horariosNoite, horariosTarde } from 'utils/horarios';
-
 import { useTheme } from 'contexts/Theme';
 import { useUser } from 'contexts/User';
 
@@ -35,7 +33,14 @@ export function Schedule() {
     status,
   } = useUser();
 
-  const { disableSchedule, numerosFaltantes, handleSelectDay } = useSchedule();
+  const {
+    numerosFaltantes,
+    handleSelectDay,
+    getHorariosManhaBarbeiro,
+    getHorariosTardeBarbeiro,
+    getHorariosNoiteBarbeiro,
+    disableSchedules,
+  } = useSchedule();
 
   const { contactBarbeiro } = useOverlay();
 
@@ -48,21 +53,21 @@ export function Schedule() {
             <Overlay
               calendar
               title="Agendamento concluído"
-              description={`Agendamento para ${selectDayFormattedBR} às ${selectHours} com ${barbeiro?.nome}`}
+              description={`Agendamento para ${selectDayFormattedBR} às ${selectHours} com ${barbeiro?.nmUsuario}`}
             >
               <FiCheck color="#04D361" size={62} />
             </Overlay>
           </>
         )}
-        <Header back />
+        <Header logo path="/schedule" />
         <div className={styles.container}>
           <div className={styles.containerCard}>
             <CardBarbeiroSelected barbeiro={barbeiro} />
             <button
               className={styles.whatsapp}
-              disabled={barbeiro?.phone === null}
+              disabled={barbeiro?.nmTelefone === null}
               onClick={() => {
-                contactBarbeiro(barbeiro?.phone || '');
+                contactBarbeiro(barbeiro?.nmTelefone || '');
               }}
             >
               <SiWhatsapp color="#fff" size={24} />
@@ -100,13 +105,13 @@ export function Schedule() {
             <>
               <h2 className={styles.title}>Escolha o horário</h2>
 
-              <p>Manhã</p>
+              {getHorariosManhaBarbeiro().length > 0 && <p>Manhã</p>}
 
               <div className={styles.containerHorario}>
-                {horariosManha.map((horario) => (
+                {getHorariosManhaBarbeiro().map((horario) => (
                   <HorariosMarcacao
                     key={horario}
-                    disabled={disableSchedule(horario)}
+                    disabled={disableSchedules(horario)}
                     onClick={() => {
                       setSelectHours(horario);
                     }}
@@ -117,14 +122,14 @@ export function Schedule() {
                 ))}
               </div>
 
-              <p>Tarde</p>
+              {getHorariosTardeBarbeiro().length > 0 && <p>Tarde</p>}
 
               <div className={styles.containerHorario}>
-                {horariosTarde.map((horario) => (
+                {getHorariosTardeBarbeiro().map((horario) => (
                   <HorariosMarcacao
                     key={horario}
                     horario={horario}
-                    disabled={disableSchedule(horario)}
+                    disabled={disableSchedules(horario)}
                     onClick={() => {
                       setSelectHours(horario);
                     }}
@@ -134,14 +139,14 @@ export function Schedule() {
                 ))}
               </div>
 
-              <p>Noite</p>
+              {getHorariosNoiteBarbeiro().length > 0 && <p>Noite</p>}
 
               <div className={styles.containerHorario}>
-                {horariosNoite.map((horario) => (
+                {getHorariosNoiteBarbeiro().map((horario) => (
                   <HorariosMarcacao
                     key={horario}
                     horario={horario}
-                    disabled={disableSchedule(horario)}
+                    disabled={disableSchedules(horario)}
                     onClick={() => {
                       setSelectHours(horario);
                     }}
