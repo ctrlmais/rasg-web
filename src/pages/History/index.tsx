@@ -27,9 +27,7 @@ export function History() {
         <Header logo path="/history" />
         <div className={styles.container}>
           <h2 className={styles.title}>Histórico</h2>
-
           <ButtonTopPage />
-
           <div className={styles.calendar}>
             <DayPicker
               locale={ptBR}
@@ -40,7 +38,6 @@ export function History() {
               toDate={new Date()}
             />
           </div>
-
           <div className={styles.containerList}>
             {loading ? (
               <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
@@ -49,8 +46,15 @@ export function History() {
                 {agendamentos.length > 0 ? (
                   agendamentos.map((cliente) => (
                     <>
-                      <div className={styles.containerBarber} key={cliente.id}>
-                        <CardCliente key={cliente.id} cliente={cliente} data />
+                      <div
+                        className={styles.containerBarber}
+                        key={cliente.cliente.cdUsuario}
+                      >
+                        <CardCliente
+                          key={cliente.cliente.cdUsuario}
+                          cliente={cliente}
+                          data
+                        />
                       </div>
                     </>
                   ))
