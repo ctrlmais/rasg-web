@@ -1,5 +1,4 @@
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
-import { IoMdClose } from 'react-icons/io';
 import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
@@ -22,19 +21,12 @@ import styles from './Profile.module.scss';
 export function Profile() {
   const { theme } = useTheme();
 
-  const {
-    formikProfile,
-    loading,
-    isGoogle,
-    showNewPassword,
-    showPassword,
-    apagarPicture,
-    idPictureProfile,
-  } = useProfile();
+  const { formikProfile, loading, showNewPassword, showPassword } =
+    useProfile();
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header back />
+      <Header logo path="/profile" />
 
       <div className={styles.container}>
         <form
@@ -50,17 +42,6 @@ export function Profile() {
               });
             }}
           />
-
-          {idPictureProfile && (
-            <div
-              className={styles.removeButton}
-              onClick={() => {
-                apagarPicture();
-              }}
-            >
-              <IoMdClose />
-            </div>
-          )}
 
           <h2>Meu Perfil</h2>
           <div
@@ -78,7 +59,6 @@ export function Profile() {
               value={formikProfile.values.nome}
               maxLength={100}
               icon={<FiUser color="#666360" size={24} />}
-              disabled={isGoogle()}
             />
             {formikProfile.errors.nome && formikProfile.touched.nome && (
               <span className={styles.error}>{formikProfile.errors.nome}</span>
@@ -91,7 +71,6 @@ export function Profile() {
               onBlur={formikProfile.handleBlur}
               value={formikProfile.values.email}
               icon={<FiMail color="#666360" size={24} />}
-              disabled={isGoogle()}
             />
             {formikProfile.errors.email && formikProfile.touched.email && (
               <span className={styles.error}>{formikProfile.errors.email}</span>
