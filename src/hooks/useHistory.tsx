@@ -37,8 +37,6 @@ export function useHistory() {
         format(new Date(range.from), 'yyyy-MM-dd 00:00:00') || '';
       const dataFinal = format(new Date(range.to), 'yyyy-MM-dd 23:59:59') || '';
 
-      console.log(isBarbeiro);
-
       try {
         setLoading(true);
 
