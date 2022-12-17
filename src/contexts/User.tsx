@@ -483,7 +483,7 @@ export function UserProvider({ children }: any) {
   }, [barbeiro]);
 
   useEffect(() => {
-    const expires = localStorage.getItem('@barber:expires');
+    const expires = localStorage.getItem('@rasg:expires');
 
     if (expires) {
       const expiresDate = new Date(expires);

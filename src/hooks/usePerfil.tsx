@@ -1,5 +1,5 @@
 export function usePerfil() {
-  const storagedUser = JSON.parse(localStorage.getItem('@barber:user') || '{}');
+  const storagedUser = JSON.parse(localStorage.getItem('@rasg:user') || '{}');
 
   function isBarbeiro() {
     if (storagedUser) {

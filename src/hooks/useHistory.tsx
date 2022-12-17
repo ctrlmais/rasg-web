@@ -24,7 +24,7 @@ export function useHistory() {
   };
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
 
-  const user = JSON.parse(localStorage.getItem('@barber:user') || '{}');
+  const user = JSON.parse(localStorage.getItem('@rasg:user') || '{}');
 
   const id = user?.cdUsuario;
 

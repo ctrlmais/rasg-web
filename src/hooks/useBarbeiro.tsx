@@ -79,7 +79,7 @@ export function useBarbeiro() {
   }
 
   function handleSetClienteLocalStorage(cliente: Content) {
-    localStorage.setItem('cliente', JSON.stringify(cliente));
+    localStorage.setItem('@rasg:cliente', JSON.stringify(cliente));
     openModal();
   }
 

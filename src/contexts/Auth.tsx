@@ -21,10 +21,10 @@ export function AuthProvider({ children }: any) {
   const [ocupacao, setOcupacao] = useState('CLIENTE');
   const [loading, setLoading] = useState(false);
 
-  const storagedUser = JSON.parse(localStorage.getItem('@barber:user') || '{}');
-  const storagedToken = localStorage.getItem('@barber:token');
+  const storagedUser = JSON.parse(localStorage.getItem('@rasg:user') || '{}');
+  const storagedToken = localStorage.getItem('@rasg:token');
   const storagedHorarios = JSON.parse(
-    localStorage.getItem('@barber:horarios') || '{}',
+    localStorage.getItem('@rasg:horarios') || '{}',
   );
 
   function isSigned() {
@@ -39,7 +39,7 @@ export function AuthProvider({ children }: any) {
     const hash = window.location.href.split('#')[0];
     const params = hash.split('/')[3];
 
-    const user = localStorage.getItem('@barber:user') || '{}';
+    const user = localStorage.getItem('@rasg:user') || '{}';
 
     const { cdUsuario } = JSON.parse(user);
 
@@ -86,20 +86,20 @@ export function AuthProvider({ children }: any) {
           nmSenha: values.password,
         });
 
-        localStorage.setItem('@barber:token', data.token);
+        localStorage.setItem('@rasg:token', data.token);
         setToken(data.token);
 
         const expires = new Date(Date.now() + 3 * 60 * 60 * 1000);
-        localStorage.setItem('@barber:expires', expires.toString());
+        localStorage.setItem('@rasg:expires', expires.toString());
 
-        localStorage.setItem('@barber:user', JSON.stringify(data.user));
+        localStorage.setItem('@rasg:user', JSON.stringify(data.user));
 
         if (data.user.tipoUsuario.authority === 'GERENCIADOR') {
           const { data: horarios } = await getJourneyByIdAWS(
             data.user.cdUsuario,
           );
 
-          localStorage.setItem('@barber:horarios', JSON.stringify(horarios));
+          localStorage.setItem('@rasg:horarios', JSON.stringify(horarios));
         }
 
         toast.success('Login realizado com sucesso', { id: 'toast' });

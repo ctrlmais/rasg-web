@@ -10,7 +10,7 @@ export function useAgenda() {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
 
-  const cliente = JSON.parse(localStorage.getItem('cliente') || '');
+  const cliente = JSON.parse(localStorage.getItem('@rasg:cliente') || '');
   const { generateGoogleCalendarEvent } = useUser();
 
   const dateStartGoogle = format(
@@ -54,7 +54,7 @@ export function useAgenda() {
   }
 
   function contactCliente(number: string) {
-    window.open(`https://wa.me/${number}`);
+    window.open(`https://wa.me/+55${number}`);
   }
 
   function copyToClipboard() {

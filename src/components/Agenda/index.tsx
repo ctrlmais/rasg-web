@@ -28,7 +28,9 @@ export function Agenda({ onClick }: AgendaProps) {
     copyToClipboard,
   } = useAgenda();
 
-  const cliente: Content = JSON.parse(localStorage.getItem('cliente') || '');
+  const cliente: Content = JSON.parse(
+    localStorage.getItem('@rasg:cliente') || '',
+  );
   const whatsAppNumber = cliente?.cliente.nmTelefone;
   const agendamentoId = cliente?.cdAgendamento;
 
