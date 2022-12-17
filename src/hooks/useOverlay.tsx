@@ -27,7 +27,7 @@ export function useOverlay() {
   });
 
   function contactBarbeiro(number: string) {
-    window.open(`https://wa.me/${number}`);
+    window.open(`https://wa.me/+55${number}`);
   }
 
   function handleGoogleCalendar() {
