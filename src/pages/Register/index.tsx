@@ -4,8 +4,8 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { Link } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
-import logoDark from 'assets/Logo_dark.png';
-import logo from 'assets/Logo.png';
+import logoDark from 'assets/rasg_dark.png';
+import logo from 'assets/rasg.png';
 import salaoImage from 'assets/salao.png';
 
 import { Button } from 'components/Button';

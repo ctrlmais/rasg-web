@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
 import barberImage from 'assets/barber.png';
-import logoDark from 'assets/Logo_dark.png';
-import logo from 'assets/Logo.png';
+import logoDark from 'assets/rasg_dark.png';
+import logo from 'assets/rasg.png';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
