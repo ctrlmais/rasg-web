@@ -20,7 +20,7 @@ export function Validate() {
   return (
     <>
       <div className={styles.home} data-theme={theme}>
-        <Header back />
+        <Header logo path="/validate" />
 
         <div className={styles.container}>
           <h2>Validar horário</h2>

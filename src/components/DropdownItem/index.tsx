@@ -1,13 +1,21 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { DropdownItemProps } from 'types/IComponents';
+import { DropdownItemProps } from 'types/ComponentsProps';
 
 import { useDropdown } from 'hooks/useDropdown';
 
 import styles from './DropdownItem.module.scss';
 
-export function DropdownItem(props: DropdownItemProps) {
+export function DropdownItem({
+  children,
+  goToMenu,
+  leftIcon,
+  link,
+  logout,
+  onClick,
+  rightIcon,
+}: DropdownItemProps) {
   const { setActiveMenu, setMenuHeight, dropdownRef } = useDropdown();
 
   useEffect(() => {
@@ -15,15 +23,15 @@ export function DropdownItem(props: DropdownItemProps) {
   }, []);
 
   return (
-    <div onClick={props.onClick}>
+    <div onClick={onClick}>
       <Link
-        to={props.link || ''}
+        to={link || ''}
         className={styles.menuItem}
-        onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
+        onClick={() => goToMenu && setActiveMenu(goToMenu)}
       >
-        <span className={styles.iconButton}>{props.leftIcon}</span>
-        {props.children}
-        <span className={styles.iconRight}>{props.rightIcon}</span>
+        <span className={styles.iconButton}>{leftIcon}</span>
+        {children}
+        <span className={styles.iconRight}>{rightIcon}</span>
       </Link>
     </div>
   );

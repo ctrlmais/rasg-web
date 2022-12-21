@@ -35,7 +35,7 @@ export function ReportBug() {
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header back />
+      <Header logo path="/bug" />
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>
           <h2 className={styles.title}>Enviar bug</h2>

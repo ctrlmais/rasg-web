@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
 import barberImage from 'assets/barber.png';
-import logoDark from 'assets/Logo_dark.png';
-import logo from 'assets/Logo.png';
+import logoDark from 'assets/rasg_dark.png';
+import logo from 'assets/rasg.png';
 
 import { Button } from 'components/Button';
-import { ButtonGoogle } from 'components/ButtonGoogle';
 import { Input } from 'components/Input';
 
 import { useTheme } from 'contexts/Theme';
@@ -18,7 +17,7 @@ import styles from './Login.module.scss';
 
 export function Login() {
   const { theme } = useTheme();
-  const { formikLogin, handleLoginGoogle, loading } = useAuth();
+  const { formikLogin, loading } = useAuth();
 
   return (
     <div className={styles.home} data-theme={theme}>
@@ -32,14 +31,6 @@ export function Login() {
           <div className={styles.form}>
             <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
             <h2>Faça seu Login</h2>
-            <ButtonGoogle
-              type="button"
-              onClick={() => {
-                handleLoginGoogle();
-              }}
-            />
-
-            <div className={styles.separator}>ou </div>
 
             <Input
               type="email"
@@ -53,7 +44,6 @@ export function Login() {
             {formikLogin.errors.email && (
               <span className={styles.error}>{formikLogin.errors.email}</span>
             )}
-
             <Input
               type="password"
               name="password"
@@ -63,7 +53,6 @@ export function Login() {
               value={formikLogin.values.password}
               icon={<FiLock color="#666360" size={24} />}
             />
-
             <Button type="submit">
               {loading ? (
                 <Ring speed={2} lineWeight={5} color="#28262e" size={32} />

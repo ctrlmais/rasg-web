@@ -1,17 +1,17 @@
 import cx from 'classnames';
-import { BadgeProps } from 'types/IComponents';
+import { BadgeProps } from 'types/ComponentsProps';
 
 import styles from './Badge.module.scss';
 
-export function Badge(props: BadgeProps) {
+export function Badge({ children, primary }: BadgeProps) {
   return (
     <>
       <span
         className={cx(styles.badge, {
-          [styles.primary]: props.primary,
+          [styles.primary]: primary,
         })}
       >
-        {props.children}
+        {children}
       </span>
     </>
   );

@@ -1,7 +1,7 @@
-import { FiLock, FiMail, FiUser } from 'react-icons/fi';
-import { IoMdClose } from 'react-icons/io';
+import { FiLink, FiLock, FiMail, FiShare, FiUser } from 'react-icons/fi';
 import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { RWebShare } from 'react-web-share';
 
 import { Ring } from '@uiball/loaders';
 
@@ -15,6 +15,8 @@ import { formatCellPhone } from 'utils/telefone';
 
 import { useTheme } from 'contexts/Theme';
 
+import { useCliente } from 'hooks/useCliente';
+import { usePerfil } from 'hooks/usePerfil';
 import { useProfile } from 'hooks/useProfile';
 
 import styles from './Profile.module.scss';
@@ -22,19 +24,18 @@ import styles from './Profile.module.scss';
 export function Profile() {
   const { theme } = useTheme();
 
-  const {
-    formikProfile,
-    loading,
-    isGoogle,
-    showNewPassword,
-    showPassword,
-    apagarPicture,
-    idPictureProfile,
-  } = useProfile();
+  const { formikProfile, loading, showNewPassword, showPassword } =
+    useProfile();
+  const { userNameDefault } = useCliente();
+  const { isBarbeiro } = usePerfil();
+
+  const LINK_INDICACAO = `${window.location.origin}/p/${userNameDefault(
+    formikProfile.values.nome,
+  )}`;
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header back />
+      <Header logo path="/profile" />
 
       <div className={styles.container}>
         <form
@@ -51,22 +52,11 @@ export function Profile() {
             }}
           />
 
-          {idPictureProfile && (
-            <div
-              className={styles.removeButton}
-              onClick={() => {
-                apagarPicture();
-              }}
-            >
-              <IoMdClose />
-            </div>
-          )}
-
           <h2>Meu Perfil</h2>
           <div
             className={styles.inputContainer}
             style={{
-              height: showPassword ? '28rem' : '13rem',
+              height: showPassword ? '28rem' : '18rem',
             }}
           >
             <Input
@@ -78,7 +68,6 @@ export function Profile() {
               value={formikProfile.values.nome}
               maxLength={100}
               icon={<FiUser color="#666360" size={24} />}
-              disabled={isGoogle()}
             />
             {formikProfile.errors.nome && formikProfile.touched.nome && (
               <span className={styles.error}>{formikProfile.errors.nome}</span>
@@ -91,7 +80,6 @@ export function Profile() {
               onBlur={formikProfile.handleBlur}
               value={formikProfile.values.email}
               icon={<FiMail color="#666360" size={24} />}
-              disabled={isGoogle()}
             />
             {formikProfile.errors.email && formikProfile.touched.email && (
               <span className={styles.error}>{formikProfile.errors.email}</span>
@@ -109,6 +97,36 @@ export function Profile() {
             />
             {formikProfile.errors.phone && formikProfile.touched.phone && (
               <span className={styles.error}>{formikProfile.errors.phone}</span>
+            )}
+
+            {isBarbeiro && (
+              <div className={styles.linkShareContainer}>
+                <Input
+                  type="text"
+                  name="link"
+                  disabled
+                  placeholder="Seu link de indicação"
+                  onChange={formikProfile.handleChange}
+                  onBlur={formikProfile.handleBlur}
+                  value={LINK_INDICACAO}
+                  style={{ width: '320px' }}
+                  icon={<FiLink color="#666360" size={24} />}
+                />
+                <RWebShare
+                  data={{
+                    text: 'Compartilhe o seu link de indicação',
+                    url: LINK_INDICACAO,
+                    title: 'Venha cortar o cabelo comigo!',
+                  }}
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <div className={styles.buttonShare}>
+                    <FiShare size={24} />
+                  </div>
+                </RWebShare>
+              </div>
             )}
 
             {showPassword && (

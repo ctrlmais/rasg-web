@@ -20,6 +20,66 @@
 }
 
 .logo {
-  width: 90px;
+  width: 4.5rem;
   cursor: pointer;
+}
+
+.menu {
+  display: none;
+  align-items: center;
+  width: 15rem;
+  gap: 1rem;
+}
+
+.links {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.linkMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.active {
+  margin-right: 0.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: var(--white);
+}
+
+.statusbar {
+  height: 2px;
+  background: var(--orange);
+}
+
+.menuHamburguer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media screen and (min-width: 839px) {
+  .menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .menuHamburguer {
+    display: none;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
 }

@@ -7,9 +7,7 @@ import { useToast } from 'contexts/Toast';
 
 import { useAuth } from 'hooks/useAuth';
 
-import { deletePicture } from 'services/delete/picture';
-import { updateProfile } from 'services/update/profile';
-import { updateProfilePhoto } from 'services/update/profileAvatar';
+import { putUserAWS } from 'services/update';
 
 export function useProfile() {
   const { toast } = useToast();
@@ -17,41 +15,8 @@ export function useProfile() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const idPictureProfile = user?.user_metadata.pictureId;
-
-  function isGoogle() {
-    if (user?.app_metadata.provider === 'google') {
-      return true;
-    }
-
-    return false;
-  }
-
-  function isEmail() {
-    if (user?.app_metadata.provider === 'email') {
-      return true;
-    }
-
-    return false;
-  }
-
   function showNewPassword() {
     setShowPassword(!showPassword);
-  }
-
-  async function apagarPicture() {
-    const { data, error } = await deletePicture(idPictureProfile || '');
-
-    if (error) {
-      toast.error(error.message, { id: 'toast' });
-      return;
-    }
-
-    if (data) {
-      toast.success('Foto apagada com sucesso!', { id: 'toast' });
-
-      window.location.reload();
-    }
   }
 
   const formikProfile = useFormik({
@@ -66,65 +31,57 @@ export function useProfile() {
     },
     validationSchema: profileSchema,
     onSubmit: async (values) => {
-      setLoading(true);
+      if (!user) return;
 
-      const { user: userData, error } = await updateProfile(
-        values.email,
-        values.password,
-        values.newPassword,
-        values.nome,
-        values.phone,
-      );
+      const newValues = {
+        cdUsuario: Number(user.cdUsuario),
+        nmUsuario: values.nome,
+        nmSenha: user.nmSenha,
+        nmEmail: values.email,
+        nmTelefone: values.phone,
+        dtCadastro: user.dtCadastro,
+        situacaoUsuario: user.situacaoUsuario,
+        tipoUsuario: user.tipoUsuario,
+      };
+      try {
+        setLoading(true);
 
-      if (!userData) return;
+        const { data } = await putUserAWS(newValues);
 
-      if (values.avatar !== '') {
-        const { error } = await updateProfilePhoto(userData.id, values.avatar);
+        if (!data) return;
 
-        if (error) {
-          toast.error(error.message, { id: 'toast' });
+        if (formikProfile.values.email !== data.nmEmail) {
+          toast.success(
+            'Verifique a sua caixa de entrada para confirmar a mudança de email',
+            { id: 'toast' },
+          );
           setLoading(false);
-          return;
+        } else {
+          toast.success('Perfil atualizado com sucesso', { id: 'toast' });
+          setLoading(false);
+          setUser(data);
+          formikProfile.setFieldValue('password', '');
+          formikProfile.setFieldValue('newPassword', '');
+          formikProfile.setFieldValue('confirmPassword', '');
         }
-      }
-
-      if (error) {
+      } catch (error) {
         toast.error('Não foi possível atualizar perfil', { id: 'toast' });
+      } finally {
         setLoading(false);
-        return;
-      }
-
-      if (formikProfile.values.email !== userData.email) {
-        toast.success(
-          'Verifique a sua caixa de entrada para confirmar a mudança de email',
-          { id: 'toast' },
-        );
-        setLoading(false);
-      } else {
-        toast.success('Perfil atualizado com sucesso', { id: 'toast' });
-        setLoading(false);
-        setUser(userData);
-        formikProfile.setFieldValue('password', '');
-        formikProfile.setFieldValue('newPassword', '');
-        formikProfile.setFieldValue('confirmPassword', '');
       }
     },
   });
 
   useEffect(() => {
-    formikProfile.setFieldValue('nome', user?.user_metadata.name);
-    formikProfile.setFieldValue('email', user?.email);
-    formikProfile.setFieldValue('phone', user?.user_metadata.phone);
+    formikProfile.setFieldValue('nome', user?.nmUsuario);
+    formikProfile.setFieldValue('email', user?.nmEmail);
+    formikProfile.setFieldValue('phone', user?.nmTelefone);
   }, [user]);
 
   return {
     formikProfile,
     loading,
-    isGoogle,
-    isEmail,
     showNewPassword,
     showPassword,
-    apagarPicture,
-    idPictureProfile,
   };
 }

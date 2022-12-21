@@ -1,26 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { NavItemProps } from 'types/IComponents';
+import { NavItemProps } from 'types/ComponentsProps';
 
 import styles from './NavItem.module.scss';
 
-export function NavItem(props: NavItemProps) {
+export function NavItem({ icon, children, onClick }: NavItemProps) {
   const [open, setOpen] = useState(false);
 
   function useOutsideClick(ref: any) {
     useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
       function handleClickOutside(event: Event) {
         if (ref.current && !ref.current.contains(event.target)) {
           setOpen(false);
         }
       }
-      // Bind the event listener
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
-        // Unbind the event listener on clean up
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }, [ref]);
@@ -43,14 +38,12 @@ export function NavItem(props: NavItemProps) {
         <a
           href="#"
           className={styles.iconButton}
-          onClick={() =>
-            props.children ? setOpen(!open) : props.onClick && props.onClick()
-          }
+          onClick={() => (children ? setOpen(!open) : onClick && onClick())}
         >
-          {props.icon}
+          {icon}
         </a>
 
-        {open && props.children}
+        {open && children}
       </li>
     </OutsideClick>
   );

@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { format } from 'date-fns';
 import Swal from 'sweetalert2';
-import { UserMetadata } from 'types/IContext';
+import { Gerenciador } from 'types/ServicesProps';
 
-import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
 export function useCliente() {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const {
     setBarbeiro,
     buscarAgendamentosData,
@@ -37,15 +35,9 @@ export function useCliente() {
     buscarAgendamentosData(dateFormatted);
   }, [selectDay]);
 
-  function handleClickBarbeiro(barbeiro: UserMetadata) {
-    if (barbeiro?.schedules === null) {
-      toast.error('Este barbeiro não possui horários disponíveis.', {
-        id: 'toast',
-      });
-    } else {
-      setBarbeiro(barbeiro);
-      navigate(`/p/${userNameDefault(barbeiro?.nome)}`);
-    }
+  function handleClickBarbeiro(barbeiro: Gerenciador) {
+    setBarbeiro(barbeiro);
+    navigate(`/p/${userNameDefault(barbeiro?.nmUsuario)}`);
   }
 
   function userNameDefault(str: string) {

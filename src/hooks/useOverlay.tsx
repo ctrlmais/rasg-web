@@ -19,20 +19,20 @@ export function useOverlay() {
     .substring(0, 2)}:${hourFormattedCalendarEnd.toString().substring(2, 4)}`;
 
   const eventSaveCliente = new ICalendar({
-    title: `Barba, cabelo e bigode com ${barbeiro?.nome}`,
-    description: `Barbearia do ${barbeiro?.nome}`,
+    title: `Barba, cabelo e bigode com ${barbeiro?.nmUsuario}`,
+    description: `Barbearia do ${barbeiro?.nmUsuario}`,
     start: new Date(`${selectDayFormatted}T${selectHours}`),
     end: new Date(`${selectDayFormatted}T${hourFormattedCalendarEndFormatted}`),
     location: '',
   });
 
   function contactBarbeiro(number: string) {
-    window.open(`https://wa.me/${number}`);
+    window.open(`https://wa.me/+55${number}`);
   }
 
   function handleGoogleCalendar() {
-    const title = `Barba, cabelo e bigode com ${barbeiro?.nome}`;
-    const description = `Barbearia do ${barbeiro?.nome}`;
+    const title = `Barba, cabelo e bigode com ${barbeiro?.nmUsuario}`;
+    const description = `Barbearia do ${barbeiro?.nmUsuario}`;
     const location = '';
 
     generateGoogleCalendarEvent(

@@ -1,72 +1,89 @@
+import { useEffect, useState } from 'react';
 import { BsCalendar, BsClock } from 'react-icons/bs';
 
 import Avvvatars from 'avvvatars-react';
 import cx from 'classnames';
-import { CardBarbeiroProps } from 'types/IComponents';
-import { Schedule } from 'types/IContext';
+import { CardBarbeiroProps } from 'types/ComponentsProps';
+import { GetJornadaUsuario } from 'types/ServicesProps';
 
+import { formatHours } from 'utils/formatHours';
 import { getDiaSemana } from 'utils/semanas';
 
-import { usePhoto } from 'hooks/usePhoto';
+import { useToast } from 'contexts/Toast';
+
+import { getJourneyByIdAWS } from 'services/get';
 
 import styles from './CardBarbeiro.module.scss';
 
-export function CardBarbeiro(props: CardBarbeiroProps) {
-  const { photo, name } = usePhoto(props.barbeiro?.id || '');
-
+export function CardBarbeiro({
+  cliente,
+  barbeiro,
+  hover,
+  ...props
+}: CardBarbeiroProps) {
+  const { toast } = useToast();
   const diaAtual = String(new Date().getDay());
-  const schedules: Schedule[] = JSON.parse(props.barbeiro?.schedules);
+
+  const [schedules, setSchedules] = useState<GetJornadaUsuario[]>([]);
+
+  useEffect(() => {
+    async function getHorariosBarbeiro() {
+      try {
+        const { data } = await getJourneyByIdAWS(Number(barbeiro?.cdUsuario));
+
+        setSchedules(data);
+      } catch (error) {
+        toast.error('Erro ao buscar horários do barbeiro');
+      }
+    }
+
+    getHorariosBarbeiro();
+  }, []);
 
   function getDiasFuncionamento() {
     const dias = [] as string[];
+
     schedules?.map((schedule) => {
-      if (schedule.week_day !== '') {
-        dias.push(getDiaSemana(schedule?.week_day || ''));
+      if (String(schedule.cdDiaSemana) !== '') {
+        dias.push(getDiaSemana(String(schedule.cdDiaSemana)));
       }
     });
     return dias;
   }
 
-  function getHorarioAtual(week_day: string) {
-    const horario = [] as string[];
+  function getHorarioAtual(cdDiaSemana: string) {
+    const horarios = [] as string[];
     schedules?.map((schedule) => {
-      if (schedule.week_day === week_day) {
-        horario.push(schedule.from + ' às ' + schedule.to);
+      if (String(schedule.cdDiaSemana) === cdDiaSemana) {
+        horarios.push(
+          formatHours(schedule.hrInicio) + ' às ' + formatHours(schedule.hrFim),
+        );
       }
     });
-    return horario;
+    return horarios;
   }
 
   return (
     <div
       className={cx(styles.card, {
-        [styles.cardAdmin]: props.hover,
-        [styles.cardCliente]: props.cliente,
-        [styles.cardDisabled]: props.disabled,
+        [styles.cardAdmin]: hover,
+        [styles.cardCliente]: cliente,
+        [styles.cardDisabled]: schedules.length === 0,
       })}
-      onClick={props.onClick}
-      key={props.barbeiro?.id}
+      onClick={schedules.length !== 0 ? props.onClick : () => {}}
+      key={barbeiro?.cdUsuario}
     >
       <div className={styles.containerImg}>
-        {photo === '' &&
-        (props.barbeiro?.avatar_url === null ||
-          props.barbeiro?.avatar_url === undefined) ? (
-          <Avvvatars value={props.barbeiro?.nome || ''} size={72} />
-        ) : (
-          <img
-            src={photo || props.barbeiro?.avatar_url || props.barbeiro?.picture}
-            alt={props.barbeiro?.nome}
-          />
-        )}
+        <Avvvatars value={barbeiro?.nmUsuario || ''} size={72} />
       </div>
 
-      {props.cliente === true ? (
+      {cliente === true ? (
         <div className={styles.containerInfo}>
-          <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
+          <h2 className={styles.title}>{barbeiro?.nmUsuario}</h2>
         </div>
       ) : (
         <div className={styles.containerInfo}>
-          <h2 className={styles.title}>{name || props.barbeiro?.nome}</h2>
+          <h2 className={styles.title}>{barbeiro?.nmUsuario}</h2>
           <strong className={styles.info}>
             {schedules === undefined || schedules === null ? (
               <>
@@ -84,8 +101,14 @@ export function CardBarbeiro(props: CardBarbeiroProps) {
                   size={16}
                   style={{ marginRight: '12px' }}
                 />
-                {getDiasFuncionamento()[0]} à{' '}
-                {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
+                {schedules.length === 0 ? (
+                  'Sem data definida'
+                ) : (
+                  <>
+                    {getDiasFuncionamento()[0]} à{' '}
+                    {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
+                  </>
+                )}
               </>
             )}
           </strong>

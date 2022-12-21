@@ -32,7 +32,7 @@ export function Admin() {
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header logo />
+      <Header logo path="/admin" />
       <div className={styles.container}>
         <div className={styles.containerOcupacao}>
           <Ocupacao cliente="Clientes" barbeiro="Barbeiros" />
@@ -40,7 +40,7 @@ export function Admin() {
 
         <ButtonTopPage />
 
-        {ocupacao === 'cliente' && (
+        {ocupacao === 'CLIENTE' && (
           <div className={styles.containerList}>
             {loading ? (
               <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
@@ -48,9 +48,12 @@ export function Admin() {
               <>
                 {clientesAprovados.length > 0 &&
                   clientesAprovados.map((cliente) => (
-                    <div className={styles.containerBarber} key={cliente.id}>
+                    <div
+                      className={styles.containerBarber}
+                      key={cliente.cdUsuario}
+                    >
                       <CardBarbeiro
-                        key={cliente.id}
+                        key={cliente.cdUsuario}
                         barbeiro={cliente}
                         cliente
                       />
@@ -61,7 +64,7 @@ export function Admin() {
           </div>
         )}
 
-        {ocupacao === 'barbeiro' && (
+        {ocupacao === 'GERENCIADOR' && (
           <>
             <div className={styles.titleContainer}>
               {barbeiros.length > 0 ? (
@@ -81,12 +84,18 @@ export function Admin() {
                 <>
                   {barbeiros.length > 0 &&
                     barbeiros.map((barbeiro) => (
-                      <div className={styles.containerBarber} key={barbeiro.id}>
-                        <CardBarbeiro key={barbeiro.id} barbeiro={barbeiro} />
+                      <div
+                        className={styles.containerBarber}
+                        key={barbeiro.cdUsuario}
+                      >
+                        <CardBarbeiro
+                          key={barbeiro.cdUsuario}
+                          barbeiro={barbeiro}
+                        />
                         <button
                           className={styles.button}
                           onClick={() => {
-                            aproveBarbeiro(barbeiro?.id);
+                            aproveBarbeiro(barbeiro?.cdUsuario);
                           }}
                         >
                           <FiCheck
@@ -119,15 +128,21 @@ export function Admin() {
                 <>
                   {barbeirosAprovados.length > 0 &&
                     barbeirosAprovados.map((barbeiro) => (
-                      <div className={styles.containerBarber} key={barbeiro.id}>
-                        <CardBarbeiro key={barbeiro.id} barbeiro={barbeiro} />
+                      <div
+                        className={styles.containerBarber}
+                        key={barbeiro.cdUsuario}
+                      >
+                        <CardBarbeiro
+                          key={barbeiro.cdUsuario}
+                          barbeiro={barbeiro}
+                        />
                         <button
                           style={{
                             backgroundColor: '#CA0B00',
                           }}
                           className={styles.button}
                           onClick={() => {
-                            disabledBarbeiro(barbeiro?.id);
+                            disabledBarbeiro(Number(barbeiro?.cdUsuario));
                           }}
                         >
                           <FiSlash
@@ -143,7 +158,7 @@ export function Admin() {
             </div>
           </>
         )}
-        {clienteQtd && ocupacao === 'cliente' && (
+        {ocupacao === 'CLIENTE' && (
           <div className={styles.paginationContainer}>
             <Pagination
               count={Math.ceil(clienteQtd / 5)}

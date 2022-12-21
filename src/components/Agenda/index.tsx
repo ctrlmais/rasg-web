@@ -1,19 +1,25 @@
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { FiCopy } from 'react-icons/fi';
+import { BiCopy } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { SiApple, SiGooglecalendar, SiWhatsapp } from 'react-icons/si';
 
-import { AgendaProps } from 'types/IComponents';
+import { AgendaProps } from 'types/ComponentsProps';
+import { Content } from 'types/ServicesProps';
 
 import { SocialButton } from 'components/SocialButton';
+
+import { get8caracters } from 'utils/get8caracters';
+
+import { useTheme } from 'contexts/Theme';
 
 import { useAgenda } from 'hooks/useAgenda';
 import { useTicket } from 'hooks/useTicket';
 
 import styles from './Agenda.module.scss';
 
-export function Agenda(props: AgendaProps) {
+export function Agenda({ onClick }: AgendaProps) {
+  const { theme } = useTheme();
   const { cancelarAgendamento } = useTicket();
   const {
     handleGoogleCalendarCliente,
@@ -22,21 +28,18 @@ export function Agenda(props: AgendaProps) {
     copyToClipboard,
   } = useAgenda();
 
-  const cliente = JSON.parse(localStorage.getItem('cliente') || '');
-  const whatsAppNumber = cliente?.phone;
-  const agendamentoId = cliente?.id;
+  const cliente: Content = JSON.parse(
+    localStorage.getItem('@rasg:cliente') || '',
+  );
+  const whatsAppNumber = cliente?.cliente.nmTelefone;
+  const agendamentoId = cliente?.cdAgendamento;
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.close} onClick={props.onClick}>
+    <div className={styles.wrapper} data-theme={theme}>
+      <div className={styles.close} onClick={onClick}>
         <IoMdClose size={20} style={{ cursor: 'pointer' }} />
       </div>
-      <h2>
-        <CopyToClipboard text={cliente?.id} onCopy={() => copyToClipboard()}>
-          <FiCopy size={20} style={{ cursor: 'pointer' }} />
-        </CopyToClipboard>
-        Opções adicionais
-      </h2>
+      <h2>Opções adicionais</h2>
 
       <div className={styles.containerButton}>
         <SocialButton
@@ -65,6 +68,16 @@ export function Agenda(props: AgendaProps) {
           text="Enviar mensagem via Whatsapp"
           icon={<SiWhatsapp />}
         />
+
+        <CopyToClipboard
+          text={String(cliente?.cdAgendamento)}
+          onCopy={() => copyToClipboard()}
+        >
+          <div className={styles.copyClipboard}>
+            <BiCopy size={20} />№{' '}
+            {get8caracters(String(cliente?.cdAgendamento))}
+          </div>
+        </CopyToClipboard>
 
         <button
           className={styles.cancel}

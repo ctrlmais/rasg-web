@@ -18,7 +18,7 @@ export function ValidateId() {
   return (
     <>
       <div className={styles.home} data-theme={theme}>
-        <Header back />
+        <Header logo path="/validate" />
         <div className={styles.container}>
           {loading ? (
             <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />

@@ -32,13 +32,14 @@
 
 .hourContainer {
   display: flex;
-  background: var(--black-medium);
+  background: var(--shape);
   width: 354px;
   align-items: center;
   justify-content: center;
   font-size: 34px;
   border-radius: 10px;
   height: 7vh;
+  color: var(--white);
 
   font-family: Orbitron, sans-serif;
   font-weight: 600;
@@ -97,6 +98,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 90vh;
   width: 100%;
 }
@@ -178,13 +180,14 @@
 
   .hourContainer {
     display: flex;
-    background: var(--black-medium);
+    background: var(--shape);
     width: 100%;
     align-items: center;
     justify-content: center;
     font-size: 34px;
     border-radius: 10px;
     height: 10vh;
+    color: var(--white);
 
     font-family: Orbitron, sans-serif;
     font-weight: 600;

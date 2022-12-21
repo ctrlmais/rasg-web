@@ -1,7 +1,7 @@
 import { isAndroid, isWindows, isMacOs, isIOS } from 'react-device-detect';
 import { SiApple, SiGooglecalendar } from 'react-icons/si';
 
-import { OverlayProps } from 'types/IComponents';
+import { OverlayProps } from 'types/ComponentsProps';
 
 import { Button } from 'components/Button';
 import { SocialButton } from 'components/SocialButton';
@@ -10,17 +10,22 @@ import { useOverlay } from 'hooks/useOverlay';
 
 import styles from './Overlay.module.scss';
 
-export function Overlay(props: OverlayProps) {
+export function Overlay({
+  children,
+  description,
+  title,
+  calendar,
+}: OverlayProps) {
   const { handleGoogleCalendar, eventSaveCliente } = useOverlay();
 
   return (
     <div className={styles.overlay}>
       <div className={styles.containerOverlay}>
-        {props.children}
-        <h1>{props.title}</h1>
-        <p>{props.description}</p>
+        {children}
+        <h1>{title}</h1>
+        <p>{description}</p>
 
-        {props.calendar && (
+        {calendar && (
           <>
             {isAndroid && (
               <SocialButton
@@ -67,7 +72,6 @@ export function Overlay(props: OverlayProps) {
         )}
 
         <Button
-          type="button"
           onClick={() => {
             window.location.replace('/');
           }}

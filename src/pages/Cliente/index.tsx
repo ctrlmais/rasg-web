@@ -17,11 +17,11 @@ import styles from './Cliente.module.scss';
 
 export function Cliente() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { storagedUser } = useAuth();
   const { barbeiros, horariosAgendados, setSelectHours, selectDay, loading } =
     useUser();
   const { nextDay, previousDay, handleClickBarbeiro } = useCliente();
-  const username = user?.user_metadata.name;
+  const username = storagedUser.nmUsuario;
 
   return (
     <>
@@ -50,11 +50,11 @@ export function Cliente() {
         <div className={styles.containerHorarios}>
           {horariosAgendados.map((horario) => (
             <CardCliente
-              key={horario.id}
+              key={horario.gerenciador.cdUsuario}
               cliente={horario}
               onClick={() => {
-                setSelectHours(horario.hour);
-                navigate(`ticket/${horario.client_id}`);
+                setSelectHours(format(new Date(horario.dtInicio), 'HH:mm:ss'));
+                navigate(`ticket/${horario.cdAgendamento}`);
               }}
             />
           ))}
@@ -82,13 +82,12 @@ export function Cliente() {
           <div className={styles.containerList}>
             {barbeiros.map((barbeiro) => (
               <CardBarbeiro
-                key={barbeiro.id}
+                key={barbeiro.cdUsuario}
                 barbeiro={barbeiro}
                 onClick={() => {
                   handleClickBarbeiro(barbeiro);
                 }}
                 hover
-                disabled={barbeiro.schedules === null}
               />
             ))}
           </div>

@@ -1,7 +1,8 @@
 import { FiLock } from 'react-icons/fi';
+import { useSearchParams } from 'react-router-dom';
 
-import logoDark from 'assets/Logo_dark.png';
-import logo from 'assets/Logo.png';
+import logoDark from 'assets/rasg_dark.png';
+import logo from 'assets/rasg.png';
 import salaoImage from 'assets/salao.png';
 
 import { Button } from 'components/Button';
@@ -16,6 +17,15 @@ import styles from './ResetPassword.module.scss';
 export function ResetPassword() {
   const { theme } = useTheme();
   const { formikResetPassword } = useForgetPassword();
+  const [searchParams] = useSearchParams();
+
+  const token = searchParams.get('token');
+
+  localStorage.setItem('@rasg:tokenReset', token || '');
+
+  if (!token) {
+    window.location.href = '/';
+  }
 
   return (
     <div className={styles.home} data-theme={theme}>

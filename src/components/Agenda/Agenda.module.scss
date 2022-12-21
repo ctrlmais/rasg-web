@@ -1,9 +1,8 @@
 .wrapper {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  height: 44vh;
+  height: 50vh;
 
   h2 {
     display: flex;
@@ -25,8 +24,32 @@
 .containerButton {
   display: flex;
   flex-direction: column;
-  height: 18rem;
+  height: 25rem;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.copyClipboard {
+  display: flex;
+  align-items: center;
   justify-content: space-around;
+  background: var(--shape);
+  color: var(--white);
+  width: 300px;
+  height: 56px;
+  border: none;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  gap: 32px;
+
+  &:hover {
+    filter: brightness(0.6);
+    transition: 0.4s;
+  }
 }
 
 .cancel {
@@ -47,5 +70,50 @@
     color: #000;
     font-size: 16px;
     text-decoration: none;
+  }
+}
+
+@media screen and (min-width: 839px) {
+  .copyClipboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--shape);
+    color: var(--white);
+    width: 340px;
+    height: 56px;
+    border: none;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    gap: 32px;
+
+    &:hover {
+      filter: brightness(0.6);
+      transition: 0.4s;
+    }
+  }
+
+  .cancel {
+    display: flex;
+    background-color: #ca0b00;
+    width: 340px;
+    height: 56px;
+    border: none;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+
+    a {
+      color: #000;
+      font-size: 16px;
+      text-decoration: none;
+    }
   }
 }

@@ -1,76 +1,122 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { usePWAInstall } from 'react-use-pwa-install';
 
-import { format } from 'date-fns';
-import Cookies from 'js-cookie';
+import { addMinutes, format } from 'date-fns';
 import Swal from 'sweetalert2';
+import { UserContextProps } from 'types/ContextProps';
 import {
-  ClienteMetadata,
-  UserContextProps,
-  UserMetadata,
-} from 'types/IContext';
+  Content,
+  Gerenciador,
+  SituacaoAgendamento,
+  SituacaoServico,
+} from 'types/ServicesProps';
 
 import { useAuth } from 'hooks/useAuth';
+import { usePerfil } from 'hooks/usePerfil';
 
-import { getBarbeiros } from 'services/get/barbeiros';
-import { getClientes, getClientesHour } from 'services/get/clientes';
-import { getHorarioMarcadoCliente } from 'services/get/horarioMarcado';
-import { shedule } from 'services/post/schedule';
+import {
+  getJourneyTypesAWS,
+  getAllBarberAWS,
+  getsShedulingSituationsAWS,
+  getsShedulesByIdAWS,
+  getsShedulesByDateAWS,
+} from 'services/get';
+import { getClientes } from 'services/get/clientes';
+import { postScheduleAWS, postSignOutAWS } from 'services/post';
+
+import { useToast } from './Toast';
 
 const User = createContext({} as UserContextProps);
 
 export function UserProvider({ children }: any) {
-  const install = usePWAInstall();
+  const { toast } = useToast();
   const navigate = useNavigate();
 
   const { pathname } = window.location;
 
-  const { user, isCliente, isBarbeiro } = useAuth();
-  const [barbeiro, setBarbeiro] = useState<UserMetadata>();
-  const [barbeiros, setBarbeiros] = useState<UserMetadata[]>([]);
-  const [clientes, setClientes] = useState<ClienteMetadata[]>([]);
-  const [horariosAgendados, setHorariosAgendados] = useState<ClienteMetadata[]>(
-    [],
-  );
+  const { isCliente, isBarbeiro } = usePerfil();
+
+  const { storagedUser, storagedHorarios } = useAuth();
+
+  const [barbeiro, setBarbeiro] = useState<Gerenciador>();
+  const [barbeiros, setBarbeiros] = useState<Gerenciador[]>([]);
+  const [clientes, setClientes] = useState<Content[]>([]);
+  const [horariosAgendados, setHorariosAgendados] = useState<Content[]>([]);
+  const [situacaoAgendamento, setSituacaoAgendamento] =
+    useState<SituacaoAgendamento>();
+  const [situacaoServico, setSituacaoServico] = useState<any>();
+
   const [selectDay, setSelectDay] = useState(new Date());
   const [selectHours, setSelectHours] = useState<string>('');
   const [status, setStatus] = useState<string>('');
-  const [installPwa, setInstallPwa] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const clientId = user?.id;
-  const barberId = barbeiro?.id;
+  const clientId = storagedUser?.cdUsuario;
+  const barberId = barbeiro?.cdUsuario;
+
+  const situation = storagedUser?.situacaoUsuario?.deSituacaoUsuario;
+  const authority = storagedUser?.tipoUsuario?.authority;
+  const emailUser = storagedUser?.nmEmail;
 
   const selectDayFormatted = format(selectDay, 'yyyy-MM-dd');
   const atualDayFormatted = format(new Date(), 'yyyy-MM-dd');
+  const atualHourFormatted = format(new Date(), 'HH:mm:ss');
   const selectDayFormattedBR = format(selectDay, 'dd/MM/yyyy');
   const dateFormattedCalendar = format(selectDay, 'yyyyMMdd');
   const hourFormattedCalendar = selectHours.replace(':', '');
   const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
   const startDate = dateFormattedCalendar + 'T' + hourFormattedCalendar;
   const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
-
-  function verificaLoginGoogleEOcupacao() {
-    return (
-      user?.app_metadata.provider === 'google' && !user.user_metadata.ocupacao
-    );
-  }
+  const dataEHora = new Date(selectDayFormatted + ' ' + selectHours);
+  const selectHoursFormatted = addMinutes(new Date(dataEHora), 60);
+  const selectHoursFinish = format(selectHoursFormatted, 'HH:mm:ss');
 
   function verificaOcupacao(ocupacao: string) {
-    if (user?.user_metadata.ocupacao === ocupacao) {
-      return 'cliente';
+    if (authority === ocupacao) {
+      return 'CLIENTE';
     }
-    if (user?.user_metadata.ocupacao === ocupacao) {
-      return 'barbeiro';
+    if (authority === ocupacao) {
+      return 'GERENCIADOR';
+    }
+    if (authority === ocupacao) {
+      return 'ADMINISTRADOR';
+    }
+  }
+
+  function verificaHorario(horario: string) {
+    const horarioInicio = new Date(selectDayFormatted + ' ' + horario);
+    const horarioInicioMais60Minutos = addMinutes(horarioInicio, 60);
+    const horarioInicioFormatted = format(
+      horarioInicioMais60Minutos,
+      'HH:mm:ss',
+    );
+
+    if (
+      horarioInicioFormatted >= '08:00:00' &&
+      horarioInicioFormatted <= '12:00:00'
+    ) {
+      return 'MANHÃ';
+    }
+    if (
+      horarioInicioFormatted >= '13:00:00' &&
+      horarioInicioFormatted <= '17:00:00'
+    ) {
+      return 'TARDE';
+    }
+    if (
+      horarioInicioFormatted >= '18:00:00' &&
+      horarioInicioFormatted <= '22:00:00'
+    ) {
+      return 'NOITE';
     }
   }
 
   function getClientesMorning() {
-    const clientesMorning = clientes.filter((cliente: ClienteMetadata) => {
-      const shift = cliente.shift;
+    const clientesMorning = clientes.filter((cliente) => {
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+      const shift = verificaHorario(horarioInicio);
 
-      if (shift === 'morning') {
+      if (shift === 'MANHÃ') {
         return cliente;
       }
 
@@ -81,10 +127,11 @@ export function UserProvider({ children }: any) {
   }
 
   function getClientesAfternoon() {
-    const clientesAfternoon = clientes.filter((cliente: ClienteMetadata) => {
-      const shift = cliente.shift;
+    const clientesAfternoon = clientes.filter((cliente) => {
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+      const shift = verificaHorario(horarioInicio);
 
-      if (shift === 'afternoon') {
+      if (shift === 'TARDE') {
         return cliente;
       }
 
@@ -95,10 +142,11 @@ export function UserProvider({ children }: any) {
   }
 
   function getClientesNight() {
-    const clientesNight = clientes.filter((cliente: ClienteMetadata) => {
-      const shift = cliente.shift;
+    const clientesNight = clientes.filter((cliente) => {
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+      const shift = verificaHorario(horarioInicio);
 
-      if (shift === 'night') {
+      if (shift === 'NOITE') {
         return cliente;
       }
 
@@ -113,27 +161,33 @@ export function UserProvider({ children }: any) {
     const clientesAfternoon = getClientesAfternoon();
     const clientesNight = getClientesNight();
 
-    if (!clientesMorning || !clientesAfternoon || !clientesNight) return;
-
-    if (clientesMorning.length > 0) {
+    if (clientesMorning?.length > 0) {
       return clientesMorning[0];
     }
 
-    if (clientesAfternoon.length > 0) {
+    if (clientesAfternoon?.length > 0) {
       return clientesAfternoon[0];
     }
 
-    if (clientesNight.length > 0) {
+    if (clientesNight?.length > 0) {
       return clientesNight[0];
     }
 
-    return null;
+    return {
+      ...clientesMorning[0],
+      ...clientesAfternoon[0],
+      ...clientesNight[0],
+    };
   }
 
   function getHorariosMarcados() {
     if (!clientes) return [];
 
-    const horariosMarcados = clientes.map((cliente) => cliente.hour);
+    const horariosMarcados = clientes.map((cliente) => {
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+
+      return horarioInicio;
+    });
 
     return horariosMarcados;
   }
@@ -167,9 +221,7 @@ export function UserProvider({ children }: any) {
   }
 
   function verificaHorarioDeTrabalho() {
-    const horarioDeTrabalho = user?.user_metadata.schedules;
-
-    if (horarioDeTrabalho) {
+    if (storagedHorarios && storagedHorarios.length > 0) {
       return true;
     }
 
@@ -177,7 +229,7 @@ export function UserProvider({ children }: any) {
   }
 
   function verificaTelefone() {
-    const telefone = user?.user_metadata.phone;
+    const telefone = storagedUser?.nmTelefone;
 
     if (telefone) {
       return true;
@@ -198,88 +250,81 @@ export function UserProvider({ children }: any) {
   }
 
   async function buscarBarbeiros() {
-    setLoading(true);
-    const { data, error, status } = await getBarbeiros();
+    try {
+      setLoading(true);
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
-      }
-    }
+      const { data } = await getAllBarberAWS();
 
-    if (!data) {
+      if (!data) return setLoading(false);
+
+      setBarbeiros(data.content);
+
       setLoading(false);
-      return;
-    }
-
-    if (data[0].j === null) {
+    } catch (error) {
+      toast.error('Erro ao buscar barbeiros', { id: 'toast' });
       setLoading(false);
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    setBarbeiros(data[0].j);
-    setLoading(false);
   }
 
   async function buscaClientesHorario(hour: string) {
-    if (!clientId) return;
+    if (!clientId === undefined) return;
 
     if (isBarbeiro) {
-      const { data, error, status } = await getClientesHour(
-        clientId,
-        selectDayFormatted,
-        hour,
-      );
+      try {
+        const { data } = await getsShedulesByDateAWS(
+          `${selectDayFormatted} ${hour}:00`,
+          `${selectDayFormatted} 23:59:59`,
+          Number(clientId),
+        );
 
-      if (error) {
-        switch (status) {
-          default:
-            return;
-        }
+        if (!data) return;
+
+        setClientes(data.content);
+      } catch (error) {
+        toast.error('Erro ao buscar clientes', { id: 'toast' });
       }
-
-      if (!data) return;
-
-      if (data[0].j === null) {
-        setClientes([]);
-        return;
-      }
-
-      setClientes(data[0].j);
     }
   }
 
   async function buscarClientes() {
-    if (!clientId) return;
+    if (!clientId === undefined) return;
     if (selectDayFormatted < atualDayFormatted) return;
 
     if (isBarbeiro) {
-      const { data, error, status } = await getClientes(
-        clientId,
-        selectDayFormatted,
-      );
+      try {
+        if (selectDayFormatted === atualDayFormatted) {
+          const { data } = await getsShedulesByDateAWS(
+            `${selectDayFormatted} ${atualHourFormatted}`,
+            `${selectDayFormatted} 23:59:59`,
+            Number(clientId),
+          );
 
-      if (error) {
-        switch (status) {
-          default:
-            return;
+          if (!data.content) return;
+
+          setClientes(data.content);
         }
+
+        if (selectDayFormatted > atualDayFormatted) {
+          const { data } = await getsShedulesByDateAWS(
+            `${selectDayFormatted} 00:00:00`,
+            `${selectDayFormatted} 23:59:59`,
+            Number(clientId),
+          );
+
+          if (!data.content) return;
+
+          setClientes(data.content);
+        }
+      } catch (error) {
+        toast.error('Erro ao buscar clientes', { id: 'toast' });
       }
-
-      if (!data) return;
-
-      if (data[0].j === null) {
-        setClientes([]);
-        return;
-      }
-
-      setClientes(data[0].j);
     }
 
     if (isCliente && barberId) {
       const { data, error, status } = await getClientes(
-        barberId || '',
+        Number(barberId),
         selectDayFormatted,
       );
 
@@ -302,52 +347,110 @@ export function UserProvider({ children }: any) {
   }
 
   async function postShedule() {
-    if (!clientId) return;
-    if (!barberId) return;
     if (!barbeiro) return;
+    if (!storagedUser) return;
+    if (!situacaoAgendamento) return;
 
-    const { error, status } = await shedule(
-      clientId,
-      barbeiro,
-      selectDayFormatted,
-      selectHours,
-    );
+    const newValues = {
+      nmAgendamento: `${storagedUser.nmUsuario} - ${barbeiro.nmUsuario} - ${selectDayFormatted} ${selectHours}:00`,
+      deAgendamento: `APROVADO DIA ${selectDayFormatted} AS ${selectHours}`,
+      dtInicio: `${selectDayFormatted} ${selectHours}:00`,
+      dtTermino: `${selectDayFormatted} ${selectHoursFinish}`,
+      situacaoAgendamento: situacaoAgendamento as SituacaoAgendamento,
+      servico: {
+        cdServico: 0,
+        tmServico: '01:00:00',
+        nmServico: 'CORTE MANDRAQUE',
+        deServico: 'SELOKO TIO< CORTA COM NOIS AEW',
+        situacaoServico: situacaoServico as SituacaoServico,
+        tipoServico: {
+          cdTipoServico: 0,
+          deTipoServico: 'CORTE DE CABELO',
+          sgTipoServico: 'CDC',
+          dtCadastro: '2022-01-01 12:00:00',
+        },
+        gerenciador: barbeiro,
+        dtCadastro: `${selectDayFormatted} ${selectHours}:00`,
+        dtAtualizacao: '',
+        cdUsuarioCadastro: Number(barbeiro.cdUsuario),
+        cdUsuarioAtualizacao: Number(barbeiro.cdUsuario),
+      },
+      cliente: storagedUser,
+      gerenciador: barbeiro,
+      dtCadastro: `${selectDayFormatted} ${selectHours}:00`,
+      cdUsuarioCadastro: Number(storagedUser.cdUsuario),
+      cdUsuarioAtualizacao: Number(storagedUser.cdUsuario),
+    };
 
-    if (error) {
-      setStatus('error');
-      switch (status) {
-        default:
-          return;
+    try {
+      const { status } = await postScheduleAWS(newValues);
+
+      if (status === 200) {
+        toast.success('Agendamento realizado com sucesso', { id: 'toast' });
+        setStatus('success');
       }
+    } catch (error) {
+      toast.error('Erro ao realizar agendamento', { id: 'toast' });
+      setStatus('error');
     }
-
-    setStatus('success');
   }
 
   async function buscarAgendamentosData(diaSelecionado: string) {
-    if (!clientId) return;
+    if (!clientId === undefined) return;
 
-    const { data, error, status } = await getHorarioMarcadoCliente(
-      clientId,
-      diaSelecionado,
-    );
+    try {
+      const { data } = await getsShedulesByIdAWS(
+        `${diaSelecionado} 00:00:00`,
+        `${diaSelecionado} 23:59:59`,
+        Number(clientId),
+      );
 
-    if (error) {
-      switch (status) {
-        default:
-          return;
+      if (!data.content) return;
+
+      setHorariosAgendados(data.content);
+    } catch (error) {
+      toast.error('Erro ao buscar agendamentos', { id: 'toast' });
+    }
+  }
+
+  useEffect(() => {
+    async function getSituacaoAgendamento() {
+      try {
+        setLoading(true);
+        const { data } = await getJourneyTypesAWS();
+
+        if (!data) return;
+
+        setSituacaoServico(data[0]);
+        setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao buscar situação agendamento', { id: 'toast' });
+        setLoading(false);
+      } finally {
+        setLoading(false);
       }
     }
 
-    if (!data) return;
+    async function getSituacaoServico() {
+      try {
+        setLoading(true);
+        const { data } = await getsShedulingSituationsAWS();
 
-    if (data[0].j === null) {
-      setHorariosAgendados([]);
-      return;
+        if (!data) return;
+
+        setSituacaoAgendamento(data[0]);
+        setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao buscar situação agendamento', { id: 'toast' });
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    setHorariosAgendados(data[0].j);
-  }
+    getSituacaoAgendamento();
+    getSituacaoServico();
+  }, []);
 
   useEffect(() => {
     if (isCliente) {
@@ -359,26 +462,19 @@ export function UserProvider({ children }: any) {
     async function buscarAgendamentos() {
       if (!clientId) return;
 
-      const { data, error, status } = await getHorarioMarcadoCliente(
-        clientId,
-        atualDayFormatted,
-      );
+      try {
+        const { data } = await getsShedulesByIdAWS(
+          `${atualDayFormatted} 00:00:00`,
+          `${atualDayFormatted} 23:59:59`,
+          Number(clientId),
+        );
 
-      if (error) {
-        switch (status) {
-          default:
-            return;
-        }
+        if (!data.content) return;
+
+        setHorariosAgendados(data.content);
+      } catch (error) {
+        toast.error('Erro ao buscar agendamentos', { id: 'toast' });
       }
-
-      if (!data) return;
-
-      if (data[0].j === null) {
-        setHorariosAgendados([]);
-        return;
-      }
-
-      setHorariosAgendados(data[0].j);
     }
 
     if (isCliente) {
@@ -401,37 +497,29 @@ export function UserProvider({ children }: any) {
   }, [barbeiro]);
 
   useEffect(() => {
-    const pwaCookie = Cookies.get('installPwa');
+    const expires = localStorage.getItem('@rasg:expires');
 
-    if ((isBarbeiro || isCliente) && pwaCookie !== 'true') {
-      Swal.fire({
-        title: 'Novidade no ar!',
-        text: 'Agora é possivel instalar o app no seu celular! Clique no botão abaixo para instalar e ele irá adicionar o app ao seu celular.',
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonColor: '#ff9000',
-        cancelButtonColor: '#CA0B00',
-        background: '#312e38',
-        color: '#f4ede8',
-        confirmButtonText: 'Instalar',
-        cancelButtonText: 'Cancelar',
-        html: ``,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setInstallPwa(true);
-        }
-      });
+    if (expires) {
+      const expiresDate = new Date(expires);
+      const now = new Date();
+
+      if (expiresDate < now) {
+        postSignOutAWS();
+
+        Swal.fire({
+          title: 'Sessão expirada',
+          text: 'Faça login novamente',
+          icon: 'warning',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#ff9000',
+          background: '#312e38',
+          color: '#f4ede8',
+        }).then(() => {
+          navigate('/');
+        });
+      }
     }
   }, []);
-
-  useEffect(() => {
-    const pwaCookie = Cookies.get('installPwa');
-
-    if (installPwa === true && pwaCookie !== 'true') {
-      install();
-      Cookies.set('installPwa', 'true', { expires: 1 });
-    }
-  }, [installPwa]);
 
   return (
     <User.Provider
@@ -454,7 +542,6 @@ export function UserProvider({ children }: any) {
         buscarClientes,
         selectDayFormatted,
         atualDayFormatted,
-        verificaLoginGoogleEOcupacao,
         verificaOcupacao,
         getClientesMorning,
         getClientesAfternoon,
@@ -475,6 +562,9 @@ export function UserProvider({ children }: any) {
         verificaHorarioDeTrabalho,
         verificaTelefone,
         loading,
+        emailUser,
+        situation,
+        verificaHorario,
       }}
     >
       {children}

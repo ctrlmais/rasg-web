@@ -1,7 +1,7 @@
 import { Ring } from '@uiball/loaders';
-import { ClienteMetadata } from 'types/IContext';
+// import { Content } from 'types/ServicesProps';
 
-import { Alert } from 'components/Alert';
+// import { Alert } from 'components/Alert';
 import { Button } from 'components/Button';
 import ComponentToPrint from 'components/ComponentToPrint';
 import { Header } from 'components/Header';
@@ -21,22 +21,22 @@ export function MyTicket() {
     componentToPrintRef,
     handleClickPrint,
     cancelarAgendamento,
-    verificaHorarioCancelamento,
+    // verificaHorarioCancelamento,
   } = useTicket();
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header back />
+      <Header logo path="/history" />
 
       <div className={styles.container}>
-        {verificaHorarioCancelamento(cliente as ClienteMetadata) && (
+        {/* {verificaHorarioCancelamento(cliente as Content) && (
           <div className={styles.containerAlert}>
             <Alert
               title="Você só pode cancelar o agendamento 30 minutos antes do seu horário"
               warning
             />
           </div>
-        )}
+        )} */}
         <h2>Apresente esse ticket para o seu barbeiro</h2>
         {loading ? (
           <Ring speed={2} lineWeight={5} color="#ff9000" size={64} />
@@ -56,16 +56,13 @@ export function MyTicket() {
           </Button>
           <Button
             type="button"
-            disabled={
-              verificaHorarioCancelamento(cliente as ClienteMetadata) ||
-              cliente?.validate === true
-            }
+            // disabled={verificaHorarioCancelamento(cliente as Content)}
             style={{
               backgroundColor: '#CA0B00',
               color: '#FFF',
             }}
             onClick={() => {
-              cancelarAgendamento(cliente?.id || '');
+              cancelarAgendamento(Number(cliente?.cdAgendamento));
             }}
           >
             Cancelar agendamento

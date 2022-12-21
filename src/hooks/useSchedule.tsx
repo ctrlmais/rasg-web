@@ -1,50 +1,77 @@
 import { useEffect, useState } from 'react';
 
-import { Schedule } from 'types/IContext';
+import { horariosManha, horariosNoite, horariosTarde } from 'database/horarios';
+import { format, subMinutes } from 'date-fns';
+import { GetJornadaUsuario } from 'types/ServicesProps';
 
-import { horariosManha, horariosNoite, horariosTarde } from 'utils/horarios';
+import { formatHours } from 'utils/formatHours';
 
+import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
+import { getsShedulesByDateAWS, getJourneyByIdAWS } from 'services/get';
+
 export function useSchedule() {
-  const {
-    barbeiro,
-    setSelectDay,
-    setSelectHours,
-    selectDayFormatted,
-    isHorarioMarcado,
-    isDataEHorarioPassado,
-  } = useUser();
+  const { toast } = useToast();
+  const { barbeiro, setSelectDay, setSelectHours, selectDay } = useUser();
+
+  const [schedules, setSchedules] = useState<GetJornadaUsuario[]>([]);
   const [weekDay, setWeekDay] = useState<string>(String(new Date().getDay()));
+
+  const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] =
+    useState(schedules[0]?.hrInicio || '00:00');
+  const [horarioFinalBarbeiroSchedule, setHorarioFinalBarbeiroSchedule] =
+    useState(schedules[0]?.hrFim || '00:00');
+
+  const [horariosMarcados, setHorariosMarcados] = useState<string[]>([]);
+
+  const selectDayFormatted = format(new Date(selectDay), 'yyyy-MM-dd');
+  const horarioAtual = format(new Date(), 'HH:mm:ss');
 
   if (!barbeiro) window.location.assign('/');
 
-  const schedules: Schedule[] = JSON.parse(barbeiro?.schedules || '[]');
+  function desabilitaHorarioIntervalo(horario: string) {
+    const horarioInicioIntervalo = schedules.find(
+      (schedule) => schedule.cdDiaSemana === Number(weekDay),
+    )?.hrInicioIntervalo;
 
-  const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] =
-    useState(JSON.parse(barbeiro?.schedules)[weekDay]?.from);
-  const [horarioFinalBarbeiroSchedule, setHorarioFinalBarbeiroSchedule] =
-    useState(JSON.parse(barbeiro?.schedules)[weekDay]?.to);
+    const horarioFimIntervalo = schedules.find(
+      (schedule) => schedule.cdDiaSemana === Number(weekDay),
+    )?.hrFimIntervalo;
 
-  function getHorarioAtual(week_day: string) {
-    const horario = [] as string[];
-    schedules?.map((schedule) => {
-      if (schedule.week_day === week_day) {
-        horario.push(schedule.from + ' às ' + schedule.to);
+    if (horarioInicioIntervalo && horarioFimIntervalo) {
+      if (
+        horario >= formatHours(horarioInicioIntervalo) &&
+        horario <= formatHours(horarioFimIntervalo)
+      ) {
+        return true;
       }
-    });
-    return horario;
+    }
+
+    return false;
   }
 
-  function salvarWeekDays(schedules: Schedule[]) {
+  function getHorarioAtual(cdDiaSemana: string) {
+    const horarios = [] as string[];
+    schedules?.map((schedule) => {
+      if (String(schedule.cdDiaSemana) === cdDiaSemana) {
+        horarios.push(
+          formatHours(schedule.hrInicio) + ' às ' + formatHours(schedule.hrFim),
+        );
+      }
+    });
+    return horarios;
+  }
+
+  function salvarWeekDays(schedules: GetJornadaUsuario[]) {
     const weekDays = [] as number[];
     schedules?.map((schedule) => {
-      weekDays.push(Number(schedule.week_day));
+      weekDays.push(Number(schedule.cdDiaSemana));
     });
     return weekDays;
   }
 
-  const diasDaSemanaBarbeiro = salvarWeekDays(JSON.parse(barbeiro?.schedules));
+  const diasDaSemanaBarbeiro = salvarWeekDays(schedules);
 
   function verificarNumerosFaltantes(weekDays: number[]) {
     const numerosFaltantes = [] as number[];
@@ -58,48 +85,20 @@ export function useSchedule() {
 
   const numerosFaltantes = verificarNumerosFaltantes(diasDaSemanaBarbeiro);
 
-  function desabilitarHorariosAnteriores(
-    horarioInicialBarbeiroSchedule: string,
-  ) {
-    const horariosAnteriores = [] as string[];
-    horariosManha.map((horario) => {
-      if (horario < horarioInicialBarbeiroSchedule) {
-        horariosAnteriores.push(horario);
+  function disabledHours(horario: string) {
+    if (selectDayFormatted === format(new Date(), 'yyyy-MM-dd')) {
+      if (horarioAtual >= horario) {
+        return true;
       }
-    });
-    horariosTarde.map((horario) => {
-      if (horario < horarioInicialBarbeiroSchedule) {
-        horariosAnteriores.push(horario);
-      }
-    });
-    horariosNoite.map((horario) => {
-      if (horario < horarioInicialBarbeiroSchedule) {
-        horariosAnteriores.push(horario);
-      }
-    });
-    return horariosAnteriores;
+    }
+    return false;
   }
 
-  function desabilitarHorariosPosteriores(
-    horarioFinalBarbeiroSchedule: string,
-  ) {
-    const horariosPosteriores = [] as string[];
-    horariosManha.map((horario) => {
-      if (horario > horarioFinalBarbeiroSchedule) {
-        horariosPosteriores.push(horario);
-      }
-    });
-    horariosTarde.map((horario) => {
-      if (horario > horarioFinalBarbeiroSchedule) {
-        horariosPosteriores.push(horario);
-      }
-    });
-    horariosNoite.map((horario) => {
-      if (horario > horarioFinalBarbeiroSchedule) {
-        horariosPosteriores.push(horario);
-      }
-    });
-    return horariosPosteriores;
+  function disabledHorariosMarcados(horario: string) {
+    if (horariosMarcados.includes(horario)) {
+      return true;
+    }
+    return false;
   }
 
   function handleSelectDay(day: Date) {
@@ -110,50 +109,138 @@ export function useSchedule() {
     setSelectDay(day);
   }
 
-  function disableSchedule(horario: string): boolean {
+  function disableSchedules(horario: string): boolean {
     return (
-      isHorarioMarcado(horario) ||
-      isDataEHorarioPassado(selectDayFormatted, horario) ||
-      desabilitarHorariosAnteriores(horarioInicialBarbeiroSchedule).includes(
-        horario,
-      ) ||
-      desabilitarHorariosPosteriores(horarioFinalBarbeiroSchedule).includes(
-        horario,
-      )
+      disabledHours(horario) ||
+      desabilitaHorarioIntervalo(horario) ||
+      disabledHorariosMarcados(horario)
     );
   }
 
+  function getHorariosManhaBarbeiro() {
+    const horariosManhaBarbeiro = [] as string[];
+
+    horariosManha.map((horario) => {
+      if (
+        horario >= formatHours(horarioInicialBarbeiroSchedule) &&
+        horario <= formatHours(horarioFinalBarbeiroSchedule)
+      ) {
+        horariosManhaBarbeiro.push(horario);
+      }
+    });
+
+    return horariosManhaBarbeiro;
+  }
+
+  function getHorariosTardeBarbeiro() {
+    const horariosTardeBarbeiro = [] as string[];
+
+    horariosTarde.map((horario) => {
+      if (
+        horario >= formatHours(horarioInicialBarbeiroSchedule) &&
+        horario <= formatHours(horarioFinalBarbeiroSchedule)
+      ) {
+        horariosTardeBarbeiro.push(horario);
+      }
+    });
+
+    return horariosTardeBarbeiro;
+  }
+
+  function getHorariosNoiteBarbeiro() {
+    const horariosNoiteBarbeiro = [] as string[];
+
+    horariosNoite.map((horario) => {
+      if (
+        horario >= formatHours(horarioInicialBarbeiroSchedule) &&
+        horario <= formatHours(horarioFinalBarbeiroSchedule)
+      ) {
+        horariosNoiteBarbeiro.push(horario);
+      }
+    });
+
+    return horariosNoiteBarbeiro;
+  }
+
+  useEffect(() => {
+    async function getHorariosBarbeiro() {
+      try {
+        const { data } = await getsShedulesByDateAWS(
+          `${selectDayFormatted} 00:00:00`,
+          `${selectDayFormatted} 23:59:59`,
+          Number(barbeiro?.cdUsuario),
+        );
+
+        const horariosMarcados = [] as string[];
+
+        data.content.map((agendamento) => {
+          const horarioInicial = new Date(agendamento.dtInicio);
+          const horarioInicialFormatado = format(horarioInicial, 'HH:mm');
+          const horarioInicialMenos30 = subMinutes(horarioInicial, 30);
+          const horarioDoMeio = format(horarioInicialMenos30, 'HH:mm');
+
+          const horarioFinal = new Date(agendamento.dtTermino);
+          const horarioFinalMenos30 = subMinutes(horarioFinal, 30);
+          const horarioFinalFormatado = format(horarioFinalMenos30, 'HH:mm');
+
+          horariosMarcados.push(horarioInicialFormatado);
+          horariosMarcados.push(horarioDoMeio);
+          horariosMarcados.push(horarioFinalFormatado);
+        });
+
+        setHorariosMarcados(horariosMarcados);
+      } catch (error) {
+        toast.error('Erro ao buscar horários marcados');
+      }
+    }
+
+    getHorariosBarbeiro();
+  }, [weekDay]);
+
+  useEffect(() => {
+    async function getDiasTrabalho() {
+      try {
+        const { data } = await getJourneyByIdAWS(Number(barbeiro?.cdUsuario));
+
+        setSchedules(data);
+      } catch (error) {
+        toast.error('Erro ao buscar horários do barbeiro');
+      }
+    }
+
+    getDiasTrabalho();
+  }, []);
+
   useEffect(() => {
     function getSchedule(weekDay: string) {
-      const schedule = [] as Schedule[];
-      const schedules = JSON.parse(barbeiro?.schedules || '[]');
-      schedules.map((scheduleItem: Schedule) => {
-        if (scheduleItem.week_day === weekDay) {
-          schedule.push(scheduleItem);
-        }
-      });
+      const schedule = schedules.find(
+        (schedule) => schedule.cdDiaSemana === Number(weekDay),
+      );
+
+      if (schedule) {
+        setHorarioInicialBarbeiroSchedule(schedule.hrInicio);
+        setHorarioFinalBarbeiroSchedule(schedule.hrFim);
+      }
+
       return schedule;
     }
 
-    setHorarioInicialBarbeiroSchedule(
-      getSchedule(weekDay || '0').map((schedule) => schedule.from),
-    );
-    setHorarioFinalBarbeiroSchedule(
-      getSchedule(weekDay || '0').map((schedule) => schedule.to),
-    );
-  }, [weekDay]);
+    getSchedule(weekDay);
+  }, [weekDay, schedules]);
 
   return {
     setHorarioInicialBarbeiroSchedule,
     setHorarioFinalBarbeiroSchedule,
     getHorarioAtual,
     numerosFaltantes,
-    desabilitarHorariosAnteriores,
-    desabilitarHorariosPosteriores,
     horarioInicialBarbeiroSchedule,
     horarioFinalBarbeiroSchedule,
+    weekDay,
     setWeekDay,
     handleSelectDay,
-    disableSchedule,
+    disableSchedules,
+    getHorariosManhaBarbeiro,
+    getHorariosTardeBarbeiro,
+    getHorariosNoiteBarbeiro,
   };
 }
