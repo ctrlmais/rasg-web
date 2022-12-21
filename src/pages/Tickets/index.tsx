@@ -35,6 +35,10 @@ export function Tickets() {
                         enable
                         key={ticket.cdAgendamento}
                         cliente={ticket}
+                        execute={
+                          ticket.situacaoAgendamento.deSituacaoAgendamento ===
+                          'EXECUTADO'
+                        }
                       />
                     </div>
                   ))

@@ -103,4 +103,5 @@ export interface SocialButtonProps
 export interface TicketProps {
   cliente?: Content;
   enable?: boolean;
+  execute?: boolean;
 }
