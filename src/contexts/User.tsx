@@ -21,7 +21,6 @@ import {
   getsShedulesByIdAWS,
   getsShedulesByDateAWS,
 } from 'services/get';
-import { getClientes } from 'services/get/clientes';
 import { postScheduleAWS, postSignOutAWS } from 'services/post';
 
 import { useToast } from './Toast';
@@ -297,7 +296,7 @@ export function UserProvider({ children }: any) {
         if (selectDayFormatted === atualDayFormatted) {
           const { data } = await getsShedulesByDateAWS(
             `${selectDayFormatted} ${atualHourFormatted}`,
-            `${selectDayFormatted} 23:59:59`,
+            `${selectDayFormatted} 23:00:00`,
             Number(clientId),
           );
 
@@ -323,26 +322,19 @@ export function UserProvider({ children }: any) {
     }
 
     if (isCliente && barberId) {
-      const { data, error, status } = await getClientes(
-        Number(barberId),
-        selectDayFormatted,
-      );
+      try {
+        const { data } = await getsShedulesByDateAWS(
+          `${selectDayFormatted} ${atualHourFormatted}`,
+          `${selectDayFormatted} 23:59:59`,
+          Number(clientId),
+        );
 
-      if (error) {
-        switch (status) {
-          default:
-            return;
-        }
+        if (!data.content) return;
+
+        setClientes(data.content);
+      } catch (error) {
+        toast.error('Erro ao buscar clientes', { id: 'toast' });
       }
-
-      if (!data) return;
-
-      if (data[0].j === null) {
-        setClientes([]);
-        return;
-      }
-
-      setClientes(data[0].j);
     }
   }
 
