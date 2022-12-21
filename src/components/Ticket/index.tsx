@@ -13,7 +13,7 @@ import { useToast } from 'contexts/Toast';
 
 import './Ticket.scss';
 
-export function Ticket({ cliente, enable }: TicketProps) {
+export function Ticket({ cliente, enable, execute }: TicketProps) {
   const { toast } = useToast();
 
   const [copied, setCopied] = useState(false);
@@ -91,6 +91,10 @@ export function Ticket({ cliente, enable }: TicketProps) {
                 </div>
               </div>
             </div>
+            {execute ? (
+              <div className="ticket-aviso">Ticket já utilizado</div>
+            ) : null}
+
             <div className="ticket-number-wrapper">
               <div className="ticket-number">
                 № {get8caracters(String(cliente?.cdAgendamento))}
