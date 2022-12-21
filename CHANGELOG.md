@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/ctrlmais/rasg-web/compare/v2.0.0...v2.0.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* services get cliente schedules page ([0d46fb7](https://github.com/ctrlmais/rasg-web/commit/0d46fb7a3661b8610836ab6c590099beb8280ce0))
+
 # [2.0.0](https://github.com/ctrlmais/rasg-web/compare/v1.26.0...v2.0.0) (2022-12-21)
 
 
