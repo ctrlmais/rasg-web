@@ -294,15 +294,29 @@ export function UserProvider({ children }: any) {
 
     if (isBarbeiro) {
       try {
-        const { data } = await getsShedulesByDateAWS(
-          `${selectDayFormatted} ${atualHourFormatted}`,
-          `${selectDayFormatted} 23:59:59`,
-          Number(clientId),
-        );
+        if (selectDayFormatted === atualDayFormatted) {
+          const { data } = await getsShedulesByDateAWS(
+            `${selectDayFormatted} ${atualHourFormatted}`,
+            `${selectDayFormatted} 23:59:59`,
+            Number(clientId),
+          );
 
-        if (!data.content) return;
+          if (!data.content) return;
 
-        setClientes(data.content);
+          setClientes(data.content);
+        }
+
+        if (selectDayFormatted > atualDayFormatted) {
+          const { data } = await getsShedulesByDateAWS(
+            `${selectDayFormatted} 00:00:00`,
+            `${selectDayFormatted} 23:59:59`,
+            Number(clientId),
+          );
+
+          if (!data.content) return;
+
+          setClientes(data.content);
+        }
       } catch (error) {
         toast.error('Erro ao buscar clientes', { id: 'toast' });
       }
