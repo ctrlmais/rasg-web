@@ -15,8 +15,6 @@ import { MainRoutes } from './routes';
 import 'react-day-picker/dist/style.css';
 import 'styles/global.scss';
 
-console.log('App.tsx');
-
 export function App() {
   const { waitingWorker, showReload, reloadPage } = useServiceWorker();
 
