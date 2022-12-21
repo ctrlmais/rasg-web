@@ -18,7 +18,7 @@ import styles from './Navbar.module.scss';
 export function Navbar({ children, back, logo, path }: NavBarProps) {
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const { isBarbeiro, isCliente } = usePerfil();
+  const { isBarbeiro, isCliente, isAdmin } = usePerfil();
 
   function verifyPath(pathname: string) {
     if (pathname === path) {
@@ -79,12 +79,12 @@ export function Navbar({ children, back, logo, path }: NavBarProps) {
             </div>
           )}
 
-          {isCliente && (
+          {(isCliente || isAdmin) && (
             <div className={styles.linkMenu}>
               <Link to="/tickets" className={styles.active}>
                 Tickets
               </Link>
-              {verifyPath('/tickets') && <div className={styles.statusbar} />}
+              {verifyPath('/ticket') && <div className={styles.statusbar} />}
             </div>
           )}
         </div>
