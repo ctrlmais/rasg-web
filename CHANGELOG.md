@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/ctrlmais/rasg-web/compare/v1.26.0...v2.0.0) (2022-12-21)
+
+
+### Features
+
+* update package.json libs ([e1bc7dd](https://github.com/ctrlmais/rasg-web/commit/e1bc7dd6582c1ef598fb81935484a142b20fefcb))
+
+
+### BREAKING CHANGES
+
+* Update libs
+
 # [1.26.0](https://github.com/ctrlmais/rasg-web/compare/v1.25.1...v1.26.0) (2022-12-21)
 
 
