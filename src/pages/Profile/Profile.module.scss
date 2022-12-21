@@ -37,6 +37,25 @@
   height: 28rem;
 }
 
+.linkShareContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.buttonShare {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--orange);
+
+  &:hover {
+    filter: brightness(0.8);
+    transition: 0.4s;
+  }
+}
 .badgeContainer {
   display: flex;
   margin-top: -2.4rem;
@@ -92,6 +111,13 @@
   }
 
   .passwordStrengthBar {
+    width: 100%;
+  }
+
+  .linkShareContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
   }
 }

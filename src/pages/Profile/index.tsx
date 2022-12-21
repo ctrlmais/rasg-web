@@ -1,6 +1,7 @@
-import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { FiLink, FiLock, FiMail, FiShare, FiUser } from 'react-icons/fi';
 import { SiWhatsapp } from 'react-icons/si';
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { RWebShare } from 'react-web-share';
 
 import { Ring } from '@uiball/loaders';
 
@@ -14,6 +15,8 @@ import { formatCellPhone } from 'utils/telefone';
 
 import { useTheme } from 'contexts/Theme';
 
+import { useCliente } from 'hooks/useCliente';
+import { usePerfil } from 'hooks/usePerfil';
 import { useProfile } from 'hooks/useProfile';
 
 import styles from './Profile.module.scss';
@@ -23,6 +26,12 @@ export function Profile() {
 
   const { formikProfile, loading, showNewPassword, showPassword } =
     useProfile();
+  const { userNameDefault } = useCliente();
+  const { isBarbeiro } = usePerfil();
+
+  const LINK_INDICACAO = `${window.location.origin}/p/${userNameDefault(
+    formikProfile.values.nome,
+  )}`;
 
   return (
     <div className={styles.home} data-theme={theme}>
@@ -47,7 +56,7 @@ export function Profile() {
           <div
             className={styles.inputContainer}
             style={{
-              height: showPassword ? '28rem' : '13rem',
+              height: showPassword ? '28rem' : '18rem',
             }}
           >
             <Input
@@ -88,6 +97,36 @@ export function Profile() {
             />
             {formikProfile.errors.phone && formikProfile.touched.phone && (
               <span className={styles.error}>{formikProfile.errors.phone}</span>
+            )}
+
+            {isBarbeiro && (
+              <div className={styles.linkShareContainer}>
+                <Input
+                  type="text"
+                  name="link"
+                  disabled
+                  placeholder="Seu link de indicação"
+                  onChange={formikProfile.handleChange}
+                  onBlur={formikProfile.handleBlur}
+                  value={LINK_INDICACAO}
+                  style={{ width: '320px' }}
+                  icon={<FiLink color="#666360" size={24} />}
+                />
+                <RWebShare
+                  data={{
+                    text: 'Compartilhe o seu link de indicação',
+                    url: LINK_INDICACAO,
+                    title: 'Venha cortar o cabelo comigo!',
+                  }}
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <div className={styles.buttonShare}>
+                    <FiShare size={24} />
+                  </div>
+                </RWebShare>
+              </div>
             )}
 
             {showPassword && (
