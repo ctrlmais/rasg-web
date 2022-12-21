@@ -8,7 +8,6 @@ import { MyTicket } from 'pages/MyTicket';
 import { NotFound } from 'pages/NotFound';
 import { Profile } from 'pages/Profile';
 import { ReportBug } from 'pages/ReportBug';
-import { ResetPassword } from 'pages/ResetPassword';
 import { Schedule } from 'pages/Schedule';
 import { Tickets } from 'pages/Tickets';
 import { Validate } from 'pages/Validate';
@@ -21,7 +20,6 @@ export function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/p/:id" element={<Schedule />} />
       <Route path="/ticket/:id" element={<MyTicket />} />
