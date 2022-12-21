@@ -3,9 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useToast } from 'contexts/Toast';
 
-import { validateSchedule } from 'services/post/validateSchedule';
-
-import { useAuth } from './useAuth';
+import { patchValidateAWS } from 'services/update';
 
 const FIVE_SECONDS = 5000;
 
@@ -13,27 +11,24 @@ export function useValidate() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { toast } = useToast();
-  const { user } = useAuth();
 
   const [idSchedule, setIdSchedule] = useState('');
   const [loading, setLoading] = useState(true);
 
   async function validarAgendamento() {
     setLoading(true);
-    const { error, status } = await validateSchedule(
-      (id as string) || idSchedule,
-      Number(user?.cdUsuario),
-      true,
-    );
 
-    if (error) {
-      toast.error(error.message, { id: 'toast' });
-      setLoading(false);
-      return;
-    }
+    try {
+      const { status } = await patchValidateAWS(
+        Number(id) || Number(idSchedule),
+      );
 
-    if (status === 204) {
-      toast.success('Agendamento validado com sucesso!', { id: 'toast' });
+      if (status === 200) {
+        toast.success('Agendamento validado com sucesso!', { id: 'toast' });
+        setLoading(false);
+      }
+    } catch (error) {
+      toast.error('Erro ao validar agendamento!', { id: 'toast' });
       setLoading(false);
     }
 
