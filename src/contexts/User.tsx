@@ -350,10 +350,10 @@ export function UserProvider({ children }: any) {
       dtTermino: `${selectDayFormatted} ${selectHoursFinish}`,
       situacaoAgendamento: situacaoAgendamento as SituacaoAgendamento,
       servico: {
-        cdServico: 0,
+        cdServico: 1,
         tmServico: '01:00:00',
-        nmServico: 'CORTE MANDRAQUE',
-        deServico: 'SELOKO TIO< CORTA COM NOIS AEW',
+        nmServico: 'Corte de cabelo',
+        deServico: 'Corte de cabelo masculino',
         situacaoServico: situacaoServico as SituacaoServico,
         tipoServico: {
           cdTipoServico: 0,
