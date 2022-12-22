@@ -47,6 +47,7 @@
     "react-modal": "^3.16.1",
     "react-parallax-tilt": "^1.7.77",
     "react-password-strength-bar": "^0.4.1",
+    "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
     "react-to-print": "^2.14.10",
