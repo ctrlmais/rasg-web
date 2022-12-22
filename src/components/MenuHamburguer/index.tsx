@@ -29,7 +29,7 @@ export function MenuHamburguer() {
       >
         <div className={styles.menu}>
           <DropdownItem link="/" leftIcon={<RiHome2Line size={18} />}>
-            Home
+            Início
           </DropdownItem>
 
           <DropdownItem link="/history" leftIcon={<RiHistoryLine size={18} />}>

@@ -59,7 +59,7 @@ export function Navbar({ children, back, logo, path }: NavBarProps) {
         <div className={styles.links}>
           <div className={styles.linkMenu}>
             <Link to="/" className={styles.active}>
-              Home
+              Início
             </Link>
             {verifyPath('/') && <div className={styles.statusbar} />}
           </div>
