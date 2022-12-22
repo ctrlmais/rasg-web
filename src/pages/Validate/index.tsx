@@ -1,4 +1,5 @@
 import { FiUser } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
 
@@ -16,6 +17,7 @@ export function Validate() {
   const { theme } = useTheme();
   const { idSchedule, setIdSchedule, loading, validarAgendamento } =
     useValidate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -51,6 +53,14 @@ export function Validate() {
                 ) : (
                   <Ring speed={2} lineWeight={5} color="#28262e" size={32} />
                 )}
+              </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  navigate('/scanner');
+                }}
+              >
+                Abrir câmera
               </Button>
             </div>
           </div>
