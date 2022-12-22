@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/ctrlmais/rasg-web/compare/v2.0.1...v2.0.2) (2022-12-22)
+
+
+### Bug Fixes
+
+* nav home to inicio ([2e7049f](https://github.com/ctrlmais/rasg-web/commit/2e7049fd15c7cdd15e7fb174e680b618abe83810))
+
 ## [2.0.1](https://github.com/ctrlmais/rasg-web/compare/v2.0.0...v2.0.1) (2022-12-21)
 
 
