@@ -73,6 +73,14 @@ export function Ticket({ cliente, enable, execute }: TicketProps) {
                       fgColor={'#000000'}
                       level={'Q'}
                       includeMargin={false}
+                      imageSettings={{
+                        src: `${process.env.REACT_APP_URL}/favicon.png`,
+                        x: undefined,
+                        y: undefined,
+                        height: 24,
+                        width: 24,
+                        excavate: true,
+                      }}
                     />
                   </div>
                   <div>
