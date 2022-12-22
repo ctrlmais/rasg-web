@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { Admin } from 'pages/Admin';
+import { Camera } from 'pages/Camera';
 import { History } from 'pages/History';
 import { Home } from 'pages/Home';
 import { Horarios } from 'pages/Horarios';
@@ -26,6 +27,7 @@ export function PrivateRoutes() {
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/history" element={<History />} />
       <Route path="/bug" element={<ReportBug />} />
+      {isBarbeiro && <Route path="/scanner" element={<Camera />} />}
       {isBarbeiro && <Route path="/validate" element={<Validate />} />}
       {isBarbeiro && <Route path="/validate/:id" element={<ValidateId />} />}
       {isBarbeiro && <Route path="/horarios" element={<Horarios />} />}
