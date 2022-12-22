@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/ctrlmais/rasg-web/compare/v2.0.2...v2.1.0) (2022-12-22)
+
+
+### Features
+
+* add dependency react-qr-scanner ([6c1cb18](https://github.com/ctrlmais/rasg-web/commit/6c1cb186adc08390de4bc2a010162bf5371ea5d8))
+
 ## [2.0.2](https://github.com/ctrlmais/rasg-web/compare/v2.0.1...v2.0.2) (2022-12-22)
 
 
