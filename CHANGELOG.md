@@ -1,3 +1,17 @@
+# [2.2.0](https://github.com/ctrlmais/rasg-web/compare/v2.1.0...v2.2.0) (2022-12-22)
+
+
+### Bug Fixes
+
+* name service context user ([d460672](https://github.com/ctrlmais/rasg-web/commit/d46067282f4d55f44b075155fe73f9f1eb8e315c))
+
+
+### Features
+
+* add image in qr code ([5898210](https://github.com/ctrlmais/rasg-web/commit/5898210d312f835c3bdffaf91d6ac2b198b51a8b))
+* add route scanner ([2894449](https://github.com/ctrlmais/rasg-web/commit/2894449792ce120c725b4f30fc201bcad0702273))
+* add validate scanner ([257954e](https://github.com/ctrlmais/rasg-web/commit/257954ef8b0469a1a3fe19cdb15048844aba08da))
+
 # [2.1.0](https://github.com/ctrlmais/rasg-web/compare/v2.0.2...v2.1.0) (2022-12-22)
 
 
