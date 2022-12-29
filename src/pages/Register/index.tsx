@@ -52,25 +52,19 @@ export function Register() {
 
             <Input
               type="text"
-              name="nome"
               placeholder="Nome"
-              onChange={formikRegister.handleChange}
-              onBlur={formikRegister.handleBlur}
-              value={formikRegister.values.nome}
               maxLength={100}
               icon={<FiUser color="#666360" size={24} />}
+              {...formikRegister.getFieldProps('nome')}
             />
             {formikRegister.errors.nome && formikRegister.touched.nome && (
               <span className={styles.error}>{formikRegister.errors.nome}</span>
             )}
             <Input
               type="email"
-              name="email"
               placeholder="Email"
-              onChange={formikRegister.handleChange}
-              onBlur={formikRegister.handleBlur}
-              value={formikRegister.values.email}
               icon={<FiMail color="#666360" size={24} />}
+              {...formikRegister.getFieldProps('email')}
             />
             {formikRegister.errors.email && formikRegister.touched.email && (
               <span className={styles.error}>
@@ -94,12 +88,9 @@ export function Register() {
             )}
             <Input
               type="password"
-              name="password"
               placeholder="Senha"
-              onChange={formikRegister.handleChange}
-              onBlur={formikRegister.handleBlur}
-              value={formikRegister.values.password}
               icon={<FiLock color="#666360" size={24} />}
+              {...formikRegister.getFieldProps('password')}
             />
             {formikRegister.values.password.length >= 6 && (
               <PasswordStrengthBar
@@ -112,12 +103,9 @@ export function Register() {
 
             <Input
               type="password"
-              name="confirmPassword"
               placeholder="Confirmar senha"
-              onChange={formikRegister.handleChange}
-              onBlur={formikRegister.handleBlur}
-              value={formikRegister.values.confirmPassword}
               icon={<FiLock color="#666360" size={24} />}
+              {...formikRegister.getFieldProps('confirmPassword')}
             />
             {formikRegister.errors.confirmPassword &&
               formikRegister.touched.confirmPassword && (
@@ -125,6 +113,18 @@ export function Register() {
                   {formikRegister.errors.confirmPassword}
                 </span>
               )}
+
+            <div className={styles.disclaimer}>
+              Ao se registrar, você concorda com os{' '}
+              <Link to="/terms" className={styles.color}>
+                Termos de Uso
+              </Link>{' '}
+              e{' '}
+              <Link to="/privacy" className={styles.color}>
+                Privacidade
+              </Link>
+              .
+            </div>
 
             <Button type="submit">
               {loading ? (
