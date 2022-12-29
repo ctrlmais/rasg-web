@@ -1,3 +1,20 @@
+# [2.3.0](https://github.com/ctrlmais/rasg-web/compare/v2.2.0...v2.3.0) (2022-12-29)
+
+
+### Bug Fixes
+
+* header button login and register ([0c08fb6](https://github.com/ctrlmais/rasg-web/commit/0c08fb6cfe8bc2698ded55814d310fa6ef49e468))
+* inputs formik ([2bdcf99](https://github.com/ctrlmais/rasg-web/commit/2bdcf998eaf9e54d4b6f7c28c1e34067ad0cf43e))
+* update send termo api ([cdb346e](https://github.com/ctrlmais/rasg-web/commit/cdb346e3b35a8f4c69d3fdb1ce748889fb6cf526))
+* update send termo api ([43e6152](https://github.com/ctrlmais/rasg-web/commit/43e615298c74f5a5b824d890cf2cc96c60bdc88e))
+
+
+### Features
+
+* add pages privacy ([fcdecda](https://github.com/ctrlmais/rasg-web/commit/fcdecdaae0e6c5cc63a5c56dd0f0c260987196ed))
+* add pages termos ([6237cc1](https://github.com/ctrlmais/rasg-web/commit/6237cc113c630f60ca6865c714c95b6f127e660d))
+* add routes terms and privacy ([4bc0a84](https://github.com/ctrlmais/rasg-web/commit/4bc0a8466a4261914a9cf4e5c08019c6dd158add))
+
 # [2.2.0](https://github.com/ctrlmais/rasg-web/compare/v2.1.0...v2.2.0) (2022-12-22)
 
 
