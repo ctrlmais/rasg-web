@@ -42,6 +42,7 @@ export function useProfile() {
         dtCadastro: user.dtCadastro,
         situacaoUsuario: user.situacaoUsuario,
         tipoUsuario: user.tipoUsuario,
+        flTermo: 'S',
       };
       try {
         setLoading(true);
