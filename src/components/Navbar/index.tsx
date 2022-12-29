@@ -63,12 +63,14 @@ export function Navbar({ children, back, logo, path }: NavBarProps) {
             </Link>
             {verifyPath('/') && <div className={styles.statusbar} />}
           </div>
-          <div className={styles.linkMenu}>
-            <Link to="/history" className={styles.active}>
-              Histórico
-            </Link>
-            {verifyPath('/history') && <div className={styles.statusbar} />}
-          </div>
+          {(isCliente || isAdmin || isBarbeiro) && (
+            <div className={styles.linkMenu}>
+              <Link to="/history" className={styles.active}>
+                Histórico
+              </Link>
+              {verifyPath('/history') && <div className={styles.statusbar} />}
+            </div>
+          )}
 
           {isBarbeiro && (
             <div className={styles.linkMenu}>
