@@ -1,0 +1,16 @@
+.buttonLoginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+
+  h3 {
+    width: 5rem;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0.6);
+      transition: 0.4s;
+    }
+  }
+}
