@@ -35,9 +35,10 @@ export interface FormikProps {
     email: boolean;
     password: boolean;
   }>;
-  handleChange: (e: ChangeEvent) => void;
-  handleBlur: (e: ChangeEvent) => void;
+  handleChange?: (e: ChangeEvent) => void;
+  handleBlur?: (e: ChangeEvent) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  getFieldProps?: any;
 }
 
 export interface ThemeContextProps {

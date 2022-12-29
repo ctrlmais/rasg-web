@@ -56,6 +56,7 @@ export interface Gerenciador {
   dtCadastro: string;
   situacaoUsuario: SituacaoUsuario;
   tipoUsuario: TipoUsuario;
+  flTermo: string;
 }
 
 export interface Servico {
@@ -82,6 +83,7 @@ export interface Cliente {
   dtCadastro: string;
   situacaoUsuario: SituacaoUsuario;
   tipoUsuario: TipoUsuario;
+  flTermo: string;
 }
 
 export interface GetUsuarios {
@@ -181,6 +183,7 @@ export interface PostRegistroUsuario {
   nmTelefone: string;
   situacaoUsuario: SituacaoUsuario;
   tipoUsuario: TipoUsuario;
+  flTermo: string;
 }
 
 export interface PostAgendamento {
@@ -220,6 +223,7 @@ export interface PutUsuario {
   dtCadastro: string;
   situacaoUsuario: SituacaoUsuario;
   tipoUsuario: TipoUsuario;
+  flTermo: string;
 }
 
 export interface GetJornadaUsuario {
@@ -236,4 +240,40 @@ export interface GetJornadaUsuario {
   dtAtualizacao?: string;
   cdUsuarioCadastro: number;
   cdUsuarioAtualizacao?: number;
+}
+
+export interface PostServico {
+  cdServico?: number;
+  nmServico: string;
+  deServico: string;
+  situacaoServico: SituacaoServico;
+  tipoServico: TipoServico;
+  dtCadastro: string;
+  dtAtualizacao?: string;
+  cdUsuarioCadastro: number;
+  cdUsuarioAtualizacao?: number;
+  dtRemocao?: string;
+}
+
+export interface ContentServico {
+  cdServico: number;
+  tmServico: string;
+  nmServico: string;
+  deServico: string;
+  situacaoServico: SituacaoServico;
+  tipoServico: TipoServico;
+  gerenciador: Gerenciador;
+  dtRemocao?: string;
+  dtCadastro: string;
+  dtAtualizacao?: string;
+  cdUsuarioCadastro: number;
+  cdUsuarioAtualizacao?: number;
+}
+
+export interface GetServicos {
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  content: ContentServico[];
 }
