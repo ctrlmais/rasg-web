@@ -1,3 +1,15 @@
+# [2.4.0](https://github.com/ctrlmais/rasg-web/compare/v2.3.0...v2.4.0) (2022-12-29)
+
+
+### Bug Fixes
+
+* component navbar history view ([8abbdb9](https://github.com/ctrlmais/rasg-web/commit/8abbdb9b81c407e3603f248d61ff29c0555658a2))
+
+
+### Features
+
+* add message term and privacy register page ([40329b7](https://github.com/ctrlmais/rasg-web/commit/40329b7ba083ec39e8cf37f9f67401e9843a53fd))
+
 # [2.3.0](https://github.com/ctrlmais/rasg-web/compare/v2.2.0...v2.3.0) (2022-12-29)
 
 
