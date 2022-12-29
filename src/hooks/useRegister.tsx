@@ -43,6 +43,7 @@ export function useRegister() {
           nmTelefone: values.phone,
           situacaoUsuario: situacaoUsuario as SituacaoUsuario,
           tipoUsuario: tipoUsuario as TipoUsuario,
+          flTermo: 'S',
         });
 
         setStatus('success');
