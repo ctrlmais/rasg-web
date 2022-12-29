@@ -36,22 +36,16 @@ export function Login() {
               type="email"
               name="email"
               placeholder="Email"
-              onChange={formikLogin.handleChange}
-              onBlur={formikLogin.handleBlur}
-              value={formikLogin.values.email}
               icon={<FiUser color="#666360" size={24} />}
+              {...formikLogin.getFieldProps('email')}
             />
-            {formikLogin.errors.email && (
-              <span className={styles.error}>{formikLogin.errors.email}</span>
-            )}
+
             <Input
               type="password"
               name="password"
               placeholder="Senha"
-              onChange={formikLogin.handleChange}
-              onBlur={formikLogin.handleBlur}
-              value={formikLogin.values.password}
               icon={<FiLock color="#666360" size={24} />}
+              {...formikLogin.getFieldProps('password')}
             />
             <Button type="submit">
               {loading ? (

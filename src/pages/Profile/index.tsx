@@ -61,25 +61,19 @@ export function Profile() {
           >
             <Input
               type="text"
-              name="nome"
               placeholder="Nome"
-              onChange={formikProfile.handleChange}
-              onBlur={formikProfile.handleBlur}
-              value={formikProfile.values.nome}
               maxLength={100}
               icon={<FiUser color="#666360" size={24} />}
+              {...formikProfile.getFieldProps('nome')}
             />
             {formikProfile.errors.nome && formikProfile.touched.nome && (
               <span className={styles.error}>{formikProfile.errors.nome}</span>
             )}
             <Input
               type="email"
-              name="email"
               placeholder="Email"
-              onChange={formikProfile.handleChange}
-              onBlur={formikProfile.handleBlur}
-              value={formikProfile.values.email}
               icon={<FiMail color="#666360" size={24} />}
+              {...formikProfile.getFieldProps('email')}
             />
             {formikProfile.errors.email && formikProfile.touched.email && (
               <span className={styles.error}>{formikProfile.errors.email}</span>
@@ -133,12 +127,9 @@ export function Profile() {
               <>
                 <Input
                   type="password"
-                  name="password"
                   placeholder="Senha Atual"
-                  onChange={formikProfile.handleChange}
-                  onBlur={formikProfile.handleBlur}
-                  value={formikProfile.values.password}
                   icon={<FiLock color="#666360" size={24} />}
+                  {...formikProfile.getFieldProps('password')}
                 />
                 {formikProfile.errors.password &&
                   formikProfile.touched.password && (
@@ -148,12 +139,9 @@ export function Profile() {
                   )}
                 <Input
                   type="password"
-                  name="newPassword"
                   placeholder="Nova Senha"
-                  onChange={formikProfile.handleChange}
-                  onBlur={formikProfile.handleBlur}
-                  value={formikProfile.values.newPassword}
                   icon={<FiLock color="#666360" size={24} />}
+                  {...formikProfile.getFieldProps('newPassword')}
                 />
                 {formikProfile.values.newPassword.length >= 6 && (
                   <PasswordStrengthBar
@@ -171,12 +159,9 @@ export function Profile() {
                   )}
                 <Input
                   type="password"
-                  name="confirmPassword"
                   placeholder="Confirmar Senha"
-                  onChange={formikProfile.handleChange}
-                  onBlur={formikProfile.handleBlur}
-                  value={formikProfile.values.confirmPassword}
                   icon={<FiLock color="#666360" size={24} />}
+                  {...formikProfile.getFieldProps('confirmPassword')}
                 />
                 {formikProfile.errors.confirmPassword &&
                   formikProfile.touched.confirmPassword && (

@@ -33,12 +33,9 @@ export function ForgetPassword() {
 
             <Input
               type="email"
-              name="email"
               placeholder="Email"
-              onChange={formikForgetPassword.handleChange}
-              onBlur={formikForgetPassword.handleBlur}
-              value={formikForgetPassword.values.email}
               icon={<FiUser color="#666360" size={24} />}
+              {...formikForgetPassword.getFieldProps('email')}
             />
             {formikForgetPassword.errors.email &&
               formikForgetPassword.touched.email && (

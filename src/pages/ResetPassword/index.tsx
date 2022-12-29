@@ -44,12 +44,9 @@ export function ResetPassword() {
 
             <Input
               type="password"
-              name="password"
               placeholder="Senha"
-              onChange={formikResetPassword.handleChange}
-              onBlur={formikResetPassword.handleBlur}
-              value={formikResetPassword.values.password}
               icon={<FiLock color="#666360" size={24} />}
+              {...formikResetPassword.getFieldProps('password')}
             />
             {formikResetPassword.errors.password &&
               formikResetPassword.touched.password && (
@@ -60,12 +57,9 @@ export function ResetPassword() {
 
             <Input
               type="password"
-              name="confirmPassword"
               placeholder="Confirmar senha"
-              onChange={formikResetPassword.handleChange}
-              onBlur={formikResetPassword.handleBlur}
-              value={formikResetPassword.values.confirmPassword}
               icon={<FiLock color="#666360" size={24} />}
+              {...formikResetPassword.getFieldProps('confirmPassword')}
             />
             {formikResetPassword.errors.confirmPassword &&
               formikResetPassword.touched.confirmPassword && (

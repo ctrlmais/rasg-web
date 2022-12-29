@@ -44,23 +44,17 @@ export function ReportBug() {
             <label className={styles.label}>Qual página você viu o bug?</label>
             <Input
               type="text"
-              name="page"
               placeholder="Qual página você viu o bug?"
-              value={formikReportBug.values.page}
               icon={<FiMessageSquare color="#666360" size={24} />}
-              onChange={formikReportBug.handleChange}
-              onBlur={formikReportBug.handleBlur}
+              {...formikReportBug.getFieldProps('page')}
             />
 
             <label className={styles.label}>O que aconteceu?</label>
             <textarea
               className={styles.area}
-              name="message"
-              value={formikReportBug.values.message}
               rows={10}
               placeholder="O que aconteceu?"
-              onChange={formikReportBug.handleChange}
-              onBlur={formikReportBug.handleBlur}
+              {...formikReportBug.getFieldProps('message')}
             />
           </div>
 
