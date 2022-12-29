@@ -7,9 +7,11 @@ import { Home } from 'pages/Home';
 import { Horarios } from 'pages/Horarios';
 import { MyTicket } from 'pages/MyTicket';
 import { NotFound } from 'pages/NotFound';
+import { Privacy } from 'pages/Privacy';
 import { Profile } from 'pages/Profile';
 import { ReportBug } from 'pages/ReportBug';
 import { Schedule } from 'pages/Schedule';
+import { Terms } from 'pages/Terms';
 import { Tickets } from 'pages/Tickets';
 import { Validate } from 'pages/Validate';
 import { ValidateId } from 'pages/ValidateId';
@@ -27,6 +29,8 @@ export function PrivateRoutes() {
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/history" element={<History />} />
       <Route path="/bug" element={<ReportBug />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
       {isBarbeiro && <Route path="/scanner" element={<Camera />} />}
       {isBarbeiro && <Route path="/validate" element={<Validate />} />}
       {isBarbeiro && <Route path="/validate/:id" element={<ValidateId />} />}
