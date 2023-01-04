@@ -6,10 +6,9 @@ export const api = axios.create({
   baseURL: apiUrl,
 });
 
-const token = localStorage.getItem('@rasg:token');
+const token = localStorage.getItem('@rasg:token') || '';
 
-api.defaults.headers.common.Authorization =
-  token == 'null' ? `Bearer ${token}` : '';
+api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 export function setToken(token: string) {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
