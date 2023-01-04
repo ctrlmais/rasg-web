@@ -1,3 +1,10 @@
+## [2.4.3](https://github.com/ctrlmais/rasg-web/compare/v2.4.2...v2.4.3) (2023-01-04)
+
+
+### Bug Fixes
+
+* api default header authorization ([2bf1d05](https://github.com/ctrlmais/rasg-web/commit/2bf1d05d09d5c7e8f4231a97274452d2fd676042))
+
 ## [2.4.2](https://github.com/ctrlmais/rasg-web/compare/v2.4.1...v2.4.2) (2023-01-04)
 
 
