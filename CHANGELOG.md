@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/ctrlmais/rasg-web/compare/v2.4.1...v2.4.2) (2023-01-04)
+
+
+### Bug Fixes
+
+* bearer token api ([e1e06a2](https://github.com/ctrlmais/rasg-web/commit/e1e06a25f79d384f0e1edee895f08685113281f3))
+
 ## [2.4.1](https://github.com/ctrlmais/rasg-web/compare/v2.4.0...v2.4.1) (2022-12-29)
 
 
