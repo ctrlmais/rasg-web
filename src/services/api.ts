@@ -8,7 +8,8 @@ export const api = axios.create({
 
 const token = localStorage.getItem('@rasg:token');
 
-api.defaults.headers.common.Authorization = token ? `Bearer ${token}` : '';
+api.defaults.headers.common.Authorization =
+  token == 'null' ? `Bearer ${token}` : '';
 
 export function setToken(token: string) {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
