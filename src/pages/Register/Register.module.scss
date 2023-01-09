@@ -28,7 +28,7 @@
 
 .form {
   display: flex;
-  height: 655px;
+  height: 750px;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -38,6 +38,10 @@
     font-weight: bold;
     color: var(--white);
   }
+}
+
+.logo {
+  width: 40%;
 }
 
 .passwordStrengthBar {
