@@ -47,6 +47,11 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Roboto Slab, serif;
+
+  ::selection {
+    background: var(--orange);
+    color: var(--white);
+  }
 }
 
 body {
@@ -101,4 +106,8 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #bbbbbb;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
 }
