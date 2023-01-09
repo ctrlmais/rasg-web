@@ -7,6 +7,11 @@
   outline: 0;
 
   margin-bottom: 18px;
+  flex-direction: column;
+
+  p {
+    color: #ff0000 !important;
+  }
 }
 
 .dropzone img {
