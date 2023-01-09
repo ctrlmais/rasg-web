@@ -1,10 +1,8 @@
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { BiCopy } from 'react-icons/bi';
-import { IoMdClose } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { SiApple, SiGooglecalendar, SiWhatsapp } from 'react-icons/si';
 
-import { AgendaProps } from 'types/ComponentsProps';
 import { Content } from 'types/ServicesProps';
 
 import { SocialButton } from 'components/SocialButton';
@@ -18,9 +16,9 @@ import { useTicket } from 'hooks/useTicket';
 
 import styles from './Agenda.module.scss';
 
-export function Agenda({ onClick }: AgendaProps) {
+export function Agenda() {
   const { theme } = useTheme();
-  const { cancelarAgendamento } = useTicket();
+  const { cancelarAgendamento, verificaHorarioCancelamento } = useTicket();
   const {
     handleGoogleCalendarCliente,
     eventSaveBarbeiro,
@@ -36,9 +34,6 @@ export function Agenda({ onClick }: AgendaProps) {
 
   return (
     <div className={styles.wrapper} data-theme={theme}>
-      <div className={styles.close} onClick={onClick}>
-        <IoMdClose size={20} style={{ cursor: 'pointer' }} />
-      </div>
       <h2>Opções adicionais</h2>
 
       <div className={styles.containerButton}>
@@ -82,6 +77,10 @@ export function Agenda({ onClick }: AgendaProps) {
         <button
           className={styles.cancel}
           type="button"
+          disabled={
+            verificaHorarioCancelamento() ||
+            cliente.situacaoAgendamento.deSituacaoAgendamento === 'EXECUTADO'
+          }
           onClick={() => {
             cancelarAgendamento(agendamentoId);
           }}

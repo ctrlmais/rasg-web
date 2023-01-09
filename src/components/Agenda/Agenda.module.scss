@@ -3,6 +3,8 @@
   align-items: center;
   flex-direction: column;
   height: 50vh;
+  background: var(--background);
+  color: var(--white);
 
   h2 {
     display: flex;
@@ -70,6 +72,12 @@
     color: #000;
     font-size: 16px;
     text-decoration: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: brightness(0.8);
+    transition: 0.4s;
   }
 }
 
