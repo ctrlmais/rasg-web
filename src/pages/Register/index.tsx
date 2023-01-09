@@ -4,9 +4,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { Link } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
-import logoDark from 'assets/rasg_dark.png';
-import logo from 'assets/rasg.png';
-import salaoImage from 'assets/salao.png';
+import { imgRasgDark, imgRasgLight, imgBarberRegister } from 'assets';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
@@ -36,7 +34,7 @@ export function Register() {
         </Overlay>
       )}
 
-      <img src={salaoImage} alt="baberiro" className={styles.image} />
+      <img src={imgBarberRegister} alt="baberiro" className={styles.image} />
 
       <div className={styles.logon}>
         <form
@@ -46,7 +44,11 @@ export function Register() {
           }}
         >
           <div className={styles.form}>
-            <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
+            <img
+              src={theme === 'light' ? imgRasgDark : imgRasgLight}
+              alt="Logo"
+              className={styles.logo}
+            />
             <h2>Faça seu cadastro</h2>
             <Ocupacao />
 

@@ -1,9 +1,7 @@
 import { FiLock } from 'react-icons/fi';
 import { useSearchParams } from 'react-router-dom';
 
-import logoDark from 'assets/rasg_dark.png';
-import logo from 'assets/rasg.png';
-import salaoImage from 'assets/salao.png';
+import { imgRasgDark, imgRasgLight, imgBarberRegister } from 'assets';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
@@ -29,7 +27,7 @@ export function ResetPassword() {
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <img src={salaoImage} alt="baberiro" className={styles.image} />
+      <img src={imgBarberRegister} alt="baberiro" className={styles.image} />
 
       <div className={styles.logon}>
         <form
@@ -39,7 +37,10 @@ export function ResetPassword() {
           }}
         >
           <div className={styles.form}>
-            <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
+            <img
+              src={theme === 'light' ? imgRasgDark : imgRasgLight}
+              alt="Logo"
+            />
             <h2>Redefinir senha</h2>
 
             <Input

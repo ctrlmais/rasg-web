@@ -2,9 +2,7 @@ import { FiLock, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import { Ring } from '@uiball/loaders';
-import barberImage from 'assets/barber.png';
-import logoDark from 'assets/rasg_dark.png';
-import logo from 'assets/rasg.png';
+import { imgRasgDark, imgRasgLight, imgBarberLogin } from 'assets';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
@@ -29,7 +27,11 @@ export function Login() {
           }}
         >
           <div className={styles.form}>
-            <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
+            <img
+              src={theme === 'light' ? imgRasgDark : imgRasgLight}
+              alt="Logo"
+              className={styles.logo}
+            />
             <h2>Faça seu Login</h2>
 
             <Input
@@ -70,7 +72,7 @@ export function Login() {
           </Link>
         </p>
       </div>
-      <img src={barberImage} alt="baberiro" className={styles.image} />
+      <img src={imgBarberLogin} alt="baberiro" className={styles.image} />
     </div>
   );
 }

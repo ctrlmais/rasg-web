@@ -1,4 +1,4 @@
-import barberImg from 'assets/barber-404.svg';
+import { imgError404 } from 'assets';
 
 import { Button } from 'components/Button';
 
@@ -12,7 +12,7 @@ export function NotFound() {
   return (
     <div className={styles.home} data-theme={theme}>
       <h1>Erro 404</h1>
-      <img src={barberImg} alt="Barbeiro cortando cabelo" />
+      <img src={imgError404} alt="Barbeiro cortando cabelo" />
       <p>Ops, parece que você está procurando por algo que não existe.</p>
 
       <br />

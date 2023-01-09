@@ -1,9 +1,7 @@
 import { FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import barberImage from 'assets/barber.png';
-import logoDark from 'assets/rasg_dark.png';
-import logo from 'assets/rasg.png';
+import { imgBarberLogin, imgRasgDark, imgRasgLight } from 'assets';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
@@ -28,7 +26,11 @@ export function ForgetPassword() {
           }}
         >
           <div className={styles.form}>
-            <img src={theme === 'light' ? logoDark : logo} alt="Logo" />
+            <img
+              src={theme === 'light' ? imgRasgDark : imgRasgLight}
+              alt="Logo"
+              className={styles.logo}
+            />
             <h2>Recuperar senha</h2>
 
             <Input
@@ -54,7 +56,7 @@ export function ForgetPassword() {
           </Link>
         </p>
       </div>
-      <img src={barberImage} alt="baberiro" className={styles.image} />
+      <img src={imgBarberLogin} alt="baberiro" className={styles.image} />
     </div>
   );
 }
