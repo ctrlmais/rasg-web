@@ -9,7 +9,7 @@ export function Terms() {
 
   return (
     <div className={styles.home} data-theme={theme}>
-      <Header logo path="/horarios" />
+      <Header logo path="/terms" />
 
       <main className={styles.container}>
         <h1 className={styles.title}>
