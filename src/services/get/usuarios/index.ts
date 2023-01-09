@@ -5,3 +5,5 @@ export * from './getAllBarber';
 export * from './getByEmail';
 export * from './getById';
 export * from './getClientsApproved';
+export * from './getPhoto';
+export * from './getPhotoHash';
