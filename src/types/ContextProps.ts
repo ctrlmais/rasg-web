@@ -5,6 +5,7 @@ import { FormikErrors, FormikTouched } from 'formik';
 import {
   Cliente,
   Content,
+  ContentServico,
   Gerenciador,
   GetJornadaUsuario,
 } from './ServicesProps';
@@ -20,6 +21,9 @@ export interface AuthContextProps {
   loading: boolean;
   storagedUser: Cliente;
   storagedHorarios: GetJornadaUsuario[];
+  profileAvatar: string;
+  setProfileAvatar: (avatar: string) => void;
+  avatar: string;
 }
 
 export interface FormikProps {
@@ -95,9 +99,10 @@ export interface UserContextProps {
   endDate: string;
   buscaClientesHorario: (horario: string) => void;
   verificaHorarioDeTrabalho: () => boolean;
-  verificaTelefone: () => boolean;
   loading: boolean;
   emailUser: string;
   situation: string;
   verificaHorario: (horario: string) => 'MANHÃ' | 'TARDE' | 'NOITE' | undefined;
+  selectedService: ContentServico | undefined;
+  setSelectedService: (service: ContentServico) => void;
 }

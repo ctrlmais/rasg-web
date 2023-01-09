@@ -5,7 +5,7 @@ import {
   SetStateAction,
 } from 'react';
 
-import { Content, Gerenciador } from './ServicesProps';
+import { Cliente, Content, Gerenciador } from './ServicesProps';
 
 export interface AgendaProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -31,10 +31,16 @@ export interface CardBarbeiroProps extends HTMLAttributes<HTMLDivElement> {
   hover?: boolean;
 }
 
+export interface CardAdminClienteProps extends HTMLAttributes<HTMLDivElement> {
+  cliente?: Cliente;
+  hover?: boolean;
+}
+
 export interface CardClienteProps extends HTMLAttributes<HTMLDivElement> {
   cliente: Content;
   first?: boolean;
   data?: boolean;
+  isVerified?: boolean;
 }
 
 export interface DropdownItemProps {
@@ -49,6 +55,8 @@ export interface DropdownItemProps {
 
 export interface DropzoneProps {
   onFileUploaded: (file: File) => void;
+  image?: string;
+  setImage?: (image: string) => void;
 }
 
 export interface HeaderProps {
@@ -64,6 +72,14 @@ export interface HorariosProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon: React.ReactNode;
+}
+
+export interface SelectProps
+  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  name: string;
+  onChange: (e: any) => void;
+  onBlur: (e: any) => void;
+  children: React.ReactNode;
 }
 
 export interface NavBarProps {
@@ -104,4 +120,9 @@ export interface TicketProps {
   cliente?: Content;
   enable?: boolean;
   execute?: boolean;
+}
+
+export interface DialogTitleProps {
+  children?: React.ReactNode;
+  onClose: () => void;
 }

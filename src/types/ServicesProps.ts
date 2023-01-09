@@ -277,3 +277,57 @@ export interface GetServicos {
   totalPages: number;
   content: ContentServico[];
 }
+
+export interface Authority {
+  cdTipoUsuario: number;
+  deTipoUsuario: string;
+  sgTipoUsuario: string;
+  dtCadastro: string;
+  authority: string;
+}
+
+export interface Usuario {
+  cdUsuario: number;
+  nmUsuario: string;
+  nmSenha: string;
+  nmEmail: string;
+  nmTelefone: string;
+  dtCadastro: Date;
+  situacaoUsuario: SituacaoUsuario;
+  tipoUsuario: TipoUsuario;
+  flTermo: string;
+  enabled: boolean;
+  username: string;
+  password: string;
+  authorities: Authority[];
+  accountNonLocked: boolean;
+  accountNonExpired: boolean;
+  credentialsNonExpired: boolean;
+}
+
+export interface GetPhotoUsuario {
+  cdFotoUsuario: number;
+  usuario: Usuario;
+  deFoto: string;
+  nmHash: string;
+  nmMime: string;
+  dtRemocao?: any;
+  dtCadastro: Date;
+  dtAtualizacao?: any;
+  cdUsuarioCadastro: number;
+  cdUsuarioAtualizacao?: any;
+  cdFotoServico?: number;
+}
+
+export interface GetPhotoServico {
+  usuario: Usuario;
+  deFoto: string;
+  nmHash: string;
+  nmMime: string;
+  dtRemocao?: any;
+  dtCadastro: Date;
+  dtAtualizacao?: any;
+  cdUsuarioCadastro: number;
+  cdUsuarioAtualizacao?: any;
+  cdFotoServico: number;
+}
