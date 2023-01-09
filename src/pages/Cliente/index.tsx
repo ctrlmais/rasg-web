@@ -17,11 +17,11 @@ import styles from './Cliente.module.scss';
 
 export function Cliente() {
   const navigate = useNavigate();
-  const { storagedUser } = useAuth();
+  const { user } = useAuth();
   const { barbeiros, horariosAgendados, setSelectHours, selectDay, loading } =
     useUser();
   const { nextDay, previousDay, handleClickBarbeiro } = useCliente();
-  const username = storagedUser.nmUsuario;
+  const username = user?.nmUsuario;
 
   return (
     <>
