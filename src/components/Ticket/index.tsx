@@ -12,9 +12,11 @@ import { get8caracters } from 'utils/get8caracters';
 import { useToast } from 'contexts/Toast';
 
 import './Ticket.scss';
+import { useAuth } from 'hooks/useAuth';
 
 export function Ticket({ cliente, enable, execute }: TicketProps) {
   const { toast } = useToast();
+  const { profileAvatar } = useAuth();
 
   const [copied, setCopied] = useState(false);
 
@@ -45,12 +47,20 @@ export function Ticket({ cliente, enable, execute }: TicketProps) {
           <div className="ticket">
             <div className="ticket-profile">
               <div className="ticket-profile-top">
-                <div className="ticket-profile-top-image">
-                  <Avvvatars
-                    value={cliente?.cliente.nmUsuario || ''}
-                    size={82}
+                {profileAvatar ? (
+                  <img
+                    src={profileAvatar}
+                    alt="profile"
+                    className="ticket-profile-top-image"
                   />
-                </div>
+                ) : (
+                  <div className="ticket-profile-top-image">
+                    <Avvvatars
+                      value={cliente?.cliente.nmUsuario || ''}
+                      size={82}
+                    />
+                  </div>
+                )}
 
                 <div className="ticket-profile-top-text">
                   <div className="ticket-profile-top-text-name">
@@ -87,7 +97,7 @@ export function Ticket({ cliente, enable, execute }: TicketProps) {
                     Data e Hora
                     <br />
                     {format(
-                      new Date(cliente?.dtInicio || ''),
+                      new Date(cliente?.dtInicio || new Date()),
                       'dd/MM/yyyy HH:mm',
                     )}
                   </div>
