@@ -1,3 +1,56 @@
+# [2.5.0](https://github.com/ctrlmais/rasg-web/compare/v2.4.3...v2.5.0) (2023-01-10)
+
+
+### Bug Fixes
+
+* button disabled and cancelar agendamento ([850179b](https://github.com/ctrlmais/rasg-web/commit/850179bcc3fc2575d95f63e324a3b0d48a51f286))
+* component button ([cdbb6bc](https://github.com/ctrlmais/rasg-web/commit/cdbb6bcde3048549b64632d7146ee0996dad5ae2))
+* component card barbeiro styls and photo ([11a2665](https://github.com/ctrlmais/rasg-web/commit/11a26652abce7dd3d144b63358815a1dae3f436e))
+* component card cliente styles, photo and ticket verify ([8da0515](https://github.com/ctrlmais/rasg-web/commit/8da051570f444df032903bf5b0c2b3a03d18eefa))
+* component card horario styles and inputs ([a025b04](https://github.com/ctrlmais/rasg-web/commit/a025b040f947d30692b12142943cdf5e774dac94))
+* component dropdown menu add avatar and links ([45c8e2f](https://github.com/ctrlmais/rasg-web/commit/45c8e2f5eeb0f82d63fed79d888b8b95bfeeec7e))
+* component navbar link and images ([411e895](https://github.com/ctrlmais/rasg-web/commit/411e89527f63f85254df9f3e5ff3af2d90e60bb2))
+* component ticket add avatar ([63ba8d0](https://github.com/ctrlmais/rasg-web/commit/63ba8d0620cf4f2a5e7defae6afd4b20c57cf029))
+* default bearer token ([432edb6](https://github.com/ctrlmais/rasg-web/commit/432edb6ba3e2bcea779cdd2c35cbce80f21234a1))
+* dropzone maxfile size ([e13bbb1](https://github.com/ctrlmais/rasg-web/commit/e13bbb14d47c74128ac4def79da12830efb1461a))
+* edit opening hours ([368df6b](https://github.com/ctrlmais/rasg-web/commit/368df6b83fe9ac58219efd0ccbfe9561d142f0c7))
+* hook perfil performance ([2ec7e11](https://github.com/ctrlmais/rasg-web/commit/2ec7e116b2503145f5dc7faafb145810cb274313))
+* import assets images ([daad375](https://github.com/ctrlmais/rasg-web/commit/daad375db6f570168580362a8c5fbf19ad289644))
+* link menu hamburguer ([d27794c](https://github.com/ctrlmais/rasg-web/commit/d27794c3836076d7d3d92afbfc08fd3d13fa5d6b))
+* new color toast ([e916994](https://github.com/ctrlmais/rasg-web/commit/e91699495fb7c9b0aecda5d2fce4ffd2018e8411))
+* page barbeiro ([d44e0d1](https://github.com/ctrlmais/rasg-web/commit/d44e0d11b45ebe4dd9a6be27882869bbfe6e3b24))
+* page my ticket button disabled ([ccd66a8](https://github.com/ctrlmais/rasg-web/commit/ccd66a82373fdd8c712355d75b46fb77900cd147))
+* page profile ([5bc235a](https://github.com/ctrlmais/rasg-web/commit/5bc235aedf6e16511461cd2f3254f8af205dd246))
+* path correct privacy ([347bc61](https://github.com/ctrlmais/rasg-web/commit/347bc6119d04708b991c3dda730388dd90204171))
+* path correct terms ([3e79857](https://github.com/ctrlmais/rasg-web/commit/3e79857eaeb4730085b0fc3e1984e30fe78e057a))
+* remove react modal and supabase ([05bd756](https://github.com/ctrlmais/rasg-web/commit/05bd756a306b14c761250ff0df42467ac5873649))
+* remove supabase config ([9b2ba4f](https://github.com/ctrlmais/rasg-web/commit/9b2ba4fb0bf379d4526a0ff5f42e419fea0bb0e8))
+* selection color and background orange ([27c2966](https://github.com/ctrlmais/rasg-web/commit/27c2966500f2c3c28b01d6d55d62d77a975a8e4b))
+* update env example ([8ac15c4](https://github.com/ctrlmais/rasg-web/commit/8ac15c472145f478394e60a4fa629f9179ec3ffd))
+* username used context user ([4b533ad](https://github.com/ctrlmais/rasg-web/commit/4b533ad7ce2df04e2c6447b9f5a773f70957e196))
+
+
+### Features
+
+* add choice services ([5d17e4e](https://github.com/ctrlmais/rasg-web/commit/5d17e4e165fb5f00a355fa9b239e928ce0f7d022))
+* add component modal title ([67d07b0](https://github.com/ctrlmais/rasg-web/commit/67d07b059f9d4d1fb3515d82dadbcb7ca1c897b4))
+* add component select ([772d11c](https://github.com/ctrlmais/rasg-web/commit/772d11c15ee0d5768744f3ee8e83b18f41430a61))
+* add dia semana database ([2f1b857](https://github.com/ctrlmais/rasg-web/commit/2f1b857a50759a6e7f83a028181f92476566389f))
+* add global import assets ([190b0c9](https://github.com/ctrlmais/rasg-web/commit/190b0c953e51ba67b2bc003c0a45957e3d57c7e8))
+* add hook photos services ([9dc5814](https://github.com/ctrlmais/rasg-web/commit/9dc5814d8ef52d56e1186d54cf1073541c98dd05))
+* add hook use profile photo and profile update ([8c29edd](https://github.com/ctrlmais/rasg-web/commit/8c29edddf28c32eefa37aeb22dc8188cee5049c3))
+* add new component card service ([fef5943](https://github.com/ctrlmais/rasg-web/commit/fef594367e0e59102b7ef9044bdfae555286043c))
+* add new component dropzone services ([f182beb](https://github.com/ctrlmais/rasg-web/commit/f182beb7ed1b4bce66e1589695eccdbe1d44ba9a))
+* add new font weight ([60682d8](https://github.com/ctrlmais/rasg-web/commit/60682d87af2d0522d6dcb16e26c533760eb8f725))
+* add new hook use services ([6eb2c18](https://github.com/ctrlmais/rasg-web/commit/6eb2c186f9577b9c08ccc37a11210fa5427a0a55))
+* add new page services ([01d234c](https://github.com/ctrlmais/rasg-web/commit/01d234c87b2e8c92639f24cfa0d5da2732f02b92))
+* add new services get ([b0b9829](https://github.com/ctrlmais/rasg-web/commit/b0b9829c76341ebed9d5012fc9abfbb94972c543))
+* add new services post ([17e4f4f](https://github.com/ctrlmais/rasg-web/commit/17e4f4f4b3ccdbdcf7fe750b5ed763a45cb5e4bb))
+* add new services update ([adacf1f](https://github.com/ctrlmais/rasg-web/commit/adacf1f99d43e1025c4460c87933dbe80bb85d8a))
+* add new types ([60893a3](https://github.com/ctrlmais/rasg-web/commit/60893a3db442f5b1f0e83a2c565c069282e2acf7))
+* add pages card cliente isVerified ([9b32ed0](https://github.com/ctrlmais/rasg-web/commit/9b32ed0cef538b94331284f610e693d1b01a81e3))
+* add route services ([74426ec](https://github.com/ctrlmais/rasg-web/commit/74426ec356cf9f1d9324d4a717917f95238a0f88))
+
 ## [2.4.3](https://github.com/ctrlmais/rasg-web/compare/v2.4.2...v2.4.3) (2023-01-04)
 
 
