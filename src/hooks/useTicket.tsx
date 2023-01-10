@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import { Content } from 'types/ServicesProps';
 
 import { useToast } from 'contexts/Toast';
@@ -17,7 +17,7 @@ export function useTicket() {
   const navigate = useNavigate();
   const params = useParams();
   const { toast } = useToast();
-  const { storagedUser } = useAuth();
+  const { user } = useAuth();
   const { setSelectHours, setSelectDay } = useUser();
 
   const [cliente, setCliente] = useState<Content>();
@@ -56,15 +56,13 @@ export function useTicket() {
     }
   }
 
-  function verificaHorarioCancelamento(dataAgendamento: Content) {
-    const dataAtual = new Date();
-    const dataAtualFormatted = format(dataAtual, 'yyyy-MM-dd');
-    const horaAtual = format(dataAtual, 'HH:mm:ss');
-    const dataHoraAtual = `${dataAtualFormatted}T${horaAtual}`;
-    const dataAgenda = dataAgendamento?.dtInicio;
+  function verificaHorarioCancelamento() {
+    if (!cliente) return;
 
-    const diff =
-      new Date(dataAgenda).getTime() - new Date(dataHoraAtual).getTime();
+    const dataAtual = new Date();
+
+    const diff = new Date(cliente?.dtInicio).getTime() - dataAtual.getTime();
+
     const diffMinutes = Math.round(diff / 1000 / 60);
 
     if (diffMinutes < 30) {
@@ -105,7 +103,7 @@ export function useTicket() {
       try {
         setLoading(true);
 
-        const { data } = await getSchedulesClientAWS(storagedUser.cdUsuario);
+        const { data } = await getSchedulesClientAWS(Number(user?.cdUsuario));
 
         if (!data) return;
 
