@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { horariosManha, horariosNoite, horariosTarde } from 'database/horarios';
 import { format, subMinutes } from 'date-fns';
-import { GetJornadaUsuario } from 'types/ServicesProps';
+import { ContentServico, GetJornadaUsuario } from 'types/ServicesProps';
 
 import { formatHours } from 'utils/formatHours';
 
@@ -10,6 +10,11 @@ import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
 import { getsShedulesByDateAWS, getJourneyByIdAWS } from 'services/get';
+import {
+  getSearchPhotoServiceByIdAWS,
+  getSearchPhotoServicesByHashAWS,
+  getServicesByIdAWS,
+} from 'services/get/servicos';
 
 export function useSchedule() {
   const { toast } = useToast();
@@ -17,6 +22,11 @@ export function useSchedule() {
 
   const [schedules, setSchedules] = useState<GetJornadaUsuario[]>([]);
   const [weekDay, setWeekDay] = useState<string>(String(new Date().getDay()));
+  const [servicesBarber, setServicesBarber] = useState<ContentServico[]>([]);
+  const [savePhotoServices, setSavePhotoServices] = useState<string[]>([]);
+  const [selectedService, setSelectedService] = useState<ContentServico>();
+
+  const [loading, setLoading] = useState(false);
 
   const [horarioInicialBarbeiroSchedule, setHorarioInicialBarbeiroSchedule] =
     useState(schedules[0]?.hrInicio || '00:00');
@@ -163,6 +173,61 @@ export function useSchedule() {
   }
 
   useEffect(() => {
+    async function getServicesBarber() {
+      setLoading(true);
+      try {
+        const { data } = await getServicesByIdAWS(Number(barbeiro?.cdUsuario));
+
+        setServicesBarber(data.content);
+
+        const cdServicos = data.content.map((item) => item.cdServico);
+
+        const promises = cdServicos.map(
+          async (cdServico) =>
+            await getSearchPhotoServiceByIdAWS(String(cdServico)),
+        );
+
+        const results = await Promise.all(promises);
+
+        const resultsFilter = results.filter((item) => item.data.length > 0);
+
+        const nmHashMime = resultsFilter.map((result) => {
+          const { nmHash, nmMime } = result.data[0];
+          return { nmHash, nmMime };
+        });
+
+        const promisesPhoto = nmHashMime.map(
+          async (item) => await getSearchPhotoServicesByHashAWS(item.nmHash),
+        );
+
+        const resultsPhoto = await Promise.all(promisesPhoto);
+
+        const newResultAddnmMime = resultsPhoto.map((result, index) => ({
+          ...result,
+          nmMime: nmHashMime[index].nmMime,
+        }));
+
+        const photoURI = newResultAddnmMime.map((item) => {
+          const { nmMime } = item;
+          const photo = `data:${nmMime};base64,${item.data}`;
+          return photo;
+        });
+
+        setSavePhotoServices(photoURI);
+
+        setLoading(false);
+      } catch (error) {
+        toast.error('Erro ao buscar serviços do barbeiro ', { id: 'toast' });
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getServicesBarber();
+  }, []);
+
+  useEffect(() => {
     async function getHorariosBarbeiro() {
       try {
         const { data } = await getsShedulesByDateAWS(
@@ -242,5 +307,10 @@ export function useSchedule() {
     getHorariosManhaBarbeiro,
     getHorariosTardeBarbeiro,
     getHorariosNoiteBarbeiro,
+    servicesBarber,
+    selectedService,
+    setSelectedService,
+    savePhotoServices,
+    loading,
   };
 }
