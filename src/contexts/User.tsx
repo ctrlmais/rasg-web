@@ -8,14 +8,13 @@ import {
   Content,
   Gerenciador,
   SituacaoAgendamento,
-  SituacaoServico,
+  ContentServico,
 } from 'types/ServicesProps';
 
 import { useAuth } from 'hooks/useAuth';
 import { usePerfil } from 'hooks/usePerfil';
 
 import {
-  getJourneyTypesAWS,
   getAllBarberAWS,
   getsShedulingSituationsAWS,
   getsShedulesByIdAWS,
@@ -43,7 +42,7 @@ export function UserProvider({ children }: any) {
   const [horariosAgendados, setHorariosAgendados] = useState<Content[]>([]);
   const [situacaoAgendamento, setSituacaoAgendamento] =
     useState<SituacaoAgendamento>();
-  const [situacaoServico, setSituacaoServico] = useState<any>();
+  const [selectedService, setSelectedService] = useState<ContentServico>();
 
   const [selectDay, setSelectDay] = useState(new Date());
   const [selectHours, setSelectHours] = useState<string>('');
@@ -92,19 +91,19 @@ export function UserProvider({ children }: any) {
 
     if (
       horarioInicioFormatted >= '08:00:00' &&
-      horarioInicioFormatted <= '12:00:00'
+      horarioInicioFormatted <= '12:59:59'
     ) {
       return 'MANHÃ';
     }
     if (
       horarioInicioFormatted >= '13:00:00' &&
-      horarioInicioFormatted <= '17:00:00'
+      horarioInicioFormatted <= '17:59:59'
     ) {
       return 'TARDE';
     }
     if (
       horarioInicioFormatted >= '18:00:00' &&
-      horarioInicioFormatted <= '22:00:00'
+      horarioInicioFormatted <= '22:59:59'
     ) {
       return 'NOITE';
     }
@@ -112,7 +111,7 @@ export function UserProvider({ children }: any) {
 
   function getClientesMorning() {
     const clientesMorning = clientes.filter((cliente) => {
-      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm:ss');
       const shift = verificaHorario(horarioInicio);
 
       if (shift === 'MANHÃ') {
@@ -127,7 +126,7 @@ export function UserProvider({ children }: any) {
 
   function getClientesAfternoon() {
     const clientesAfternoon = clientes.filter((cliente) => {
-      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm:ss');
       const shift = verificaHorario(horarioInicio);
 
       if (shift === 'TARDE') {
@@ -142,7 +141,7 @@ export function UserProvider({ children }: any) {
 
   function getClientesNight() {
     const clientesNight = clientes.filter((cliente) => {
-      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm');
+      const horarioInicio = format(new Date(cliente.dtInicio), 'HH:mm:ss');
       const shift = verificaHorario(horarioInicio);
 
       if (shift === 'NOITE') {
@@ -227,16 +226,6 @@ export function UserProvider({ children }: any) {
     return false;
   }
 
-  function verificaTelefone() {
-    const telefone = storagedUser?.nmTelefone;
-
-    if (telefone) {
-      return true;
-    }
-
-    return false;
-  }
-
   function generateGoogleCalendarEvent(
     title: string,
     startDate: string,
@@ -289,7 +278,6 @@ export function UserProvider({ children }: any) {
 
   async function buscarClientes() {
     if (!clientId === undefined) return;
-    if (selectDayFormatted < atualDayFormatted) return;
 
     if (isBarbeiro) {
       try {
@@ -305,7 +293,10 @@ export function UserProvider({ children }: any) {
           setClientes(data.content);
         }
 
-        if (selectDayFormatted > atualDayFormatted) {
+        if (
+          selectDayFormatted > atualDayFormatted ||
+          selectDayFormatted < atualDayFormatted
+        ) {
           const { data } = await getsShedulesByDateAWS(
             `${selectDayFormatted} 00:00:00`,
             `${selectDayFormatted} 23:59:59`,
@@ -342,6 +333,10 @@ export function UserProvider({ children }: any) {
     if (!barbeiro) return;
     if (!storagedUser) return;
     if (!situacaoAgendamento) return;
+    if (!selectedService) {
+      toast.error('Selecione um serviço para agendar', { id: 'toast' });
+      return;
+    }
 
     const newValues = {
       nmAgendamento: `${storagedUser.nmUsuario} - ${barbeiro.nmUsuario} - ${selectDayFormatted} ${selectHours}:00`,
@@ -349,24 +344,7 @@ export function UserProvider({ children }: any) {
       dtInicio: `${selectDayFormatted} ${selectHours}:00`,
       dtTermino: `${selectDayFormatted} ${selectHoursFinish}`,
       situacaoAgendamento: situacaoAgendamento as SituacaoAgendamento,
-      servico: {
-        cdServico: 1,
-        tmServico: '01:00:00',
-        nmServico: 'Corte de cabelo',
-        deServico: 'Corte de cabelo masculino',
-        situacaoServico: situacaoServico as SituacaoServico,
-        tipoServico: {
-          cdTipoServico: 0,
-          deTipoServico: 'CORTE DE CABELO',
-          sgTipoServico: 'CDC',
-          dtCadastro: '2022-01-01 12:00:00',
-        },
-        gerenciador: barbeiro,
-        dtCadastro: `${selectDayFormatted} ${selectHours}:00`,
-        dtAtualizacao: '',
-        cdUsuarioCadastro: Number(barbeiro.cdUsuario),
-        cdUsuarioAtualizacao: Number(barbeiro.cdUsuario),
-      },
+      servico: selectedService,
       cliente: storagedUser,
       gerenciador: barbeiro,
       dtCadastro: `${selectDayFormatted} ${selectHours}:00`,
@@ -380,6 +358,8 @@ export function UserProvider({ children }: any) {
       if (status === 200) {
         toast.success('Agendamento realizado com sucesso', { id: 'toast' });
         setStatus('success');
+
+        localStorage.removeItem('@rasg:service');
       }
     } catch (error) {
       toast.error('Erro ao realizar agendamento', { id: 'toast' });
@@ -406,23 +386,6 @@ export function UserProvider({ children }: any) {
   }
 
   useEffect(() => {
-    async function getSituacaoAgendamento() {
-      try {
-        setLoading(true);
-        const { data } = await getJourneyTypesAWS();
-
-        if (!data) return;
-
-        setSituacaoServico(data[0]);
-        setLoading(false);
-      } catch (error) {
-        toast.error('Erro ao buscar situação agendamento', { id: 'toast' });
-        setLoading(false);
-      } finally {
-        setLoading(false);
-      }
-    }
-
     async function getSituacaoServico() {
       try {
         setLoading(true);
@@ -440,7 +403,6 @@ export function UserProvider({ children }: any) {
       }
     }
 
-    getSituacaoAgendamento();
     getSituacaoServico();
   }, []);
 
@@ -552,11 +514,12 @@ export function UserProvider({ children }: any) {
         endDate,
         buscaClientesHorario,
         verificaHorarioDeTrabalho,
-        verificaTelefone,
         loading,
         emailUser,
         situation,
         verificaHorario,
+        selectedService,
+        setSelectedService,
       }}
     >
       {children}
