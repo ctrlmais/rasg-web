@@ -1,4 +1,4 @@
-import { FiClock } from 'react-icons/fi';
+import { FiClock, FiScissors } from 'react-icons/fi';
 import { IoTicketOutline } from 'react-icons/io5';
 import { RiAdminLine, RiBugLine, RiHistoryLine } from 'react-icons/ri';
 import { TbLogout } from 'react-icons/tb';
@@ -15,7 +15,7 @@ import { usePerfil } from 'hooks/usePerfil';
 import styles from './DropdownMenu.module.scss';
 
 export function DropdownMenu() {
-  const { user, handleLogout } = useAuth();
+  const { user, handleLogout, profileAvatar } = useAuth();
   const { activeMenu, dropdownRef, calcHeight, menuHeight } = useDropdown();
 
   const { isAdmin, isBarbeiro, isCliente } = usePerfil();
@@ -35,9 +35,17 @@ export function DropdownMenu() {
       >
         <div className={styles.menu}>
           <DropdownItem link="/profile">
-            <div className={styles.imgProfile}>
-              <Avvvatars value={user?.nmUsuario || ''} size={30} />
-            </div>
+            {profileAvatar ? (
+              <img
+                src={profileAvatar}
+                alt={user?.nmUsuario}
+                className={styles.imgProfile}
+              />
+            ) : (
+              <div className={styles.imgProfile}>
+                <Avvvatars value={user?.nmUsuario || ''} size={30} />
+              </div>
+            )}
             Meu Perfil
           </DropdownItem>
 
@@ -47,8 +55,13 @@ export function DropdownMenu() {
             </DropdownItem>
           )}
           {isBarbeiro && (
-            <DropdownItem link="/horarios" leftIcon={<FiClock size={18} />}>
+            <DropdownItem link="/schedules" leftIcon={<FiClock size={18} />}>
               Atualizar horários
+            </DropdownItem>
+          )}
+          {isBarbeiro && (
+            <DropdownItem link="/services" leftIcon={<FiScissors size={18} />}>
+              Adicionar serviços
             </DropdownItem>
           )}
           {isBarbeiro && (
