@@ -8,7 +8,7 @@ const Theme = createContext({} as ThemeContextProps);
 export function ThemeProvider({ children }: any) {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [theme, setTheme] = useLocalStorage<string>(
-    'theme',
+    '@rasg:theme',
     defaultDark ? 'dark' : 'dark',
   );
 
