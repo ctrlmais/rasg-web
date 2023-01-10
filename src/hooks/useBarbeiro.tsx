@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
-import { useNavigate } from 'react-router-dom';
 
 import { format, addDays } from 'date-fns';
-import Swal from 'sweetalert2';
 import { Content } from 'types/ServicesProps';
 import * as XLSX from 'xlsx';
 
@@ -23,16 +21,12 @@ interface ExcelDataProps {
 }
 
 export function useBarbeiro() {
-  const navigate = useNavigate();
   const {
-    // getFirstCliente,
-    // buscaClientesHorario,
     buscarClientes,
     clientId,
     getClientesMorning,
     getClientesAfternoon,
     getClientesNight,
-    verificaTelefone,
     situation,
     verificaHorario,
   } = useUser();
@@ -107,25 +101,6 @@ export function useBarbeiro() {
     };
   });
 
-  // useEffect(() => {
-  //   async function getCliente() {
-  //     const actualHour = format(date, 'HH:mm:ss');
-  //     const dateCliente = `${getFirstCliente()?.dtInicio}`;
-  //     const dateClienteFormat = format(new Date(dateCliente), 'HH:mm:ss');
-
-  //     const actualHourMinutePlusOne = format(
-  //       new Date(date.setMinutes(date.getMinutes() + 1)),
-  //       'HH:mm',
-  //     );
-
-  //     if (actualHour === dateClienteFormat) {
-  //       buscaClientesHorario(actualHourMinutePlusOne);
-  //     }
-  //   }
-
-  //   getCliente();
-  // }, [date]);
-
   useEffect(() => {
     const interval = setInterval(() => {
       buscarClientes();
@@ -170,47 +145,6 @@ export function useBarbeiro() {
     }
   }, [toggleDownload, range]);
 
-  useEffect(() => {
-    if (!verificaTelefone()) {
-      Swal.fire({
-        title: 'Atenção!',
-        text: 'Para continuar utilizando o app, é necessário informar seu telefone. Estamos atualizando algumas coisas no sistema, então não se preocupe, isso não vai demorar nada.',
-        icon: 'warning',
-        confirmButtonColor: '#ff9000',
-        background: '#312e38',
-        color: '#f4ede8',
-        confirmButtonText: 'Adicionar telefone',
-      }).then((result) => {
-        if (result.value) {
-          navigate('/profile');
-        }
-      });
-    }
-  }, []);
-
-  const customStyles = {
-    content: {
-      inset: 'initial',
-      border: 'none',
-      background: '#312e38',
-      overflow: 'auto',
-      borderRadius: '4px',
-      outline: 'none',
-      padding: '0px',
-      width: '22rem',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    overlay: {
-      display: 'flex',
-      inset: '0px',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      zIndex: '10',
-    },
-  };
-
   return {
     toggleDownload,
     setToggleDownload,
@@ -218,7 +152,6 @@ export function useBarbeiro() {
     setIsOpen,
     openModal,
     closeModal,
-    customStyles,
     date,
     ultimaAtualizacao,
     range,
