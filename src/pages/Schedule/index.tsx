@@ -1,7 +1,9 @@
 import { DayPicker } from 'react-day-picker';
-import { FiCheck } from 'react-icons/fi';
+import { FiCheck, FiInfo } from 'react-icons/fi';
 import { SiWhatsapp } from 'react-icons/si';
 
+import { Skeleton, Tooltip } from '@mui/material';
+import { imgRasgLight } from 'assets';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import { Button } from 'components/Button';
@@ -31,6 +33,8 @@ export function Schedule() {
     postShedule,
     verificaDataEHoraSelecionada,
     status,
+    selectedService,
+    setSelectedService,
   } = useUser();
 
   const {
@@ -40,6 +44,9 @@ export function Schedule() {
     getHorariosTardeBarbeiro,
     getHorariosNoiteBarbeiro,
     disableSchedules,
+    servicesBarber,
+    savePhotoServices,
+    loading,
   } = useSchedule();
 
   const { contactBarbeiro } = useOverlay();
@@ -103,6 +110,56 @@ export function Schedule() {
 
           <div className={styles.containerTitle}>
             <>
+              <h2 className={styles.title}>Escolha o serviço</h2>
+
+              <div className={styles.wrapperService}>
+                <div className={styles.containerService}>
+                  {loading ? (
+                    Array.from(new Array(3)).map((_, index) => (
+                      <Skeleton
+                        variant="rounded"
+                        width={106}
+                        height={106}
+                        animation="wave"
+                        key={index}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      {servicesBarber.map((service, index) => (
+                        <div
+                          key={service.cdServico}
+                          className={
+                            selectedService?.cdServico === service.cdServico
+                              ? styles.serviceSelected
+                              : styles.service
+                          }
+                          onClick={() => {
+                            setSelectedService(service);
+                          }}
+                        >
+                          <img
+                            src={savePhotoServices[index] || imgRasgLight}
+                            alt={service.deServico}
+                            className={styles.imageService}
+                          />
+                          <Tooltip title={service.deServico} placement="top">
+                            <div className={styles.containerInfo}>
+                              <FiInfo color="#FF9000" size={16} />
+                            </div>
+                          </Tooltip>
+                          <div className={styles.containerServiceInfo}>
+                            <b className={styles.textService}>
+                              {service.nmServico}
+                            </b>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </div>
+
               <h2 className={styles.title}>Escolha o horário</h2>
 
               {getHorariosManhaBarbeiro().length > 0 && <p>Manhã</p>}
