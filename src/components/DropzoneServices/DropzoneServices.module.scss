@@ -1,0 +1,72 @@
+.dropzone {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 0;
+}
+
+.dropzone img {
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.dropzone p svg {
+  color: #4ecb79;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+  z-index: 999;
+}
+
+.preview {
+  display: flex;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  height: 123px;
+
+  &:hover {
+    filter: brightness(0.6);
+    transition: 0.4s;
+  }
+}
+
+.profile {
+  height: 125px;
+  width: 310px;
+  background: var(--input);
+  border: 1px dashed var(--orange);
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 839px) {
+  .profile {
+    height: 90px;
+    width: 150px;
+    background: var(--input);
+    border: 1px dashed var(--orange);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .preview {
+    display: flex;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    height: 90px;
+
+    &:hover {
+      filter: brightness(0.6);
+      transition: 0.4s;
+    }
+  }
+}
