@@ -35,13 +35,12 @@ export function NavItem({ icon, children, onClick }: NavItemProps) {
   return (
     <OutsideClick>
       <li className={styles.navItem}>
-        <a
-          href="#"
+        <div
           className={styles.iconButton}
           onClick={() => (children ? setOpen(!open) : onClick && onClick())}
         >
           {icon}
-        </a>
+        </div>
 
         {open && children}
       </li>
