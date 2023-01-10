@@ -11,6 +11,7 @@ import { Privacy } from 'pages/Privacy';
 import { Profile } from 'pages/Profile';
 import { ReportBug } from 'pages/ReportBug';
 import { Schedule } from 'pages/Schedule';
+import { Services } from 'pages/Services';
 import { Terms } from 'pages/Terms';
 import { Tickets } from 'pages/Tickets';
 import { Validate } from 'pages/Validate';
@@ -31,10 +32,11 @@ export function PrivateRoutes() {
       <Route path="/bug" element={<ReportBug />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
+      {isBarbeiro && <Route path="/services" element={<Services />} />}
       {isBarbeiro && <Route path="/scanner" element={<Camera />} />}
       {isBarbeiro && <Route path="/validate" element={<Validate />} />}
       {isBarbeiro && <Route path="/validate/:id" element={<ValidateId />} />}
-      {isBarbeiro && <Route path="/horarios" element={<Horarios />} />}
+      {isBarbeiro && <Route path="/schedules" element={<Horarios />} />}
       {isAdmin && <Route path="/admin" element={<Admin />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
