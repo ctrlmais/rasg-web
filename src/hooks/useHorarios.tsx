@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
+import { format } from 'date-fns';
 import { useFormik } from 'formik';
 import { GetJornadaUsuario } from 'types/ServicesProps';
 
@@ -8,43 +8,26 @@ import { useToast } from 'contexts/Toast';
 
 import { getJourneyByIdAWS } from 'services/get';
 import { postJourneysAWS } from 'services/post';
+import { putJourneysAWS } from 'services/update';
 
 import { useAuth } from './useAuth';
 
 export function useHorarios() {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const { storagedUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [horarios, setHorarios] = useState<GetJornadaUsuario[]>([]);
   const [modalIsOpen, setIsOpen] = useState(false);
 
+  const horarioStoraged = JSON.parse(
+    localStorage.getItem('@rasg:horario') || '{}',
+  );
+
   function closeModal() {
     setIsOpen(false);
-  }
 
-  const customStyles = {
-    content: {
-      inset: 'initial',
-      border: 'none',
-      background: '#312e38',
-      overflow: 'auto',
-      borderRadius: '4px',
-      outline: 'none',
-      padding: '0px',
-      width: '22rem',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    overlay: {
-      display: 'flex',
-      inset: '0px',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      zIndex: '10',
-    },
-  };
+    localStorage.removeItem('@rasg:horario');
+  }
 
   const formikHorarios = useFormik({
     initialValues: {
@@ -85,29 +68,84 @@ export function useHorarios() {
         cdUsuarioAtualizacao: '',
       };
 
-      try {
-        setLoading(true);
+      const atualDate = format(new Date(), 'yyyy-MM-dd');
 
-        const { status } = await postJourneysAWS(newValues);
+      const newValuesPut = {
+        cdJornada: horarioStoraged?.cdJornada,
+        gerenciador: storagedUser,
+        hrInicio: format(
+          new Date(`${atualDate} ${values.hrInicio}`),
+          'HH:mm:ss',
+        ),
+        hrFim: format(new Date(`${atualDate} ${values.hrFim}`), 'HH:mm:ss'),
+        hrInicioIntervalo: format(
+          new Date(`${atualDate} ${values.hrInicioIntervalo}`),
+          'HH:mm:ss',
+        ),
+        hrFimIntervalo: format(
+          new Date(`${atualDate} ${values.hrFimIntervalo}`),
+          'HH:mm:ss',
+        ),
+        cdDiaSemana: Number(values.cdDiaSemana),
+        tipoJornada: horarioStoraged?.tipoJornada,
+        dtCadastro: horarioStoraged?.dtCadastro,
+        dtAtualizacao: '',
+        cdUsuarioCadastro: storagedUser?.cdUsuario,
+        cdUsuarioAtualizacao: storagedUser?.cdUsuario,
+      };
 
-        const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
+      if (horarioStoraged) {
+        try {
+          setLoading(true);
 
-        setHorarios(data);
+          const { status } = await putJourneysAWS(
+            newValuesPut,
+            horarioStoraged.cdJornada,
+          );
 
-        if (status === 200) {
-          toast.success('Horários adicionados com sucesso!', { id: 'toast' });
+          if (status === 200) {
+            toast.success('Horários adicionados com sucesso!', { id: 'toast' });
+
+            const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
+
+            setHorarios(data);
+          }
+          setLoading(false);
+
+          window.location.reload();
+        } catch (error: any) {
+          console.log(error.response.data.errors[0]);
+          toast.error('Erro ao atualizar horários', { id: 'toast' });
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      if (!horarioStoraged) {
+        try {
+          setLoading(true);
+
+          const { status } = await postJourneysAWS(newValues);
 
           const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
 
           setHorarios(data);
-        }
-        setLoading(false);
 
-        navigate(0);
-      } catch (error) {
-        toast.error('Erro ao atualizar horários');
-      } finally {
-        setLoading(false);
+          if (status === 200) {
+            toast.success('Horários adicionados com sucesso!', { id: 'toast' });
+
+            const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
+
+            setHorarios(data);
+          }
+          setLoading(false);
+
+          window.location.reload();
+        } catch (error) {
+          toast.error('Erro ao atualizar horários', { id: 'toast' });
+        } finally {
+          setLoading(false);
+        }
       }
     },
   });
@@ -132,13 +170,47 @@ export function useHorarios() {
     loadHorarios();
   }, []);
 
+  useEffect(() => {
+    if (!horarioStoraged) return;
+
+    formikHorarios.setFieldValue('gerenciador', horarioStoraged.gerenciador);
+    formikHorarios.setFieldValue('hrInicio', horarioStoraged.hrInicio);
+    formikHorarios.setFieldValue('hrFim', horarioStoraged.hrFim);
+    formikHorarios.setFieldValue(
+      'hrInicioIntervalo',
+      horarioStoraged.hrInicioIntervalo,
+    );
+    formikHorarios.setFieldValue(
+      'hrFimIntervalo',
+      horarioStoraged.hrFimIntervalo,
+    );
+    formikHorarios.setFieldValue(
+      'cdDiaSemana',
+      Number(horarioStoraged.cdDiaSemana),
+    );
+    formikHorarios.setFieldValue('tipoJornada', horarioStoraged.tipoJornada);
+    formikHorarios.setFieldValue('dtCadastro', horarioStoraged.dtCadastro);
+    formikHorarios.setFieldValue(
+      'dtAtualizacao',
+      horarioStoraged.dtAtualizacao,
+    );
+    formikHorarios.setFieldValue(
+      'cdUsuarioCadastro',
+      horarioStoraged.cdUsuarioCadastro,
+    );
+    formikHorarios.setFieldValue(
+      'cdUsuarioAtualizacao',
+      horarioStoraged.cdUsuarioAtualizacao,
+    );
+  }, [modalIsOpen]);
+
   return {
     formikHorarios,
     loading,
     modalIsOpen,
     setIsOpen,
     closeModal,
-    customStyles,
     horarios,
+    horarioStoraged,
   };
 }
