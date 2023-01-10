@@ -10,7 +10,7 @@ export function useAgenda() {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
 
-  const cliente = JSON.parse(localStorage.getItem('@rasg:cliente') || '');
+  const cliente = JSON.parse(localStorage.getItem('@rasg:cliente') || '{}');
   const { generateGoogleCalendarEvent } = useUser();
 
   const dateStartGoogle = format(
