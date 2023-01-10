@@ -1,0 +1,182 @@
+.home {
+  background: var(--background);
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--background);
+}
+
+.title {
+  font-weight: bold;
+  color: var(--white);
+  font-size: 22px;
+  margin-top: 24px;
+}
+
+.containerAlert {
+  display: flex;
+  width: 22rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerButton {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 22px;
+  margin-top: 22px;
+}
+
+.form {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  background: var(--shape);
+  flex-direction: column;
+  width: 22rem;
+  height: 15rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+h3 {
+  color: var(--white);
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+}
+
+.containerNome {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  margin-left: 2px;
+  margin-top: 12px;
+}
+
+.containerDescricao {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  margin-left: 2px;
+}
+
+.containerDuracao {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  margin-left: 2px;
+}
+
+@media screen and (min-width: 839px) {
+  .home {
+    background: var(--background);
+    height: 100vh;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--background);
+  }
+
+  .title {
+    font-weight: bold;
+    color: var(--white);
+    font-size: 22px;
+    margin-top: 24px;
+  }
+
+  .containerAlert {
+    display: flex;
+    width: 45rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .containerButton {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 22px;
+    margin-top: 22px;
+  }
+
+  .form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .card {
+    display: flex;
+    background: var(--shape);
+    flex-direction: row;
+    width: 45rem;
+    height: 6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cardContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .containerNome {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 12px;
+    margin-top: 0px;
+  }
+
+  .containerDescricao {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: 12px;
+  }
+
+  .containerDuracao {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
+    margin-left: 12px;
+  }
+}
