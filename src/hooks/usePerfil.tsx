@@ -1,9 +1,11 @@
+import { useAuth } from './useAuth';
+
 export function usePerfil() {
-  const storagedUser = JSON.parse(localStorage.getItem('@rasg:user') || '{}');
+  const { user } = useAuth();
 
   function isBarbeiro() {
-    if (storagedUser) {
-      if (storagedUser.tipoUsuario?.authority === 'GERENCIADOR') {
+    if (user) {
+      if (user.tipoUsuario?.authority === 'GERENCIADOR') {
         return true;
       }
     }
@@ -12,10 +14,10 @@ export function usePerfil() {
   }
 
   function isCliente() {
-    if (storagedUser) {
+    if (user) {
       if (
-        storagedUser.tipoUsuario?.authority === 'CLIENTE' ||
-        storagedUser.tipoUsuario?.authority === 'ADMINISTRADOR'
+        user.tipoUsuario?.authority === 'CLIENTE' ||
+        user.tipoUsuario?.authority === 'ADMINISTRADOR'
       ) {
         return true;
       }
@@ -25,8 +27,8 @@ export function usePerfil() {
   }
 
   function isAdmin() {
-    if (storagedUser) {
-      if (storagedUser.tipoUsuario?.authority === 'ADMINISTRADOR') {
+    if (user) {
+      if (user.tipoUsuario?.authority === 'ADMINISTRADOR') {
         return true;
       }
     }
