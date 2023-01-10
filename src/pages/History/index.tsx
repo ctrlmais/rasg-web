@@ -54,6 +54,10 @@ export function History() {
                           key={cliente.cliente.cdUsuario}
                           cliente={cliente}
                           data
+                          isVerified={
+                            cliente.situacaoAgendamento
+                              .deSituacaoAgendamento === 'EXECUTADO'
+                          }
                         />
                       </div>
                     </>
