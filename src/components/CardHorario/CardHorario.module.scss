@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 35rem;
+  background: var(--background);
 }
 
 .container {
@@ -12,8 +12,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  // height: 20vh;
   margin-bottom: 12px;
+  color: var(--white);
 }
 
 .containerTime {
@@ -22,87 +22,49 @@
   justify-content: space-evenly;
 }
 
-.select {
-  width: 314px;
-  height: 56px;
-  background: var(--input);
-  color: var(--gray-hard);
-  border: none;
-  outline: 0;
-
-  border: 1px solid var(--input);
-
-  border-radius: 10px;
-
-  font-size: 16px;
-
-  text-indent: 10px;
-
-  &::placeholder {
-    color: var(--gray);
-  }
-
-  &:invalid {
-    border: 1px solid #ff0000;
-  }
-
-  &:focus {
-    color: var(--white);
-    border: 1px solid var(--orange);
-  }
-}
-
-.time {
-  width: 314px;
-  height: 56px;
-  background: var(--input);
-  color: var(--gray-hard);
-  border: none;
-  outline: 0;
-
-  border: 1px solid var(--input);
-
-  border-radius: 10px;
-
-  font-size: 16px;
-
-  text-indent: 10px;
-
-  &::placeholder {
-    color: var(--gray);
-  }
-
-  &:invalid {
-    border: 1px solid #ff0000;
-  }
-
-  &:focus {
-    color: var(--white);
-    border: 1px solid var(--orange);
-  }
-}
-
 .containerInput {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.containerDiaSemana {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  padding: 0px 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  border: var(--border);
+}
+
+.diaSemana {
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+
+  &:hover {
+    filter: brightness(0.8);
+    transition: 0.4s;
+  }
 }
 
 .intervalo {
   margin-bottom: 22px;
 }
 
-.button {
-  width: 314px;
-  height: 56px;
-  background: var(--orange);
-  border-radius: 10px;
-  border: 0;
-  outline: none;
-  font-weight: bold;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-label {
-  margin-bottom: 6px;
+@media screen and (min-width: 839px) {
+  .containerInput {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

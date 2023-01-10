@@ -1,43 +1,20 @@
+import { FiClock } from 'react-icons/fi';
+
+import { Tooltip } from '@mui/material';
+import { diasSemana } from 'database/diaSemana';
+
+import { Button } from 'components/Button';
+import { Input } from 'components/Input';
+
 import { useTheme } from 'contexts/Theme';
 
 import { useHorarios } from 'hooks/useHorarios';
 
 import styles from './CardHorario.module.scss';
 
-const diasSemana = [
-  {
-    cdDiaSemana: 0,
-    deDiaSemana: 'Domingo',
-  },
-  {
-    cdDiaSemana: 1,
-    deDiaSemana: 'Segunda-feira',
-  },
-  {
-    cdDiaSemana: 2,
-    deDiaSemana: 'Terça-feira',
-  },
-  {
-    cdDiaSemana: 3,
-    deDiaSemana: 'Quarta-feira',
-  },
-  {
-    cdDiaSemana: 4,
-    deDiaSemana: 'Quinta-feira',
-  },
-  {
-    cdDiaSemana: 5,
-    deDiaSemana: 'Sexta-feira',
-  },
-  {
-    cdDiaSemana: 6,
-    deDiaSemana: 'Sábado',
-  },
-];
-
 export function CardHorario() {
   const { theme } = useTheme();
-  const { formikHorarios } = useHorarios();
+  const { formikHorarios, horarioStoraged } = useHorarios();
 
   return (
     <div className={styles.wrapper} data-theme={theme}>
@@ -50,48 +27,55 @@ export function CardHorario() {
         <div className={styles.container}>
           <div className={styles.containerInput}>
             <label>Dia da Semana</label>
-            <select
-              className={styles.select}
-              name="cdDiaSemana"
-              onChange={formikHorarios.handleChange}
-              onBlur={formikHorarios.handleBlur}
-            >
-              <option value="">Selecione o dia da semana</option>
+            <div className={styles.containerDiaSemana}>
               {diasSemana.map((dia) => (
-                <option
-                  key={dia.cdDiaSemana}
-                  value={dia.cdDiaSemana}
-                  onChange={() =>
-                    formikHorarios.setFieldValue('cdDiaSemana', dia.cdDiaSemana)
-                  }
-                >
-                  {dia.deDiaSemana}
-                </option>
+                <>
+                  <Tooltip title={dia.name} placement="top" arrow>
+                    <div
+                      key={dia.cdDiaSemana}
+                      onClick={() => {
+                        formikHorarios.setFieldValue(
+                          'cdDiaSemana',
+                          dia.cdDiaSemana,
+                        );
+                      }}
+                      className={styles.diaSemana}
+                      style={{
+                        color:
+                          Number(formikHorarios.values.cdDiaSemana) ===
+                          dia.cdDiaSemana
+                            ? '#3e3b47'
+                            : '',
+                        background:
+                          Number(formikHorarios.values.cdDiaSemana) ===
+                          dia.cdDiaSemana
+                            ? '#ff9000'
+                            : '',
+                      }}
+                    >
+                      {dia.deDiaSemana}
+                    </div>
+                  </Tooltip>
+                </>
               ))}
-            </select>
+            </div>
 
             <label>Horário Inicial</label>
-            <input
-              className={styles.time}
+            <Input
               type="time"
               placeholder="De"
-              name="hrInicio"
-              value={formikHorarios.values.hrInicio}
-              onChange={formikHorarios.handleChange}
-              onBlur={formikHorarios.handleBlur}
               maxLength={100}
+              icon={<FiClock color="#666360" size={24} />}
+              {...formikHorarios.getFieldProps('hrInicio')}
             />
 
             <label>Horário Final</label>
-            <input
-              className={styles.time}
+            <Input
               type="time"
               placeholder="Até"
-              name="hrFim"
-              value={formikHorarios.values.hrFim}
-              onChange={formikHorarios.handleChange}
-              onBlur={formikHorarios.handleBlur}
               maxLength={100}
+              icon={<FiClock color="#666360" size={24} />}
+              {...formikHorarios.getFieldProps('hrFim')}
             />
           </div>
         </div>
@@ -102,33 +86,32 @@ export function CardHorario() {
 
           <div className={styles.containerInput}>
             <label>Horário Inicial</label>
-            <input
-              className={styles.time}
+            <Input
               type="time"
               placeholder="De"
-              name="hrInicioIntervalo"
-              value={formikHorarios.values.hrInicioIntervalo}
-              onChange={formikHorarios.handleChange}
-              onBlur={formikHorarios.handleBlur}
               maxLength={100}
+              icon={<FiClock color="#666360" size={24} />}
+              {...formikHorarios.getFieldProps('hrInicioIntervalo')}
             />
 
             <label>Horário Final</label>
-            <input
-              className={styles.time}
+            <Input
               type="time"
               placeholder="Até"
-              name="hrFimIntervalo"
-              value={formikHorarios.values.hrFimIntervalo}
-              onChange={formikHorarios.handleChange}
-              onBlur={formikHorarios.handleBlur}
               maxLength={100}
+              icon={<FiClock color="#666360" size={24} />}
+              {...formikHorarios.getFieldProps('hrFimIntervalo')}
             />
           </div>
+          <Button
+            style={{
+              marginTop: '1rem',
+            }}
+            type="submit"
+          >
+            {horarioStoraged ? 'Atualizar' : 'Cadastrar'}
+          </Button>
         </div>
-        <button className={styles.button} type="submit">
-          Adicionar
-        </button>
       </form>
     </div>
   );
