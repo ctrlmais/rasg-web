@@ -1,0 +1,142 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 35rem;
+
+  background: var(--background);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+
+.containerTime {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.select {
+  width: 314px;
+  height: 56px;
+  background: var(--input);
+  color: var(--gray-hard);
+  border: none;
+  outline: 0;
+
+  border: 1px solid var(--input);
+
+  border-radius: 10px;
+
+  font-size: 16px;
+
+  text-indent: 10px;
+
+  &::placeholder {
+    color: var(--gray);
+  }
+
+  &:invalid {
+    border: 1px solid #ff0000;
+  }
+
+  &:focus {
+    color: var(--white);
+    border: 1px solid var(--orange);
+  }
+}
+
+.tipoServicoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.tipoServico {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--input);
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  width: 314px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.tipoServicoSelected {
+  background: var(--orange);
+  color: var(--white);
+}
+
+.time {
+  width: 314px;
+  height: 56px;
+  background: var(--input);
+  color: var(--gray-hard);
+  border: none;
+  outline: 0;
+
+  border: 1px solid var(--input);
+
+  border-radius: 10px;
+
+  font-size: 16px;
+
+  text-indent: 10px;
+
+  &::placeholder {
+    color: var(--gray);
+  }
+
+  &:invalid {
+    border: 1px solid #ff0000;
+  }
+
+  &:focus {
+    color: var(--white);
+    border: 1px solid var(--orange);
+  }
+}
+
+.containerInput {
+  flex-direction: column;
+  height: 42vh;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.intervalo {
+  margin-bottom: 22px;
+}
+
+.button {
+  width: 314px;
+  height: 56px;
+  background: var(--orange);
+  border-radius: 10px;
+  border: 0;
+  outline: none;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+label {
+  margin-bottom: 6px;
+}
