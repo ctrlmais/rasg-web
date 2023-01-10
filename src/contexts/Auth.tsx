@@ -8,7 +8,12 @@ import { Cliente } from 'types/ServicesProps';
 import { loginSchema } from 'validations/Login';
 
 import { setToken } from 'services/api';
-import { getJourneyByIdAWS, getByIdAWS } from 'services/get';
+import {
+  getJourneyByIdAWS,
+  getByIdAWS,
+  getSearchPhotoByIdAWS,
+  getSearchPhotoByHashAWS,
+} from 'services/get';
 import { postSignInAWS, postSignOutAWS } from 'services/post';
 
 export const AuthContext = createContext<AuthContextProps>(
@@ -18,10 +23,12 @@ export const AuthContext = createContext<AuthContextProps>(
 export function AuthProvider({ children }: any) {
   const navigate = useNavigate();
   const [user, setUser] = useState<Cliente>();
+  const [profileAvatar, setProfileAvatar] = useState('');
   const [ocupacao, setOcupacao] = useState('CLIENTE');
   const [loading, setLoading] = useState(false);
 
   const storagedUser = JSON.parse(localStorage.getItem('@rasg:user') || '{}');
+  const avatar = localStorage.getItem('@rasg:avatar') || '';
   const storagedToken = localStorage.getItem('@rasg:token');
   const storagedHorarios = JSON.parse(
     localStorage.getItem('@rasg:horarios') || '{}',
@@ -40,10 +47,12 @@ export function AuthProvider({ children }: any) {
     const params = hash.split('/')[3];
 
     const user = localStorage.getItem('@rasg:user') || '{}';
+    const avatar = localStorage.getItem('@rasg:avatar') || '';
 
     const { cdUsuario } = JSON.parse(user);
 
     if (cdUsuario === undefined) return;
+    if (!user) return;
 
     try {
       const { data } = await getByIdAWS(cdUsuario);
@@ -52,11 +61,16 @@ export function AuthProvider({ children }: any) {
         navigate('/reset-password');
       } else {
         const newUser = JSON.parse(user);
+
         setUser(newUser);
 
         if (data && !isSigned()) {
           navigate('/');
         }
+      }
+
+      if (avatar) {
+        setProfileAvatar(avatar);
       }
     } catch (error) {
       toast.error('Erro ao buscar usuário');
@@ -69,7 +83,7 @@ export function AuthProvider({ children }: any) {
     window.addEventListener('hashchange', () => {
       checkUser();
     });
-  }, []);
+  }, [isSigned()]);
 
   const formikLogin = useFormik({
     initialValues: {
@@ -102,6 +116,22 @@ export function AuthProvider({ children }: any) {
           localStorage.setItem('@rasg:horarios', JSON.stringify(horarios));
         }
 
+        if (data.token) {
+          const { data: dataPhoto } = await getSearchPhotoByIdAWS(
+            data.user?.cdUsuario,
+          );
+
+          if (dataPhoto.length !== 0) {
+            const { nmHash, nmMime } = dataPhoto[0];
+
+            const { data: photo } = await getSearchPhotoByHashAWS(nmHash);
+
+            const photoURI = `data:${nmMime};base64,${photo}`;
+
+            localStorage.setItem('@rasg:avatar', photoURI);
+          }
+        }
+
         toast.success('Login realizado com sucesso', { id: 'toast' });
 
         navigate('/');
@@ -117,6 +147,7 @@ export function AuthProvider({ children }: any) {
     postSignOutAWS();
 
     setUser(undefined);
+    setProfileAvatar('');
     navigate('/');
   }
 
@@ -133,6 +164,9 @@ export function AuthProvider({ children }: any) {
         loading,
         storagedUser,
         storagedHorarios,
+        profileAvatar,
+        setProfileAvatar,
+        avatar,
       }}
     >
       {children}
