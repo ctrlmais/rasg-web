@@ -37,13 +37,13 @@ export function MenuHamburguer() {
           </DropdownItem>
 
           {isBarbeiro && (
-            <DropdownItem link="/horarios" leftIcon={<FiClock size={18} />}>
+            <DropdownItem link="/schedules" leftIcon={<FiClock size={18} />}>
               Horários
             </DropdownItem>
           )}
           {isCliente && (
             <DropdownItem
-              link="/ticket"
+              link="/tickets"
               leftIcon={<IoTicketOutline size={18} />}
             >
               Ticket
