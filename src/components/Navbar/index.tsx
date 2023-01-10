@@ -2,8 +2,7 @@ import { IoArrowBackOutline } from 'react-icons/io5';
 import { RiMenuLine } from 'react-icons/ri';
 import { useNavigate, Link } from 'react-router-dom';
 
-import RASGdark from 'assets/rasg_dark.png';
-import RASG from 'assets/rasg.png';
+import { imgRasgDark, imgRasgLight } from 'assets';
 import { NavBarProps } from 'types/ComponentsProps';
 
 import { MenuHamburguer } from 'components/MenuHamburguer';
@@ -40,7 +39,7 @@ export function Navbar({ children, back, logo, path }: NavBarProps) {
       )}
       {logo && (
         <img
-          src={theme === 'light' ? RASGdark : RASG}
+          src={theme === 'light' ? imgRasgDark : imgRasgLight}
           alt="Logo"
           className={styles.logo}
           onClick={() => {
@@ -74,10 +73,10 @@ export function Navbar({ children, back, logo, path }: NavBarProps) {
 
           {isBarbeiro && (
             <div className={styles.linkMenu}>
-              <Link to="/horarios" className={styles.active}>
+              <Link to="/schedules" className={styles.active}>
                 Horários
               </Link>
-              {verifyPath('/horarios') && <div className={styles.statusbar} />}
+              {verifyPath('/schedules') && <div className={styles.statusbar} />}
             </div>
           )}
 
