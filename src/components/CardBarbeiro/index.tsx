@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BsCalendar, BsClock } from 'react-icons/bs';
+import { FiMail } from 'react-icons/fi';
 
+import { Skeleton } from '@mui/material';
 import Avvvatars from 'avvvatars-react';
 import cx from 'classnames';
 import { CardBarbeiroProps } from 'types/ComponentsProps';
@@ -11,7 +13,11 @@ import { getDiaSemana } from 'utils/semanas';
 
 import { useToast } from 'contexts/Toast';
 
-import { getJourneyByIdAWS } from 'services/get';
+import {
+  getJourneyByIdAWS,
+  getSearchPhotoByHashAWS,
+  getSearchPhotoByIdAWS,
+} from 'services/get';
 
 import styles from './CardBarbeiro.module.scss';
 
@@ -19,12 +25,44 @@ export function CardBarbeiro({
   cliente,
   barbeiro,
   hover,
+  onClick,
   ...props
 }: CardBarbeiroProps) {
   const { toast } = useToast();
   const diaAtual = String(new Date().getDay());
 
   const [schedules, setSchedules] = useState<GetJornadaUsuario[]>([]);
+  const [photoURI, setPhotoURI] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function getPhotoUser(id: string) {
+    if (!id) return;
+
+    setLoading(true);
+    try {
+      const { data } = await getSearchPhotoByIdAWS(id);
+
+      if (!data.length) return;
+
+      const { nmHash, nmMime } = data[0];
+
+      const { data: photo } = await getSearchPhotoByHashAWS(nmHash);
+
+      const photoURI = `data:${nmMime};base64,${photo}`;
+
+      setPhotoURI(photoURI);
+    } catch (error) {
+      toast.error('Não foi possível carregar foto', { id: 'toast' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (barbeiro || cliente) {
+      getPhotoUser(String(barbeiro?.cdUsuario));
+    }
+  }, [barbeiro, cliente]);
 
   useEffect(() => {
     async function getHorariosBarbeiro() {
@@ -64,90 +102,129 @@ export function CardBarbeiro({
   }
 
   return (
-    <div
-      className={cx(styles.card, {
-        [styles.cardAdmin]: hover,
-        [styles.cardCliente]: cliente,
-        [styles.cardDisabled]: schedules.length === 0,
-      })}
-      onClick={schedules.length !== 0 ? props.onClick : () => {}}
-      key={barbeiro?.cdUsuario}
-    >
-      <div className={styles.containerImg}>
-        <Avvvatars value={barbeiro?.nmUsuario || ''} size={72} />
-      </div>
-
-      {cliente === true ? (
-        <div className={styles.containerInfo}>
-          <h2 className={styles.title}>{barbeiro?.nmUsuario}</h2>
-        </div>
+    <>
+      {loading ? (
+        <>
+          <Skeleton
+            variant="rounded"
+            width={327}
+            height={112}
+            animation="wave"
+          />
+        </>
       ) : (
-        <div className={styles.containerInfo}>
-          <h2 className={styles.title}>{barbeiro?.nmUsuario}</h2>
-          <strong className={styles.info}>
-            {schedules === undefined || schedules === null ? (
+        <div
+          className={cx(styles.card, {
+            [styles.cardAdmin]: hover,
+            [styles.cardCliente]: cliente,
+            [styles.cardDisabled]: schedules.length === 0,
+          })}
+          onClick={schedules.length !== 0 ? onClick : () => {}}
+          key={barbeiro?.cdUsuario}
+        >
+          <div className={styles.containerImg}>
+            {loading ? (
               <>
-                <BsCalendar
-                  color="#FF9000"
-                  size={16}
-                  style={{ marginRight: '12px' }}
-                />
-                Sem data definida
+                <Skeleton variant="circular">
+                  <Avvvatars value={barbeiro?.nmUsuario || ''} size={72} />
+                </Skeleton>
               </>
             ) : (
               <>
-                <BsCalendar
-                  color="#FF9000"
-                  size={16}
-                  style={{ marginRight: '12px' }}
-                />
-                {schedules.length === 0 ? (
-                  'Sem data definida'
+                {photoURI === '' ? (
+                  <Avvvatars value={barbeiro?.nmUsuario || ''} size={72} />
                 ) : (
-                  <>
-                    {getDiasFuncionamento()[0]} à{' '}
-                    {getDiasFuncionamento()[getDiasFuncionamento().length - 1]}
-                  </>
+                  <img src={photoURI} alt={barbeiro?.nmUsuario || ''} />
                 )}
               </>
             )}
-          </strong>
-          <strong className={styles.info}>
-            {schedules === undefined || schedules === null ? (
-              <>
-                <BsClock
+          </div>
+
+          {cliente === true ? (
+            <div className={styles.containerInfo}>
+              <h2 className={styles.title}>{barbeiro?.nmUsuario}</h2>
+              <strong className={styles.info}>
+                <FiMail
                   color="#FF9000"
                   size={16}
-                  style={{ marginRight: '12px' }}
+                  style={{ marginRight: '6px' }}
                 />
-                Sem horário definido
-              </>
-            ) : (
-              <>
-                {getHorarioAtual(diaAtual).length === 0 ? (
+                {barbeiro?.nmEmail}
+              </strong>
+            </div>
+          ) : (
+            <div className={styles.containerInfo}>
+              <h2 className={styles.title}>{barbeiro?.nmUsuario}</h2>
+              <strong className={styles.info}>
+                {schedules === undefined || schedules === null ? (
+                  <>
+                    <BsCalendar
+                      color="#FF9000"
+                      size={16}
+                      style={{ marginRight: '12px' }}
+                    />
+                    Sem data definida
+                  </>
+                ) : (
+                  <>
+                    <BsCalendar
+                      color="#FF9000"
+                      size={16}
+                      style={{ marginRight: '12px' }}
+                    />
+                    {schedules.length === 0 ? (
+                      'Sem data definida'
+                    ) : (
+                      <>
+                        {getDiasFuncionamento()[0]} à{' '}
+                        {
+                          getDiasFuncionamento()[
+                            getDiasFuncionamento().length - 1
+                          ]
+                        }
+                      </>
+                    )}
+                  </>
+                )}
+              </strong>
+              <strong className={styles.info}>
+                {schedules === undefined || schedules === null ? (
                   <>
                     <BsClock
                       color="#FF9000"
                       size={16}
                       style={{ marginRight: '12px' }}
                     />
-                    Hoje | Fechado
+                    Sem horário definido
                   </>
                 ) : (
                   <>
-                    <BsClock
-                      color="#FF9000"
-                      size={16}
-                      style={{ marginRight: '12px' }}
-                    />
-                    Hoje | {getHorarioAtual(diaAtual)}
+                    {getHorarioAtual(diaAtual).length === 0 ? (
+                      <>
+                        <BsClock
+                          color="#FF9000"
+                          size={16}
+                          style={{ marginRight: '12px' }}
+                        />
+                        Hoje | Fechado
+                      </>
+                    ) : (
+                      <>
+                        <BsClock
+                          color="#FF9000"
+                          size={16}
+                          style={{ marginRight: '12px' }}
+                        />
+                        Hoje | {getHorarioAtual(diaAtual)}
+                      </>
+                    )}
                   </>
                 )}
-              </>
-            )}
-          </strong>
+              </strong>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
