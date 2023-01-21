@@ -65,6 +65,11 @@ export function UserProvider({ children }: any) {
   const hourFormattedCalendarEnd = Number(hourFormattedCalendar) + 100;
   const startDate = dateFormattedCalendar + 'T' + hourFormattedCalendar;
   const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
+
+  if (selectHours === '') {
+    setSelectHours('00:00:00');
+  }
+
   const dataEHora = new Date(selectDayFormatted + ' ' + selectHours);
   const selectHoursFormatted = addMinutes(new Date(dataEHora), 60);
   const selectHoursFinish = format(selectHoursFormatted, 'HH:mm:ss');
@@ -333,6 +338,7 @@ export function UserProvider({ children }: any) {
     if (!barbeiro) return;
     if (!storagedUser) return;
     if (!situacaoAgendamento) return;
+    if (!selectHoursFinish) return;
     if (!selectedService) {
       toast.error('Selecione um serviço para agendar', { id: 'toast' });
       return;
