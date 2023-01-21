@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/ctrlmais/rasg-web/compare/v2.5.0...v2.5.1) (2023-01-21)
+
+
+### Bug Fixes
+
+* invalid date ([dc0e957](https://github.com/ctrlmais/rasg-web/commit/dc0e95723c16cdc6f9cb60cf20e17aff9ae28ffd))
+
 # [2.5.0](https://github.com/ctrlmais/rasg-web/compare/v2.4.3...v2.5.0) (2023-01-10)
 
 
