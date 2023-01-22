@@ -19,6 +19,8 @@ export function CardServices() {
     tiposServicos,
     servicoSelecionado,
     setServicoSelecionado,
+    putServico,
+    isServiceStoraged,
   } = useServices();
 
   return (
@@ -80,7 +82,14 @@ export function CardServices() {
                 icon={<BiTime color="#666360" size={24} />}
               />
             </div>
-            <Button type="submit">
+            <Button
+              type="submit"
+              onClick={() => {
+                isServiceStoraged
+                  ? putServico()
+                  : formikServices.handleSubmit();
+              }}
+            >
               {servicoSelecionado ? 'Atualizar' : 'Adicionar'}
             </Button>
           </div>

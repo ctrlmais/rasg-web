@@ -39,6 +39,8 @@ export function useServices() {
     localStorage.getItem('@rasg:service') || '{}',
   );
 
+  const isServiceStoraged = !!serviceStoraged.cdServico;
+
   function closeModal() {
     setIsOpen(false);
     localStorage.removeItem('@rasg:service');
@@ -103,46 +105,6 @@ export function useServices() {
         cdUsuarioAtualizacao: Number(user.cdUsuario),
       };
 
-      const newValuesPut = {
-        cdServico: serviceStoraged.cdServico,
-        tmServico: `${convertMinutesToHoursTwoDigits(
-          Number(values.tmServico),
-        )}:00`,
-        nmServico: values.nmServico,
-        deServico: values.deServico,
-        situacaoServico: values.situacaoServico,
-        tipoServico: servicoSelecionado,
-        gerenciador: user,
-        dtCadastro: serviceStoraged.dtCadastro,
-        dtAtualizacao: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-        cdUsuarioCadastro: Number(user.cdUsuario),
-        cdUsuarioAtualizacao: Number(user.cdUsuario),
-      };
-
-      if (serviceStoraged) {
-        try {
-          setLoading(true);
-
-          const { status } = await putServicesAWS(newValuesPut);
-
-          if (status === 200) {
-            toast.success('Serviço atualizado com sucesso', { id: 'toast' });
-
-            const { data } = await getServicesByIdAWS(user?.cdUsuario);
-
-            setServicos(data.content);
-          }
-          setLoading(false);
-
-          window.location.reload();
-        } catch (error: any) {
-          console.log(error.response.data.errors[0]);
-          toast.error('Erro ao atualizar serviço', { id: 'toast' });
-        } finally {
-          setLoading(false);
-        }
-      }
-
       if (!serviceStoraged) {
         try {
           setLoading(true);
@@ -191,6 +153,46 @@ export function useServices() {
       toast.success('Foto atualizada com sucesso!', { id: 'toast' });
     } catch (error) {
       toast.error('Erro ao atualizar foto', { id: 'toast' });
+    }
+  }
+
+  async function putServico() {
+    const newValuesPut = {
+      cdServico: serviceStoraged.cdServico,
+      tmServico: `${convertMinutesToHoursTwoDigits(
+        Number(formikServices.values.tmServico),
+      )}:00`,
+      nmServico: formikServices.values.nmServico,
+      deServico: formikServices.values.deServico,
+      situacaoServico: formikServices.values.situacaoServico,
+      tipoServico: servicoSelecionado,
+      gerenciador: user,
+      dtCadastro: serviceStoraged.dtCadastro,
+      dtAtualizacao: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+      cdUsuarioCadastro: Number(user?.cdUsuario),
+      cdUsuarioAtualizacao: Number(user?.cdUsuario),
+    };
+
+    try {
+      setLoading(true);
+
+      const { status } = await putServicesAWS(newValuesPut);
+
+      if (status === 200) {
+        toast.success('Serviço atualizado com sucesso', { id: 'toast' });
+
+        const { data } = await getServicesByIdAWS(Number(user?.cdUsuario));
+
+        setServicos(data.content);
+      }
+      setLoading(false);
+
+      window.location.reload();
+    } catch (error: any) {
+      console.log(error.response.data.errors[0]);
+      toast.error('Erro ao atualizar serviço', { id: 'toast' });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -320,5 +322,7 @@ export function useServices() {
     savePhotoServices,
     putPhotoServices,
     serviceStoraged,
+    putServico,
+    isServiceStoraged,
   };
 }
