@@ -66,13 +66,27 @@ export function UserProvider({ children }: any) {
   const startDate = dateFormattedCalendar + 'T' + hourFormattedCalendar;
   const endDate = dateFormattedCalendar + 'T' + hourFormattedCalendarEnd;
 
-  if (selectHours === '') {
-    setSelectHours('00:00:00');
+  const tempoServico = selectedService?.tmServico;
+
+  function convertToMinutes(time: string) {
+    const [hour, minutes] = time.split(':').map(Number);
+    const timeInMinutes = hour * 60 + minutes;
+
+    return timeInMinutes;
   }
 
-  const dataEHora = new Date(selectDayFormatted + ' ' + selectHours);
-  const selectHoursFormatted = addMinutes(new Date(dataEHora), 60);
-  const selectHoursFinish = format(selectHoursFormatted, 'HH:mm:ss');
+  const tempoServicoMinutos = convertToMinutes(tempoServico || '00:00:00');
+  const newSelectHours = selectHours || '00:00:00';
+
+  const horarioFimAgendamento = addMinutes(
+    new Date(selectDayFormatted + ' ' + newSelectHours),
+    tempoServicoMinutos,
+  );
+
+  const horarioFimAgendamentoFormatted = format(
+    horarioFimAgendamento,
+    'yyyy-MM-dd HH:mm:ss',
+  );
 
   function verificaOcupacao(ocupacao: string) {
     if (authority === ocupacao) {
@@ -338,7 +352,6 @@ export function UserProvider({ children }: any) {
     if (!barbeiro) return;
     if (!storagedUser) return;
     if (!situacaoAgendamento) return;
-    if (!selectHoursFinish) return;
     if (!selectedService) {
       toast.error('Selecione um serviço para agendar', { id: 'toast' });
       return;
@@ -348,7 +361,7 @@ export function UserProvider({ children }: any) {
       nmAgendamento: `${storagedUser.nmUsuario} - ${barbeiro.nmUsuario} - ${selectDayFormatted} ${selectHours}:00`,
       deAgendamento: `APROVADO DIA ${selectDayFormatted} AS ${selectHours}`,
       dtInicio: `${selectDayFormatted} ${selectHours}:00`,
-      dtTermino: `${selectDayFormatted} ${selectHoursFinish}`,
+      dtTermino: `${horarioFimAgendamentoFormatted}`,
       situacaoAgendamento: situacaoAgendamento as SituacaoAgendamento,
       servico: selectedService,
       cliente: storagedUser,
