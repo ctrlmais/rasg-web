@@ -19,9 +19,11 @@ export function useHorarios() {
   const [horarios, setHorarios] = useState<GetJornadaUsuario[]>([]);
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const horarioStoraged = JSON.parse(
+  const horarioStoraged: GetJornadaUsuario = JSON.parse(
     localStorage.getItem('@rasg:horario') || '{}',
   );
+
+  const isHorarioStoraged = !!horarioStoraged.cdJornada;
 
   function closeModal() {
     setIsOpen(false);
@@ -68,87 +70,88 @@ export function useHorarios() {
         cdUsuarioAtualizacao: '',
       };
 
-      const atualDate = format(new Date(), 'yyyy-MM-dd');
+      try {
+        setLoading(true);
 
-      const newValuesPut = {
-        cdJornada: horarioStoraged?.cdJornada,
-        gerenciador: storagedUser,
-        hrInicio: format(
-          new Date(`${atualDate} ${values.hrInicio}`),
-          'HH:mm:ss',
-        ),
-        hrFim: format(new Date(`${atualDate} ${values.hrFim}`), 'HH:mm:ss'),
-        hrInicioIntervalo: format(
-          new Date(`${atualDate} ${values.hrInicioIntervalo}`),
-          'HH:mm:ss',
-        ),
-        hrFimIntervalo: format(
-          new Date(`${atualDate} ${values.hrFimIntervalo}`),
-          'HH:mm:ss',
-        ),
-        cdDiaSemana: Number(values.cdDiaSemana),
-        tipoJornada: horarioStoraged?.tipoJornada,
-        dtCadastro: horarioStoraged?.dtCadastro,
-        dtAtualizacao: '',
-        cdUsuarioCadastro: storagedUser?.cdUsuario,
-        cdUsuarioAtualizacao: storagedUser?.cdUsuario,
-      };
+        const { status } = await postJourneysAWS(newValues);
 
-      if (horarioStoraged) {
-        try {
-          setLoading(true);
+        const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
 
-          const { status } = await putJourneysAWS(
-            newValuesPut,
-            horarioStoraged.cdJornada,
-          );
+        setHorarios(data);
 
-          if (status === 200) {
-            toast.success('Horários adicionados com sucesso!', { id: 'toast' });
-
-            const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
-
-            setHorarios(data);
-          }
-          setLoading(false);
-
-          window.location.reload();
-        } catch (error: any) {
-          console.log(error.response.data.errors[0]);
-          toast.error('Erro ao atualizar horários', { id: 'toast' });
-        } finally {
-          setLoading(false);
-        }
-      }
-
-      if (!horarioStoraged) {
-        try {
-          setLoading(true);
-
-          const { status } = await postJourneysAWS(newValues);
+        if (status === 200) {
+          toast.success('Horários adicionados com sucesso!', { id: 'toast' });
 
           const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
 
           setHorarios(data);
-
-          if (status === 200) {
-            toast.success('Horários adicionados com sucesso!', { id: 'toast' });
-
-            const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
-
-            setHorarios(data);
-          }
-          setLoading(false);
-
-          window.location.reload();
-        } catch (error) {
-          toast.error('Erro ao atualizar horários', { id: 'toast' });
-        } finally {
-          setLoading(false);
         }
+        setLoading(false);
+
+        window.location.reload();
+      } catch (error) {
+        toast.error('Erro ao atualizar horários', { id: 'toast' });
+      } finally {
+        setLoading(false);
       }
     },
   });
+
+  async function putHorario() {
+    const atualDate = format(new Date(), 'yyyy-MM-dd');
+
+    const newValuesPut = {
+      cdJornada: horarioStoraged?.cdJornada,
+      gerenciador: storagedUser,
+      hrInicio: format(
+        new Date(`${atualDate} ${formikHorarios.values.hrInicio}`),
+        'HH:mm:ss',
+      ),
+      hrFim: format(
+        new Date(`${atualDate} ${formikHorarios.values.hrFim}`),
+        'HH:mm:ss',
+      ),
+      hrInicioIntervalo: format(
+        new Date(`${atualDate} ${formikHorarios.values.hrInicioIntervalo}`),
+        'HH:mm:ss',
+      ),
+      hrFimIntervalo: format(
+        new Date(`${atualDate} ${formikHorarios.values.hrFimIntervalo}`),
+        'HH:mm:ss',
+      ),
+      cdDiaSemana: Number(formikHorarios.values.cdDiaSemana),
+      tipoJornada: horarioStoraged?.tipoJornada,
+      dtCadastro: horarioStoraged?.dtCadastro,
+      dtAtualizacao: '',
+      cdUsuarioCadastro: storagedUser?.cdUsuario,
+      cdUsuarioAtualizacao: storagedUser?.cdUsuario,
+    };
+
+    try {
+      setLoading(true);
+
+      const { status } = await putJourneysAWS(
+        newValuesPut,
+        String(horarioStoraged.cdJornada),
+      );
+
+      if (status === 200) {
+        toast.success('Horários adicionados com sucesso!', { id: 'toast' });
+
+        const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
+
+        setHorarios(data);
+      }
+      setLoading(false);
+
+      window.location.reload();
+    } catch (error: any) {
+      console.log(error.response.data.errors[0]);
+      toast.error('Erro ao atualizar horários', { id: 'toast' });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     async function loadHorarios() {
@@ -212,5 +215,7 @@ export function useHorarios() {
     closeModal,
     horarios,
     horarioStoraged,
+    putHorario,
+    isHorarioStoraged,
   };
 }
