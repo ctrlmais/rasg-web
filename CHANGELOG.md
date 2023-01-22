@@ -1,3 +1,10 @@
+## [2.5.3](https://github.com/ctrlmais/rasg-web/compare/v2.5.2...v2.5.3) (2023-01-22)
+
+
+### Bug Fixes
+
+* add new hours barber and sort hours ([7238959](https://github.com/ctrlmais/rasg-web/commit/7238959521d02cac634be600d1b406d75f2bdbaa))
+
 ## [2.5.2](https://github.com/ctrlmais/rasg-web/compare/v2.5.1...v2.5.2) (2023-01-22)
 
 
