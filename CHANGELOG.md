@@ -1,3 +1,10 @@
+## [2.5.4](https://github.com/ctrlmais/rasg-web/compare/v2.5.3...v2.5.4) (2023-01-22)
+
+
+### Bug Fixes
+
+* add new services barber ([79c17c0](https://github.com/ctrlmais/rasg-web/commit/79c17c0e6a3dd75b78427c56da3c726afa6bfc00))
+
 ## [2.5.3](https://github.com/ctrlmais/rasg-web/compare/v2.5.2...v2.5.3) (2023-01-22)
 
 
