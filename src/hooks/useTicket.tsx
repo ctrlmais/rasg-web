@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 
-// import { format } from 'date-fns';
 import { Content } from 'types/ServicesProps';
 
 import { useToast } from 'contexts/Toast';
