@@ -9,12 +9,13 @@ import { formatHours } from 'utils/formatHours';
 import { useToast } from 'contexts/Toast';
 import { useUser } from 'contexts/User';
 
-import { getsShedulesByDateAWS, getJourneyByIdAWS } from 'services/get';
 import {
+  getsShedulesByDateAWS,
+  getJourneyByIdAWS,
   getSearchPhotoServiceByIdAWS,
   getSearchPhotoServicesByHashAWS,
   getServicesByIdAWS,
-} from 'services/get/servicos';
+} from 'services/get';
 
 export function useSchedule() {
   const { toast } = useToast();
