@@ -6,15 +6,15 @@ import { GetServicoTipo, Servico } from 'types/ServicesProps';
 
 import { useToast } from 'contexts/Toast';
 
+import { deleteServicesAWS } from 'services/delete';
 import {
   getSearchPhotoServiceByIdAWS,
   getSearchPhotoServicesByHashAWS,
   getServicesByIdAWS,
   getServicesTypesAWS,
-} from 'services/get/servicos';
-import { postServicesAWS } from 'services/post/servicos';
-import { putPhotoServicesAWS } from 'services/update';
-import { putServicesAWS } from 'services/update/servicos/putServico';
+} from 'services/get';
+import { postServicesAWS } from 'services/post';
+import { putPhotoServicesAWS, putServicesAWS } from 'services/update';
 
 import { useAuth } from './useAuth';
 
@@ -116,6 +116,12 @@ export function useServices() {
 
             const { data } = await getServicesByIdAWS(user?.cdUsuario);
 
+            const removeDtRemocao = data.content.filter(
+              (item) => item.dtRemocao === null,
+            );
+
+            data.content = removeDtRemocao;
+
             setServicos(data.content);
           }
           setLoading(false);
@@ -183,6 +189,12 @@ export function useServices() {
 
         const { data } = await getServicesByIdAWS(Number(user?.cdUsuario));
 
+        const removeDtRemocao = data.content.filter(
+          (item) => item.dtRemocao === null,
+        );
+
+        data.content = removeDtRemocao;
+
         setServicos(data.content);
       }
       setLoading(false);
@@ -191,6 +203,37 @@ export function useServices() {
     } catch (error: any) {
       console.log(error.response.data.errors[0]);
       toast.error('Erro ao atualizar serviço', { id: 'toast' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function deleteServico() {
+    try {
+      setLoading(true);
+
+      const { status } = await deleteServicesAWS(
+        String(serviceStoraged.cdServico),
+      );
+
+      if (status === 200) {
+        toast.success('Serviço excluído com sucesso', { id: 'toast' });
+
+        const { data } = await getServicesByIdAWS(Number(user?.cdUsuario));
+
+        const removeDtRemocao = data.content.filter(
+          (item) => item.dtRemocao === null,
+        );
+
+        data.content = removeDtRemocao;
+
+        setServicos(data.content);
+      }
+      setLoading(false);
+
+      window.location.reload();
+    } catch (error) {
+      toast.error('Erro ao excluir serviço', { id: 'toast' });
     } finally {
       setLoading(false);
     }
@@ -208,6 +251,12 @@ export function useServices() {
         );
 
         setTiposServicos(data);
+
+        const removeDtRemocao = servicosData.content.filter(
+          (item) => item.dtRemocao === null,
+        );
+
+        servicosData.content = removeDtRemocao;
 
         setServicos(servicosData.content);
       } catch (error) {
@@ -324,5 +373,6 @@ export function useServices() {
     serviceStoraged,
     putServico,
     isServiceStoraged,
+    deleteServico,
   };
 }
