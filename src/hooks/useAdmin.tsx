@@ -10,10 +10,7 @@ import {
   getBarberApprovedAWS,
   getBarberDisapprovedAWS,
 } from 'services/get';
-import {
-  patchApprovedUserAWS,
-  patchDisapprovedUserAWS,
-} from 'services/update/usuarios';
+import { patchApprovedUserAWS, patchDisapprovedUserAWS } from 'services/update';
 
 export function useAdmin() {
   const { toast } = useToast();
