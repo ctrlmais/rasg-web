@@ -21,6 +21,7 @@ export function CardServices() {
     setServicoSelecionado,
     putServico,
     isServiceStoraged,
+    deleteServico,
   } = useServices();
 
   return (
@@ -92,6 +93,21 @@ export function CardServices() {
             >
               {servicoSelecionado ? 'Atualizar' : 'Adicionar'}
             </Button>
+
+            {isServiceStoraged && (
+              <Button
+                type="button"
+                style={{
+                  marginTop: '1rem',
+                  background: '#c53030',
+                }}
+                onClick={() => {
+                  deleteServico();
+                }}
+              >
+                Excluir
+              </Button>
+            )}
           </div>
         </form>
       </div>

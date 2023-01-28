@@ -6,6 +6,7 @@ import { GetJornadaUsuario } from 'types/ServicesProps';
 
 import { useToast } from 'contexts/Toast';
 
+import { deleteJourneysAWS } from 'services/delete';
 import { getJourneyByIdAWS } from 'services/get';
 import { postJourneysAWS } from 'services/post';
 import { putJourneysAWS } from 'services/update';
@@ -153,6 +154,32 @@ export function useHorarios() {
     }
   }
 
+  async function deleteHorario() {
+    try {
+      setLoading(true);
+
+      const { status } = await deleteJourneysAWS(
+        String(horarioStoraged.cdJornada),
+      );
+
+      if (status === 200) {
+        toast.success('Horário deletado com sucesso!', { id: 'toast' });
+
+        const { data } = await getJourneyByIdAWS(storagedUser?.cdUsuario);
+
+        setHorarios(data);
+      }
+
+      setLoading(false);
+
+      window.location.reload();
+    } catch (error) {
+      toast.error('Erro ao deletar horário', { id: 'toast' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     async function loadHorarios() {
       try {
@@ -217,5 +244,6 @@ export function useHorarios() {
     horarioStoraged,
     putHorario,
     isHorarioStoraged,
+    deleteHorario,
   };
 }

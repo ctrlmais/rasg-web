@@ -14,7 +14,8 @@ import styles from './CardHorario.module.scss';
 
 export function CardHorario() {
   const { theme } = useTheme();
-  const { formikHorarios, isHorarioStoraged, putHorario } = useHorarios();
+  const { formikHorarios, isHorarioStoraged, putHorario, deleteHorario } =
+    useHorarios();
 
   return (
     <div className={styles.wrapper} data-theme={theme}>
@@ -114,6 +115,21 @@ export function CardHorario() {
           >
             {isHorarioStoraged ? 'Atualizar' : 'Cadastrar'}
           </Button>
+
+          {isHorarioStoraged && (
+            <Button
+              style={{
+                marginTop: '1rem',
+                background: '#c53030',
+              }}
+              type="button"
+              onClick={() => {
+                deleteHorario();
+              }}
+            >
+              Excluir
+            </Button>
+          )}
         </div>
       </form>
     </div>
