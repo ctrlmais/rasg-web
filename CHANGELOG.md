@@ -1,3 +1,19 @@
+# [2.6.0](https://github.com/ctrlmais/rasg-web/compare/v2.5.4...v2.6.0) (2023-01-28)
+
+
+### Bug Fixes
+
+* import services ([6b15239](https://github.com/ctrlmais/rasg-web/commit/6b15239a871b16c3721224e7dc2d7f3a17c2b485))
+* imports services ([998ad86](https://github.com/ctrlmais/rasg-web/commit/998ad86b14229e3405b5973ebae35b428e3a6214))
+* remove comment ([6ae59ca](https://github.com/ctrlmais/rasg-web/commit/6ae59ca35574935d5ee3e219cb55145472bef0ff))
+
+
+### Features
+
+* add excluir servico and horario ([f335f03](https://github.com/ctrlmais/rasg-web/commit/f335f0398475523c7be8a59e89ac1dfd832a6aa4))
+* add new services jornadas and servicos ([8993c76](https://github.com/ctrlmais/rasg-web/commit/8993c76ee31a7865ef897c1599a5e273c04508c4))
+* add remocao servico ([1f151fe](https://github.com/ctrlmais/rasg-web/commit/1f151fe2bb385e9d143500fbe11203267b17741d))
+
 ## [2.5.4](https://github.com/ctrlmais/rasg-web/compare/v2.5.3...v2.5.4) (2023-01-22)
 
 
