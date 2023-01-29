@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/ctrlmais/rasg-web/compare/v2.6.0...v2.6.1) (2023-01-29)
+
+
+### Bug Fixes
+
+* styles modal servico and horario ([467ad59](https://github.com/ctrlmais/rasg-web/commit/467ad59d841c0931c607ec8cca2151800dede5a5))
+
 # [2.6.0](https://github.com/ctrlmais/rasg-web/compare/v2.5.4...v2.6.0) (2023-01-28)
 
 
