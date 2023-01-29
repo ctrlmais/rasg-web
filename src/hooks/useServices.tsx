@@ -73,7 +73,7 @@ export function useServices() {
         sgSituacaoServico: 'APR',
         nmIcon: 'BiCheck',
         nmCor: '#FFFFFF',
-        dtCadastro: '2022-12-24 03:51:34',
+        dtCadastro: '2022-12-31 02:04:30',
       },
       tipoServico: {
         cdTipoServico: '',
@@ -105,33 +105,31 @@ export function useServices() {
         cdUsuarioAtualizacao: Number(user.cdUsuario),
       };
 
-      if (!serviceStoraged) {
-        try {
-          setLoading(true);
+      try {
+        setLoading(true);
 
-          const { status } = await postServicesAWS(newValues);
+        const { status } = await postServicesAWS(newValues);
 
-          if (status === 200) {
-            toast.success('Serviço cadastrado com sucesso', { id: 'toast' });
+        if (status === 200) {
+          toast.success('Serviço cadastrado com sucesso', { id: 'toast' });
 
-            const { data } = await getServicesByIdAWS(user?.cdUsuario);
+          const { data } = await getServicesByIdAWS(user?.cdUsuario);
 
-            const removeDtRemocao = data.content.filter(
-              (item) => item.dtRemocao === null,
-            );
+          const removeDtRemocao = data.content.filter(
+            (item) => item.dtRemocao === null,
+          );
 
-            data.content = removeDtRemocao;
+          data.content = removeDtRemocao;
 
-            setServicos(data.content);
-          }
-          setLoading(false);
-
-          window.location.reload();
-        } catch (error) {
-          toast.error('Erro ao cadastrar serviço', { id: 'toast' });
-        } finally {
-          setLoading(false);
+          setServicos(data.content);
         }
+        setLoading(false);
+
+        window.location.reload();
+      } catch (error) {
+        toast.error('Erro ao cadastrar serviço', { id: 'toast' });
+      } finally {
+        setLoading(false);
       }
     },
   });

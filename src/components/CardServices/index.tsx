@@ -53,8 +53,7 @@ export function CardServices() {
                 maxLength={100}
                 icon={<FiEdit color="#666360" size={24} />}
               />
-
-              <label>Tipo do serviço</label>
+              Tipo do serviço
               <div className={styles.tipoServicoContainer}>
                 {tiposServicos.map((dia) => (
                   <div
@@ -71,8 +70,7 @@ export function CardServices() {
                   </div>
                 ))}
               </div>
-
-              <label>Duração do Serviço</label>
+              Duração do Serviço
               <Input
                 name="tmServico"
                 placeholder="Duração em minutos"
@@ -91,7 +89,7 @@ export function CardServices() {
                   : formikServices.handleSubmit();
               }}
             >
-              {servicoSelecionado ? 'Atualizar' : 'Adicionar'}
+              {isServiceStoraged ? 'Atualizar' : 'Adicionar'}
             </Button>
 
             {isServiceStoraged && (
