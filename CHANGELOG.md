@@ -1,3 +1,12 @@
+## [2.6.2](https://github.com/ctrlmais/rasg-web/compare/v2.6.1...v2.6.2) (2023-02-19)
+
+
+### Bug Fixes
+
+* api implementation ([76b0a02](https://github.com/ctrlmais/rasg-web/commit/76b0a021535c7a4da2a1ee34f8db161819e29fcc))
+* api services create ([d7cc86e](https://github.com/ctrlmais/rasg-web/commit/d7cc86ebc2b8994637d5b743145c41cb18be7704))
+* modal add fullscreen ([d44b518](https://github.com/ctrlmais/rasg-web/commit/d44b518b44eb8362835293b9a07ead243e4d439a))
+
 ## [2.6.1](https://github.com/ctrlmais/rasg-web/compare/v2.6.0...v2.6.1) (2023-01-29)
 
 
