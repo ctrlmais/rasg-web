@@ -96,13 +96,13 @@ export function useServices() {
         )}:00`,
         nmServico: values.nmServico,
         deServico: values.deServico,
-        situacaoServico: values.situacaoServico,
+        situacaoServico: formikServices.values.situacaoServico,
         tipoServico: servicoSelecionado,
         gerenciador: user,
         dtCadastro: '',
         dtAtualizacao: '',
-        cdUsuarioCadastro: Number(user.cdUsuario),
-        cdUsuarioAtualizacao: Number(user.cdUsuario),
+        cdUsuarioCadastro: Number(user?.cdUsuario),
+        cdUsuarioAtualizacao: Number(user?.cdUsuario),
       };
 
       try {
@@ -123,13 +123,12 @@ export function useServices() {
 
           setServicos(data.content);
         }
-        setLoading(false);
-
-        window.location.reload();
       } catch (error) {
+        console.log(error);
         toast.error('Erro ao cadastrar serviço', { id: 'toast' });
       } finally {
         setLoading(false);
+        window.location.reload();
       }
     },
   });
@@ -203,6 +202,7 @@ export function useServices() {
       toast.error('Erro ao atualizar serviço', { id: 'toast' });
     } finally {
       setLoading(false);
+      localStorage.removeItem('@rasg:service');
     }
   }
 
@@ -234,6 +234,7 @@ export function useServices() {
       toast.error('Erro ao excluir serviço', { id: 'toast' });
     } finally {
       setLoading(false);
+      localStorage.removeItem('@rasg:service');
     }
   }
 
@@ -242,21 +243,18 @@ export function useServices() {
 
     async function loadTiposServicos() {
       try {
-        const { data } = await getServicesTypesAWS();
+        const { data: tiposServicos } = await getServicesTypesAWS();
 
-        const { data: servicosData } = await getServicesByIdAWS(
+        const { data: servicos } = await getServicesByIdAWS(
           Number(user?.cdUsuario),
         );
 
-        setTiposServicos(data);
-
-        const removeDtRemocao = servicosData.content.filter(
-          (item) => item.dtRemocao === null,
+        const servicosAtivos = servicos.content.filter(
+          (servico) => servico.dtRemocao === null,
         );
 
-        servicosData.content = removeDtRemocao;
-
-        setServicos(servicosData.content);
+        setTiposServicos(tiposServicos);
+        setServicos(servicosAtivos);
       } catch (error) {
         toast.error('Erro ao carregar tipos de serviços');
       }
@@ -284,38 +282,25 @@ export function useServices() {
 
         const resultsFilter = results.filter((item) => item.data.length > 0);
 
-        const nmHashMime = resultsFilter.map((result) => {
+        const nmHashMimePromises = resultsFilter.map(async (result) => {
           const { nmHash, nmMime, cdFotoServico } = result.data[0];
-          return { nmHash, nmMime, cdFotoServico };
-        });
-
-        const promisesPhoto = nmHashMime.map(
-          async (item) => await getSearchPhotoServicesByHashAWS(item.nmHash),
-        );
-
-        const resultsPhoto = await Promise.all(promisesPhoto);
-
-        const newResultAddnmMime = resultsPhoto.map((result, index) => ({
-          ...result,
-          nmMime: nmHashMime[index].nmMime,
-          cdFotoServico: nmHashMime[index].cdFotoServico,
-        }));
-
-        const photoURI = newResultAddnmMime.map((item) => {
-          const { nmMime, cdFotoServico } = item;
-          const photo = `data:${nmMime};base64,${item.data}`;
+          const photoResult = await getSearchPhotoServicesByHashAWS(nmHash);
+          const photoURI = `data:${nmMime};base64,${photoResult.data}`;
           return {
-            photo,
+            photo: photoURI,
             cdFotoServico,
           };
         });
 
-        setSavePhotoServices(photoURI);
+        const photoURIs = await Promise.all(nmHashMimePromises);
+
+        setSavePhotoServices(photoURIs);
+
+        console.log(photoURIs);
 
         setLoading(false);
       } catch (error) {
         toast.error('Erro ao buscar serviços do barbeiro', { id: 'toast' });
-        setLoading(false);
       } finally {
         setLoading(false);
       }
@@ -333,10 +318,6 @@ export function useServices() {
     formikServices.setFieldValue('tmServico', horarioEmMinutos);
     formikServices.setFieldValue('nmServico', serviceStoraged.nmServico);
     formikServices.setFieldValue('deServico', serviceStoraged.deServico);
-    formikServices.setFieldValue(
-      'situacaoServico',
-      serviceStoraged.situacaoServico,
-    );
     setServicoSelecionado(serviceStoraged.tipoServico);
     formikServices.setFieldValue('tipoServico', serviceStoraged.tipoServico);
     formikServices.setFieldValue('gerenciador', serviceStoraged.gerenciador);
