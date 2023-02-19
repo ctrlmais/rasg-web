@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-around;
   background: var(--background);
-  height: 60vh;
+  height: 100vh;
 }
 
 .container {
@@ -111,11 +111,11 @@
 
 .containerInput {
   flex-direction: column;
-  height: 42vh;
+  height: 50vh;
   display: flex;
   justify-content: space-around;
   margin-bottom: 1rem;
-  width: 18rem;
+  width: 20rem;
   align-items: center;
 }
 

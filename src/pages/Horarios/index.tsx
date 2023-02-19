@@ -87,6 +87,7 @@ export function Horarios() {
         </div>
 
         <Dialog
+          fullScreen
           onClose={closeModal}
           aria-labelledby="customized-dialog-title"
           open={modalIsOpen}

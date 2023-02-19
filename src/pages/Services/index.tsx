@@ -106,6 +106,7 @@ export function Services() {
       </div>
 
       <Dialog
+        fullScreen
         onClose={closeModal}
         aria-labelledby="customized-dialog-title"
         open={modalIsOpen}
